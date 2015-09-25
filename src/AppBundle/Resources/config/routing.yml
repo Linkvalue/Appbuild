@@ -1,0 +1,7 @@
+app_upload:
+    path:     /upload
+    defaults: { _controller: AppBundle:AppBuild:upload }
+
+app_download:
+    path:     /download
+    defaults: { _controller: AppBundle:AppBuild:download }
