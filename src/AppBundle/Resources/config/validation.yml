@@ -1,0 +1,4 @@
+AppBundle\Entity\Application:
+    properties:
+        file:
+            - File: ~
