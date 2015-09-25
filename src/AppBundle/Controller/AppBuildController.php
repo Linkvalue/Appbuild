@@ -12,8 +12,8 @@ class AppBuildController extends Controller
 
     /**
      * Upload file
-     * @param  Request $request 
-     * @return [Response]           
+     * @param  Request $request
+     * @return [Response]
      */
     public function uploadAction(Request $request)
     {
@@ -27,7 +27,7 @@ class AppBuildController extends Controller
         if ($this->getRequest()->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-               $application->upload(); 
+               $application->upload();
             }
         }
 
@@ -40,5 +40,22 @@ class AppBuildController extends Controller
     {
 
     }
+
+
+    public function getManifestAction(Application $application)
+    {
+        $response = $this->render(
+            'AppBundle:Manifest:manifest.plist.twig',
+            array(
+                'application' => $application,
+            )
+        );
+
+        $response->headers->set('Content-Type', 'application/octect-stream');
+        $response->headers->set('Content-Disposition', 'attachment; filename="manifest.plist"');
+
+        return $response;
+    }
+
 }
 

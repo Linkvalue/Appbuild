@@ -3,5 +3,9 @@ app_upload:
     defaults: { _controller: AppBundle:AppBuild:upload }
 
 app_download:
-    path:     /download
+    path:     /download/{id}
     defaults: { _controller: AppBundle:AppBuild:download }
+
+app_get_manifest:
+    path:    /manifest/{id}
+    defaults: { _controller: AppBundle:AppBuild:getManifest }
