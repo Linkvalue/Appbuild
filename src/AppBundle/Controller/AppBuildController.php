@@ -194,6 +194,23 @@ class AppBuildController extends Controller
 
         return $response;
     }
+
+
+    public function getManifestAction(Application $application)
+    {
+        $response = $this->render(
+            'AppBundle:Manifest:manifest.plist.twig',
+            array(
+                'application' => $application,
+            )
+        );
+
+        $response->headers->set('Content-Type', 'application/octect-stream');
+        $response->headers->set('Content-Disposition', 'attachment; filename="manifest.plist"');
+
+        return $response;
+    }
+
 }
 
 

@@ -11,5 +11,9 @@ app_delete:
     defaults: { _controller: AppBundle:AppBuild:delete }
 
 app_download:
-    path:     /download
+    path:     /download/{id}
     defaults: { _controller: AppBundle:AppBuild:download }
+
+app_get_manifest:
+    path:    /manifest/{id}
+    defaults: { _controller: AppBundle:AppBuild:getManifest }
