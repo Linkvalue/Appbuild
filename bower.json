@@ -1,0 +1,22 @@
+{
+  "name": "AppBuildServer",
+  "version": "1.0.0",
+  "homepage": "https://github.com/LinkValue/AppBuildServer",
+  "description": "Application server of LinkValue.",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "jquery": "~2.1.4",
+    "components-font-awesome": "~4.4.0",
+    "jquery.cookie": "~1.4",
+    "lodash": "~3.9.3",
+    "moment": "~2.10.3",
+    "jquery-ui": "~1.11.4"
+  }
+}

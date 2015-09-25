@@ -1,0 +1,38 @@
+server {
+    listen {{ item.port|default('80') }};
+    root  {{ item.docroot|default('/var/www/'~item.name) }};
+    server_name {{ item.server_name }};
+    client_max_body_size {{ item.client_max_body_size|default('10M') }};
+
+    proxy_buffer_size 128k;
+    proxy_buffers 4 256k;
+    proxy_busy_buffers_size 256k;
+
+    access_log  /var/log/nginx/{{ item.name }}.access.log;
+    error_log  /var/log/nginx/{{ item.name }}.error.log;
+
+    # strip app.php/ prefix if it is present
+    rewrite ^/app\.php/?(.*)$ /$1 permanent;
+    location / {
+        index app.php;
+        try_files $uri @rewriteapp;
+    }
+
+    location @rewriteapp {
+        rewrite ^(.*)$ /app.php/$1 last;
+    }
+
+    # pass the PHP scripts to FastCGI server from upstream phpfcgi
+    location ~ ^/(app|app_dev|config|apc-.*)\.php(/|$) {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        fastcgi_param HTTPS off;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 4 256k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_read_timeout 300s;
+    }
+}

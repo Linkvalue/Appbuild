@@ -1,0 +1,16 @@
+---
+  - name: Install nginx
+    action: apt name=nginx state=installed
+
+  - name: Start nginx
+    service: name=nginx state=started enabled=true
+
+  - name: Push virtualhost configuration files
+    template: src={{ item.template|default('vhost.symfony2.j2') }} dest=/etc/nginx/sites-enabled/{{ item.dest|default(item.name)}}
+    notify: Restart nginx
+    with_items: sites
+    when: sites is defined
+
+  - name: Configure /etc/hosts
+    lineinfile: dest=/etc/hosts line='127.0.0.1 {{ item.server_name }}' owner=root group=root mode=0644
+    with_items: sites

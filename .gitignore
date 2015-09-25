@@ -1,11 +1,53 @@
-/app/bootstrap.php.cache
+# Vagrant
+.vagrant
+.vagrant.*
+ansible/group_vars/dev.local.yml
+
+# Docker
+docker/
+
+# Cache and logs (Symfony2)
 /app/cache/*
-!app/cache/.gitkeep
-/app/config/parameters.yml
 /app/logs/*
+!app/cache/.gitkeep
 !app/logs/.gitkeep
-/app/phpunit.xml
-/bin/
-/composer.phar
+app/check.php
+
+# Parameters
+/app/config/parameters.yml
+
+# Managed by Composer
+/app/bootstrap.php.cache
+/var/bootstrap.php.cache
+/bin/*
+!bin/console
+!bin/symfony_requirements
 /vendor/
+
+# Managed by Bundler
+.bundle
+
+# Assets and user uploads
+/web/css
+/web/js
+/web/flags
+/web/fonts
 /web/bundles/
+/web/uploads/
+
+# PHPUnit
+/app/phpunit.xml
+/phpunit.xml
+/web/tests-coverage
+
+# Build data
+/build/*/
+
+.DS_Store
+.php_cs.*
+
+# IDE
+.idea/
+
+# node.js
+node_modules

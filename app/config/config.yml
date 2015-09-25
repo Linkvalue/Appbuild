@@ -1,28 +1,36 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: services.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+
+    # Locales
+    default_locale: fr
+    routing_locales: fr
+    enabled_locales:
+        - fr
+
+    # Bower
+    bower_path: %kernel.root_dir%/../vendor/bower_components
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:
+        fallbacks: ["%default_locale%"]
+    default_locale:  "%default_locale%"
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
+    validation:      { enable_annotations: false }
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
-    default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
@@ -35,19 +43,38 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - bootstrap_3_layout.html.twig
+    globals:
+        project_web_dir: %kernel.root_dir%/../web
+        bower_path: %bower_path%
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: false
-    bundles:        [ ]
-    #java: /usr/bin/java
+    use_controller: %assetic_use_controller%
+    bundles:
+        - AppBundle
     filters:
         cssrewrite: ~
-        #closure:
-        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-        #yui_css:
-        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+        scss:
+            apply_to: "\.scss$"
+    assets:
+        compiled_vendors_css:
+            output: css/vendors.css
+            inputs:
+                - %bower_path%/bootstrap/dist/css/bootstrap.min.css
+                - %bower_path%/components-font-awesome/css/font-awesome.min.css
+
+        compiled_lib_js:
+            output: js/vendors.js
+            inputs:
+                - %bower_path%/lodash/lodash.min.js
+                - %bower_path%/jquery/dist/jquery.min.js
+                - %bower_path%/bootstrap/dist/js/bootstrap.min.js
+                - %bower_path%/moment/min/moment.min.js
+                - %bower_path%/jquery.cookie/jquery.cookie.js
+                - %bower_path%/jquery-ui/jquery-ui.min.js
 
 # Doctrine Configuration
 doctrine:
@@ -59,13 +86,6 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
-
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -78,3 +98,10 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Doctrine behaviors
+stof_doctrine_extensions:
+    default_locale: %default_locale%
+    orm:
+        default:
+            timestampable: true

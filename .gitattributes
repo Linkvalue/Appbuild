@@ -1,0 +1,6 @@
+# Let .git choose the correct line endings for all text files
+*           text=auto
+
+# Force .sh and .bat to have specifics line endings
+*.sh        eol=lf
+*.bat       eol=crlf

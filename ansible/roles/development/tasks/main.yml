@@ -1,0 +1,3 @@
+
+# Installs latest available version of Sass.
+- gem: name=sass state=latest

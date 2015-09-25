@@ -2,14 +2,14 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
+    # Database configurations
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
+    database_name:     appbuild
     database_user:     root
     database_password: ~
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
 
+    # Mail configurations
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
     mailer_user:       ~
@@ -17,3 +17,9 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # Built Application
+    build_application_dir: %kernel.root_dir%/../build
+
+    # Assetic use controller
+    assetic_use_controller: false
