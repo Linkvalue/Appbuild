@@ -1,0 +1,21 @@
+---
+  - name: Install mysql-server
+    action: apt name=mysql-server state=installed
+
+  - name: Start Mysql Service
+    service: name=mysql state=started enabled=true
+
+  - name: Create databases
+    mysql_db: name={{ item.name }} state=present
+    with_items: mysql.databases
+    when: mysql is defined and mysql.databases is defined
+
+  - name: Create MySQL users
+    mysql_user: name={{ item.name }} host={{ item.host|default('localhost') }} password={{ item.password|default(item.name)}} priv={{ item.priv|default(item.name~'.*:ALL')}} state=present
+    with_items: mysql.users
+    when: mysql is defined and mysql.users is defined
+
+  - name: Configure mysql server
+    template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
+    notify:
+      - Restart MySQL Server

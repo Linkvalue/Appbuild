@@ -1,0 +1,11 @@
+- name: Add the offical rabbitmq apt repository
+  apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
+
+- name: Add the rabbitmq repository key
+  apt_key: url=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
+
+- name: Install rabbitmq-server
+  apt: name=rabbitmq-server state=present update_cache=yes
+
+- name: Start rabbitmq-server
+  service: name=rabbitmq-server state=started enabled=true

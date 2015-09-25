@@ -1,0 +1,8 @@
+- name: Copy SSH config
+  sudo: no
+  copy: src=/var/lib/jenkins/ec2_vm_config_ssh dest=~/.ssh/config mode=600
+
+- name: Copy SSH known hosts
+  sudo: no
+  copy: src=/var/lib/jenkins/ec2_vm_known_hosts_ssh dest=~/.ssh/known_hosts mode=600
+

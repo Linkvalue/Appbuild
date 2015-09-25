@@ -1,0 +1,17 @@
+- name: Add hhvm apt key
+  apt_key: url=http://dl.hhvm.com/conf/hhvm.gpg.key state=present
+
+- name: Add hhvm apt repository
+  apt_repository: repo='deb http://dl.hhvm.com/ubuntu trusty main' state=present
+
+- name: Install hhvm
+  apt: name=hhvm state=installed force=yes
+
+- name: Configure hhvm (old version)
+  template: src=config.hdf.j2 dest=/etc/hhvm/config.hdf
+
+- name: Configure hhvm
+  template: src=php.ini dest=/etc/hhvm/php.ini
+
+- name: Stop hhvm daemon
+  service: name=hhvm state=stopped

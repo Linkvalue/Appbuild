@@ -2,14 +2,13 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
- * Application
+ * Application.
  */
 class Application
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -24,6 +23,16 @@ class Application
     private $filePath;
 
     /**
+     * @var string
+     */
+    private $slug;
+
+    /**
+     * @var string
+     */
+    private $version;
+
+    /**
      * @var \DateTime
      */
     private $createdAt;
@@ -33,11 +42,10 @@ class Application
      */
     private $updatedAt;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -45,7 +53,7 @@ class Application
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -59,7 +67,7 @@ class Application
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -69,7 +77,7 @@ class Application
     }
 
     /**
-     * Set filePath
+     * Set filePath.
      *
      * @param string $filePath
      *
@@ -83,7 +91,7 @@ class Application
     }
 
     /**
-     * Get filePath
+     * Get filePath.
      *
      * @return string
      */
@@ -93,7 +101,7 @@ class Application
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -107,7 +115,7 @@ class Application
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -117,7 +125,7 @@ class Application
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -131,7 +139,7 @@ class Application
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -141,17 +149,17 @@ class Application
     }
 
     /**
-     * @var string
+     * Get slug.
+     *
+     * @return string
      */
-    private $slug;
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 
     /**
-     * @var string
-     */
-    private $version;
-
-    /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -165,17 +173,7 @@ class Application
     }
 
     /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set version
+     * Set version.
      *
      * @param string $version
      *
@@ -189,7 +187,7 @@ class Application
     }
 
     /**
-     * Get version
+     * Get version.
      *
      * @return string
      */

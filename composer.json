@@ -1,5 +1,5 @@
 {
-    "name": "julo/application_server",
+    "name": "link-value/app_build_server",
     "license": "proprietary",
     "type": "project",
     "autoload": {
@@ -20,15 +20,25 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "majora/framework-extra-bundle": "dev-master",
-        "majora/generator-bundle": "dev-master",
-        "gedmo/doctrine-extensions": "dev-master"
+        "stof/doctrine-extensions-bundle": "1.2.*@dev",
+        "doctrine/migrations": "dev-master",
+        "doctrine/doctrine-migrations-bundle": "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
+        "hautelook/alice-bundle": "0.2.*",
+        "friendsofsymfony/jsrouting-bundle": "dev-master",
+        "willdurand/js-translation-bundle": "~2.2"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "phpunit/phpunit": "4.8.*",
+        "majora/generator-bundle": "dev-master"
     },
     "scripts": {
         "post-root-package-install": [
             "SymfonyStandard\\Composer::hookRootPackageInstall"
+        ],
+        "setup-bootstrap": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap"
         ],
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

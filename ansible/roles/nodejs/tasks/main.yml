@@ -1,0 +1,15 @@
+---
+  - name: Add nodesource repo
+    shell: curl -sL https://deb.nodesource.com/setup_0.12 | bash -
+
+  - name: Install node.js
+    action: apt name=nodejs state=installed
+
+  - name: Install npm packages
+    npm: name={{item}} global=yes
+    with_items:
+      - bower
+      - grunt-cli
+      - gulp-cli
+      - pm2
+      - mocha

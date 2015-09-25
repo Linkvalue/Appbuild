@@ -1,0 +1,48 @@
+- name: Commmon | Update repository
+  action: command /usr/bin/apt-get update
+
+- name: Set TZ config file
+  template:
+    src=timezone.j2
+    dest=/etc/timezone
+  register: tz_result
+
+- name: install common packages
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - language-pack-fr
+    - build-essential
+    - vim
+    - zsh
+    - acl
+    - curl
+    - python-pycurl
+    - git
+    - mysql-client
+    - python-mysqldb
+    - unzip
+    - wget
+    - ntp
+    - bundler
+    - git-core
+
+- name: Add wkhtmltopdf lib
+  shell: apt-get install -y libxrender1 x11-common fontconfig libfontenc1 libxfont1 xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils && wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb -O /tmp/wkhtmltox.deb && dpkg --install /tmp/wkhtmltox.deb && rm -rf /tmp/wkhtmltox.deb && mv /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf
+
+- name: Clone oh-my-zsh repo
+  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/home/vagrant/.oh-my-zsh
+
+- name: Create conf folder in home directory
+  file: path=/home/vagrant/conf/ state=directory owner=vagrant
+
+- name: deploy .zshrc
+  template: src=zshrc.in dest=/home/vagrant/conf/zshrc owner=vagrant
+
+- name: remove standard zshrc
+  file: path=/home/vagrant/.zshrc state=absent
+
+- name: symlink zshrc
+  file: path=/home/vagrant/.zshrc src=/home/vagrant/conf/zshrc state=link owner=vagrant
+
+- name: Set zsh as default shell
+  user: name=vagrant shell=/bin/zsh

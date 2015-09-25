@@ -1,0 +1,5 @@
+- name: Add the webupd8 APT repository
+  tags:
+    - java
+    - java-webupd8
+  apt_repository: repo=ppa:webupd8team/java state=present

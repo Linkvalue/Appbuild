@@ -9,7 +9,6 @@ AppBundle\Entity\Application:
     fields:
         name:
             type: string
-
         slug:
           type: string
           gedmo:
@@ -18,27 +17,21 @@ AppBundle\Entity\Application:
               style: camel
               fields:
                 - name
-
-        version: 
+        version:
             type: string
             nullable: true
-
         filePath:
             type: string
             column: file_path
-            nullable: true
-
         createdAt:
             type: datetime
             column: created_at
-            nullable: true
             gedmo:
                 timestampable:
                     on: create
         updatedAt:
             type: datetime
             column: updated_at
-            nullable: true
             gedmo:
                 timestampable:
                     on: update

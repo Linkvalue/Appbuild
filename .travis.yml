@@ -1,0 +1,12 @@
+language: php
+
+php:
+  - 5.6
+
+before_script:
+  - npm install -g bower
+  - gem install sass
+  - make test-prepare
+
+script:
+  - ./bin/phpunit -c app --testsuite ddp_project --coverage-clover=coverage.clover
