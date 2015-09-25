@@ -1,5 +1,7 @@
 # AppBuildServer
 
+[![Build Status](https://travis-ci.org/LinkValue/AppBuildServer.svg?branch=master)](https://travis-ci.org/LinkValue/AppBuildServer)
+
 Permet l'hébergement de builds d'application et leur téléchargement pour une installation simple sur les devices qui sont autorisés à la télécharger.
 
 ## Installation du projet en dev
