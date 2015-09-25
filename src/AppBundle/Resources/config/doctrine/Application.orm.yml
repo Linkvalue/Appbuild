@@ -1,23 +1,45 @@
 AppBundle\Entity\Application:
     type: entity
-    table: null
     repositoryClass: AppBundle\Entity\ApplicationRepository
+    table: application
     id:
         id:
             type: integer
-            id: true
-            generator:
-                strategy: AUTO
+            generator: { strategy: AUTO }
     fields:
         name:
             type: string
-            length: 255
-        path:
+
+        slug:
+          type: string
+          gedmo:
+            slug:
+              separator: _
+              style: camel
+              fields:
+                - name
+
+        version: 
             type: string
-            length: '500'
-        description:
-            type: text
-        version:
+            nullable: true
+
+        filePath:
             type: string
-            length: 255
+            column: file_path
+            nullable: true
+
+        createdAt:
+            type: datetime
+            column: created_at
+            nullable: true
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            column: updated_at
+            nullable: true
+            gedmo:
+                timestampable:
+                    on: update
     lifecycleCallbacks: {  }

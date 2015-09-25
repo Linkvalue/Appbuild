@@ -21,22 +21,17 @@ class Application
     /**
      * @var string
      */
-    private $path;
+    private $filePath;
 
     /**
-     * @var string
+     * @var \DateTime
      */
-    private $description;
+    private $createdAt;
 
     /**
-     * @var string
+     * @var \DateTime
      */
-    private $version;
-
-    /**
-     * @var UploadedFile
-     */
-    public $file;
+    private $updatedAt;
 
 
     /**
@@ -74,51 +69,109 @@ class Application
     }
 
     /**
-     * Set path
+     * Set filePath
      *
-     * @param string $path
+     * @param string $filePath
      *
      * @return Application
      */
-    public function setPath($path)
+    public function setFilePath($filePath)
     {
-        $this->path = $path;
+        $this->filePath = $filePath;
 
         return $this;
     }
 
     /**
-     * Get path
+     * Get filePath
      *
      * @return string
      */
-    public function getPath()
+    public function getFilePath()
     {
-        return $this->path;
+        return $this->filePath;
     }
 
     /**
-     * Set description
+     * Set createdAt
      *
-     * @param string $description
+     * @param \DateTime $createdAt
      *
      * @return Application
      */
-    public function setDescription($description)
+    public function setCreatedAt($createdAt)
     {
-        $this->description = $description;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Application
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @var string
+     */
+    private $slug;
+
+    /**
+     * @var string
+     */
+    private $version;
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Application
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
      *
      * @return string
      */
-    public function getDescription()
+    public function getSlug()
     {
-        return $this->description;
+        return $this->slug;
     }
 
     /**
@@ -144,51 +197,4 @@ class Application
     {
         return $this->version;
     }
-
-    public function upload()
-    {
-        // la propriété « file » peut être vide si le champ n'est pas requis
-        if (null === $this->file) {
-            return;
-        }
-
-        // utilisez le nom de fichier original ici mais
-        // vous devriez « l'assainir » pour au moins éviter
-        // quelconques problèmes de sécurité
-
-        // la méthode « move » prend comme arguments le répertoire cible et
-        // le nom de fichier cible où le fichier doit être déplacé
-        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
-
-        // définit la propriété « path » comme étant le nom de fichier où vous
-        // avez stocké le fichier
-        $this->path = $this->file->getClientOriginalName();
-
-        // « nettoie » la propriété « file » comme vous n'en aurez plus besoin
-        $this->file = null;
-    }
-
-    public function getAbsolutePath()
-    {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
-    }
-
-    protected function getUploadRootDir()
-    {
-        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
-        return __DIR__.'/../../../data/'.$this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
-        // le document/image dans la vue.
-        return 'upload/application';
-    }
 }
-

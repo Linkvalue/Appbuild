@@ -20,7 +20,8 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "majora/framework-extra-bundle": "dev-master",
-        "majora/generator-bundle": "dev-master"
+        "majora/generator-bundle": "dev-master",
+        "gedmo/doctrine-extensions": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

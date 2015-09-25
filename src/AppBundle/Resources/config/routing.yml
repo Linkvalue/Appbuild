@@ -1,6 +1,14 @@
 app_upload:
     path:     /upload
-    defaults: { _controller: AppBundle:AppBuild:upload }
+    defaults: { _controller: AppBundle:AppBuild:create }
+
+app_update:
+    path:     /update/{id}
+    defaults: { _controller: AppBundle:AppBuild:update }
+
+app_delete:
+    path:     /delete/{id}
+    defaults: { _controller: AppBundle:AppBuild:delete }
 
 app_download:
     path:     /download
