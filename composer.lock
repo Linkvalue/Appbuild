@@ -4,13 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "hash": "a7362fe3f08e4069c9fe8d1f5cf96d88",
-    "content-hash": "6df5e385e58789a2f6b6256e21f4577b",
-=======
     "hash": "7d62dddbe3b86e6c62a2a2e0c38232b5",
     "content-hash": "a5ba6fb78f8e3e00079f0d312f3c613f",
->>>>>>> 2121418... bootstrap project
     "packages": [
         {
             "name": "behat/transliterator",
