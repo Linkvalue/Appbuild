@@ -2,19 +2,19 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use AppBundle\Entity\Application;
-use AppBundle\Form\Type\ApplicationType;
 
 class AppBuildController extends Controller
 {
     /**
-     * Upload application
-     * @param  Request $request
+     * Upload application.
+     *
+     * @param Request $request
+     *
      * @return Response
      */
     public function createAction(Request $request)
@@ -32,6 +32,7 @@ class AppBuildController extends Controller
                 $em = $this->container->get('doctrine.orm.entity_manager');
                 $em->persist($application);
                 $em->flush();
+
                 return new RedirectResponse($this->container->get('router')->generate(
                     'app_update', array(
                         'id' => $application->getId(),
@@ -49,10 +50,12 @@ class AppBuildController extends Controller
     }
 
     /**
-     * Update application
-     * @param  Application $application 
-     * @param  Request     $request     
-     * @return Response                   
+     * Update application.
+     *
+     * @param Application $application
+     * @param Request     $request
+     *
+     * @return Response
      */
     public function updateAction(Application $application, Request $request)
     {
@@ -79,9 +82,11 @@ class AppBuildController extends Controller
     }
 
     /**
-     * Delete application
-     * @param  Application $application 
-     * @return Response                 
+     * Delete application.
+     *
+     * @param Application $application
+     *
+     * @return Response
      */
     public function deleteAction(Application $application)
     {
@@ -195,7 +200,6 @@ class AppBuildController extends Controller
         return $response;
     }
 
-
     public function getManifestAction(Application $application)
     {
         $response = $this->render(
@@ -210,7 +214,4 @@ class AppBuildController extends Controller
 
         return $response;
     }
-
 }
-
-
