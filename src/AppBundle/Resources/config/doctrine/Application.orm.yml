@@ -6,6 +6,9 @@ AppBundle\Entity\Application:
         id:
             type: integer
             generator: { strategy: AUTO }
+    uniqueConstraints:
+        name_idx:
+            columns: name
     fields:
         name:
             type: string
@@ -17,6 +20,8 @@ AppBundle\Entity\Application:
               style: camel
               fields:
                 - name
+        support:
+            type: string
         version:
             type: string
             nullable: true

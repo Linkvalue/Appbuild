@@ -1,0 +1,7 @@
+AppBundle\Entity\Application:
+    test_ios_app:
+        name: Test application iOS
+        support: ios
+        slug: test-application-ios
+        version: 0.5.24
+        filePath: /var/www/html/build/fea6c7887f936984e9fa40068615f98524c7b7d5.ipa
