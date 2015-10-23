@@ -1,23 +1,30 @@
-app_create:
+# redirect on map by default
+app_admin_home:
+    path:  /
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: app_admin_create
+
+app_admin_create:
     path:     /create
     defaults: { _controller: AppBundle:AppBuild:create }
 
-app_update:
+app_admin_update:
     path:     /update/{id}
     defaults: { _controller: AppBundle:AppBuild:update }
 
-app_delete:
+app_admin_delete:
     path:     /delete/{id}
     defaults: { _controller: AppBundle:AppBuild:delete }
 
-app_download:
+app_admin_download:
     path:     /download/{id}
     defaults: { _controller: AppBundle:AppBuild:download }
 
-app_get_manifest:
+app_admin_get_manifest:
     path:    /manifest/{id}
     defaults: { _controller: AppBundle:AppBuild:getManifest }
 
-app_get_raw_file:
+app_admin_get_raw_file:
     path:     /file/{id}
     defaults: { _controller: AppBundle:AppBuild:getRawFile }

@@ -22,6 +22,8 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
+            new Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 //            new Majora\Bundle\FrameworkExtraBundle\MajoraFrameworkExtraBundle(),
 
             // projects

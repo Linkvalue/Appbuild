@@ -41,7 +41,7 @@ app/check.php
 /web/tests-coverage
 
 # Build data
-/build/*/
+/build
 
 .DS_Store
 .php_cs.*

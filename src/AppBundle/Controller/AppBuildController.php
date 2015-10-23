@@ -25,7 +25,6 @@ class AppBuildController extends Controller
             $application = new Application(),
             array('intention' => 'creation')
         );
-        $form->add('submit', 'submit');
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -35,7 +34,7 @@ class AppBuildController extends Controller
                 $em->flush();
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'app_update', array(
+                    'app_admin_update', array(
                         'id' => $application->getId(),
                     )
                 ));
@@ -94,7 +93,7 @@ class AppBuildController extends Controller
         $this->container->get('file_helper')->unlinkFile($application->getFilePath());
         $this->container->get('doctrine.orm.entity_manager')->remove($application);
 
-        return new RedirectResponse($this->container->get('router')->generate('app_create'));
+        return new RedirectResponse($this->container->get('router')->generate('app_admin_create'));
     }
 
     /**
@@ -110,7 +109,7 @@ class AppBuildController extends Controller
             sprintf(
                 'itms-services://?action=download-manifest&amp;url=%s',
                 urlencode($this->get('router')->generate(
-                    'app_get_manifest',
+                    'app_admin_get_manifest',
                     array('id' => $application->getId()),
                     true
                 ))

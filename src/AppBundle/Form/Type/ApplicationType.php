@@ -60,9 +60,13 @@ class ApplicationType extends AbstractType
             'required' => true,
             'label' => 'admin.application.label.name',
         ));
-        $builder->add('support', 'text', array(
+        $builder->add('support', 'choice', array(
             'required' => true,
             'label' => 'admin.application.label.support',
+            'choices' => array(
+                'ios' => 'admin.application.label.ios',
+                'android' => 'admin.application.label.android',
+            ),
         ));
         $builder->add('version', 'text', array(
             'required' => true,
@@ -80,13 +84,15 @@ class ApplicationType extends AbstractType
                     'label' => 'admin.application.label.builder',
                     'auto_initialize' => false,
                 ));
-                $formType->addModelTransformer(new BuiltApplicationTransformer(
-                    sprintf('%s/%s',
-                        $this->buildApplicationDir,
-                        $application->getSlug()
-                    ),
-                    $application->getFilePath()
-                ));
+                $formType->addModelTransformer(
+                    new BuiltApplicationTransformer(
+                        sprintf('%s/%s',
+                            $this->buildApplicationDir,
+                            $application->getSlug()
+                        ),
+                        $application->getFilePath()
+                    )
+                );
 
                 $form->add($formType->getForm());
             }

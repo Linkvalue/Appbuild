@@ -52,7 +52,12 @@ class BuiltApplicationTransformer implements DataTransformerInterface
         if (!$builtFile || !$builtFile instanceof UploadedFile) {
             return $this->currentFilePath;
         }
-        $filename = preg_replace("/[^a-z0-9\-\.]/i", '_', sha1(uniqid(mt_rand(), true)).$builtFile->getClientOriginalName());
+        $filename = preg_replace("/[^a-z0-9\-\.]/i", '_',
+            sprintf('%s%s',
+                sha1(uniqid(mt_rand(), true)),
+                $builtFile->getClientOriginalName()
+            )
+        );
         $file = $builtFile->move(
             $this->buildApplicationDir,
             $filename

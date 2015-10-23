@@ -1,5 +1,5 @@
-{% extends '::base.html.twig'%}
+{% extends 'AppBundle:Application:form.html.twig'%}
 
-{% block body %}
-    {{form(form)}}
-{% endblock %}
+{% block organisation_form_action url('app_admin_create') %}
+
+{% block organisation_form_title 'admin.application.create.title'|trans %}
