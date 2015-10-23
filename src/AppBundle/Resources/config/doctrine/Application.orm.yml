@@ -17,7 +17,7 @@ AppBundle\Entity\Application:
           gedmo:
             slug:
               separator: _
-              style: camel
+              style: default
               fields:
                 - name
         support:

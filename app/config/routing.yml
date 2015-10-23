@@ -1,3 +1,23 @@
-app:
-    resource: "@AppBundle/Resources/config/routing.yml"
-    prefix:   /
+# Appbuild misc routing
+app_misc:
+    resource: routing/routing_misc.yml
+    prefix: /_misc
+
+# Appbuild admin routing
+app_admin:
+    resource: routing/routing_admin.yml
+    prefix: /{_locale}/
+    defaults:
+        _locale: %default_locale%
+    requirements:
+        _locale: %routing_locales%
+    options:
+        expose: true
+
+# Main route
+app_main:
+    path:  /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /%default_locale%
+        permanent: true

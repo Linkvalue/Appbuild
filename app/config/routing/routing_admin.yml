@@ -1,0 +1,4 @@
+# Appbuild admin routing
+app_bundle:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
