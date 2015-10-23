@@ -1,0 +1,9 @@
+AppBuild\Bundle\UserBundle\Entity\User:
+    admin_user:
+        email: admin@admin.fr
+        roles: [ROLE_SUPER_ADMIN]
+        password: test
+        salt: salt
+        enabled: true
+        firstname: admin
+        lastname: admin
