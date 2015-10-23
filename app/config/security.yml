@@ -1,11 +1,11 @@
-security:  
+security:
     encoders:
         AppBuild\Bundle\UserBundle\Entity\User:
            algorithm: bcrypt    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
 
     providers:
         db_user_provider:
-           entity: 
+           entity:
                class: AppBuildUserBundle:User
                property: email
 
@@ -13,7 +13,7 @@ security:
     # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
            pattern: ^/(_(profiler|wdt)|css|images|js)/
-           security: false       
+           security: false
         login_firewall:
            pattern: ^/login$
            anonymous: ~
@@ -22,7 +22,7 @@ security:
            anonymous: ~
         secured_area:
            pattern: ^/
-           form_login: 
+           form_login:
                 login_path: appbuild_user_login
                 check_path: /login_check
                 target_path_parameter: appbuild_admin_application_list
