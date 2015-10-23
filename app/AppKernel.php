@@ -27,7 +27,7 @@ class AppKernel extends Kernel
 //            new Majora\Bundle\FrameworkExtraBundle\MajoraFrameworkExtraBundle(),
 
             // projects
-            new AppBundle\AppBundle(),
+            new AppBuild\Bundle\ApplicationBundle\AppBuildApplicationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

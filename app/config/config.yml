@@ -53,8 +53,8 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: %assetic_use_controller%
-    bundles:
-        - AppBundle
+    #bundles:
+    #    - ApplicationBundle
     filters:
         cssrewrite: ~
         scss:
