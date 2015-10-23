@@ -19,10 +19,10 @@ class AppKernel extends Kernel
 
             // vendors
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
-            new Majora\Bundle\FrameworkExtraBundle\MajoraFrameworkExtraBundle(),
+//            new Majora\Bundle\FrameworkExtraBundle\MajoraFrameworkExtraBundle(),
 
             // projects
             new AppBundle\AppBundle(),

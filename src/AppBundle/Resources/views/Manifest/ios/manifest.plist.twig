@@ -12,7 +12,7 @@
                     <string>software-package</string>
                     <key>url</key>
                     <string>
-                        {{ url('drop_api_application_built', { 'id': application.id }, false) }}
+                        {{ url('app_get_raw_file', { 'id': application.id }, false) }}
                     </string>
                 </dict>
                 <dict>
@@ -20,10 +20,7 @@
                     <string>display-image</string>
                     <key>url</key>
                     <string>
-                        {{ absolute_url(asset(
-                            '/bundles/dropapiapplication/images/' ~ application.code ~ '/logo_small.png'
-                           ))
-                        }}
+                        http://images.techtimes.com/data/images/full/5913/iphone-6-screenshot.jpg?w=300
                     </string>
                 </dict>
                 <dict>
@@ -31,23 +28,20 @@
                     <string>full-size-image</string>
                     <key>url</key>
                     <string>
-                        {{ absolute_url(asset(
-                            '/bundles/dropapiapplication/images/' ~ application.code ~ '/logo.png'
-                           ))
-                        }}
+                        http://images.techtimes.com/data/images/full/5913/iphone-6-screenshot.jpg?w=600
                     </string>
                 </dict>
             </array>
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <string>com.DropDontPark.client</string>
+                <string>com.AppBuildServer.{{ application.slug }}</string>
                 <key>bundle-version</key>
-                <string>1.0</string>
+                <string>{{ application.version }}</string>
                 <key>kind</key>
                 <string>software</string>
                 <key>title</key>
-                <string>Drop</string>
+                <string>{{ application.name }}</string>
             </dict>
         </dict>
     </array>

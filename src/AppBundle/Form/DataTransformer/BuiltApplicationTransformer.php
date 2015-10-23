@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\DataTransformer;
 
+use AppBundle\Entity\Application;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -30,9 +31,9 @@ class BuiltApplicationTransformer implements DataTransformerInterface
     }
 
     /**
-     * .
+     * Nothing to transform but needed to implement interface.
      *
-     * @param Application|null $application
+     * @param Application $application
      */
     public function transform($application)
     {
@@ -43,16 +44,18 @@ class BuiltApplicationTransformer implements DataTransformerInterface
      * Upload file in built application dir with the code application on filename.
      *
      * @param UploadedFile $builtFile
+     *
+     * @return string
      */
     public function reverseTransform($builtFile)
     {
         if (!$builtFile || !$builtFile instanceof UploadedFile) {
             return $this->currentFilePath;
         }
-        $clean_filename = preg_replace("/[^a-z0-9\-\.]/i", "_" , sha1(uniqid(mt_rand(), true)).$builtFile->getClientOriginalName());
+        $filename = preg_replace("/[^a-z0-9\-\.]/i", '_', sha1(uniqid(mt_rand(), true)).$builtFile->getClientOriginalName());
         $file = $builtFile->move(
             $this->buildApplicationDir,
-            $clean_filename
+            $filename
         );
 
         return $file->getRealPath();

@@ -60,6 +60,14 @@ class ApplicationType extends AbstractType
             'required' => true,
             'label' => 'admin.application.label.name',
         ));
+        $builder->add('support', 'text', array(
+            'required' => true,
+            'label' => 'admin.application.label.support',
+        ));
+        $builder->add('version', 'text', array(
+            'required' => true,
+            'label' => 'admin.application.label.version',
+        ));
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder) {
             $form = $event->getForm();

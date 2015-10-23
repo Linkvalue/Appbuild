@@ -5,13 +5,14 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use AppBundle\Entity\Application;
 
 class AppBuildController extends Controller
 {
     /**
-     * Upload application.
+     * Create application.
      *
      * @param Request $request
      *
@@ -93,26 +94,24 @@ class AppBuildController extends Controller
         $this->container->get('file_helper')->unlinkFile($application->getFilePath());
         $this->container->get('doctrine.orm.entity_manager')->remove($application);
 
-        return new RedirectResponse($this->container->get('router')->generate('app_upload'));
+        return new RedirectResponse($this->container->get('router')->generate('app_create'));
     }
 
     /**
      * Trigger app download process.
      *
-     * @param int $id application id
+     * @param Application $application
      *
      * @return Response
      */
-    public function downloadAction($id)
+    public function downloadAction(Application $application)
     {
-        $this->retrieveOr404($id, 'drop.application.loader');
-
         $response = new RedirectResponse(
             sprintf(
                 'itms-services://?action=download-manifest&amp;url=%s',
                 urlencode($this->get('router')->generate(
-                    'drop_api_application_manifest',
-                    array('id' => $id),
+                    'app_get_manifest',
+                    array('id' => $application->getId()),
                     true
                 ))
             ),
@@ -127,34 +126,16 @@ class AppBuildController extends Controller
     /**
      * Download given application manifest.
      *
-     * @ApiDoc(
-     *    description  = "Download given application id manifest",
-     *    tags         = { "stable" = "#0CB24F" },
-     *    views        = { "default", "mobile" },
-     *    section      = "Application",
-     *    output       = "Drop\Si\Component\Application\Entity\Application",
-     *    requirements = {
-     *        { "name" = "id", "dataType" = "integer", "requirement" = "\d+", "description" = "Requested Application id" }
-     *    },
-     *    statusCodes  = {
-     *        200 = "Returned when successful",
-     *        404 = "If application not found",
-     *        403 = "If method access denied"
-     *    }
-     * )
+     * @param Application $application
+     *
+     * @return Response
      */
-    public function manifestAction($id)
+    public function getManifestAction(Application $application)
     {
-        $application = $this->retrieveOr404($id, 'drop.application.loader');
-
         $response = $this->render(
-            sprintf(
-                'AppBundle:ApplicationServer/%s:manifest.plist.twig',
-                $application->getCode()
-            ),
+            sprintf('AppBundle:Manifest:%s/manifest.plist.twig', $application->getSupport()),
             array(
                 'application' => $application,
-                'http_scheme' => $this->container->getParameter('http_scheme'),
             )
         );
 
@@ -167,26 +148,12 @@ class AppBuildController extends Controller
     /**
      * Download given application built package.
      *
-     * @ApiDoc(
-     *    description  = "Download given application id built package",
-     *    tags         = { "stable" = "#0CB24F" },
-     *    views        = { "default", "mobile" },
-     *    section      = "Application",
-     *    output       = "Drop\Si\Component\Application\Entity\Application",
-     *    requirements = {
-     *        { "name" = "id", "dataType" = "integer", "requirement" = "\d+", "description" = "Requested Application id" }
-     *    },
-     *    statusCodes  = {
-     *        200 = "Returned when successful",
-     *        404 = "If application not found",
-     *        403 = "If method access denied"
-     *    }
-     * )
+     * @param Application $application
+     *
+     * @return Response
      */
-    public function compiledAction($id)
+    public function getRawFileAction(Application $application)
     {
-        $application = $this->retrieveOr404($id, 'drop.application.loader');
-
         $response = new StreamedResponse(function () use ($application) {
             readfile($application->getFilePath());
         });
@@ -196,21 +163,6 @@ class AppBuildController extends Controller
             'attachment; filename="%s"',
             basename($application->getFilePath())
         ));
-
-        return $response;
-    }
-
-    public function getManifestAction(Application $application)
-    {
-        $response = $this->render(
-            'AppBundle:Manifest:manifest.plist.twig',
-            array(
-                'application' => $application,
-            )
-        );
-
-        $response->headers->set('Content-Type', 'application/octect-stream');
-        $response->headers->set('Content-Disposition', 'attachment; filename="manifest.plist"');
 
         return $response;
     }

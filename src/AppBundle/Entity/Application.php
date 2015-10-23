@@ -20,6 +20,11 @@ class Application
     /**
      * @var string
      */
+    private $support;
+
+    /**
+     * @var string
+     */
     private $filePath;
 
     /**
@@ -77,15 +82,25 @@ class Application
     }
 
     /**
-     * Set filePath.
+     * Get support.
      *
-     * @param string $filePath
-     *
-     * @return Application
+     * @return string
      */
-    public function setFilePath($filePath)
+    public function getSupport()
     {
-        $this->filePath = $filePath;
+        return $this->support;
+    }
+
+    /**
+     * Set support.
+     *
+     * @param string $support
+     *
+     * @return self
+     */
+    public function setSupport($support)
+    {
+        $this->support = $support;
 
         return $this;
     }
@@ -101,51 +116,17 @@ class Application
     }
 
     /**
-     * Set createdAt.
+     * Set filePath.
      *
-     * @param \DateTime $createdAt
-     *
-     * @return Application
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt.
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt.
-     *
-     * @param \DateTime $updatedAt
+     * @param string $filePath
      *
      * @return Application
      */
-    public function setUpdatedAt($updatedAt)
+    public function setFilePath($filePath)
     {
-        $this->updatedAt = $updatedAt;
+        $this->filePath = $filePath;
 
         return $this;
-    }
-
-    /**
-     * Get updatedAt.
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
@@ -173,6 +154,16 @@ class Application
     }
 
     /**
+     * Get version.
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
      * Set version.
      *
      * @param string $version
@@ -187,12 +178,50 @@ class Application
     }
 
     /**
-     * Get version.
+     * Get createdAt.
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getVersion()
+    public function getCreatedAt()
     {
-        return $this->version;
+        return $this->createdAt;
+    }
+
+    /**
+     * Set createdAt.
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Application
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt.
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set updatedAt.
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Application
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }
