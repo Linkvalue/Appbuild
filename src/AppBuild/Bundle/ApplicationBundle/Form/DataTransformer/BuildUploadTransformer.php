@@ -2,11 +2,15 @@
 
 namespace AppBuild\Bundle\ApplicationBundle\Form\DataTransformer;
 
-use AppBuild\Bundle\AppcliationBundle\Entity\Application;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class BuiltApplicationTransformer implements DataTransformerInterface
+/**
+ * Class BuildUploadTransformer.
+ *
+ * Handle build upload.
+ */
+class BuildUploadTransformer implements DataTransformerInterface
 {
     /**
      * @var string
@@ -33,15 +37,15 @@ class BuiltApplicationTransformer implements DataTransformerInterface
     /**
      * Nothing to transform but needed to implement interface.
      *
-     * @param Application $application
+     * @param Build $build
      */
-    public function transform($application)
+    public function transform($build)
     {
         return;
     }
 
     /**
-     * Upload file in built application dir with the code application on filename.
+     * Upload file in build application directory.
      *
      * @param UploadedFile $builtFile
      *

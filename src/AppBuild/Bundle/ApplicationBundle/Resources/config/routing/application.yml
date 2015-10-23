@@ -1,0 +1,17 @@
+
+# Applications
+appbuild_admin_application_list:
+    path:     /
+    defaults: { _controller: AppBuildApplicationBundle:Application:list }
+
+appbuild_admin_application_create:
+    path:     /create
+    defaults: { _controller: AppBuildApplicationBundle:Application:create }
+
+appbuild_admin_application_update:
+    path:     /{id}/update
+    defaults: { _controller: AppBuildApplicationBundle:Application:update }
+
+appbuild_admin_application_delete:
+    path:     /{id}/delete
+    defaults: { _controller: AppBuildApplicationBundle:Application:delete }

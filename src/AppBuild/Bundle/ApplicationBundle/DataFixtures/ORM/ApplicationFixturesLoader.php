@@ -21,6 +21,7 @@ class ApplicationFixturesLoader extends DataFixtureLoader implements OrderedFixt
     {
         return array(
             __DIR__.'/../../Resources/fixtures/applications.yml',
+            __DIR__.'/../../Resources/fixtures/builds.yml',
         );
     }
 

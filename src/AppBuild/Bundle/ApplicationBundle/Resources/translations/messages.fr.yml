@@ -1,0 +1,48 @@
+# AppBuild => ApplicationBundle => messages.fr
+admin:
+
+    application:
+        form:
+            label: Nom de l'application
+            support: Plateforme
+            submit_button:
+                label: Valider
+        create:
+            title: Nouvelle application
+        update:
+            title: Mise à jour de l'application
+        list:
+            title: Applications
+            thead:
+                label: Application
+                support: Plateforme
+                actions: Actions
+            actions:
+                update:
+                    title: Modifier l'application
+                build_list:
+                    title: Voir la liste des builds disponibles
+        supports:
+            ios: iOS
+            android: Android
+
+    build:
+        form:
+            version: Version du build
+            filePath: Build à télécharger
+            submit_button:
+                label: Valider
+        create:
+            title: Nouveau build
+        update:
+            title: Mise à jour du build
+        list:
+            title: Builds
+            thead:
+                label: Libellé
+                actions: Actions
+            actions:
+                update:
+                    title: Modifier le build
+                download:
+                    title: Télécharger le build

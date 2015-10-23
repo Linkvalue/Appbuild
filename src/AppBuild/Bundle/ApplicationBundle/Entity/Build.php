@@ -2,43 +2,30 @@
 
 namespace AppBuild\Bundle\ApplicationBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
- * Application.
+ * Build.
  */
-class Application
+class Build
 {
-    /**
-     * Available supports.
-     */
-    const SUPPORT_IOS = 'ios';
-    const SUPPORT_ANDROID = 'android';
-
     /**
      * @var int
      */
     private $id;
 
     /**
-     * @var string
+     * @var Application
      */
-    private $label;
+    private $application;
 
     /**
      * @var string
      */
-    private $slug;
+    private $version;
 
     /**
      * @var string
      */
-    private $support;
-
-    /**
-     * @var ArrayCollection
-     */
-    private $builds;
+    private $filePath;
 
     /**
      * @var bool
@@ -61,7 +48,6 @@ class Application
     public function __construct()
     {
         $this->enabled = true;
-        $this->builds = new ArrayCollection();
     }
 
     /**
@@ -79,17 +65,30 @@ class Application
      */
     public function getLabel()
     {
-        return $this->label;
+        $application = $this->getApplication();
+
+        return sprintf('%s [%s]',
+            $application->getLabel(),
+            $this->getVersion()
+        );
     }
 
     /**
-     * @param string $label
+     * @return Application
+     */
+    public function getApplication()
+    {
+        return $this->application;
+    }
+
+    /**
+     * @param Application $application
      *
      * @return self
      */
-    public function setLabel($label)
+    public function setApplication(Application $application)
     {
-        $this->label = $label;
+        $this->application = $application;
 
         return $this;
     }
@@ -97,19 +96,19 @@ class Application
     /**
      * @return string
      */
-    public function getSlug()
+    public function getVersion()
     {
-        return $this->slug;
+        return $this->version;
     }
 
     /**
-     * @param string $slug
+     * @param string $version
      *
      * @return self
      */
-    public function setSlug($slug)
+    public function setVersion($version)
     {
-        $this->slug = $slug;
+        $this->version = $version;
 
         return $this;
     }
@@ -117,27 +116,19 @@ class Application
     /**
      * @return string
      */
-    public function getSupport()
+    public function getFilePath()
     {
-        return $this->support;
+        return $this->filePath;
     }
 
     /**
-     * @param string $support
+     * @param string $filePath
      *
      * @return self
      */
-    public function setSupport($support)
+    public function setFilePath($filePath)
     {
-        if (!in_array($support, self::getAvailableSupports())) {
-            throw new \InvalidArgumentException(sprintf(
-                '[%s] is not a valid support value, supported values are [%s]',
-                $support,
-                implode(',', self::getAvailableSupports())
-            ));
-        }
-
-        $this->support = $support;
+        $this->filePath = $filePath;
 
         return $this;
     }
@@ -158,26 +149,6 @@ class Application
     public function setEnabled($enabled)
     {
         $this->enabled = !empty($enabled);
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getBuilds()
-    {
-        return $this->builds;
-    }
-
-    /**
-     * @param ArrayCollection $builds
-     *
-     * @return self
-     */
-    public function setBuilds(ArrayCollection $builds)
-    {
-        $this->builds = $builds;
 
         return $this;
     }
@@ -220,20 +191,5 @@ class Application
         $this->updatedAt = $updatedAt;
 
         return $this;
-    }
-
-    /**
-     * Get available/supported application supports.
-     *
-     * This method is static in order to be used in validation constraints.
-     *
-     * @return array
-     */
-    public static function getAvailableSupports()
-    {
-        return array(
-            self::SUPPORT_IOS,
-            self::SUPPORT_ANDROID,
-        );
     }
 }

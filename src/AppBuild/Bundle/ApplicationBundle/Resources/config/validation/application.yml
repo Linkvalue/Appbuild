@@ -1,0 +1,5 @@
+AppBuild\Bundle\ApplicationBundle\Entity\Application:
+    properties:
+        support:
+            - Choice:
+                callback: getAvailableSupports

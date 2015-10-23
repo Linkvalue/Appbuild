@@ -64,8 +64,7 @@ install: install-bin install-git-hooks install-composer install-bundle install-b
 update: update-composer update-bower clean
 
 update-composer:
-	./bin/composer update --no-scripts
-	./bin/composer post-update
+	./bin/composer update
 
 update-bower:
 	bower update --config.interactive=false
