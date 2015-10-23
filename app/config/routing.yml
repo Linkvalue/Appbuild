@@ -1,3 +1,7 @@
+# app_build_application:
+#     resource: "@AppBuildApplicationBundle/Resources/config/routing.yml"
+#     prefix:   /
+
 # Appbuild misc routing
 app_misc:
     resource: routing/routing_misc.yml
