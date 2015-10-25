@@ -8,6 +8,7 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
+            // symfony standard
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
@@ -24,7 +25,6 @@ class AppKernel extends Kernel
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-//            new Majora\Bundle\FrameworkExtraBundle\MajoraFrameworkExtraBundle(),
 
             // projects
             new AppBuild\Bundle\ApplicationBundle\AppBuildApplicationBundle(),
@@ -35,8 +35,6 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-
-//            $bundles[] = new Majora\GeneratorBundle\MajoraGeneratorBundle();
         }
 
         return $bundles;

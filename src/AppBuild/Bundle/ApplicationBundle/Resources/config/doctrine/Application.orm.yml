@@ -1,33 +1,31 @@
 AppBuild\Bundle\ApplicationBundle\Entity\Application:
     type: entity
     repositoryClass: AppBuild\Bundle\ApplicationBundle\Entity\ApplicationRepository
-    table: application
+    table: appbuild_application
     id:
         id:
             type: integer
             generator: { strategy: AUTO }
     uniqueConstraints:
-        name_idx:
-            columns: name
+        label_idx:
+            columns: label
+        slug_idx:
+            columns: slug
     fields:
-        name:
+        label:
             type: string
         slug:
-          type: string
-          gedmo:
-            slug:
-              separator: _
-              style: default
-              fields:
-                - name
+            type: string
+            gedmo:
+                slug:
+                    separator: -
+                    style: default
+                    fields:
+                        - label
         support:
             type: string
-        version:
-            type: string
-            nullable: true
-        filePath:
-            type: string
-            column: file_path
+        enabled:
+            type: boolean
         createdAt:
             type: datetime
             column: created_at
@@ -40,4 +38,8 @@ AppBuild\Bundle\ApplicationBundle\Entity\Application:
             gedmo:
                 timestampable:
                     on: update
-    lifecycleCallbacks: {  }
+    oneToMany:
+        builds:
+            targetEntity: AppBuild\Bundle\ApplicationBundle\Entity\Build
+            mappedBy: application
+            cascade: ['persist', 'remove']

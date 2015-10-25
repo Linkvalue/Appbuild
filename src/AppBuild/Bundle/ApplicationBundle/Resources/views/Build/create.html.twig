@@ -1,0 +1,5 @@
+{% extends 'AppBuildApplicationBundle:Build:form.html.twig'%}
+
+{% block title 'admin.build.create.title'|trans %}
+
+{% block build_form_action url('appbuild_admin_build_create', {'application_id': application.id}) %}

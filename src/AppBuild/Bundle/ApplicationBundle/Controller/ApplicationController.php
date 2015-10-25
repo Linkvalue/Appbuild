@@ -6,11 +6,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use AppBuild\Bundle\ApplicationBundle\Entity\Application;
 
 class ApplicationController extends Controller
 {
+    /**
+     * List current user Applications.
+     *
+     * @return Response
+     */
+    public function listAction()
+    {
+        // @todo $applications = $this->getUser()->getApplications()
+        $applications = $this->getDoctrine()->getRepository('AppBuildApplicationBundle:Application')->findAll();
+
+        return $this->render(
+            'AppBuildApplicationBundle:Application:list.html.twig',
+            array('applications' => $applications)
+        );
+    }
+
     /**
      * Create application.
      *
@@ -21,7 +36,7 @@ class ApplicationController extends Controller
     public function createAction(Request $request)
     {
         $form = $this->container->get('form.factory')->create(
-            $this->container->get('build.application.form_type'),
+            $this->container->get('appbuild.application.application.form_type'),
             $application = new Application(),
             array('intention' => 'creation')
         );
@@ -34,7 +49,7 @@ class ApplicationController extends Controller
                 $em->flush();
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'app_admin_update', array(
+                    'appbuild_admin_application_update', array(
                         'id' => $application->getId(),
                     )
                 ));
@@ -59,8 +74,10 @@ class ApplicationController extends Controller
      */
     public function updateAction(Application $application, Request $request)
     {
+        // @todo $this->getUser()->getApplications()->contains($application)
+
         $form = $this->container->get('form.factory')->create(
-            $this->container->get('build.application.form_type'),
+            $this->container->get('appbuild.application.application.form_type'),
             $application,
             array('intention' => 'edition')
         );
@@ -68,7 +85,15 @@ class ApplicationController extends Controller
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $this->container->get('doctrine.orm.entity_manager')->flush();
+                $em = $this->container->get('doctrine.orm.entity_manager');
+                $em->persist($application);
+                $em->flush();
+
+                return new RedirectResponse($this->container->get('router')->generate(
+                    'appbuild_admin_application_update', array(
+                        'id' => $application->getId(),
+                    )
+                ));
             }
         }
 
@@ -90,79 +115,12 @@ class ApplicationController extends Controller
      */
     public function deleteAction(Application $application)
     {
-        $this->container->get('file_helper')->unlinkFile($application->getFilePath());
-        $this->container->get('doctrine.orm.entity_manager')->remove($application);
+        // @todo $this->getUser()->getApplications()->contains($application)
 
-        return new RedirectResponse($this->container->get('router')->generate('app_admin_create'));
-    }
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $em->remove($application);
+        $em->flush();
 
-    /**
-     * Trigger app download process.
-     *
-     * @param Application $application
-     *
-     * @return Response
-     */
-    public function downloadAction(Application $application)
-    {
-        $response = new RedirectResponse(
-            sprintf(
-                'itms-services://?action=download-manifest&amp;url=%s',
-                urlencode($this->get('router')->generate(
-                    'app_admin_get_manifest',
-                    array('id' => $application->getId()),
-                    true
-                ))
-            ),
-            302
-        );
-
-        $response->headers->set('Content-Type', 'text/html');
-
-        return $response;
-    }
-
-    /**
-     * Download given application manifest.
-     *
-     * @param Application $application
-     *
-     * @return Response
-     */
-    public function getManifestAction(Application $application)
-    {
-        $response = $this->render(
-            sprintf('AppBundle:Manifest:%s/manifest.plist.twig', $application->getSupport()),
-            array(
-                'application' => $application,
-            )
-        );
-
-        $response->headers->set('Content-Type', 'application/octect-stream');
-        $response->headers->set('Content-Disposition', 'attachment; filename="manifest.plist"');
-
-        return $response;
-    }
-
-    /**
-     * Download given application built package.
-     *
-     * @param Application $application
-     *
-     * @return Response
-     */
-    public function getRawFileAction(Application $application)
-    {
-        $response = new StreamedResponse(function () use ($application) {
-            readfile($application->getFilePath());
-        });
-
-        $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition', sprintf(
-            'attachment; filename="%s"',
-            basename($application->getFilePath())
-        ));
-
-        return $response;
+        return new RedirectResponse($this->container->get('router')->generate('appbuild_admin_application_list'));
     }
 }

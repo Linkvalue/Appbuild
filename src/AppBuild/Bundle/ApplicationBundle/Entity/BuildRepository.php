@@ -5,8 +5,8 @@ namespace AppBuild\Bundle\ApplicationBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * ApplicationRepository.
+ * BuildRepository.
  */
-class ApplicationRepository extends EntityRepository
+class BuildRepository extends EntityRepository
 {
 }
