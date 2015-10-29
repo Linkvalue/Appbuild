@@ -15,6 +15,7 @@ app/check.php
 
 # Parameters
 /app/config/parameters.yml
+/app/config/parameters_*.yml
 
 # Managed by Composer
 /app/bootstrap.php.cache
@@ -45,6 +46,7 @@ app/check.php
 
 .DS_Store
 .php_cs.*
+wallet
 
 # IDE
 .idea/
