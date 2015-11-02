@@ -8,6 +8,7 @@ parameters:
     database_name:     appbuild
     database_user:     root
     database_password: ~
+    database_server_version: ~
 
     # Mail configurations
     mailer_transport:  smtp

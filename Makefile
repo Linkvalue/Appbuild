@@ -69,6 +69,9 @@ update-composer:
 update-bower:
 	bower update --config.interactive=false
 
+update-parameters:
+	./bin/composer run-script set-parameters-yml -vv
+
 # Database
 db-build:
 	php app/console doctrine:database:create --if-not-exists
@@ -106,12 +109,13 @@ run-tests:
 
 # Production
 prod-install: install-bin
-	./bin/composer install --prefer-dist --no-dev
+	./bin/composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
 	test -L ./bin/bower || npm install bower
 	test -L ./bin/bower || (cd bin && ln -fs ../node_modules/bower/bin/bower)
 	./bin/bower install
 
 prod-build:
+	php app/console doctrine:database:create --if-not-exists --env=prod
 	php app/console doctrine:migration:migrate -n --env=prod
 
 prod-clean:
@@ -123,12 +127,10 @@ prod-clean:
 	test -d web/css && rm -rf web/css/* || true
 	test -d web/js && rm -rf web/js/* || true
 	test -d web/fonts && rm -rf web/fonts/* || true
-	test -d web/flags && rm -rf web/flags/* || true
 	./bin/composer dump-autoload -o
 	./bin/composer run-script setup-bootstrap -vv
 	php app/console cache:warmup --env=prod
 	cp -rf vendor/bower_components/components-font-awesome/fonts web/
-	cp -rf vendor/bower_components/flag-icon-css/flags web/
 	php app/console assets:install --env=prod
 	php app/console assetic:dump --force --env=prod
 
