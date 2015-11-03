@@ -53,6 +53,7 @@ class User implements UserInterface
     {
         $this->roles = array('ROLE_USER');
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->enabled = true;
     }
 
     /**
@@ -170,7 +171,7 @@ class User implements UserInterface
      */
     public function setEnabled($enabled)
     {
-        $this->enabled = $enabled;
+        $this->enabled = !empty($enabled);
 
         return $this;
     }
@@ -180,9 +181,9 @@ class User implements UserInterface
      *
      * @return bool
      */
-    public function getEnabled()
+    public function isEnabled()
     {
-        return $this->enabled;
+        return !empty($this->enabled);
     }
 
     /**
@@ -233,14 +234,19 @@ class User implements UserInterface
         return $this->lastname;
     }
 
+    /**
+     * @see UserInterface::getUsername()
+     */
     public function getUsername()
     {
         return $this->email;
     }
 
+    /**
+     * @see UserInterface::eraseCredentials()
+     */
     public function eraseCredentials()
     {
-        // Ici nous n'avons rien à effacer. 
-        // Cela aurait été le cas si nous avions un mot de passe en clair.
+        //Nothing to delete the password is encrypted
     }
 }

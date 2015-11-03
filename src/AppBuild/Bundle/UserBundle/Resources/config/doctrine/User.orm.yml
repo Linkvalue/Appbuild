@@ -1,6 +1,6 @@
 AppBuild\Bundle\UserBundle\Entity\User:
     type: entity
-    table: app_build_user
+    table: appbuild_user
     repositoryClass: AppBuild\Bundle\UserBundle\Entity\UserRepository
     id:
         id:
@@ -14,10 +14,10 @@ AppBuild\Bundle\UserBundle\Entity\User:
             length: 255
         salt:
             type: string
-            length: '500'
+            length: 500
         password:
             type: string
-            length: '500'
+            length: 500
         roles:
             type: simple_array
         enabled:
@@ -28,4 +28,3 @@ AppBuild\Bundle\UserBundle\Entity\User:
         lastname:
             type: string
             length: 255
-    lifecycleCallbacks: {  }

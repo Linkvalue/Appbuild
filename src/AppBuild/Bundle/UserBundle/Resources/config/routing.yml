@@ -1,6 +1,6 @@
-app_build_user_login:
+appbuild_user_login:
     path:     /login
     defaults: { _controller: AppBuildUserBundle:Security:login }
 
-app_build_user_login_check:
+appbuild_user_login_check:
     path:     /login_check

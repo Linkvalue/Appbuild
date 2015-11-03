@@ -1,5 +1,5 @@
 
-app_build_user:
+appbuild_user:
     resource: "@AppBuildUserBundle/Resources/config/routing.yml"
     prefix:   /
 
