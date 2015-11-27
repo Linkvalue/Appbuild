@@ -7,7 +7,7 @@ security:
         db_user_provider:
            entity: 
                class: AppBuildUserBundle:User
-               property: email    
+               property: email
 
     firewalls:
     # disables authentication for assets and the profiler, adapt it according to your needs
@@ -17,11 +17,15 @@ security:
         login_firewall:
            pattern: ^/login$
            anonymous: ~
+        register_firewall:
+           pattern: ^/register$
+           anonymous: ~
         secured_area:
            pattern: ^/
            form_login: 
-                login_path: app_build_user_login
-                check_path: login_check
+                login_path: appbuild_user_login
+                check_path: /login_check
+                target_path_parameter: appbuild_admin_application_list
            provider: db_user_provider
 
     role_hierarchy:
@@ -29,5 +33,6 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
