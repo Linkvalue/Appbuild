@@ -1,6 +1,6 @@
 server {
     listen {{ item.port|default('80') }};
-    root  {{ item.docroot|default('/var/www/'~item.name) }};
+    root  {{ item.docroot|default('/var/www/'~item.name) }}/web;
     server_name {{ item.server_name }};
     client_max_body_size {{ item.client_max_body_size|default('10M') }};
 

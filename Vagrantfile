@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "shell", inline: "echo \"UTC\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
 
     config.vm.provision :ansible do |ansible|
-        ansible.playbook = "ansible/site.yml"
+        ansible.playbook = "ansible/app.yml"
         ansible.limit = "all"
     end
 

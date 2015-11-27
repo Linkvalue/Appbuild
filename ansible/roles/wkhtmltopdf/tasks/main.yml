@@ -1,0 +1,32 @@
+---
+# These tasks install wkhtmltopdf from source.
+
+- name: Install wkhtmltopdf common packages
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - libxrender1
+    - x11-common
+    - fontconfig
+    - libfontenc1
+    - libxfont1
+    - xfonts-75dpi
+    - xfonts-base
+    - xfonts-encodings
+    - xfonts-utils
+    - libjpeg-turbo8
+
+- name: Create the wkhtmltopdf app directory.
+  file: state=directory path=/opt/wkhtmltopdf
+
+- name: Fetching wkhtmltopdf archive
+  get_url: url=http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb dest=/opt/wkhtmltopdf/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb validate_certs=no
+
+- name: Install wkthtmltopdf package
+  apt: deb=/opt/wkhtmltopdf/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb state=installed
+
+- name: Create wkthtmltopdf package
+  apt: deb=/opt/wkhtmltopdf/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb state=installed
+
+- name: Add wkthtmltopdf symlink.
+  command: >
+    sudo ln -nfs /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf

@@ -7,27 +7,34 @@
     dest=/etc/timezone
   register: tz_result
 
+- name: Set .bash_aliases file
+  template:
+    src=bash_aliases.j2
+    dest=~/.bash_aliases
+
+# - name: Common | Reconfigure TZ
+#   command: dpkg-reconfigure tzdata
+#   when: tz_result.changed
+
+# - name: Configure language packs
+#   command: locale-gen fr_FR fr_FR.UTF-8 && dpkg-reconfigure locales
+
 - name: install common packages
   action: apt pkg={{item}} state=installed
   with_items:
     - language-pack-fr
     - build-essential
+    - software-properties-common
+    - python-software-properties
     - vim
     - zsh
     - acl
     - curl
-    - python-pycurl
-    - git
-    - mysql-client
-    - python-mysqldb
-    - unzip
     - wget
+    - git
+    - python-pycurl
+    - unzip
     - ntp
-    - bundler
-    - git-core
-
-- name: Add wkhtmltopdf lib
-  shell: apt-get install -y libxrender1 x11-common fontconfig libfontenc1 libxfont1 xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils && wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb -O /tmp/wkhtmltox.deb && dpkg --install /tmp/wkhtmltox.deb && rm -rf /tmp/wkhtmltox.deb && mv /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf
 
 - name: Clone oh-my-zsh repo
   git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/home/vagrant/.oh-my-zsh

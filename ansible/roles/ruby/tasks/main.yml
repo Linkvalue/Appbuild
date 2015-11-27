@@ -1,4 +1,60 @@
-- name: Install ruby
-  apt: name={{item}} state=installed
+---
+- name: Install packages required to build ruby (Debian).
+  apt: "name={{ item }} state=present"
   with_items:
-    - ruby-sass
+    - wget
+    - curl
+    - git
+    - tar
+    - vim
+    - nano
+    - build-essential
+    - libcurl4-openssl-dev
+    - libffi-dev
+    - libgdbm-dev
+    - libgdbm3
+    - libncurses5-dev
+    - libreadline-dev
+    - libreadline6-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libyaml-dev
+    - python-software-properties
+    - software-properties-common
+    - zlib1g-dev
+
+- name: Download ruby.
+  get_url:
+    url: "{{ ruby_download_url }}"
+    dest: "{{ workspace }}/ruby-{{ ruby_version }}.tar"
+
+- name: Extract ruby.
+  unarchive:
+    src: "{{ workspace }}/ruby-{{ ruby_version }}.tar"
+    dest: "{{ workspace }}/"
+    copy: no
+
+- name: Build ruby.
+  command: >
+    {{ item }}
+    chdir={{ workspace }}/ruby-{{ ruby_version }}
+    creates=/usr/local/bin/ruby
+  with_items:
+    - ./configure --enable-shared
+    - make
+    - sudo make install
+
+- name: Add ruby symlinks.
+  file:
+    src: "/usr/local/bin/{{ item }}"
+    dest: "/usr/bin/{{ item }}"
+    state: link
+    force: yes
+  with_items:
+    - erb
+    - gem
+    - irb
+    - rake
+    - rdoc
+    - ruby

@@ -1,0 +1,15 @@
+- hosts: local
+  sudo: yes
+  roles:
+    - ssh_key
+    - common
+    - ruby
+    - nginx
+    - php
+    - mysql
+    - nodejs
+    - sass
+    - capistrano
+  vars_files:
+    - group_vars/app.yml
+    - group_vars/app.local.yml

@@ -1,63 +1,38 @@
-- name: Add ondrej/php5 ppa
-  apt_repository: repo=ppa:ondrej/php5 state=present
+---
+  - name: Add ondrej/php5 ppa
+    apt_repository: repo=ppa:ondrej/php5 state=present
 
-- name: Install php5
-  apt: name={{item}} state=installed
-  with_items:
-    - php5-fpm
-    - php5-cli
+  - name: Install php5
+    apt: name={{item}} state=installed
+    with_items:
+      - php5-fpm
+      - php5-cli
 
-- name: Start php5-fpm
-  service: name=php5-fpm state=started enabled=true
+  - name: Start php5-fpm
+    service: name=php5-fpm state=started enabled=true
 
-- name: Install PHP dependencies
-  apt: name={{item}} state=installed
-  notify:
-    - Restart php5-fpm
-  with_items:
-    - php5-fpm
-    - php5-cli
-    - php5-imap
-    - php5-curl
-    - php5-intl
-    - php5-gd
-    - php5-mcrypt
-    - php5-mysqlnd
-    - php5-json
-    - php5-sqlite
-    - php5-xdebug
-    - php5-apcu
-    - php5-redis
+  - name: Install PHP dependencies
+    apt: name={{item}} state=installed
+    with_items: php.extensions
+    notify:
+      - Restart php5-fpm
 
-- name: Configure php5-cli
-  template: src=php.ini.j2 dest=/etc/php5/cli/php.ini owner=root group=root mode=0644
+  - name: Configure php5-cli
+    template: src=php.ini.j2 dest=/etc/php5/cli/php.ini owner=root group=root mode=0644
 
-- name: Configure php5-fpm
-  template: src=php.ini.j2 dest=/etc/php5/fpm/php.ini owner=root group=root mode=0644
-  notify:
-    - Restart php5-fpm
+  - name: Configure php5-fpm
+    template: src=php.ini.j2 dest=/etc/php5/fpm/php.ini owner=root group=root mode=0644
+    notify:
+      - Restart php5-fpm
 
-- name: Configure php5-fpm pools
-  template: src=php-fpm.pool.conf.j2 dest=/etc/php5/fpm/pool.d/{{item.name}}.conf owner=root group=root mode=0644
-  with_items: pools
-  notify:
-    - Restart php5-fpm
+  - name: Configure php5-fpm pools
+    template: src=php-fpm.pool.conf.j2 dest=/etc/php5/fpm/pool.d/{{item.name}}.conf owner=root group=root mode=0644
+    with_items: pools
+    notify:
+      - Restart php5-fpm
 
-- name: Configure Xdebug
-  template: src=xdebug.ini.j2 dest=/etc/php5/fpm/conf.d/20-xdebug.ini owner=root group=root mode=0644
-  notify:
-    - Restart php5-fpm
+  - name: Configure Xdebug
+    template: src=xdebug.ini.j2 dest=/etc/php5/fpm/conf.d/20-xdebug.ini owner=root group=root mode=0644
+    notify:
+      - Restart php5-fpm
 
-- name: Install composer.phar
-  shell: curl -sS  https://getcomposer.org/installer|php && /bin/mv -f /home/{{ user_name }}/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
-  tags:
-    - composer
-    - php
-    - lamp
-
-- name: Update composer.phar
-  shell: /usr/local/bin/composer self-update
-  tags:
-    - composer
-    - php
-    - lamp

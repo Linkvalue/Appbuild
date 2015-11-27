@@ -1,0 +1,3 @@
+- name: Install capistrano
+  command: >
+    sudo gem install capistrano

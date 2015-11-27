@@ -1,8 +1,0 @@
----
-
-- name: "Restart neo4j"
-  service: name=neo4j-service state=restarted
-
-- name: "Reboot"
-  sudo: true
-  command: reboot

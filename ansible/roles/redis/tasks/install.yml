@@ -30,10 +30,10 @@
   get_url: url=http://download.redis.io/releases/redis-{{ redis_version }}.tar.gz
            dest=/usr/local/src/redis-{{ redis_version }}.tar.gz
   when: not redis_tarball
-  
+
 - name: upload redis
   copy: src={{ redis_tarball }}
-        dest=/usr/local/src/redis-{{ redis_version }}.tar.gz  
+        dest=/usr/local/src/redis-{{ redis_version }}.tar.gz
   when: redis_tarball
 
 - name: extract redis tarball
