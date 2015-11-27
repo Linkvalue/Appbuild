@@ -1,0 +1,350 @@
+@import 'variables';
+
+// bootstrap button skin override
+%btn_default {
+	background-color: $gray_neutral-50;
+	border-color: $gray_neutral-50;
+	color: $white;
+}
+%btn_primary {
+	background-color: $color_primary-dark;
+	border-color: $color_primary-dark;
+	color: $white;
+}
+%btn_success {
+	background-color: $color_success-dark;
+	border-color: $color_success-dark;
+	color: $white;
+}
+%btn_info {
+	background-color: $color_info-dark;
+	border-color: $color_info-dark;
+	color: $white;
+}
+%btn_warning {
+	background-color: $color_warning-dark;
+	border-color: $color_warning-dark;
+	color: $white;
+}
+%btn_danger {
+	background-color: $color_danger-dark;
+	border-color: $color_danger-dark;
+	color: $white;
+}
+
+%dropmenu_link-hover {
+	text-decoration: none;
+	background-color: $gray_navy-dark;
+	color: $white;
+}
+
+a {
+	color: $gray_navy-light;
+	&:hover {
+		color: $gray_navy-darker;
+	}
+}
+.panel {
+	border: none;
+	box-shadow: none;
+}
+.panel-heading {
+	border-color: $gray_procelain;
+	font-size: 16px;
+	font-weight: 300;
+}
+.panel-title {
+	color: $gray_navy-darker;
+	font-size: 14px;
+	font-weight: 400;
+	margin-bottom: 0;
+	margin-top: 0;
+	font-family: $font_0, $font_1;
+}
+.label {
+	padding: 0.5em 0.8em;
+}
+.label-default {
+	background-color: $gray_neutral-70;
+}
+.label-primary {
+	background-color: $color_info-light;
+}
+.label-success {
+	background-color: $color_success-lighter;
+}
+.label-info {
+	background-color: $color_info-light;
+}
+.label-warning {
+	background-color: $color_warning-light;
+}
+.label-danger {
+	background-color: $color_danger-light;
+}
+.label-inverse {
+	background-color: $gray_navy-dark;
+}
+.text-danger {
+	color: $color_danger-light;
+}
+.text-muted {
+	color: $gray_neutral-70;
+}
+.text-primary {
+	color: $color_primary-light;
+}
+.text-warning {
+	color: $color_warning-light;
+}
+.text-success {
+	color: $color_success-lighter;
+}
+.text-info {
+	color: $color_info-light;
+}
+.modal-content {
+	box-shadow: none;
+	border: none;
+}
+.modal-header {
+	background: $color_primary;
+	color: $white;
+	border-radius: 5px 5px 0 0;
+	border-bottom: none;
+	.close {
+		margin-top: 0;
+	}
+}
+.form-control {
+	border: 1px solid $gray_procelain;
+	box-shadow: none;
+	color: $gray_neutral-50;
+	&:focus {
+		border: 1px solid $gray_navy;
+		box-shadow: none;
+	}
+}
+.input-group {
+	margin-bottom: 5px;
+}
+#focusedInput {
+	border: 1px solid $gray_navy;
+	box-shadow: none;
+}
+input {
+	outline: none !important;
+}
+textarea {
+	outline: none !important;
+}
+select {
+	outline: none !important;
+}
+button {
+	outline: none !important;
+}
+ul {
+	padding-left: 0;
+}
+.btn-default {
+	background-color: $gray_neutral-70;
+	border-color: $gray_neutral-70;
+	color: $white;
+	&:hover,
+	&:focus,
+	&:active,
+	&.active {
+		@extend %btn_default;
+	}
+}
+.btn-primary {
+	background-color: $color_primary;
+	border-color: $color_primary;
+	color: $white;
+	&:hover,
+	&:focus,
+	&:active,
+	&.active {
+		@extend %btn_primary;
+	}
+}
+.btn-success {
+	background-color: $color_success;
+	border-color: $color_success;
+	color: $white;
+	&:hover,
+	&:focus ,
+	&:active,
+	&.active {
+		@extend %btn_success;
+	}
+}
+.btn-info {
+	background-color: $color_info;
+	border-color: $color_info;
+	color: $white;
+	&:hover,
+	&:focus,
+	&:active,
+	&.active {
+		@extend %btn_info;
+	}
+}
+.btn-warning {
+	background-color: $color_warning;
+	border-color: $color_warning;
+	color: $white;
+	&:hover,
+	&:focus,
+	&:active,
+	&.active {
+		@extend %btn_warning;
+	}
+}
+.btn-danger {
+	background-color: $color_danger;
+	border-color: $color_danger;
+	color: $white;
+	&:hover,
+	&:focus,
+	&:active,
+	&.active {
+		@extend %btn_danger;
+	}
+}
+.btn-white {
+	background-clip: padding-box;
+	background-color: $white;
+	border-color: $gray_night-a30;
+	box-shadow: 0 -1px 1px $black-a10 inset;
+	&.active {
+		box-shadow: none;
+	}
+}
+.btn-round {
+	border-radius: 30px;
+}
+.btn-shadow {
+	&.btn-default {
+		box-shadow: 0 4px $gray_neutral-40;
+	}
+	&.btn-primary {
+		box-shadow: 0 4px $color_primary-darker;
+	}
+	&.btn-success {
+		box-shadow: 0 4px $color_success-darker;
+	}
+	&.btn-info {
+		box-shadow: 0 4px $color_info-darker;
+	}
+	&.btn-warning {
+		box-shadow: 0 4px $color_warning-darker;
+	}
+	&.btn-danger {
+		box-shadow: 0 4px $color_danger-darker;
+	}
+}
+.btn {
+	&:active {
+		box-shadow: none;
+	}
+	&.active {
+		box-shadow: none;
+	}
+}
+.btn-compose {
+	background: $color_danger-light;
+	padding: 12px 0;
+	text-align: center;
+	width: 100%;
+	color: $white;
+	&:hover {
+		background: $color_danger-light;
+		color: $white;
+	}
+}
+.breadcrumb {
+	background-color: $white;
+}
+.list-group-item-heading {
+	font-weight: 300;
+}
+.progress {
+	box-shadow: none;
+	background: $gray_procelain;
+}
+.alert-success {
+	border: none;
+}
+.alert-danger {
+	border: none;
+}
+.alert-info {
+	border: none;
+}
+.alert-warning {
+	border: none;
+}
+.table {
+	thead > tr > {
+		th,
+		td {
+			padding: 10px;
+		}
+	}
+	tbody > tr > {
+		th,
+		td {
+			padding: 10px;
+		}
+	}
+	tfoot > tr > {
+		th,
+		td {
+			padding: 10px;
+		}
+	}
+}
+.form-horizontal .control-label {
+	font-weight: 300;
+	font-size: 14px;
+	text-align: left;
+}
+.open .dropdown-toggle {
+	&.btn-default {
+		@extend %btn_default;
+	}
+	&.btn-primary {
+		@extend %btn_primary;
+	}
+	&.btn-success {
+		@extend %btn_success;
+	}
+	&.btn-info {
+		@extend %btn_info;
+	}
+	&.btn-warning {
+		@extend %btn_warning;
+	}
+	&.btn-danger {
+		@extend %btn_danger;
+	}
+}
+.btn-group.open .dropdown-toggle {
+	box-shadow: none;
+}
+.dropdown-menu > li > a {
+	&:hover,
+	&:focus {
+		@extend %dropmenu_link-hover;
+	}
+}
+.nav-tabs > li > a {
+	margin-right: 1px;
+}
+.panel-default > .panel-heading {
+	background-color: $white;
+	border-color: $gray_neutral-90;
+	color: $gray_neutral-40;
+}

@@ -24,7 +24,7 @@ php:
     - php5-xdebug
 
 sites:
-  - { name: 'appbuild', docroot: '/var/www/AppBuildServer', server_name: '*.app-build.dev' }
+  - { name: 'appbuild', docroot: '/var/www/AppBuildServer', server_name: 'app-build.dev' }
 
 mysql:
   databases:

@@ -53,8 +53,8 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: %assetic_use_controller%
-    #bundles:
-    #    - ApplicationBundle
+    bundles:
+        - AppBuildAppBundle
     filters:
         cssrewrite: ~
         scss:
@@ -65,6 +65,7 @@ assetic:
             inputs:
                 - %bower_path%/bootstrap/dist/css/bootstrap.min.css
                 - %bower_path%/components-font-awesome/css/font-awesome.min.css
+                - %bower_path%/datatables-bootstrap3-plugin/media/css/datatables-bootstrap3.min.css
 
         compiled_lib_js:
             output: js/vendors.js
@@ -75,6 +76,8 @@ assetic:
                 - %bower_path%/moment/min/moment.min.js
                 - %bower_path%/jquery.cookie/jquery.cookie.js
                 - %bower_path%/jquery-ui/jquery-ui.min.js
+                - %bower_path%/datatables/media/js/jquery.dataTables.min.js
+                - %bower_path%/datatables-bootstrap3-plugin/media/js/datatables-bootstrap3.min.js
 
 # Doctrine Configuration
 doctrine:
