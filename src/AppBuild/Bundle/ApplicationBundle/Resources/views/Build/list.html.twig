@@ -4,14 +4,23 @@
 
 {% block header %}
     <h1>{{ 'admin.build.list.title'|trans }}</h1>
-    <a href="{{ url('appbuild_admin_build_create', { application_id: application.id }) }}" class="btn btn-primary">
-        <span class="fa fa-plus"></span>
-        {{ 'admin.build.create.title'|trans }}
-    </a>
-    <a href="{{ url('appbuild_admin_application_list') }}" class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>
-        {{ 'admin.application.list.title'|trans }}
-    </a>
+        <a href="{{ url('appbuild_admin_build_create', { application_id: application.id }) }}" class="btn btn-primary">
+            <span class="fa fa-plus"></span>
+            {{ 'admin.build.create.title'|trans }}
+        </a>
+        {% if app.request.get('enabled', true) %}
+            <a href="{{ url('appbuild_admin_build_list', { application_id: application.id, enabled: false }) }}" class="btn btn-xl btn-info">
+                <i class="fa fa-trash"></i> Corbeille
+            </a>
+        {% else %}
+            <a href="{{ url('appbuild_admin_build_list', { application_id: application.id, enabled: true }) }}" class="btn btn-xl btn-success">
+                <i class="fa fa-undo"></i> Retour
+            </a>
+        {% endif %}
+        <a href="{{ url('appbuild_admin_application_list') }}" class="btn btn-info pull-right">
+            <span class="fa fa-arrow-left"></span>
+            {{ 'admin.application.list.title'|trans }}
+        </a>
 {% endblock %}
 
 {% block content %}
@@ -57,15 +66,4 @@
         {% endfor %}
         </tbody>
     </table>
-    <div class="col-xs-12 text-center">
-        {% if app.request.get('enabled', true) %}
-            <a href="{{ url('appbuild_admin_build_list', { application_id: application.id, enabled: false }) }}" class="btn btn-xl btn-info">
-                <i class="fa fa-trash"></i> Corbeille
-            </a>
-        {% else %}
-            <a href="{{ url('appbuild_admin_build_list', { application_id: application.id, enabled: true }) }}" class="btn btn-xl btn-success">
-                <i class="fa fa-undo"></i> Retour
-            </a>
-        {% endif %}
-    </div>
 {% endblock %}
