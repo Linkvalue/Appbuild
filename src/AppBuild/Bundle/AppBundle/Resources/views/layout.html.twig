@@ -10,9 +10,17 @@
     {% endblock %}
   </head>
   <body class="{% block body_class '' %}">
-    <main id="container">
+    <main id="container" class="container">
       {% block header %}
       {% endblock %}
+
+      {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>{{ flashMessage }}</strong>
+        </div>
+      {% endfor %}
+
       {% block sidebar %}
       {% endblock %}
       {% block container %}

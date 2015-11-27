@@ -48,10 +48,10 @@ class ApplicationController extends Controller
                 $em->persist($application);
                 $em->flush();
 
+                $this->addFlash('success', 'Votre application a bien été créée');
+
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'appbuild_admin_application_update', array(
-                        'id' => $application->getId(),
-                    )
+                    'appbuild_admin_application_list'
                 ));
             }
         }
@@ -89,10 +89,10 @@ class ApplicationController extends Controller
                 $em->persist($application);
                 $em->flush();
 
+                $this->addFlash('success', 'Votre application a bien été mise à jour');
+
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'appbuild_admin_application_update', array(
-                        'id' => $application->getId(),
-                    )
+                    'appbuild_admin_application_list'
                 ));
             }
         }
