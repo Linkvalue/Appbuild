@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             // projects
+            new AppBuild\Bundle\AppBundle\AppBuildAppBundle(),
             new AppBuild\Bundle\ApplicationBundle\AppBuildApplicationBundle(),
         );
 

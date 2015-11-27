@@ -1,0 +1,22 @@
+body {
+	color: $gray_neutral-40;
+	background: $gray_procelain;
+	font-family: $font_0, $font_1;
+	padding: 0 !important;
+	margin: 0 !important;
+	font-size: 13px;
+}
+a {
+	&,
+	&:hover,
+	&:focus {
+		text-decoration: none;
+		outline: none;
+	}
+}
+ul li {
+	list-style: none;
+}
+.bold {
+	font-weight: bold;
+}

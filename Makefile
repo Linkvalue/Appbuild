@@ -47,6 +47,7 @@ install-bin:
 	./bin/composer self-update
 	test -f bin/php-cs-fixer || wget http://get.sensiolabs.org/php-cs-fixer.phar -O bin/php-cs-fixer
 	php bin/php-cs-fixer self-update
+	test -f /usr/bin/ruby || (test -f /usr/local/bin/ruby && sudo ln -fs /usr/local/bin/ruby /usr/bin/ruby)
 
 install-git-hooks:
 	test -f .git/hooks/pre-commit || wget https://raw.githubusercontent.com/LinkValue/symfony-git-hooks/master/pre-commit -O .git/hooks/pre-commit
@@ -63,7 +64,7 @@ install-bower:
 	cd web && ln -fs ../vendor/bower_components/components-font-awesome/fonts
 	cd web && ln -fs ../vendor/bower_components/flag-icon-css/flags
 
-install: install-bin install-git-hooks install-composer install-bundle install-bower clean
+install: install-bin install-git-hooks install-composer install-bower clean
 
 # Update
 update: update-composer update-bower clean
