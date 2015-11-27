@@ -42,6 +42,10 @@ admin:
                 label: Libellé
                 actions: Actions
             actions:
+                enable:
+                    title: Activer le build
+                disable:
+                    title: Désactiver le build
                 update:
                     title: Modifier le build
                 download:

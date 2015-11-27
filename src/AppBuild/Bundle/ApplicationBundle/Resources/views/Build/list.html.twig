@@ -41,9 +41,31 @@
                        href="{{ url('appbuild_admin_build_download', { application_id: application.id, id: build.id }) }}">
                         <i class="fa fa-download"></i>
                     </a>
+                    {% if build.enabled %}
+                        <a class="btn btn-primary btn-xs" title="{{ 'admin.build.list.actions.disable.title'|trans }}"
+                           href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    {% else %}
+                        <a class="btn btn-primary btn-xs" title="{{ 'admin.build.list.actions.enable.title'|trans }}"
+                           href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}">
+                            <i class="fa fa-check"></i>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    <div class="col-xs-12 text-center">
+        {% if app.request.get('enabled', true) %}
+            <a href="{{ url('appbuild_admin_build_list', { application_id: application.id, enabled: false }) }}" class="btn btn-xl btn-info">
+                <i class="fa fa-trash"></i> Corbeille
+            </a>
+        {% else %}
+            <a href="{{ url('appbuild_admin_build_list', { application_id: application.id, enabled: true }) }}" class="btn btn-xl btn-success">
+                <i class="fa fa-undo"></i> Retour
+            </a>
+        {% endif %}
+    </div>
 {% endblock %}
