@@ -2,4 +2,12 @@
 
 {% block title 'admin.application.update.title'|trans %}
 
+{% block header %}
+    <h1>{{ 'admin.application.update.title'|trans }}</h1>
+    <a href="{{ url('appbuild_admin_application_list') }}" class="btn btn-success">
+        <span class="fa fa-undo"></span>
+        {{ 'admin.application.list.title'|trans }}
+    </a>
+{% endblock %}
+
 {% block organisation_form_action url('appbuild_admin_application_update', { 'id': application.id }) %}

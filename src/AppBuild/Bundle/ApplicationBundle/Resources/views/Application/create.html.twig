@@ -2,4 +2,12 @@
 
 {% block title 'admin.application.create.title'|trans %}
 
+{% block header %}
+    <h1>{{ 'admin.application.create.title'|trans }}</h1>
+    <a href="{{ url('appbuild_admin_application_list') }}" class="btn btn-success">
+        <span class="fa fa-undo"></span>
+        {{ 'admin.application.list.title'|trans }}
+    </a>
+{% endblock %}
+
 {% block application_form_action url('appbuild_admin_application_create') %}
