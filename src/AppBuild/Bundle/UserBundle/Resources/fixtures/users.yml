@@ -1,9 +1,17 @@
 AppBuild\Bundle\UserBundle\Entity\User:
-    admin_user:
-        email: admin@admin.fr
+    admin_loic:
+        email: loic.pierreelies@ymail.com
+        firstname: Loic
+        lastname: PIERRE-ELIES
         roles: [ROLE_SUPER_ADMIN]
-        password: test
-        salt: salt
+        password: $2y$13$exfi4nwdylcgcog0sc48cuW64LMnkDqMMpBsTHRK/6J1Vue8z2AHC
+        salt: exfi4nwdylcgcog0sc48cwo40w48wg4
         enabled: true
-        firstname: admin
-        lastname: admin
+    admin_test:
+        email: test@free.fr
+        firstname: Test
+        lastname: TEST
+        roles: [ROLE_USER]
+        password: $2y$13$9jhly4weld0kock088w08uPPqyuBt5.MR79hIWMHOH7yNdRaMtPqm
+        salt: 9jhly4weld0kock088w084c40os0wgs
+        enabled: true
