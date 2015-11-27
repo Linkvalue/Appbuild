@@ -67,10 +67,11 @@ class BuildController extends Controller
                 $em->persist($build);
                 $em->flush();
 
+                $this->addFlash('success', 'Votre build a bien été créé');
+
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'appbuild_admin_build_update', array(
+                    'appbuild_admin_build_list', array(
                         'application_id' => $application->getId(),
-                        'id' => $build->getId(),
                     )
                 ));
             }
@@ -112,6 +113,14 @@ class BuildController extends Controller
                 $em = $this->container->get('doctrine.orm.entity_manager');
                 $em->persist($build);
                 $em->flush();
+
+                $this->addFlash('success', 'Votre build a bien été mise à jour');
+
+                return new RedirectResponse($this->container->get('router')->generate(
+                    'appbuild_admin_build_list', array(
+                        'application_id' => $application->getId(),
+                    )
+                ));
             }
         }
 
