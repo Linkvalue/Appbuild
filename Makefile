@@ -1,14 +1,19 @@
-# Vm
+#
+# Dev environment
+#
 vm-build:
-	test -f ansible/group_vars/dev.local.yml || cp ansible/group_vars/dev.local.yml.dist ansible/group_vars/dev.local.yml
+	test -f ansible/group_vars/app.local.yml || cp ansible/group_vars/app.local.yml.dist ansible/group_vars/app.local.yml
 	vagrant up --provision || true
+	vagrant reload || true
+	vagrant ssh -c "/var/www/SiR"
 
 vm-install:
 	vagrant provision || true
 
-vm-rebuild:
+vm-destroy:
 	vagrant destroy -f || true
-	vagrant up --provision || true
+
+vm-rebuild: vm-destroy vm-build
 
 # First install
 prepare: install db-build
