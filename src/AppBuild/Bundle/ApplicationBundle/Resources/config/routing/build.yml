@@ -27,3 +27,7 @@ appbuild_admin_build_get_manifest:
 appbuild_admin_build_get_raw_file:
     path:     /{id}/file
     defaults: { _controller: AppBuildApplicationBundle:Build:getRawFile }
+
+appbuild_admin_build_toggle_enable:
+    path:     /{id}/enable
+    defaults: { _controller: AppBuildApplicationBundle:Build:toggleEnable }

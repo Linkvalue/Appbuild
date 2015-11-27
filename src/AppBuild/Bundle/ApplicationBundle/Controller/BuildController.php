@@ -27,15 +27,19 @@ class BuildController extends Controller
      *
      * @return Response
      */
-    public function listAction(Application $application)
+    public function listAction(Application $application, Request $request)
     {
         // @todo $this->getUser()->getApplications()->contains($application)
+
+        list($enabled, $disabled) = $application->getBuilds()->partition(function ($i, Build $build) {
+            return $build->isEnabled();
+        });
 
         return $this->render(
             'AppBuildApplicationBundle:Build:list.html.twig',
             array(
                 'application' => $application,
-                'builds' => $application->getBuilds(),
+                'builds' => $request->get('enabled', true) ? $enabled : $disabled,
             )
         );
     }
@@ -272,5 +276,34 @@ class BuildController extends Controller
         );
 
         return $response;
+    }
+
+    /**
+     * Toggles the enabled property of the build.
+     *
+     * @ParamConverter("application", options={"mapping": {"application_id": "id"}})
+     *
+     * @param Application $application
+     * @param Build       $build
+     *
+     * @return RedirectResponse
+     */
+    public function toggleEnableAction(Application $application, Build $build, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $build->setEnabled(!$build->isEnabled());
+
+        $em->persist($build);
+        $em->flush();
+
+        return new RedirectResponse($request->headers->get('referer') ?:
+            $this->get('router')->generate(
+                'appbuild_admin_build_list',
+                array(
+                    'application_id' => $application->getId(),
+                )
+            )
+        );
     }
 }
