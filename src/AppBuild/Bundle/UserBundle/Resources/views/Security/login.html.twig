@@ -1,16 +1,20 @@
-{% extends '::base.html.twig'%}
+{% extends 'AppBuildApplicationBundle::layout.html.twig' %}
 
-{% block body %}
+{% block content %}
     {% if error %}
         <div>{{ error.message }}</div>
     {% endif %}
 
     <form action="{{ path('appbuild_user_login_check') }}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        <div class="form-group">
+            <label for="username">Email :</label>
+            <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" />
+        </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password" />
+        <div class="form-group">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="_password" class="form-control"/>
+        </div>
 
         <input type="hidden" name="_target_path" value="account" />
 

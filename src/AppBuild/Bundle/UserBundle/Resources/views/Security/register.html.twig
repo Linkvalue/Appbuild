@@ -1,9 +1,13 @@
-{{ form_start(form) }}
+{% extends 'AppBuildApplicationBundle::layout.html.twig' %}
+
+{% block content %}
+    {{ form_start(form) }}
     {{ form_row(form.email) }}
     {{ form_row(form.firstname) }}
     {{ form_row(form.lastname) }}
     {{ form_row(form.password.first) }}
     {{ form_row(form.password.second) }}
 
-<button type="submit">Register!</button>
-{{ form_end(form) }}
+    <button type="submit">Register!</button>
+    {{ form_end(form) }}
+{% endblock %}
