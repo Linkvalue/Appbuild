@@ -1,0 +1,15 @@
+user:
+    home:
+        title: Serveur de déploiement
+    login:
+        title: Connectez-vous
+        form:
+            email:
+                label: Email :
+            password:
+                label: Mot de passe :
+            submit: Se connecter
+    register:
+        title: Créer un compte
+    logout:
+        title: Se déconnecter

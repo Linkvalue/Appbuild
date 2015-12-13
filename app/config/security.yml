@@ -12,27 +12,26 @@ security:
     firewalls:
     # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
-           pattern: ^/(_(profiler|wdt)|css|images|js)/
-           security: false
-        login_firewall:
-           pattern: ^/login$
-           anonymous: ~
-        register_firewall:
-           pattern: ^/register$
-           anonymous: ~
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         secured_area:
-           pattern: ^/
-           form_login:
+            pattern: ^/
+            anonymous: true
+            form_login:
                 login_path: appbuild_user_login
                 check_path: /login_check
-                target_path_parameter: appbuild_admin_application_list
-           provider: db_user_provider
+                default_target_path: appbuild_admin_application_list
+                always_use_default_target_path: true
+            logout:
+                path: appbuild_user_logout
+                target: appbuild_user_login
+            provider: db_user_provider
 
     role_hierarchy:
         ROLE_SUPER_ADMIN: [ROLE_USER]
 
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
-        - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
+        - { path: /admin, roles: ROLE_SUPER_ADMIN }
