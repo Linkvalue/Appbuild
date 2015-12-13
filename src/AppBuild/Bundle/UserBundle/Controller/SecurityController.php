@@ -51,4 +51,31 @@ class SecurityController extends Controller
             array('form' => $form->createView())
         );
     }
+
+    public function editUserAction(Request $request)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $user = $this->getUser();
+        $form = $this->createForm(new UserType(), $user);
+
+        $form->handleRequest($request);
+        if ($form->isValid() && $form->isSubmitted()) {
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('appbuild_user_login');
+        }
+
+        return $this->render(
+            'AppBuildUserBundle:Security:edit-user.html.twig',
+            array('form' => $form->createView())
+        );
+    }
 }

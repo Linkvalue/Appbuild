@@ -13,3 +13,16 @@ user:
         title: Créer un compte
     logout:
         title: Se déconnecter
+    edit:
+        title: Mon compte
+        submit: Enregistrer
+        email:
+            label: Email :
+        firstname:
+            label: Prénom :
+        lastname:
+            label: Nom :
+        password:
+            label:
+                first: Mot de passe :
+                second: Répéter le mot de passe :

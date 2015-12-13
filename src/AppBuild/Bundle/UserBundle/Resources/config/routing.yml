@@ -5,3 +5,7 @@ appbuild_user_login:
 appbuild_user_register:
     path:   /register
     defaults: { _controller: AppBuildUserBundle:Security:register }
+
+appbuild_user_edit:
+    path:   /mon-compte
+    defaults: { _controller: AppBuildUserBundle:Security:editUser }
