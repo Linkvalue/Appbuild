@@ -3,7 +3,6 @@
 namespace AppBuild\Bundle\UserBundle\Controller;
 
 use AppBuild\Bundle\UserBundle\Entity\User;
-use AppBuild\Bundle\UserBundle\Form\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -32,7 +31,11 @@ class SecurityController extends Controller
     public function registerAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->container->get('form.factory')->create(
+            $this->container->get('appbuild.user.user.form_type'),
+            $user,
+            array('intention' => 'edition')
+        );
 
         $form->handleRequest($request);
         if ($form->isValid() && $form->isSubmitted()) {
@@ -59,7 +62,11 @@ class SecurityController extends Controller
         }
 
         $user = $this->getUser();
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->container->get('form.factory')->create(
+            $this->container->get('appbuild.user.user.form_type'),
+            $user,
+            array('intention' => 'edition')
+        );
 
         $form->handleRequest($request);
         if ($form->isValid() && $form->isSubmitted()) {

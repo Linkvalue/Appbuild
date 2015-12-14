@@ -32,7 +32,7 @@ appbuild_main_locale:
     path:  /%default_locale%
     defaults:
         _controller: FrameworkBundle:Redirect:redirect
-        route: appbuild_user_login
+        route: appbuild_admin_application_list
         permanent: true
 
 # Login_check
