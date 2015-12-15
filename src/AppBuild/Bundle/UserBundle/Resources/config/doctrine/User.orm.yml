@@ -1,0 +1,30 @@
+AppBuild\Bundle\UserBundle\Entity\User:
+    type: entity
+    table: appbuild_user
+    repositoryClass: AppBuild\Bundle\UserBundle\Entity\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 255
+        salt:
+            type: string
+            length: 500
+        password:
+            type: string
+            length: 500
+        roles:
+            type: simple_array
+        enabled:
+            type: boolean
+        firstname:
+            type: string
+            length: 255
+        lastname:
+            type: string
+            length: 255

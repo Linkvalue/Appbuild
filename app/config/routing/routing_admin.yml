@@ -2,3 +2,6 @@
 appbuild_admin_applicationbundle:
     resource: "@AppBuildApplicationBundle/Resources/config/routing.yml"
     prefix:   /
+appbuild_user:
+    resource: "@AppBuildUserBundle/Resources/config/routing.yml"
+    prefix:   /

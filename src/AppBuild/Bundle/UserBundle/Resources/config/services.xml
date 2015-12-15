@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- User Form Type -->
+        <service id="appbuild.user.user.form_type"
+            class="AppBuild\Bundle\UserBundle\Form\Type\UserType"
+            public="true"
+        >
+            <tag name="form.type" alias="appbuild_user" />
+        </service>
+
+    </services>
+
+</container>

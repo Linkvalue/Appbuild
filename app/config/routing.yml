@@ -1,3 +1,8 @@
+
+# app_build_application:
+#     resource: "@AppBuildApplicationBundle/Resources/config/routing.yml"
+#     prefix:   /
+
 # Appbuild misc routing
 appbuild_misc:
     resource: routing/routing_misc.yml
@@ -22,10 +27,17 @@ appbuild_main:
         route: appbuild_main_locale
         permanent: true
 
-# Redirect appbuild_main_locale to appbuild_admin_application_list route
+# Redirect appbuild_main_locale to appbuild_user_login route
 appbuild_main_locale:
     path:  /%default_locale%
     defaults:
         _controller: FrameworkBundle:Redirect:redirect
         route: appbuild_admin_application_list
         permanent: true
+
+# Login_check
+appbuild_user_login_check:
+    path:     /login_check
+# Logout
+appbuild_user_logout:
+    path: /logout
