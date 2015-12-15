@@ -34,7 +34,7 @@ class SecurityController extends Controller
         $form = $this->container->get('form.factory')->create(
             $this->container->get('appbuild.user.user.form_type'),
             $user,
-            array('intention' => 'edition')
+            array('intention' => 'creation')
         );
 
         $form->handleRequest($request);
