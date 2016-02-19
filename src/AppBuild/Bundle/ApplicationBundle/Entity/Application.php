@@ -41,6 +41,11 @@ class Application
     private $builds;
 
     /**
+     * @var ArrayCollection
+     */
+    private $users;
+
+    /**
      * @var bool
      */
     private $enabled;
@@ -62,6 +67,7 @@ class Application
     {
         $this->enabled = true;
         $this->builds = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -178,6 +184,26 @@ class Application
     public function setBuilds(ArrayCollection $builds)
     {
         $this->builds = $builds;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param ArrayCollection $users
+     *
+     * @return self
+     */
+    public function setUsers(ArrayCollection $users)
+    {
+        $this->users = $users;
 
         return $this;
     }

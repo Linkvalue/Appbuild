@@ -43,3 +43,16 @@ AppBuild\Bundle\ApplicationBundle\Entity\Application:
             targetEntity: AppBuild\Bundle\ApplicationBundle\Entity\Build
             mappedBy: application
             cascade: ['persist', 'remove']
+    manyToMany:
+        users:
+            targetEntity: AppBuild\Bundle\UserBundle\Entity\User
+            inversedBy: applications
+            cascade: ['persist']
+            joinTable:
+                name: appbuild_application_user
+                joinColumns:
+                    application_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referencedColumnName: id

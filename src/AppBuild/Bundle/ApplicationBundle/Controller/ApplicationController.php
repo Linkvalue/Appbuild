@@ -17,8 +17,7 @@ class ApplicationController extends Controller
      */
     public function listAction()
     {
-        // @todo $applications = $this->getUser()->getApplications()
-        $applications = $this->getDoctrine()->getRepository('AppBuildApplicationBundle:Application')->findAll();
+        $applications = $this->getUser()->getApplications();
 
         return $this->render(
             'AppBuildApplicationBundle:Application:list.html.twig',
