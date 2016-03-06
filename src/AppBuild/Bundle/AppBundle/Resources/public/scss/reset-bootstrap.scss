@@ -32,7 +32,7 @@
 	color: $white;
 }
 
-%dropmenu_link-hover {
+%dropdown-menu_link-hover {
 	text-decoration: none;
 	background-color: $gray_navy-dark;
 	color: $white;
@@ -337,7 +337,7 @@ ul {
 .dropdown-menu > li > a {
 	&:hover,
 	&:focus {
-		@extend %dropmenu_link-hover;
+		@extend %dropdown-menu_link-hover;
 	}
 }
 .nav-tabs > li > a {

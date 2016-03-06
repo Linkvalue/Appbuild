@@ -2,35 +2,70 @@
 
 namespace AppBuild\Bundle\UserBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Hautelook\AliceBundle\Alice\DataFixtureLoader;
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use AppBuild\Bundle\UserBundle\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Fixtures loader for UserBundle.
- *
- * @see @AppBundle/Resources/fixtures/users.yml
- */
-class UserFixturesLoader extends DataFixtureLoader implements OrderedFixtureInterface
+class UserFixturesLoader implements FixtureInterface, ContainerAwareInterface
 {
     /**
-     * Returns an array of file paths to fixtures.
-     *
-     * @return array<string>
+     * @var ContainerInterface
      */
-    protected function getFixtures()
+    private $container;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setContainer(ContainerInterface $container = null)
     {
-        return array(
-            __DIR__.'/../../Resources/fixtures/users.yml',
-        );
+        $this->container = $container;
     }
 
     /**
-     * Get the order of this fixture.
-     *
-     * @return int
+     * {@inheritdoc}
      */
-    public function getOrder()
+    public function load(ObjectManager $manager)
     {
-        return 2;
+        $encoderFactory = $this->container->get('security.encoder_factory');
+
+        // SUPER_ADMIN
+        $userSuperAdmin = new User();
+        $encoder = $encoderFactory->getEncoder($userSuperAdmin);
+        $userSuperAdmin
+            ->setRoles(array('ROLE_SUPER_ADMIN'))
+            ->setEmail('superadmin@superadmin.fr')
+            ->setPassword($encoder->encodePassword('superadmin', $userSuperAdmin->getSalt()))
+            ->setFirstName('SuperAdmin')
+            ->setLastName('SUPERADMIN')
+        ;
+        $manager->persist($userSuperAdmin);
+
+        // ADMIN
+        $userAdmin = new User();
+        $encoder = $encoderFactory->getEncoder($userAdmin);
+        $userAdmin
+            ->setRoles(array('ROLE_ADMIN'))
+            ->setEmail('admin@admin.fr')
+            ->setPassword($encoder->encodePassword('admin', $userAdmin->getSalt()))
+            ->setFirstName('Admin')
+            ->setLastName('ADMIN')
+        ;
+        $manager->persist($userAdmin);
+
+        // USER
+        $userUser = new User();
+        $encoder = $encoderFactory->getEncoder($userUser);
+        $userUser
+            ->setRoles(array('ROLE_USER'))
+            ->setEmail('user@user.fr')
+            ->setPassword($encoder->encodePassword('user', $userUser->getSalt()))
+            ->setFirstName('User')
+            ->setLastName('USER')
+        ;
+        $manager->persist($userUser);
+
+        $manager->flush();
     }
 }

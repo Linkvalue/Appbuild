@@ -1,4 +1,4 @@
-{% extends 'AppBuildApplicationBundle:Application:form.html.twig'%}
+{% extends 'AppBuildApplicationBundle:Application:form.html.twig' %}
 
 {% block title 'admin.application.update.title'|trans %}
 
@@ -10,4 +10,4 @@
     </a>
 {% endblock %}
 
-{% block organisation_form_action url('appbuild_admin_application_update', { 'id': application.id }) %}
+{% block application_form_action url('appbuild_admin_application_update', { 'id': application.id }) %}

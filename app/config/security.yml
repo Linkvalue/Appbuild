@@ -10,10 +10,11 @@ security:
                property: email
 
     firewalls:
-    # disables authentication for assets and the profiler, adapt it according to your needs
+        # disables authentication for assets and the profiler
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         secured_area:
             pattern: ^/
             anonymous: true
@@ -28,7 +29,8 @@ security:
             provider: db_user_provider
 
     role_hierarchy:
-        ROLE_SUPER_ADMIN: [ROLE_USER]
+        ROLE_ADMIN: [ROLE_USER]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
 
     access_control:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

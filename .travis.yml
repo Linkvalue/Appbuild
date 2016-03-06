@@ -9,4 +9,5 @@ before_script:
   - make test-prepare
 
 script:
-  - ./bin/phpunit -c app --testsuite ddp_project --coverage-clover=coverage.clover
+  - bin/phpunit -c app --testsuite appbuild_project --coverage-clover=coverage.clover
+  - bin/behat --profile default --no-interaction

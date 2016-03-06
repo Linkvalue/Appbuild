@@ -2,6 +2,7 @@
 
 namespace AppBuild\Bundle\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -49,11 +50,17 @@ class User implements UserInterface
      */
     private $lastname;
 
+    /**
+     * @var ArrayCollection
+     */
+    private $applications;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->enabled = true;
+        $this->applications = new ArrayCollection();
     }
 
     /**
@@ -145,8 +152,14 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setRoles($roles)
+    public function setRoles(array $roles)
     {
+        foreach ($roles as $role) {
+            if (!in_array($role, array('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'))) {
+                throw new \InvalidArgumentException(sprintf('Given role [%s] is not supported.'));
+            }
+        }
+
         $this->roles = $roles;
 
         return $this;
@@ -248,5 +261,25 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         //Nothing to delete the password is encrypted
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+
+    /**
+     * @param ArrayCollection $applications
+     *
+     * @return self
+     */
+    public function setApplications(ArrayCollection $applications)
+    {
+        $this->applications = $applications;
+
+        return $this;
     }
 }

@@ -12,12 +12,15 @@
   <body class="{% block body_class '' %}">
 
     {% block menu %}
-        {% if app.user %}
+        {% if is_granted('ROLE_USER') %}
             <nav class="navbar navbar-default">
                 <div class="container">
-                    <p class="navbar-text">{{ 'user.home.title' | trans }}</p>
+                    <p class="navbar-text">{{ 'admin.title' | trans }}</p>
                     <a href="{{ url('appbuild_admin_application_list') }}" class="btn btn-info navbar-btn">{{ 'admin.application.list.title' | trans }}</a>
-                    <a href="{{ url('appbuild_user_edit') }}" class="btn btn-info navbar-btn">{{ 'user.edit.title' | trans }}</a>
+                    <a href="{{ url('appbuild_user_my_account') }}" class="btn btn-info navbar-btn">{{ 'user.my_account.title' | trans }}</a>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <a href="{{ url('appbuild_user_create') }}" class="btn btn-info navbar-btn">{{ 'user.create.title' | trans }}</a>
+                    {% endif %}
                     <a href="{{ url('appbuild_user_logout') }}" class="btn btn-warning navbar-btn pull-right">{{ 'user.logout.title' | trans }}</a>
                 </div>
             </nav>

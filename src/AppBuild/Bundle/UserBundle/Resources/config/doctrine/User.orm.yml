@@ -28,3 +28,8 @@ AppBuild\Bundle\UserBundle\Entity\User:
         lastname:
             type: string
             length: 255
+    manyToMany:
+        applications:
+            targetEntity: AppBuild\Bundle\ApplicationBundle\Entity\Application
+            mappedBy: users
+            cascade: ['persist']
