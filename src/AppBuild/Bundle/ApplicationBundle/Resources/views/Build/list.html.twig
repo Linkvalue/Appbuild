@@ -4,10 +4,13 @@
 
 {% block header %}
     <h1>{{ 'admin.build.list.title'|trans }}</h1>
-        <a href="{{ url('appbuild_admin_build_create', { application_id: application.id }) }}" class="btn btn-primary">
-            <span class="fa fa-plus"></span>
-            {{ 'admin.build.create.title'|trans }}
-        </a>
+    <div class="margin-bottom-15">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ url('appbuild_admin_build_create', { application_id: application.id }) }}" class="btn btn-primary">
+                <span class="fa fa-plus"></span>
+                {{ 'admin.build.create.title'|trans }}
+            </a>
+        {% endif %}
         {% if app.request.get('enabled', true) %}
             <a href="{{ url('appbuild_admin_build_list', { application_id: application.id, enabled: false }) }}" class="btn btn-xl btn-info">
                 <i class="fa fa-trash"></i> Corbeille
@@ -21,6 +24,7 @@
             <span class="fa fa-arrow-left"></span>
             {{ 'admin.application.list.title'|trans }}
         </a>
+    </div>
 {% endblock %}
 
 {% block content %}
@@ -42,24 +46,26 @@
                     </a>
                 </td>
                 <td class="actions">
-                    <a class="btn btn-primary btn-xs" title="{{ 'admin.build.list.actions.update.title'|trans }}"
-                       href="{{ url('appbuild_admin_build_update', { application_id: application.id, id: build.id }) }}">
-                        <i class="fa fa-pencil"></i>
-                    </a>
                     <a class="btn btn-primary btn-xs" title="{{ 'admin.build.list.actions.download.title'|trans }}"
                        href="{{ url('appbuild_admin_build_download', { application_id: application.id, id: build.id }) }}">
                         <i class="fa fa-download"></i>
                     </a>
-                    {% if build.enabled %}
-                        <a class="btn btn-primary btn-xs" title="{{ 'admin.build.list.actions.disable.title'|trans }}"
-                           href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}">
-                            <i class="fa fa-times"></i>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-primary btn-xs" title="{{ 'admin.build.list.actions.update.title'|trans }}"
+                           href="{{ url('appbuild_admin_build_update', { application_id: application.id, id: build.id }) }}">
+                            <i class="fa fa-pencil"></i>
                         </a>
-                    {% else %}
-                        <a class="btn btn-primary btn-xs" title="{{ 'admin.build.list.actions.enable.title'|trans }}"
-                           href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}">
-                            <i class="fa fa-check"></i>
-                        </a>
+                        {% if build.enabled %}
+                            <a class="btn btn-primary btn-xs" title="{{ 'admin.build.list.actions.disable.title'|trans }}"
+                               href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        {% else %}
+                            <a class="btn btn-primary btn-xs" title="{{ 'admin.build.list.actions.enable.title'|trans }}"
+                               href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}">
+                                <i class="fa fa-check"></i>
+                            </a>
+                        {% endif %}
                     {% endif %}
                 </td>
             </tr>

@@ -1,5 +1,6 @@
 # AppBuild => ApplicationBundle => messages.fr
 admin:
+    title: Serveur de déploiement
 
     application:
         form:

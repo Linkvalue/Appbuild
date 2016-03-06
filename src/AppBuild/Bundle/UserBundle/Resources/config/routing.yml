@@ -2,10 +2,10 @@ appbuild_user_login:
     path:     /login
     defaults: { _controller: AppBuildUserBundle:Security:login }
 
-appbuild_user_register:
-    path:   /register
-    defaults: { _controller: AppBuildUserBundle:Security:register }
+appbuild_user_create:
+    path:   /create
+    defaults: { _controller: AppBuildUserBundle:Security:create }
 
-appbuild_user_edit:
+appbuild_user_my_account:
     path:   /account
-    defaults: { _controller: AppBuildUserBundle:Security:editUser }
+    defaults: { _controller: AppBuildUserBundle:Security:myAccount }

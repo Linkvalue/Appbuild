@@ -46,9 +46,12 @@ class ApplicationIntegrationContext
      */
     public function thereIsApplications($nbApp)
     {
+        // @todo replace this with fixtures
+        $em = $this->kernel->getContainer()->get('doctrine.orm.entity_manager');
         for ($i = 1; $i > $nbApp; ++$i) {
-            $this->kernel->getContainer()->get('doctrine.orm.entity_manager')->persist(new Application());
+            $em->persist(new Application());
         }
+        $em->flush();
     }
 
     /**

@@ -1,13 +1,17 @@
-{% extends 'AppBuildApplicationBundle::layout.html.twig'%}
+{% extends 'AppBuildApplicationBundle::layout.html.twig' %}
 
 {% block title 'admin.application.list.title'|trans %}
 
 {% block header %}
     <h1>{{ 'admin.application.list.title'|trans }}</h1>
-    <a href="{{ url('appbuild_admin_application_create') }}" class="btn btn-primary">
-        <span class="fa fa-plus"></span>
-        {{ 'admin.application.create.title'|trans }}
-    </a>
+    <div class="margin-bottom-15">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ url('appbuild_admin_application_create') }}" class="btn btn-primary">
+                <span class="fa fa-plus"></span>
+                {{ 'admin.application.create.title'|trans }}
+            </a>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block content %}
@@ -42,18 +46,20 @@
                     {{ ('admin.application.supports.'~application.support)|trans }}
                 </td>
                 <td class="actions">
-                    <a class="btn btn-primary btn-xs" title="{{ 'admin.application.list.actions.update.title'|trans }}"
-                       href="{{ url('appbuild_admin_application_update', { id: application.id }) }}">
-                        <i class="fa fa-pencil"></i>
-                    </a>
                     <a class="btn btn-primary btn-xs" title="{{ 'admin.application.list.actions.build_list.title'|trans }}"
                        href="{{ url('appbuild_admin_build_list', { application_id: application.id }) }}">
                         <i class="fa fa-list"></i>
                     </a>
-                    <a class="btn btn-primary btn-xs" title="{{ 'admin.build.create.title'|trans }}"
-                       href="{{ url('appbuild_admin_build_create', { application_id: application.id }) }}">
-                        <i class="fa fa-plus"></i>
-                    </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-primary btn-xs" title="{{ 'admin.application.list.actions.update.title'|trans }}"
+                           href="{{ url('appbuild_admin_application_update', { id: application.id }) }}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="btn btn-primary btn-xs" title="{{ 'admin.build.create.title'|trans }}"
+                           href="{{ url('appbuild_admin_build_create', { application_id: application.id }) }}">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

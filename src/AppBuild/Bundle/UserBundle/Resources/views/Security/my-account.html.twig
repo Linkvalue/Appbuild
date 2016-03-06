@@ -1,0 +1,23 @@
+{% extends 'AppBuildUserBundle:Security:form.html.twig' %}
+
+{% block title 'user.my_account.title'|trans %}
+
+{% block content %}
+
+    <div class="row text-center">
+        <h2>{{ 'user.my_account.title' | trans }}</h2>
+    </div>
+
+    <div class="row text-center margin-bottom-15">
+        {{ form_start(form) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password.first) }}
+        {{ form_row(form.password.second) }}
+
+        <button type="submit" class="btn btn-default">{{ 'user.edit.submit' | trans }}</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

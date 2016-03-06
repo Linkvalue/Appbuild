@@ -152,8 +152,14 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setRoles($roles)
+    public function setRoles(array $roles)
     {
+        foreach ($roles as $role) {
+            if (!in_array($role, array('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'))) {
+                throw new \InvalidArgumentException(sprintf('Given role [%s] is not supported.'));
+            }
+        }
+
         $this->roles = $roles;
 
         return $this;

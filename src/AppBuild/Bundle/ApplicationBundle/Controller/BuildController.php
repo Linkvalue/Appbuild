@@ -29,7 +29,9 @@ class BuildController extends Controller
      */
     public function listAction(Application $application, Request $request)
     {
-        // @todo $this->getUser()->getApplications()->contains($application)
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         list($enabled, $disabled) = $application->getBuilds()->partition(function ($i, Build $build) {
             return $build->isEnabled();
@@ -56,7 +58,13 @@ class BuildController extends Controller
      */
     public function createAction(Application $application, Request $request)
     {
-        // @todo $this->getUser()->getApplications()->contains($application)
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         $form = $this->container->get('form.factory')->create(
             $this->container->get('appbuild.application.build.form_type'),
@@ -103,7 +111,13 @@ class BuildController extends Controller
      */
     public function updateAction(Application $application, Build $build, Request $request)
     {
-        // @todo $this->getUser()->getApplications()->contains($application)
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         $form = $this->container->get('form.factory')->create(
             $this->container->get('appbuild.application.build.form_type'),
@@ -150,13 +164,20 @@ class BuildController extends Controller
      */
     public function deleteAction(Application $application, Build $build)
     {
-        // @todo $this->getUser()->getApplications()->contains($application)
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         $em = $this->container->get('doctrine.orm.entity_manager');
         $em->remove($build);
         $em->flush();
 
-        // @todo unlink $build->getFilePath() file
+        // Remove build file from disk
+        unlink($build->getFilePath());
 
         return new RedirectResponse(
             $this->container->get('router')->generate(
@@ -180,7 +201,9 @@ class BuildController extends Controller
      */
     public function downloadAction(Application $application, Build $build)
     {
-        // @todo $this->getUser()->getApplications()->contains($application)
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         switch ($build->getApplication()->getSupport()) {
 
@@ -233,7 +256,9 @@ class BuildController extends Controller
      */
     public function getManifestAction(Application $application, Build $build)
     {
-        // @todo $this->getUser()->getApplications()->contains($application)
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         $response = $this->render(
             sprintf('AppBuildApplicationBundle:Manifest:%s/manifest.plist.twig', $application->getSupport()),
@@ -261,7 +286,9 @@ class BuildController extends Controller
      */
     public function getRawFileAction(Application $application, Build $build)
     {
-        // @todo $this->getUser()->getApplications()->contains($application)
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         $response = new StreamedResponse(function () use ($build) {
             readfile($build->getFilePath());
@@ -290,6 +317,14 @@ class BuildController extends Controller
      */
     public function toggleEnableAction(Application $application, Build $build, Request $request)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $build->setEnabled(!$build->isEnabled());

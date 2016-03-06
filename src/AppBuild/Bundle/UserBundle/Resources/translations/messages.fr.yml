@@ -1,6 +1,4 @@
 user:
-    home:
-        title: Serveur de déploiement
     login:
         title: Connectez-vous
         form:
@@ -9,12 +7,13 @@ user:
             password:
                 label: Mot de passe :
             submit: Se connecter
-    register:
-        title: Créer un compte
     logout:
         title: Se déconnecter
-    edit:
+    create:
+        title: Créer un compte
+    my_account:
         title: Mon compte
+    edit:
         submit: Enregistrer
         email:
             label: Email :
@@ -26,3 +25,8 @@ user:
             label:
                 first: Mot de passe :
                 second: Répéter le mot de passe :
+        roles:
+            label: Rôle
+            user: Téléchargeur
+            admin: Admin
+            super_admin: Super Admin

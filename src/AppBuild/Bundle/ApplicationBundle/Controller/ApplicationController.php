@@ -34,6 +34,10 @@ class ApplicationController extends Controller
      */
     public function createAction(Request $request)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $form = $this->container->get('form.factory')->create(
             $this->container->get('appbuild.application.application.form_type'),
             $application = new Application(),
@@ -73,7 +77,13 @@ class ApplicationController extends Controller
      */
     public function updateAction(Application $application, Request $request)
     {
-        // @todo $this->getUser()->getApplications()->contains($application)
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         $form = $this->container->get('form.factory')->create(
             $this->container->get('appbuild.application.application.form_type'),
@@ -114,7 +124,13 @@ class ApplicationController extends Controller
      */
     public function deleteAction(Application $application)
     {
-        // @todo $this->getUser()->getApplications()->contains($application)
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$this->getUser()->getApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         $em = $this->container->get('doctrine.orm.entity_manager');
         $em->remove($application);
