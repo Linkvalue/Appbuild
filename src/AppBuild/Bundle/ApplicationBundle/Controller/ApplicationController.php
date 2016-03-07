@@ -34,7 +34,7 @@ class ApplicationController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 
@@ -51,7 +51,7 @@ class ApplicationController extends Controller
                 $em->persist($application);
                 $em->flush();
 
-                $this->addFlash('success', 'Votre application a bien été créée');
+                $this->addFlash('success', $this->container->get('translator')->trans('application.create.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
                     'appbuild_admin_application_list'
@@ -77,7 +77,7 @@ class ApplicationController extends Controller
      */
     public function updateAction(Application $application, Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 
@@ -98,7 +98,7 @@ class ApplicationController extends Controller
                 $em->persist($application);
                 $em->flush();
 
-                $this->addFlash('success', 'Votre application a bien été mise à jour');
+                $this->addFlash('success', $this->container->get('translator')->trans('application.update.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
                     'appbuild_admin_application_list'
@@ -124,7 +124,7 @@ class ApplicationController extends Controller
      */
     public function deleteAction(Application $application)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 

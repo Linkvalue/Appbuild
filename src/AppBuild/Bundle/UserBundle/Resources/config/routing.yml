@@ -2,10 +2,10 @@ appbuild_user_login:
     path:     /login
     defaults: { _controller: AppBuildUserBundle:Security:login }
 
-appbuild_user_create:
-    path:   /create
-    defaults: { _controller: AppBuildUserBundle:Security:create }
-
 appbuild_user_my_account:
-    path:   /account
+    path:     /account
     defaults: { _controller: AppBuildUserBundle:Security:myAccount }
+
+appbuild_user:
+    resource: "@AppBuildUserBundle/Resources/config/routing/user.yml"
+    prefix: /user

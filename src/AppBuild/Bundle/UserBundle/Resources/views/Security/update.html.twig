@@ -1,9 +1,9 @@
 {% extends 'AppBuildUserBundle:Security:form.html.twig' %}
 
-{% block title 'user.create.title'|trans %}
+{% block title 'user.update.title'|trans %}
 
 {% block header %}
-    <h1>{{ 'user.create.title'|trans }}</h1>
+    <h1>{{ 'user.update.title'|trans }}</h1>
     <div class="margin-bottom-15">
         <a href="{{ url('appbuild_user_list') }}" class="btn btn-success">
             <span class="fa fa-undo"></span>
@@ -12,4 +12,4 @@
     </div>
 {% endblock %}
 
-{% block user_form_action url('appbuild_user_create') %}
+{% block user_form_action url('appbuild_user_update', { 'id': user.id }) %}

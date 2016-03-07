@@ -1,1 +1,20 @@
 {% extends 'AppBuildUserBundle::layout.html.twig' %}
+
+{% block content %}
+    <form action="{% block user_form_action '' %}"
+          method="POST" {{ form_enctype(form) }} >
+
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password.first) }}
+        {{ form_row(form.password.second) }}
+        {{ form_row(form.roles) }}
+
+        {{ form_rest(form) }}
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check"></i>
+            {{ 'user.edit.submit'|trans }}
+        </button>
+    </form>
+{% endblock %}

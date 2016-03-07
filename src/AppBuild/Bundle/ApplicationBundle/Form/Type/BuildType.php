@@ -59,7 +59,7 @@ class BuildType extends AbstractType
     {
         $builder->add('version', 'text', array(
             'required' => true,
-            'label' => 'admin.build.form.version',
+            'label' => 'build.form.version',
         ));
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder) {
@@ -71,7 +71,7 @@ class BuildType extends AbstractType
             ) {
                 $formType = $builder->create('filePath', 'file', array(
                     'required' => false,
-                    'label' => 'admin.build.form.filePath',
+                    'label' => 'build.form.filePath',
                     'auto_initialize' => false,
                 ));
                 $formType->addModelTransformer(

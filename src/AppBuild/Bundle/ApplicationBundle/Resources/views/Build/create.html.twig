@@ -1,13 +1,15 @@
 {% extends 'AppBuildApplicationBundle:Build:form.html.twig'%}
 
-{% block title 'admin.build.create.title'|trans %}
+{% block title 'build.create.title'|trans %}
 
 {% block header %}
-    <h1>{{ 'admin.build.create.title'|trans }}</h1>
-    <a href="{{ url('appbuild_admin_build_list', {'application_id': application.id}) }}" class="btn btn-success">
-        <span class="fa fa-undo"></span>
-        {{ 'admin.build.list.title'|trans }}
-    </a>
+    <h1>{{ 'build.create.title'|trans }}</h1>
+    <div class="margin-bottom-15">
+        <a href="{{ url('appbuild_admin_build_list', {'application_id': application.id}) }}" class="btn btn-success">
+            <span class="fa fa-undo"></span>
+            {{ 'build.list.title'|trans }}
+        </a>
+    </div>
 {% endblock %}
 
 {% block build_form_action url('appbuild_admin_build_create', {'application_id': application.id}) %}
