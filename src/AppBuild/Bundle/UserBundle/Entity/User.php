@@ -155,7 +155,7 @@ class User implements UserInterface
     public function setRoles(array $roles)
     {
         foreach ($roles as $role) {
-            if (!in_array($role, array('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'))) {
+            if (!in_array($role, $this->getAvailableRoles())) {
                 throw new \InvalidArgumentException(sprintf('Given role [%s] is not supported.'));
             }
         }
@@ -173,6 +173,32 @@ class User implements UserInterface
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Get top level role.
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        foreach ($this->getAvailableRoles() as $role) {
+            if (in_array($role, $this->roles)) {
+                return $role;
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * List of available roles (from stronger to weaker).
+     *
+     * @return array
+     */
+    public function getAvailableRoles()
+    {
+        return array('ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_USER');
     }
 
     /**

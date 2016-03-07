@@ -41,16 +41,16 @@ class ApplicationType extends AbstractType
     {
         $builder->add('label', 'text', array(
             'required' => true,
-            'label' => 'admin.application.form.label',
+            'label' => 'application.form.label',
         ));
 
         $availableSupports = array();
         foreach (Application::getAvailableSupports() as $support) {
-            $availableSupports[$support] = sprintf('admin.application.supports.%s', $support);
+            $availableSupports[$support] = sprintf('application.supports.%s', $support);
         }
         $builder->add('support', 'choice', array(
             'required' => true,
-            'label' => 'admin.application.form.support',
+            'label' => 'application.form.support',
             'choices' => $availableSupports,
         ));
     }

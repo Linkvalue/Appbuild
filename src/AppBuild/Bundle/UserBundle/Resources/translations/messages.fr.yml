@@ -1,4 +1,9 @@
+# AppBuild => UserBundle => messages.fr
 user:
+    roles:
+        ROLE_USER: Téléchargeur (télécharger des app)
+        ROLE_ADMIN: Admin (Téléchargeur + créer des app + donner des droits)
+        ROLE_SUPER_ADMIN: Super Admin (Admin + créer et modifier des utilisateurs)
     login:
         title: Connectez-vous
         form:
@@ -9,10 +14,33 @@ user:
             submit: Se connecter
     logout:
         title: Se déconnecter
+    list:
+        title: Utilisateurs
+        thead:
+            firstname: Prénom
+            lastname: Nom
+            role: Rôle
+            email: Email
+            actions: Actions
+        actions:
+            update:
+                title: Modifier l'utilisateur
+            enable:
+                title: Activer l'utilisateur
+            disable:
+                title: Désactiver l'utilisateur
     create:
-        title: Créer un compte
+        title: Créer un utilisateur
+        flash:
+            success: L'utilisateur a bien été créé
+    update:
+        title: Modifier un utilisateur
+        flash:
+            success: L'utilisateur a bien été mis à jour
     my_account:
         title: Mon compte
+        flash:
+            success: Votre compte a bien été mis à jour
     edit:
         submit: Enregistrer
         email:
@@ -25,8 +53,5 @@ user:
             label:
                 first: Mot de passe :
                 second: Répéter le mot de passe :
-        roles:
+        role:
             label: Rôle
-            user: Téléchargeur
-            admin: Admin
-            super_admin: Super Admin

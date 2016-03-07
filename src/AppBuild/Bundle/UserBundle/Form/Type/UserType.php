@@ -34,19 +34,19 @@ class UserType extends AbstractType
         // Roles can't be set for "my-account" intention
         if ($options['intention'] !== 'my-account') {
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-                $userRoles = $event->getData()->getRoles();
+                $userRole = $event->getData()->getRole();
                 $form = $event->getForm();
 
                 $form->add('roles', 'choice', array(
-                    'label' => 'user.edit.roles.label',
+                    'label' => 'user.edit.role.label',
                     'choices' => array(
-                        'user.edit.roles.user' => 'ROLE_USER',
-                        'user.edit.roles.admin' => 'ROLE_ADMIN',
-                        'user.edit.roles.super_admin' => 'ROLE_SUPER_ADMIN',
+                        'user.roles.ROLE_USER' => 'ROLE_USER',
+                        'user.roles.ROLE_ADMIN' => 'ROLE_ADMIN',
+                        'user.roles.ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN',
                     ),
                     'choices_as_values' => true,
                     'mapped' => false,
-                    'data' => reset($userRoles),
+                    'data' => $userRole,
                 ));
             });
         }

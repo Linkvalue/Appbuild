@@ -24,6 +24,7 @@ class BuildController extends Controller
      * @ParamConverter("application", options={"mapping": {"application_id": "id"}})
      *
      * @param Application $application
+     * @param Request     $request
      *
      * @return Response
      */
@@ -58,7 +59,7 @@ class BuildController extends Controller
      */
     public function createAction(Application $application, Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 
@@ -79,7 +80,7 @@ class BuildController extends Controller
                 $em->persist($build);
                 $em->flush();
 
-                $this->addFlash('success', 'Votre build a bien été créé');
+                $this->addFlash('success', $this->container->get('translator')->trans('build.create.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
                     'appbuild_admin_build_list', array(
@@ -111,7 +112,7 @@ class BuildController extends Controller
      */
     public function updateAction(Application $application, Build $build, Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 
@@ -132,7 +133,7 @@ class BuildController extends Controller
                 $em->persist($build);
                 $em->flush();
 
-                $this->addFlash('success', 'Votre build a bien été mise à jour');
+                $this->addFlash('success', $this->container->get('translator')->trans('build.update.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
                     'appbuild_admin_build_list', array(
@@ -164,7 +165,7 @@ class BuildController extends Controller
      */
     public function deleteAction(Application $application, Build $build)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 
@@ -312,12 +313,13 @@ class BuildController extends Controller
      *
      * @param Application $application
      * @param Build       $build
+     * @param Request     $request
      *
      * @return RedirectResponse
      */
     public function toggleEnableAction(Application $application, Build $build, Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 

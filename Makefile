@@ -56,9 +56,6 @@ install-git-hooks:
 install-composer:
 	./bin/composer install
 
-install-bundle:
-	bundle install --path vendor/gems
-
 install-bower:
 	bower install --config.interactive=false
 	cd web && ln -fs ../vendor/bower_components/components-font-awesome/fonts
