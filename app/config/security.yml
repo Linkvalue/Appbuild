@@ -22,7 +22,7 @@ security:
                 login_path: appbuild_user_login
                 check_path: /login_check
                 default_target_path: appbuild_admin_application_list
-                always_use_default_target_path: true
+                always_use_default_target_path: true # otherwise it redirects to an AJAX callback route
             logout:
                 path: appbuild_user_logout
                 target: appbuild_user_login
@@ -36,4 +36,3 @@ security:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
-        - { path: /admin, roles: ROLE_SUPER_ADMIN }

@@ -2,13 +2,12 @@
 
 namespace AppBuild\Bundle\ApplicationBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use AppBuild\Bundle\ApplicationBundle\Entity\Application;
 
-class ApplicationController extends Controller
+class ApplicationController extends BaseController
 {
     /**
      * List current user Applications.
@@ -17,7 +16,7 @@ class ApplicationController extends Controller
      */
     public function listAction()
     {
-        $applications = $this->getUser()->getApplications();
+        $applications = $this->getUserApplications();
 
         return $this->render(
             'AppBuildApplicationBundle:Application:list.html.twig',
@@ -81,7 +80,7 @@ class ApplicationController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 
@@ -128,7 +127,7 @@ class ApplicationController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 

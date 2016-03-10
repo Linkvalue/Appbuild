@@ -4,7 +4,6 @@ namespace AppBuild\Bundle\ApplicationBundle\Controller;
 
 use AppBuild\Bundle\ApplicationBundle\Entity\Application;
 use AppBuild\Bundle\ApplicationBundle\Entity\Build;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -16,7 +15,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  *
  * Manage application builds.
  */
-class BuildController extends Controller
+class BuildController extends BaseController
 {
     /**
      * List given application builds.
@@ -30,7 +29,7 @@ class BuildController extends Controller
      */
     public function listAction(Application $application, Request $request)
     {
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 
@@ -63,7 +62,7 @@ class BuildController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 
@@ -116,7 +115,7 @@ class BuildController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 
@@ -169,7 +168,7 @@ class BuildController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 
@@ -202,7 +201,7 @@ class BuildController extends Controller
      */
     public function downloadAction(Application $application, Build $build)
     {
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 
@@ -257,7 +256,7 @@ class BuildController extends Controller
      */
     public function getManifestAction(Application $application, Build $build)
     {
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 
@@ -287,7 +286,7 @@ class BuildController extends Controller
      */
     public function getRawFileAction(Application $application, Build $build)
     {
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 
@@ -323,7 +322,7 @@ class BuildController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        if (!$this->getUser()->getApplications()->contains($application)) {
+        if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
 

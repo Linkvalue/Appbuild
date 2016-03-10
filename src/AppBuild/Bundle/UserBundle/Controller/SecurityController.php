@@ -205,11 +205,9 @@ class SecurityController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return new RedirectResponse($request->headers->get('referer') ?:
-            $this->get('router')->generate(
-                'appbuild_user_list',
-                array()
-            )
+        return new RedirectResponse(
+            $request->headers->get('referer')
+            ?: $this->get('router')->generate('appbuild_user_list')
         );
     }
 
@@ -218,7 +216,7 @@ class SecurityController extends Controller
      *
      * @param Request $request
      *
-     * @return Response|RedirectResponse
+     * @return Response
      */
     public function myAccountAction(Request $request)
     {
