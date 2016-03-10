@@ -3,12 +3,12 @@
 namespace AppBuild\Bundle\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * User.
  */
-class User implements UserInterface
+class User implements AdvancedUserInterface
 {
     /**
      * @var int
@@ -166,9 +166,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get roles.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getRoles()
     {
@@ -192,13 +190,21 @@ class User implements UserInterface
     }
 
     /**
-     * List of available roles (from stronger to weaker).
+     * List of available roles (from strongest to weakest).
      *
      * @return array
      */
     public function getAvailableRoles()
     {
         return array('ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_USER');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUsername()
+    {
+        return $this->getEmail();
     }
 
     /**
@@ -216,13 +222,43 @@ class User implements UserInterface
     }
 
     /**
-     * Get enabled.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isEnabled()
     {
         return !empty($this->enabled);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eraseCredentials()
+    {
+        //Nothing to delete the password is encrypted
     }
 
     /**
@@ -271,22 +307,6 @@ class User implements UserInterface
     public function getLastname()
     {
         return $this->lastname;
-    }
-
-    /**
-     * @see UserInterface::getUsername()
-     */
-    public function getUsername()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @see UserInterface::eraseCredentials()
-     */
-    public function eraseCredentials()
-    {
-        //Nothing to delete the password is encrypted
     }
 
     /**
