@@ -62,6 +62,7 @@ class ApplicationController extends BaseController
             array(
                 'form' => $form->createView(),
                 'application' => $application,
+                'currentUserId' => $this->getUser()->getId(),
             )
         );
     }
@@ -110,6 +111,7 @@ class ApplicationController extends BaseController
             array(
                 'form' => $form->createView(),
                 'application' => $application,
+                'currentUserId' => $this->getUser()->getId(),
             )
         );
     }

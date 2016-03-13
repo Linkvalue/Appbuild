@@ -3,15 +3,33 @@
 namespace AppBuild\Bundle\ApplicationBundle\Form\Type;
 
 use AppBuild\Bundle\ApplicationBundle\Entity\Application;
+use AppBuild\Bundle\UserBundle\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Form type for Application entity.
  */
 class ApplicationType extends AbstractType
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * Constructor.
+     *
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -52,6 +70,30 @@ class ApplicationType extends AbstractType
             'required' => true,
             'label' => 'application.form.support',
             'choices' => $availableSupports,
+        ));
+
+        $builder->add('users', 'entity', array(
+            'class' => 'AppBuild\Bundle\UserBundle\Entity\User',
+            'choice_label' => function (User $user) {
+                return sprintf('%s %s - %s',
+                    $user->getFirstname(),
+                    $user->getLastname(),
+                    $this->translator->trans('user.roles.'.$user->getRole())
+                );
+            },
+            'multiple' => true,
+            'expanded' => true,
+            'query_builder' => function (EntityRepository $repository) {
+                $qb = $repository->createQueryBuilder('u');
+
+                return $qb
+                    // Not ROLE_SUPER_ADMIN (they always have access to applications)
+                    ->where($qb->expr()->notIn('u.roles', ':superAdmin'))->setParameter(':superAdmin', 'ROLE_SUPER_ADMIN')
+                    // Sort by firstname
+                    ->orderBy('u.firstname', 'ASC')
+                ;
+            },
+            'label' => 'application.form.users',
         ));
     }
 }

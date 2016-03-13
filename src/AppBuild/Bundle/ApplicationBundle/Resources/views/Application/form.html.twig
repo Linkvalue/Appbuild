@@ -10,3 +10,18 @@
         </button>
     </form>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var currentUserId = '{{ currentUserId }}';
+
+        // Check and hide current user from Users list
+        // (if this was unchecked by mistake, current user would lost his ability to act on this application)
+        $('#appbuild_application_users_' + currentUserId)
+            .prop('checked', true)
+            .closest('.checkbox').hide()
+        ;
+    </script>
+{% endblock %}
