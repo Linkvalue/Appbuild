@@ -55,6 +55,9 @@ class User implements AdvancedUserInterface
      */
     private $applications;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->roles = array('ROLE_USER');

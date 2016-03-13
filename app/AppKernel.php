@@ -28,8 +28,8 @@ class AppKernel extends Kernel
 
             // projects
             new AppBuild\Bundle\AppBundle\AppBuildAppBundle(),
-            new AppBuild\Bundle\ApplicationBundle\AppBuildApplicationBundle(),
             new AppBuild\Bundle\UserBundle\AppBuildUserBundle(),
+            new AppBuild\Bundle\ApplicationBundle\AppBuildApplicationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

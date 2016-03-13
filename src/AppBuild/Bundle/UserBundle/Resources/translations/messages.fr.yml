@@ -2,7 +2,7 @@
 user:
     roles:
         ROLE_USER: Téléchargeur (télécharger des app)
-        ROLE_ADMIN: Admin (Téléchargeur + créer des app + donner des droits)
+        ROLE_ADMIN: Admin (Téléchargeur + créer des app + donner accès aux app)
         ROLE_SUPER_ADMIN: Super Admin (Admin + créer et modifier des utilisateurs)
     login:
         title: Connectez-vous

@@ -8,12 +8,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BaseController extends Controller
 {
     /**
-     * @return ArrayCollection User Applications
+     * Get all applications a user has access to.
+     *
+     * @return ArrayCollection
      */
     protected function getUserApplications()
     {
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
-            return $this->getDoctrine()->getRepository('AppBuildApplicationBundle:Application')->findAll();
+            return new ArrayCollection($this->getDoctrine()->getRepository('AppBuildApplicationBundle:Application')->findAll());
         }
 
         return $this->getUser()->getApplications();

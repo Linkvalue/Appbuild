@@ -348,3 +348,8 @@ ul {
 	border-color: $gray_neutral-90;
 	color: $gray_neutral-40;
 }
+
+.checkbox + .checkbox,
+.radio + .radio {
+    margin-top: inherit;
+}

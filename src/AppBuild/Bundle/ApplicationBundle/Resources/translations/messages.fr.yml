@@ -3,6 +3,7 @@ application:
     form:
         label: Nom de l'application
         support: Plateforme
+        users: Utilisateurs autorisés à télécharger l'application
         submit_button:
             label: Valider
     create:
