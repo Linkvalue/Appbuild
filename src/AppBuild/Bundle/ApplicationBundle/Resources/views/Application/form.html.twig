@@ -1,8 +1,7 @@
 {% extends 'AppBuildApplicationBundle::layout.html.twig' %}
 
 {% block content %}
-    <form action="{% block application_form_action '' %}"
-        method="POST" {{ form_enctype(form) }} >
+    {{ form_start(form, {'method': 'POST', 'action': block('application_form_action')}) }}
         {{ form_rest(form) }}
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-check"></i>

@@ -13,7 +13,7 @@ parameters:
         - fr
 
     # Bower
-    bower_path: %kernel.root_dir%/../vendor/bower_components
+    bower_path: '%kernel.root_dir%/../vendor/bower_components'
 
 framework:
     #esi:             ~
@@ -46,38 +46,38 @@ twig:
     form_themes:
         - bootstrap_3_layout.html.twig
     globals:
-        project_web_dir: %kernel.root_dir%/../web
-        bower_path: %bower_path%
+        project_web_dir: '%kernel.root_dir%/../web'
+        bower_path: '%bower_path%'
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: %assetic_use_controller%
+    use_controller: '%assetic_use_controller%'
     bundles:
         - AppBuildAppBundle
     filters:
         cssrewrite: ~
         scss:
-            apply_to: "\.scss$"
+            apply_to: '\.scss$'
     assets:
         compiled_vendors_css:
             output: css/vendors.css
             inputs:
-                - %bower_path%/bootstrap/dist/css/bootstrap.min.css
-                - %bower_path%/components-font-awesome/css/font-awesome.min.css
-                - %bower_path%/datatables-bootstrap3-plugin/media/css/datatables-bootstrap3.min.css
+                - '%bower_path%/bootstrap/dist/css/bootstrap.min.css'
+                - '%bower_path%/components-font-awesome/css/font-awesome.min.css'
+                - '%bower_path%/datatables-bootstrap3-plugin/media/css/datatables-bootstrap3.min.css'
 
         compiled_lib_js:
             output: js/vendors.js
             inputs:
-                - %bower_path%/lodash/lodash.min.js
-                - %bower_path%/jquery/dist/jquery.min.js
-                - %bower_path%/bootstrap/dist/js/bootstrap.min.js
-                - %bower_path%/moment/min/moment.min.js
-                - %bower_path%/jquery.cookie/jquery.cookie.js
-                - %bower_path%/jquery-ui/jquery-ui.min.js
-                - %bower_path%/datatables/media/js/jquery.dataTables.min.js
-                - %bower_path%/datatables-bootstrap3-plugin/media/js/datatables-bootstrap3.min.js
+                - '%bower_path%/lodash/lodash.min.js'
+                - '%bower_path%/jquery/dist/jquery.min.js'
+                - '%bower_path%/bootstrap/dist/js/bootstrap.min.js'
+                - '%bower_path%/moment/min/moment.min.js'
+                - '%bower_path%/jquery.cookie/jquery.cookie.js'
+                - '%bower_path%/jquery-ui/jquery-ui.min.js'
+                - '%bower_path%/datatables/media/js/jquery.dataTables.min.js'
+                - '%bower_path%/datatables-bootstrap3-plugin/media/js/datatables-bootstrap3.min.js'
 
 # Doctrine Configuration
 doctrine:
@@ -105,7 +105,7 @@ swiftmailer:
 
 # Doctrine behaviors
 stof_doctrine_extensions:
-    default_locale: %default_locale%
+    default_locale: '%default_locale%'
     orm:
         default:
             timestampable: true

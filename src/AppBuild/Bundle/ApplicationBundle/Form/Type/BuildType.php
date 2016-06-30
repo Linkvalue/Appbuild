@@ -5,6 +5,8 @@ namespace AppBuild\Bundle\ApplicationBundle\Form\Type;
 use AppBuild\Bundle\ApplicationBundle\Entity\Build;
 use AppBuild\Bundle\ApplicationBundle\Form\DataTransformer\BuildUploadTransformer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -33,7 +35,7 @@ class BuildType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbuild_build';
     }
@@ -47,8 +49,7 @@ class BuildType extends AbstractType
             'data_class' => 'AppBuild\Bundle\ApplicationBundle\Entity\Build',
             'csrf_protection' => true,
             'allow_extra_fields' => false,
-            'cascade_validation' => false,
-            'intention' => null,
+            'csrf_token_id' => null,
         ));
     }
 
@@ -57,7 +58,7 @@ class BuildType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('version', 'text', array(
+        $builder->add('version', TextType::class, array(
             'required' => true,
             'label' => 'build.form.version',
         ));
@@ -65,11 +66,12 @@ class BuildType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder) {
             $form = $event->getForm();
 
+            /* @var \AppBuild\Bundle\ApplicationBundle\Entity\Build $build */
             if ($this->buildApplicationDir
                 && ($build = $event->getData())
                 && ($application = $build->getApplication())
             ) {
-                $formType = $builder->create('filePath', 'file', array(
+                $formType = $builder->create('filePath', FileType::class, array(
                     'required' => false,
                     'label' => 'build.form.filePath',
                     'auto_initialize' => false,

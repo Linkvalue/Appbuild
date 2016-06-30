@@ -1,6 +1,6 @@
 AppBuild\Bundle\ApplicationBundle\Entity\Build:
     type: entity
-    repositoryClass: AppBuild\Bundle\ApplicationBundle\Entity\BuildRepository
+    repositoryClass: 'AppBuild\Bundle\ApplicationBundle\Entity\BuildRepository'
     table: appbuild_build
     id:
         id:
@@ -28,7 +28,7 @@ AppBuild\Bundle\ApplicationBundle\Entity\Build:
                     on: update
     manyToOne:
         application:
-            targetEntity: AppBuild\Bundle\ApplicationBundle\Entity\Application
+            targetEntity: 'AppBuild\Bundle\ApplicationBundle\Entity\Application'
             inversedBy: builds
             joinColumn:
                 name: application_id

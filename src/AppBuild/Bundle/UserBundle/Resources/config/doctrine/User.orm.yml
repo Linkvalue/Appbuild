@@ -1,7 +1,7 @@
 AppBuild\Bundle\UserBundle\Entity\User:
     type: entity
     table: appbuild_user
-    repositoryClass: AppBuild\Bundle\UserBundle\Entity\UserRepository
+    repositoryClass: 'AppBuild\Bundle\UserBundle\Entity\UserRepository'
     id:
         id:
             type: integer
@@ -12,9 +12,6 @@ AppBuild\Bundle\UserBundle\Entity\User:
         email:
             type: string
             length: 255
-        salt:
-            type: string
-            length: 500
         password:
             type: string
             length: 500
@@ -30,6 +27,6 @@ AppBuild\Bundle\UserBundle\Entity\User:
             length: 255
     manyToMany:
         applications:
-            targetEntity: AppBuild\Bundle\ApplicationBundle\Entity\Application
+            targetEntity: 'AppBuild\Bundle\ApplicationBundle\Entity\Application'
             mappedBy: users
             cascade: ['persist']

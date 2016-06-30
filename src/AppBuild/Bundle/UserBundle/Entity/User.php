@@ -23,11 +23,6 @@ class User implements AdvancedUserInterface
     /**
      * @var string
      */
-    private $salt;
-
-    /**
-     * @var string
-     */
     private $password;
 
     /**
@@ -61,7 +56,6 @@ class User implements AdvancedUserInterface
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
-        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->enabled = true;
         $this->applications = new ArrayCollection();
     }
@@ -101,27 +95,13 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Set salt.
-     *
-     * @param string $salt
-     *
-     * @return User
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
      * Get salt.
      *
-     * @return string
+     * @return string|null
      */
     public function getSalt()
     {
-        return $this->salt;
+        return;
     }
 
     /**

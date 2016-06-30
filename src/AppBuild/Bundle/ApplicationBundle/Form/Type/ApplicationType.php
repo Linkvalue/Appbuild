@@ -5,7 +5,10 @@ namespace AppBuild\Bundle\ApplicationBundle\Form\Type;
 use AppBuild\Bundle\ApplicationBundle\Entity\Application;
 use AppBuild\Bundle\UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -33,7 +36,7 @@ class ApplicationType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbuild_application';
     }
@@ -47,8 +50,7 @@ class ApplicationType extends AbstractType
             'data_class' => 'AppBuild\Bundle\ApplicationBundle\Entity\Application',
             'csrf_protection' => true,
             'allow_extra_fields' => false,
-            'cascade_validation' => false,
-            'intention' => null,
+            'csrf_token_id' => null,
         ));
     }
 
@@ -57,22 +59,23 @@ class ApplicationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('label', 'text', array(
+        $builder->add('label', TextType::class, array(
             'required' => true,
             'label' => 'application.form.label',
         ));
 
         $availableSupports = array();
         foreach (Application::getAvailableSupports() as $support) {
-            $availableSupports[$support] = sprintf('application.supports.%s', $support);
+            $availableSupports[sprintf('application.supports.%s', $support)] = $support;
         }
-        $builder->add('support', 'choice', array(
+        $builder->add('support', ChoiceType::class, array(
             'required' => true,
             'label' => 'application.form.support',
             'choices' => $availableSupports,
+            'choices_as_values' => true,
         ));
 
-        $builder->add('users', 'entity', array(
+        $builder->add('users', EntityType::class, array(
             'class' => 'AppBuild\Bundle\UserBundle\Entity\User',
             'choice_label' => function (User $user) {
                 return sprintf('%s %s - %s',

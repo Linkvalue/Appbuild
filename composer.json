@@ -3,33 +3,32 @@
     "license": "proprietary",
     "type": "project",
     "autoload": {
-        "psr-4": {
-            "": "src/",
-            "SymfonyStandard\\": "app/SymfonyStandard/"
-        }
+        "psr-4": { "AppBuild\\": "src/AppBuild/" },
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
-        "php": ">=5.4.0",
-        "symfony/symfony": "2.7.*",
+        "php": ">=5.5.9",
+        "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~4.0",
+        "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "stof/doctrine-extensions-bundle": "1.2.*@dev",
-        "doctrine/migrations": "dev-master",
-        "doctrine/doctrine-migrations-bundle": "dev-master",
-        "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
-        "hautelook/alice-bundle": "0.2.*",
-        "friendsofsymfony/jsrouting-bundle": "dev-master",
-        "willdurand/js-translation-bundle": "~2.2"
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "doctrine/migrations": "^1.4",
+        "doctrine/doctrine-migrations-bundle": "^1.1",
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "hautelook/alice-bundle": "^1.3",
+        "friendsofsymfony/jsrouting-bundle": "^2.0@alpha",
+        "willdurand/js-translation-bundle": "~2.5"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3",
-        "phpunit/phpunit": "4.8.*",
+        "sensio/generator-bundle": "~3.0",
+        "phpunit/phpunit": "^4.8",
+        "symfony/phpunit-bridge": "^2.8",
         "behat/behat": "~3.0",
         "behat/symfony2-extension": "~2.1",
         "behat/mink-extension": "^2.1",
@@ -38,9 +37,6 @@
     "scripts": {
         "set-parameters-yml": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-        ],
-        "post-root-package-install": [
-            "SymfonyStandard\\Composer::hookRootPackageInstall"
         ],
         "setup-bootstrap": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap"
@@ -61,7 +57,10 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "platform": {
+            "php": "5.5.9"
+        }
     },
     "extra": {
         "symfony-app-dir": "app",
@@ -69,6 +68,9 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "2.8-dev"
         }
     }
 }
