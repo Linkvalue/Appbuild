@@ -10,7 +10,7 @@
             class="AppBuild\Bundle\UserBundle\Form\Type\UserType"
             public="true"
         >
-            <tag name="form.type" alias="appbuild_user" />
+            <tag name="form.type" />
         </service>
 
     </services>

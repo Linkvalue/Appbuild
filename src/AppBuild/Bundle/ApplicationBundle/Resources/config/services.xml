@@ -10,7 +10,7 @@
             class="AppBuild\Bundle\ApplicationBundle\Form\Type\ApplicationType"
             public="true"
         >
-            <tag name="form.type" alias="appbuild_application" />
+            <tag name="form.type" />
             <argument type="service" id="translator" />
         </service>
 
@@ -20,7 +20,7 @@
             public="true"
         >
             <argument>%build_application_dir%</argument>
-            <tag name="form.type" alias="appbuild_build" />
+            <tag name="form.type" />
         </service>
     </services>
 

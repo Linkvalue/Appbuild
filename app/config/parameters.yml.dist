@@ -20,7 +20,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     # Built Application
-    build_application_dir: %kernel.root_dir%/../build
+    build_application_dir: '%kernel.root_dir%/../build'
 
     # Assetic use controller
     assetic_use_controller: false

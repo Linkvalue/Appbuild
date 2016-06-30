@@ -1,6 +1,6 @@
 AppBuild\Bundle\ApplicationBundle\Entity\Application:
     type: entity
-    repositoryClass: AppBuild\Bundle\ApplicationBundle\Entity\ApplicationRepository
+    repositoryClass: 'AppBuild\Bundle\ApplicationBundle\Entity\ApplicationRepository'
     table: appbuild_application
     id:
         id:
@@ -40,12 +40,12 @@ AppBuild\Bundle\ApplicationBundle\Entity\Application:
                     on: update
     oneToMany:
         builds:
-            targetEntity: AppBuild\Bundle\ApplicationBundle\Entity\Build
+            targetEntity: 'AppBuild\Bundle\ApplicationBundle\Entity\Build'
             mappedBy: application
             cascade: ['persist', 'remove']
     manyToMany:
         users:
-            targetEntity: AppBuild\Bundle\UserBundle\Entity\User
+            targetEntity: 'AppBuild\Bundle\UserBundle\Entity\User'
             inversedBy: applications
             cascade: ['persist']
             joinTable:

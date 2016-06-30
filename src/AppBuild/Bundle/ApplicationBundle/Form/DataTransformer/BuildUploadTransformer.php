@@ -2,6 +2,7 @@
 
 namespace AppBuild\Bundle\ApplicationBundle\Form\DataTransformer;
 
+use AppBuild\Bundle\ApplicationBundle\Entity\Build;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -53,10 +54,10 @@ class BuildUploadTransformer implements DataTransformerInterface
      */
     public function reverseTransform($builtFile)
     {
-        if (!$builtFile || !$builtFile instanceof UploadedFile) {
+        if (!is_object($builtFile) || !$builtFile instanceof UploadedFile) {
             return $this->currentFilePath;
         }
-        $filename = preg_replace("/[^a-z0-9\-\.]/i", '_',
+        $filename = preg_replace('/[^a-z0-9\-\.]/i', '_',
             sprintf('%s%s',
                 sha1(uniqid(mt_rand(), true)),
                 $builtFile->getClientOriginalName()

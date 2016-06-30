@@ -1,8 +1,7 @@
 {% extends 'AppBuildUserBundle::layout.html.twig' %}
 
 {% block content %}
-    <form action="{% block user_form_action '' %}"
-          method="POST" {{ form_enctype(form) }} >
+    {{ form_start(form, {'method': 'POST', 'action': block('user_form_action')}) }}
 
         {{ form_row(form.firstname) }}
         {{ form_row(form.lastname) }}

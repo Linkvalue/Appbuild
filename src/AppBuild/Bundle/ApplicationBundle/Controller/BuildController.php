@@ -4,9 +4,10 @@ namespace AppBuild\Bundle\ApplicationBundle\Controller;
 
 use AppBuild\Bundle\ApplicationBundle\Entity\Application;
 use AppBuild\Bundle\ApplicationBundle\Entity\Build;
+use AppBuild\Bundle\ApplicationBundle\Form\Type\BuildType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -67,9 +68,9 @@ class BuildController extends BaseController
         }
 
         $form = $this->container->get('form.factory')->create(
-            $this->container->get('appbuild.application.build.form_type'),
+            BuildType::class,
             $build = (new Build())->setApplication($application),
-            array('intention' => 'creation')
+            array('csrf_token_id' => 'creation')
         );
 
         if ($request->getMethod() == 'POST') {
@@ -120,9 +121,9 @@ class BuildController extends BaseController
         }
 
         $form = $this->container->get('form.factory')->create(
-            $this->container->get('appbuild.application.build.form_type'),
+            BuildType::class,
             $build,
-            array('intention' => 'edition')
+            array('csrf_token_id' => 'edition')
         );
 
         if ($request->getMethod() == 'POST') {

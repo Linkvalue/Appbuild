@@ -2,9 +2,9 @@
 
 namespace AppBuild\Bundle\UserBundle\DataFixtures\ORM;
 
+use AppBuild\Bundle\UserBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBuild\Bundle\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -36,9 +36,9 @@ class UserFixturesLoader implements FixtureInterface, ContainerAwareInterface
         $userSuperAdmin
             ->setRoles(array('ROLE_SUPER_ADMIN'))
             ->setEmail('superadmin@superadmin.fr')
-            ->setPassword($encoder->encodePassword('superadmin', $userSuperAdmin->getSalt()))
-            ->setFirstName('SuperAdmin')
-            ->setLastName('SUPERADMIN')
+            ->setPassword($encoder->encodePassword('superadmin', null))
+            ->setFirstname('SuperAdmin')
+            ->setLastname('SUPERADMIN')
         ;
         $manager->persist($userSuperAdmin);
 
@@ -48,9 +48,9 @@ class UserFixturesLoader implements FixtureInterface, ContainerAwareInterface
         $userAdmin
             ->setRoles(array('ROLE_ADMIN'))
             ->setEmail('admin@admin.fr')
-            ->setPassword($encoder->encodePassword('admin', $userAdmin->getSalt()))
-            ->setFirstName('Admin')
-            ->setLastName('ADMIN')
+            ->setPassword($encoder->encodePassword('admin', null))
+            ->setFirstname('Admin')
+            ->setLastname('ADMIN')
         ;
         $manager->persist($userAdmin);
 
@@ -60,9 +60,9 @@ class UserFixturesLoader implements FixtureInterface, ContainerAwareInterface
         $userUser
             ->setRoles(array('ROLE_USER'))
             ->setEmail('user@user.fr')
-            ->setPassword($encoder->encodePassword('user', $userUser->getSalt()))
-            ->setFirstName('User')
-            ->setLastName('USER')
+            ->setPassword($encoder->encodePassword('user', null))
+            ->setFirstname('User')
+            ->setLastname('USER')
         ;
         $manager->persist($userUser);
 

@@ -3,6 +3,7 @@
 namespace AppBuild\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -13,31 +14,31 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', 'email', array(
+            ->add('email', Type\EmailType::class, array(
                 'label' => 'user.edit.email.label',
             ))
-            ->add('firstname', 'text', array(
+            ->add('firstname', Type\TextType::class, array(
                 'label' => 'user.edit.firstname.label',
             ))
-            ->add('lastname', 'text', array(
+            ->add('lastname', Type\TextType::class, array(
                 'label' => 'user.edit.lastname.label',
             ))
-            ->add('password', 'repeated', array(
-                'type' => 'password',
+            ->add('password', Type\RepeatedType::class, array(
+                'type' => Type\PasswordType::class,
                 'first_options' => array('label' => 'user.edit.password.label.first'),
                 'second_options' => array('label' => 'user.edit.password.label.second'),
-                'required' => $options['intention'] == 'creation',
+                'required' => $options['csrf_token_id'] == 'creation',
                 'mapped' => false,
             ))
         ;
 
-        // Roles can't be set for "my-account" intention
-        if ($options['intention'] !== 'my-account') {
+        // Roles can't be set for "my-account" csrf_token_id
+        if ($options['csrf_token_id'] !== 'my-account') {
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
                 $userRole = $event->getData()->getRole();
                 $form = $event->getForm();
 
-                $form->add('roles', 'choice', array(
+                $form->add('roles', Type\ChoiceType::class, array(
                     'label' => 'user.edit.role.label',
                     'choices' => array(
                         'user.roles.ROLE_USER' => 'ROLE_USER',
@@ -59,8 +60,8 @@ class UserType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
-        return 'user';
+        return 'appbuild_user';
     }
 }

@@ -13,9 +13,9 @@ appbuild_admin:
     resource: routing/routing_admin.yml
     prefix: /{_locale}/
     defaults:
-        _locale: %default_locale%
+        _locale: '%default_locale%'
     requirements:
-        _locale: %routing_locales%
+        _locale: '%routing_locales%'
     options:
         expose: true
 

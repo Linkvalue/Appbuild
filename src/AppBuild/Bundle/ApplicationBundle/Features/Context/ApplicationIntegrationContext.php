@@ -3,8 +3,8 @@
 namespace AppBuild\Bundle\ApplicationBundle\Features\Context;
 
 use AppBuild\Bundle\ApplicationBundle\Entity\Application;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Symfony\Component\HttpKernel\KernelInterface;
 

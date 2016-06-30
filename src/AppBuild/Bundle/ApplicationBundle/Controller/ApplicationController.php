@@ -2,10 +2,11 @@
 
 namespace AppBuild\Bundle\ApplicationBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use AppBuild\Bundle\ApplicationBundle\Entity\Application;
+use AppBuild\Bundle\ApplicationBundle\Form\Type\ApplicationType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApplicationController extends BaseController
 {
@@ -38,9 +39,9 @@ class ApplicationController extends BaseController
         }
 
         $form = $this->container->get('form.factory')->create(
-            $this->container->get('appbuild.application.application.form_type'),
+            ApplicationType::class,
             $application = new Application(),
-            array('intention' => 'creation')
+            array('csrf_token_id' => 'creation')
         );
 
         if ($request->getMethod() == 'POST') {
@@ -86,9 +87,9 @@ class ApplicationController extends BaseController
         }
 
         $form = $this->container->get('form.factory')->create(
-            $this->container->get('appbuild.application.application.form_type'),
+            ApplicationType::class,
             $application,
-            array('intention' => 'edition')
+            array('csrf_token_id' => 'edition')
         );
 
         if ($request->getMethod() == 'POST') {

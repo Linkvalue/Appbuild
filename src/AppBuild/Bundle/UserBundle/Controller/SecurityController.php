@@ -3,6 +3,7 @@
 namespace AppBuild\Bundle\UserBundle\Controller;
 
 use AppBuild\Bundle\UserBundle\Entity\User;
+use AppBuild\Bundle\UserBundle\Form\Type\UserType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -77,9 +78,9 @@ class SecurityController extends Controller
 
         $user = new User();
         $form = $this->container->get('form.factory')->create(
-            $this->container->get('appbuild.user.user.form_type'),
+            UserType::class,
             $user,
-            array('intention' => 'creation')
+            array('csrf_token_id' => 'creation')
         );
 
         $form->handleRequest($request);
@@ -125,9 +126,9 @@ class SecurityController extends Controller
         }
 
         $form = $this->container->get('form.factory')->create(
-            $this->container->get('appbuild.user.user.form_type'),
+            UserType::class,
             $user,
-            array('intention' => 'edition')
+            array('csrf_token_id' => 'edition')
         );
 
         if ($request->getMethod() == 'POST') {
@@ -226,9 +227,9 @@ class SecurityController extends Controller
 
         $user = $this->getUser();
         $form = $this->container->get('form.factory')->create(
-            $this->container->get('appbuild.user.user.form_type'),
+            UserType::class,
             $user,
-            array('intention' => 'my-account')
+            array('csrf_token_id' => 'my-account')
         );
 
         $form->handleRequest($request);
