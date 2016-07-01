@@ -56,8 +56,7 @@ install-composer:
 	bin/composer install
 
 install-bower:
-	test -L bin/bower || npm install bower
-	test -L bin/bower || (cd bin && ln -fs ../node_modules/bower/bin/bower)
+	test -L bin/bower || (npm install bower && cd bin && ln -fs ../node_modules/bower/bin/bower)
 	bin/bower install --config.interactive=false
 	cd web && ln -fs ../vendor/bower_components/components-font-awesome/fonts
 	cd web && ln -fs ../vendor/bower_components/flag-icon-css/flags
@@ -108,8 +107,10 @@ run-tests:
 	@echo "\nCoverage report : \n\033[1;32m http://app-build.dev/tests-coverage/index.html\033[0m\n"
 
 # Production
-prod-install: install-bin install-bower
+prod-install: install-bin
 	bin/composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+	test -L bin/bower || (npm install bower && cd bin && ln -fs ../node_modules/bower/bin/bower)
+	bin/bower install --config.interactive=false
 
 prod-build:
 	php app/console doctrine:database:create --if-not-exists --env=prod
