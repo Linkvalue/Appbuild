@@ -1,0 +1,4 @@
+# AppBuild => ApplicationBundle => validators.fr
+application:
+    form:
+        must_set_package_name: Cette plateforme nécessite la saisie d'un nom de package.

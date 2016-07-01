@@ -64,6 +64,7 @@ class ApplicationController extends BaseController
                 'form' => $form->createView(),
                 'application' => $application,
                 'currentUserId' => $this->getUser()->getId(),
+                'applicationSupportIOS' => Application::SUPPORT_IOS,
             )
         );
     }
@@ -113,6 +114,7 @@ class ApplicationController extends BaseController
                 'form' => $form->createView(),
                 'application' => $application,
                 'currentUserId' => $this->getUser()->getId(),
+                'applicationSupportIOS' => Application::SUPPORT_IOS,
             )
         );
     }

@@ -20,7 +20,7 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
+        $authenticationUtils = $this->container->get('security.authentication_utils');
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -89,7 +89,7 @@ class SecurityController extends Controller
             if (!$password = $form->get('password')->getData()) {
                 throw new ValidatorException('Password must be set.');
             }
-            $user->setPassword($this->get('security.password_encoder')->encodePassword($user, $password));
+            $user->setPassword($this->container->get('security.password_encoder')->encodePassword($user, $password));
 
             // Set role
             if ($role = $form->get('roles')->getData()) {
@@ -136,7 +136,7 @@ class SecurityController extends Controller
             if ($form->isValid()) {
                 // Encode password if it is set
                 if ($password = $form->get('password')->getData()) {
-                    $user->setPassword($this->get('security.password_encoder')->encodePassword($user, $password));
+                    $user->setPassword($this->container->get('security.password_encoder')->encodePassword($user, $password));
                 }
 
                 // Set role
@@ -208,7 +208,7 @@ class SecurityController extends Controller
 
         return new RedirectResponse(
             $request->headers->get('referer')
-            ?: $this->get('router')->generate('appbuild_user_list')
+            ?: $this->container->get('router')->generate('appbuild_user_list')
         );
     }
 
@@ -236,7 +236,7 @@ class SecurityController extends Controller
         if ($form->isValid()) {
             // Encode password if it is set
             if ($password = $form->get('password')->getData()) {
-                $user->setPassword($this->get('security.password_encoder')->encodePassword($user, $password));
+                $user->setPassword($this->container->get('security.password_encoder')->encodePassword($user, $password));
             }
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

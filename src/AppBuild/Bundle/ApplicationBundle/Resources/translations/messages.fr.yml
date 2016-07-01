@@ -3,17 +3,18 @@ application:
     form:
         label: Nom de l'application
         support: Plateforme
+        package_name: Nom de package (aka. Bundle identifier)
         users: Utilisateurs autorisés à télécharger l'application
         submit_button:
             label: Valider
     create:
         title: Nouvelle application
         flash:
-            success: Votre application a bien été créée
+            success: Votre application a bien été créée.
     update:
         title: Mise à jour de l'application
         flash:
-            success: Votre application a bien été mise à jour
+            success: Votre application a bien été mise à jour.
     list:
         title: Applications
         thead:
@@ -33,7 +34,7 @@ application:
 build:
     form:
         version: Version du build
-        filePath: Build à télécharger
+        filePath: Fichier du build à télécharger
         submit_button:
             label: Valider
     create:

@@ -24,6 +24,10 @@ AppBuild\Bundle\ApplicationBundle\Entity\Application:
                         - label
         support:
             type: string
+        packageName:
+            type: string
+            column: package_name
+            nullable: true
         enabled:
             type: boolean
         createdAt:

@@ -206,6 +206,8 @@ class BuildController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
+        $router = $this->container->get('router');
+
         switch ($build->getApplication()->getSupport()) {
 
             case Application::SUPPORT_IOS:
@@ -213,7 +215,7 @@ class BuildController extends BaseController
                 $response = new RedirectResponse(
                     sprintf(
                         'itms-services://?action=download-manifest&amp;url=%s',
-                        urlencode($this->get('router')->generate(
+                        urlencode($router->generate(
                             'appbuild_admin_build_get_manifest',
                             array(
                                 'application_id' => $application->getId(),
@@ -232,7 +234,7 @@ class BuildController extends BaseController
             default:
                 // Download raw build file
                 $response = new RedirectResponse(
-                    $this->get('router')->generate(
+                    $router->generate(
                         'appbuild_admin_build_get_raw_file',
                         array(
                             'application_id' => $application->getId(),
@@ -240,6 +242,7 @@ class BuildController extends BaseController
                         )
                     )
                 );
+                break;
         }
 
         return $response;
@@ -247,6 +250,9 @@ class BuildController extends BaseController
 
     /**
      * Download given build manifest.
+     *
+     * Manifest must be accessible without logging in (see security.yml).
+     * TODO: set a unique/oneshot token system to make it accessible only after being redirected from the "download" route.
      *
      * @ParamConverter("application", options={"mapping": {"application_id": "id"}})
      *
@@ -257,20 +263,24 @@ class BuildController extends BaseController
      */
     public function getManifestAction(Application $application, Build $build)
     {
-        if (!$this->getUserApplications()->contains($application)) {
-            throw $this->createAccessDeniedException();
+        switch ($application->getSupport()) {
+
+            case Application::SUPPORT_IOS:
+                $response = $this->render(
+                    sprintf('AppBuildApplicationBundle:Manifest:%s/manifest.plist.twig', $application->getSupport()),
+                    array(
+                        'application' => $application,
+                        'build' => $build,
+                    )
+                );
+
+                $response->headers->set('Content-Type', 'application/plist; charset=utf-8;');
+                break;
+
+            default:
+                throw $this->createAccessDeniedException();
+                break;
         }
-
-        $response = $this->render(
-            sprintf('AppBuildApplicationBundle:Manifest:%s/manifest.plist.twig', $application->getSupport()),
-            array(
-                'application' => $application,
-                'build' => $build,
-            )
-        );
-
-        $response->headers->set('Content-Type', 'application/octect-stream');
-        $response->headers->set('Content-Disposition', 'attachment; filename="manifest.plist"');
 
         return $response;
     }
@@ -335,7 +345,7 @@ class BuildController extends BaseController
         $em->flush();
 
         return new RedirectResponse($request->headers->get('referer') ?:
-            $this->get('router')->generate(
+            $this->container->get('router')->generate(
                 'appbuild_admin_build_list',
                 array(
                     'application_id' => $application->getId(),

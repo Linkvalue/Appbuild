@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -12,7 +11,7 @@
                     <string>software-package</string>
                     <key>url</key>
                     <string>
-                        {{ url('app_get_raw_file', { 'id': application.id }, false) }}
+                        {{ url('appbuild_admin_build_get_raw_file', { 'id': application.id }, true) }}
                     </string>
                 </dict>
                 <dict>
@@ -28,14 +27,14 @@
                     <string>full-size-image</string>
                     <key>url</key>
                     <string>
-                        http://images.techtimes.com/data/images/full/5913/iphone-6-screenshot.jpg?w=600
+                        http://images.techtimes.com/data/images/full/5913/iphone-6-screenshot.jpg?w=512
                     </string>
                 </dict>
             </array>
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <string>com.AppBuildServer.{{ application.slug }}</string>
+                <string>{{ application.packageName }}</string>
                 <key>bundle-version</key>
                 <string>{{ application.version }}</string>
                 <key>kind</key>
