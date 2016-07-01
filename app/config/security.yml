@@ -15,9 +15,9 @@ security:
             pattern: '^/(_(profiler|wdt)|css|images|js)/'
             security: false
 
-        # manifest must be accessible without logging in
-        manifest:
-            pattern: '^/\w+/application/\d+/build/\d+/manifest'
+        # manifest and file downloading must be accessible without logging in
+        accessible_files:
+            pattern: '^/\w+/application/\d+/build/\d+/(manifest|file)'
             security: false
 
         # all remaining routes require authentication

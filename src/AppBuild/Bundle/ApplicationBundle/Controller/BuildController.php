@@ -275,6 +275,7 @@ class BuildController extends BaseController
                 );
 
                 $response->headers->set('Content-Type', 'application/plist; charset=utf-8;');
+                $response->headers->set('Content-Disposition', 'attachment; filename="manifest.plist"');
                 break;
 
             default:
@@ -297,21 +298,11 @@ class BuildController extends BaseController
      */
     public function getRawFileAction(Application $application, Build $build)
     {
-        if (!$this->getUserApplications()->contains($application)) {
-            throw $this->createAccessDeniedException();
-        }
-
         $response = new StreamedResponse(function () use ($build) {
             readfile($build->getFilePath());
         });
 
-        $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition',
-            sprintf(
-                'attachment; filename="%s"',
-                basename($build->getFilePath())
-            )
-        );
+        $response->headers->set('Content-Type', 'application/octet-stream');
 
         return $response;
     }

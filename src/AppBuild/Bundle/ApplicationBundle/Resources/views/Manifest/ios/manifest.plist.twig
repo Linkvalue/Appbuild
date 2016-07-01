@@ -11,7 +11,7 @@
                     <string>software-package</string>
                     <key>url</key>
                     <string>
-                        {{ url('appbuild_admin_build_get_raw_file', { 'id': application.id }, true) }}
+                        {{ absolute_url(url('appbuild_admin_build_get_raw_file', { 'application_id': application.id, 'id': build.id })) }}
                     </string>
                 </dict>
                 <dict>
@@ -36,11 +36,11 @@
                 <key>bundle-identifier</key>
                 <string>{{ application.packageName }}</string>
                 <key>bundle-version</key>
-                <string>{{ application.version }}</string>
+                <string>{{ build.version }}</string>
                 <key>kind</key>
                 <string>software</string>
                 <key>title</key>
-                <string>{{ application.name }}</string>
+                <string>{{ application.label }}</string>
             </dict>
         </dict>
     </array>
