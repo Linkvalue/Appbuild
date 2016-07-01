@@ -8,29 +8,16 @@ default:
             sessions:
                 symfony2:
                     symfony2: ~
+            files_path: '%paths.base%/src/AppBuild/Bundle/ApplicationBundle/Resources/fixtures/files'
     suites:
         application:
             type: symfony_bundle
             bundle: AppBuildApplicationBundle
-            paths: [ %paths.base%/src/AppBuild/Bundle/ApplicationBundle/Features ]
+            paths: [ '%paths.base%/src/AppBuild/Bundle/ApplicationBundle/Features' ]
             contexts:
-                - AppBuild\Bundle\ApplicationBundle\Features\Context\ApplicationIntegrationContext
-
-## @todo if we need to make functional tests, just copy/paste the "default" profile then update Contexts classname to match new Contexts
-#functional:
-#    autoload:
-#        '': %paths.base%/src
-#    extensions:
-#        Behat\Symfony2Extension: ~
-#        Behat\MinkExtension:
-#            default_session: 'symfony2'
-#            sessions:
-#                symfony2:
-#                    symfony2: ~
-#    suites:
-#        application:
-#            type: symfony_bundle
-#            bundle: AppBuildApplicationBundle
-#            paths: [ %paths.base%/src/AppBuild/Bundle/ApplicationBundle/Features ]
-#            contexts:
-#                - AppBuild\Bundle\ApplicationBundle\Features\Context\ApplicationFunctionalContext
+                - 'AppBuild\Bundle\ApplicationBundle\Features\Context\ApplicationIntegrationContext':
+                    manager: '@doctrine.orm.entity_manager'
+                    router: '@router'
+                    session: '@session'
+                    tokenStorage: '@security.token_storage'
+                - 'Behat\MinkExtension\Context\MinkContext'
