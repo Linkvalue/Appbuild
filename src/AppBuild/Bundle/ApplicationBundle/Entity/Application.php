@@ -3,6 +3,7 @@
 namespace AppBuild\Bundle\ApplicationBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Application.
@@ -34,6 +35,11 @@ class Application
      * @var string
      */
     private $support;
+
+    /**
+     * @var string
+     */
+    private $packageName;
 
     /**
      * @var ArrayCollection
@@ -91,7 +97,7 @@ class Application
     /**
      * @param string $label
      *
-     * @return self
+     * @return $this
      */
     public function setLabel($label)
     {
@@ -111,7 +117,7 @@ class Application
     /**
      * @param string $slug
      *
-     * @return self
+     * @return $this
      */
     public function setSlug($slug)
     {
@@ -131,7 +137,7 @@ class Application
     /**
      * @param string $support
      *
-     * @return self
+     * @return $this
      */
     public function setSupport($support)
     {
@@ -149,6 +155,26 @@ class Application
     }
 
     /**
+     * @return string
+     */
+    public function getPackageName()
+    {
+        return $this->packageName;
+    }
+
+    /**
+     * @param string $packageName
+     *
+     * @return $this
+     */
+    public function setPackageName($packageName)
+    {
+        $this->packageName = $packageName;
+
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function isEnabled()
@@ -159,7 +185,7 @@ class Application
     /**
      * @param bool $enabled
      *
-     * @return self
+     * @return $this
      */
     public function setEnabled($enabled)
     {
@@ -179,7 +205,7 @@ class Application
     /**
      * @param ArrayCollection $builds
      *
-     * @return self
+     * @return $this
      */
     public function setBuilds(ArrayCollection $builds)
     {
@@ -199,7 +225,7 @@ class Application
     /**
      * @param ArrayCollection $users
      *
-     * @return self
+     * @return $this
      */
     public function setUsers(ArrayCollection $users)
     {
@@ -219,7 +245,7 @@ class Application
     /**
      * @param \DateTime $createdAt
      *
-     * @return self
+     * @return $this
      */
     public function setCreatedAt($createdAt)
     {
@@ -239,7 +265,7 @@ class Application
     /**
      * @param \DateTime $updatedAt
      *
-     * @return self
+     * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -251,8 +277,6 @@ class Application
     /**
      * Get available/supported application supports.
      *
-     * This method is static in order to be used in validation constraints.
-     *
      * @return array
      */
     public static function getAvailableSupports()
@@ -261,5 +285,28 @@ class Application
             self::SUPPORT_IOS,
             self::SUPPORT_ANDROID,
         );
+    }
+
+    /**
+     * Assert this Application is valid (depending on its support).
+     *
+     * This method is intended to be used in validation constraints.
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if (empty($this->packageName)) {
+            switch ($this->getSupport()) {
+                case self::SUPPORT_IOS:
+                    $context->buildViolation('application.form.must_set_package_name')
+                        ->atPath('packageName')
+                        ->addViolation()
+                    ;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

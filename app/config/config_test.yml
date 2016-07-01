@@ -1,10 +1,10 @@
 imports:
-    - { resource: config_dev.yml }
+    - { resource: 'config_dev.yml' }
 
 framework:
     test: ~
     session:
-        storage_id: session.storage.mock_file
+        storage_id: 'session.storage.mock_file'
     profiler:
         collect: false
 
@@ -17,6 +17,6 @@ swiftmailer:
 
 doctrine:
     dbal:
-        driver: pdo_sqlite
+        driver: 'pdo_sqlite'
         path: '%kernel.cache_dir%/appbuild.sqlite.db'
-        charset: UTF8
+        charset: 'UTF8'

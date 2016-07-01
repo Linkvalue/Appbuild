@@ -1,38 +1,44 @@
 security:
     encoders:
         AppBuild\Bundle\UserBundle\Entity\User:
-           algorithm: bcrypt    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+           algorithm: 'bcrypt'
 
     providers:
         db_user_provider:
            entity:
-               class: AppBuildUserBundle:User
-               property: email
+               class: 'AppBuildUserBundle:User'
+               property: 'email'
 
     firewalls:
         # disables authentication for assets and the profiler
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: '^/(_(profiler|wdt)|css|images|js)/'
             security: false
 
+        # manifest must be accessible without logging in
+        manifest:
+            pattern: '^/\w+/application/\d+/build/\d+/manifest'
+            security: false
+
+        # all remaining routes require authentication
         secured_area:
             pattern: ^/
             anonymous: true
             form_login:
-                login_path: appbuild_user_login
-                check_path: /login_check
-                default_target_path: appbuild_admin_application_list
+                login_path: 'appbuild_user_login'
+                check_path: '/login_check'
+                default_target_path: 'appbuild_admin_application_list'
                 always_use_default_target_path: true # otherwise it redirects to an AJAX callback route
             logout:
-                path: appbuild_user_logout
-                target: appbuild_user_login
-            provider: db_user_provider
+                path: 'appbuild_user_logout'
+                target: 'appbuild_user_login'
+            provider: 'db_user_provider'
 
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_USER]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
+        ROLE_ADMIN: ['ROLE_USER']
+        ROLE_SUPER_ADMIN: ['ROLE_ADMIN']
 
     access_control:
-        - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: /register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_USER }
+        - { path: '/login', roles: 'IS_AUTHENTICATED_ANONYMOUSLY' }
+        - { path: '/register', roles: 'IS_AUTHENTICATED_ANONYMOUSLY' }
+        - { path: '^/', roles: 'ROLE_USER' }

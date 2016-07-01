@@ -1,0 +1,61 @@
+# AppBuild => ApplicationBundle => messages.en
+application:
+    form:
+        label: Application name
+        support: Support/Platform
+        package_name: Package name (aka. Bundle identifier)
+        users: Users allowed to download this application
+        submit_button:
+            label: Save
+    create:
+        title: New application
+        flash:
+            success: Your application was successfully created.
+    update:
+        title: Update application
+        flash:
+            success: Your application was successfully updated.
+    list:
+        title: Applications
+        thead:
+            label: Application
+            builds: Builds
+            support: Support
+            actions: Actions
+        actions:
+            update:
+                title: Edit application
+            build_list:
+                title: See list of available builds
+    supports:
+        ios: iOS
+        android: Android
+
+build:
+    form:
+        version: Build version
+        filePath: Build file to be downloaded
+        submit_button:
+            label: Save
+    create:
+        title: New build
+        flash:
+            success: Your build was successfully created.
+    update:
+        title: Update build
+        flash:
+            success: Your build was successfully updated.
+    list:
+        title: Builds
+        thead:
+            label: Label
+            actions: Actions
+        actions:
+            enable:
+                title: Enable build
+            disable:
+                title: Disable build
+            update:
+                title: Update build
+            download:
+                title: Download build

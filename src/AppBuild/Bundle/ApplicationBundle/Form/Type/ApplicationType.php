@@ -47,7 +47,7 @@ class ApplicationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBuild\Bundle\ApplicationBundle\Entity\Application',
+            'data_class' => Application::class,
             'csrf_protection' => true,
             'allow_extra_fields' => false,
             'csrf_token_id' => null,
@@ -75,8 +75,13 @@ class ApplicationType extends AbstractType
             'choices_as_values' => true,
         ));
 
+        $builder->add('packageName', TextType::class, array(
+            'required' => true,
+            'label' => 'application.form.package_name',
+        ));
+
         $builder->add('users', EntityType::class, array(
-            'class' => 'AppBuild\Bundle\UserBundle\Entity\User',
+            'class' => User::class,
             'choice_label' => function (User $user) {
                 return sprintf('%s %s - %s',
                     $user->getFirstname(),

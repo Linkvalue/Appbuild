@@ -1,74 +1,68 @@
 imports:
-    - { resource: parameters.yml }
-    - { resource: security.yml }
+    - { resource: 'parameters.yml' }
+    - { resource: 'security.yml' }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
     # Locales
-    default_locale: fr
-    routing_locales: fr
-    enabled_locales:
-        - fr
+    routing_locales: '(fr|en)'
+    enabled_locales: ['fr', 'en']
 
     # Bower
     bower_path: '%kernel.root_dir%/../vendor/bower_components'
 
 framework:
-    #esi:             ~
     translator:
-        fallbacks: ["%default_locale%"]
-    default_locale:  "%default_locale%"
-    secret:          "%secret%"
+        fallbacks: ['%default_locale%']
+    default_locale: '%default_locale%'
+    secret: '%secret%'
     router:
-        resource: "%kernel.root_dir%/config/routing.yml"
+        resource: '%kernel.root_dir%/config/routing.yml'
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: false }
-    #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        #assets_version: SomeVersionScheme
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
     fragments:       ~
     http_method_override: true
 
 # Twig Configuration
 twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
     form_themes:
-        - bootstrap_3_layout.html.twig
+        - 'bootstrap_3_layout.html.twig'
     globals:
         project_web_dir: '%kernel.root_dir%/../web'
         bower_path: '%bower_path%'
 
 # Assetic Configuration
 assetic:
-    debug:          "%kernel.debug%"
+    debug: '%kernel.debug%'
     use_controller: '%assetic_use_controller%'
     bundles:
-        - AppBuildAppBundle
+        - 'AppBuildAppBundle'
     filters:
         cssrewrite: ~
         scss:
             apply_to: '\.scss$'
     assets:
         compiled_vendors_css:
-            output: css/vendors.css
+            output: 'css/vendors.css'
             inputs:
                 - '%bower_path%/bootstrap/dist/css/bootstrap.min.css'
                 - '%bower_path%/components-font-awesome/css/font-awesome.min.css'
                 - '%bower_path%/datatables-bootstrap3-plugin/media/css/datatables-bootstrap3.min.css'
 
         compiled_lib_js:
-            output: js/vendors.js
+            output: 'js/vendors.js'
             inputs:
                 - '%bower_path%/lodash/lodash.min.js'
                 - '%bower_path%/jquery/dist/jquery.min.js'
@@ -82,26 +76,26 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_mysql
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
-        server_version: "%database_server_version%"
+        driver: 'pdo_mysql'
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: 'UTF8'
+        server_version: '%database_server_version%'
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: 'doctrine.orm.naming_strategy.underscore'
         auto_mapping: true
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
 
 # Doctrine behaviors
 stof_doctrine_extensions:
