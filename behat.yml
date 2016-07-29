@@ -12,10 +12,10 @@ default:
     suites:
         application:
             type: symfony_bundle
-            bundle: AppBuildApplicationBundle
-            paths: [ '%paths.base%/src/AppBuild/Bundle/ApplicationBundle/Features' ]
+            bundle: MajoraOTAStoreApplicationBundle
+            paths: [ '%paths.base%/src/ApplicationBundle/Features' ]
             contexts:
-                - 'AppBuild\Bundle\ApplicationBundle\Features\Context\ApplicationIntegrationContext':
+                - 'Majora\OTAStore\ApplicationBundle\Features\Context\ApplicationIntegrationContext':
                     manager: '@doctrine.orm.entity_manager'
                     router: '@router'
                     session: '@session'
