@@ -24,13 +24,13 @@ php:
     - php5-xdebug
 
 sites:
-  - { name: 'appbuild', docroot: '/var/www/AppBuildServer', server_name: 'app-build.dev' }
+  - { name: 'majoraotastore', docroot: '/var/www/MajoraOTAStore', server_name: 'app-build.dev' }
 
 mysql:
   databases:
-    - { name: 'appbuild' }
+    - { name: 'majoraotastore' }
 
   users:
-    - { name: 'appbuild', host: '%' }
+    - { name: 'majoraotastore', host: '%' }
 
   bind_address: 0.0.0.0
