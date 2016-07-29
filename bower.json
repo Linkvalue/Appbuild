@@ -1,7 +1,7 @@
 {
-  "name": "AppBuildServer",
+  "name": "MajoraOTAStore",
   "version": "1.0.0",
-  "homepage": "https://github.com/LinkValue/AppBuildServer",
+  "homepage": "https://github.com/LinkValue/MajoraOTAStore",
   "description": "Application server of LinkValue.",
   "ignore": [
     "**/.*",

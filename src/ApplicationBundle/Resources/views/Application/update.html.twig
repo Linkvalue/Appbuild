@@ -1,0 +1,15 @@
+{% extends 'MajoraOTAStoreApplicationBundle:Application:form.html.twig' %}
+
+{% block title 'application.update.title'|trans %}
+
+{% block header %}
+    <h1>{{ 'application.update.title'|trans }}</h1>
+    <div class="margin-bottom-15">
+        <a href="{{ url('majoraotastore_admin_application_list') }}" class="btn btn-success">
+            <span class="fa fa-undo"></span>
+            {{ 'application.list.title'|trans }}
+        </a>
+    </div>
+{% endblock %}
+
+{% block application_form_action url('majoraotastore_admin_application_update', { 'id': application.id }) %}

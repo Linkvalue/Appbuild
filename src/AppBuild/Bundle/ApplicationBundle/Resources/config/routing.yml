@@ -1,8 +1,0 @@
-
-appbuild_admin_application:
-    resource: "@AppBuildApplicationBundle/Resources/config/routing/application.yml"
-    prefix: /application
-
-appbuild_admin_build:
-    resource: "@AppBuildApplicationBundle/Resources/config/routing/build.yml"
-    prefix: /application/{application_id}/build

@@ -1,0 +1,6 @@
+# Majora => AppBundle => messages.fr
+admin:
+    title: Serveur de déploiement
+    icon:
+        trash: Corbeille
+        undo: Retour

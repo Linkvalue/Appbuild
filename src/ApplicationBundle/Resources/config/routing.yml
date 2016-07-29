@@ -1,0 +1,8 @@
+
+majoraotastore_admin_application:
+    resource: "@MajoraOTAStoreApplicationBundle/Resources/config/routing/application.yml"
+    prefix: /application
+
+majoraotastore_admin_build:
+    resource: "@MajoraOTAStoreApplicationBundle/Resources/config/routing/build.yml"
+    prefix: /application/{application_id}/build

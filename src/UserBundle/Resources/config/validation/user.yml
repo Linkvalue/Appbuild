@@ -1,0 +1,13 @@
+Majora\OTAStore\UserBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        email:
+            - NotBlank: ~
+        password:
+            - NotBlank:
+                groups: ['creation']
+        firstname:
+            - NotBlank: ~
+        lastname:
+            - NotBlank: ~

@@ -1,0 +1,4 @@
+# Majora => ApplicationBundle => validators.en
+application:
+    form:
+        must_set_package_name: This application support requires to set a Package Name.

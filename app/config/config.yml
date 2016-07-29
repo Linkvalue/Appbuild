@@ -48,7 +48,7 @@ assetic:
     debug: '%kernel.debug%'
     use_controller: '%assetic_use_controller%'
     bundles:
-        - 'AppBuildAppBundle'
+        - 'MajoraOTAStoreAppBundle'
     filters:
         cssrewrite: ~
         scss:

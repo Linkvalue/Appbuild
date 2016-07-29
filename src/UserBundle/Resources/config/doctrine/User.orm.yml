@@ -1,0 +1,32 @@
+Majora\OTAStore\UserBundle\Entity\User:
+    type: entity
+    table: majoraotastore_user
+    repositoryClass: 'Majora\OTAStore\UserBundle\Entity\UserRepository'
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 500
+        roles:
+            type: simple_array
+        enabled:
+            type: boolean
+        firstname:
+            type: string
+            length: 255
+        lastname:
+            type: string
+            length: 255
+    manyToMany:
+        applications:
+            targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\Application'
+            mappedBy: users
+            cascade: ['persist']

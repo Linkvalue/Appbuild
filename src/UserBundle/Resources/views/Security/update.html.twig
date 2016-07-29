@@ -1,0 +1,15 @@
+{% extends 'MajoraOTAStoreUserBundle:Security:form.html.twig' %}
+
+{% block title 'user.update.title'|trans %}
+
+{% block header %}
+    <h1>{{ 'user.update.title'|trans }}</h1>
+    <div class="margin-bottom-15">
+        <a href="{{ url('majoraotastore_user_list') }}" class="btn btn-success">
+            <span class="fa fa-undo"></span>
+            {{ 'user.list.title'|trans }}
+        </a>
+    </div>
+{% endblock %}
+
+{% block user_form_action url('majoraotastore_user_update', { 'id': user.id }) %}

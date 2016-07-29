@@ -1,9 +1,21 @@
 {
-    "name": "link-value/app_build_server",
-    "license": "proprietary",
+    "name": "majora/ota_server",
+    "description": "LinkValue store for mobile applications",
+    "license": "MIT",
     "type": "project",
+    "authors": [
+        {
+            "name": "LinkValue Partners",
+            "homepage": "https://github.com/orgs/LinkValue/people"
+        },
+        {
+            "name":     "LinkValue",
+            "email":    "contact@link-value.fr",
+            "homepage": "http://link-value.fr"
+        }
+    ],
     "autoload": {
-        "psr-4": { "AppBuild\\": "src/AppBuild/" },
+        "psr-4": { "Majora\\OTAStore\\": "src/" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {

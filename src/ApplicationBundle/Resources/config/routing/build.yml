@@ -1,0 +1,33 @@
+
+# Builds
+majoraotastore_admin_build_list:
+    path:     /
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:list }
+
+majoraotastore_admin_build_create:
+    path:     /create
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:create }
+
+majoraotastore_admin_build_update:
+    path:     /{id}/update
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:update }
+
+majoraotastore_admin_build_delete:
+    path:     /{id}/delete
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:delete }
+
+majoraotastore_admin_build_download:
+    path:     /{id}/download
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:download }
+
+majoraotastore_admin_build_get_manifest:
+    path:     /{id}/manifest
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:getManifest }
+
+majoraotastore_admin_build_get_raw_file:
+    path:     /{id}/file
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:getRawFile }
+
+majoraotastore_admin_build_toggle_enable:
+    path:     /{id}/enable
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:toggleEnable }

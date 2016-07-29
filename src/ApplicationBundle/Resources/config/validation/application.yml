@@ -1,0 +1,7 @@
+Majora\OTAStore\ApplicationBundle\Entity\Application:
+    constraints:
+        - Callback: [validate]
+    properties:
+        support:
+            - Choice:
+                callback: getAvailableSupports
