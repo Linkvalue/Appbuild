@@ -276,14 +276,12 @@ class BuildController extends BaseController
 
                 $response->headers->set('Content-Type', 'application/plist; charset=utf-8;');
                 $response->headers->set('Content-Disposition', 'attachment; filename="manifest.plist"');
-                break;
+
+                return $response;
 
             default:
                 throw $this->createAccessDeniedException();
-                break;
         }
-
-        return $response;
     }
 
     /**
