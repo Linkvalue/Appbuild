@@ -6,7 +6,7 @@ set :ssh_user, 'linkvalue-deploy'
 set :tmp_dir, -> { "/home/#{fetch(:ssh_user)}/tmp/capistrano" }
 
 set :branch, 'master'
-set :deploy_to, -> { "/var/www/#{fetch(:application)}" }
+set :deploy_to, -> { "/var/www/AppBuildServer" }
 
 server 'preweb001.link-value.fr',
   roles: %w{web app db},
