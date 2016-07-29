@@ -41,7 +41,7 @@ class ApplicationController extends BaseController
         $form = $this->container->get('form.factory')->create(
             ApplicationType::class,
             $application = new Application(),
-            array('csrf_token_id' => 'creation')
+            array('csrf_token_id' => ApplicationType::TOKEN_CREATION)
         );
 
         if ($request->getMethod() == 'POST') {
@@ -90,7 +90,7 @@ class ApplicationController extends BaseController
         $form = $this->container->get('form.factory')->create(
             ApplicationType::class,
             $application,
-            array('csrf_token_id' => 'edition')
+            array('csrf_token_id' => ApplicationType::TOKEN_EDITION)
         );
 
         if ($request->getMethod() == 'POST') {

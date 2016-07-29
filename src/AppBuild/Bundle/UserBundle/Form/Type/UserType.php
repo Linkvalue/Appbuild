@@ -11,6 +11,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
+    const TOKEN_CREATION = 'creation';
+    const TOKEN_EDITION = 'edition';
+    const TOKEN_MY_ACCOUNT = 'my-account';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -27,13 +31,13 @@ class UserType extends AbstractType
                 'type' => Type\PasswordType::class,
                 'first_options' => array('label' => 'user.edit.password.label.first'),
                 'second_options' => array('label' => 'user.edit.password.label.second'),
-                'required' => $options['csrf_token_id'] == 'creation',
+                'required' => $options['csrf_token_id'] === self::TOKEN_CREATION,
                 'mapped' => false,
             ))
         ;
 
         // Roles can't be set for "my-account" csrf_token_id
-        if ($options['csrf_token_id'] !== 'my-account') {
+        if ($options['csrf_token_id'] !== self::TOKEN_MY_ACCOUNT) {
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
                 $userRole = $event->getData()->getRole();
                 $form = $event->getForm();

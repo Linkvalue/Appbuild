@@ -9,4 +9,4 @@ before_script:
 
 script:
   - bin/phpunit -c app --testsuite appbuild_project --coverage-clover=coverage.clover
-  - bin/behat --profile default --no-interaction
+  - bin/behat --no-interaction
