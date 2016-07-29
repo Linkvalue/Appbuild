@@ -2,12 +2,12 @@
 lock '3.4.0'
 
 # Project
-set :application, 'AppBuildServer'
+set :application, 'MajoraOTAStore'
 set :keep_releases, 3
 
 # VCS
 set :scm, :git
-set :repo_url, 'git@github.com:LinkValue/AppBuildServer.git'
+set :repo_url, 'git@github.com:LinkValue/MajoraOTAStore.git'
 
 # Shared dirs/files
 set :linked_dirs, fetch(:linked_dirs, []).push('wallet', 'web/uploads', 'build')

@@ -214,7 +214,7 @@ class BuildController extends BaseController
                 // Redirect to iOS specific protocol to download build manifest
                 $response = new RedirectResponse(
                     sprintf(
-                        'itms-services://?action=download-manifest&amp;url=%s',
+                        'itms-services://?action=download-manifest&url=%s',
                         urlencode($router->generate(
                             'appbuild_admin_build_get_manifest',
                             array(
@@ -274,7 +274,7 @@ class BuildController extends BaseController
                     )
                 );
 
-                $response->headers->set('Content-Type', 'application/plist; charset=utf-8;');
+                $response->headers->set('Content-Type', 'text/xml');
                 $response->headers->set('Content-Disposition', 'attachment; filename="manifest.plist"');
 
                 return $response;
