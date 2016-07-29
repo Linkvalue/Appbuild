@@ -1,6 +1,6 @@
-# AppBuildServer
+# MajoraOTAStore
 
-[![Build Status](https://travis-ci.org/LinkValue/AppBuildServer.svg?branch=master)](https://travis-ci.org/LinkValue/AppBuildServer)
+[![Build Status](https://travis-ci.org/LinkValue/MajoraOTAStore.svg?branch=master)](https://travis-ci.org/LinkValue/MajoraOTAStore)
 
 Permet l'hébergement de builds d'application et leur téléchargement pour une installation simple sur les devices qui sont autorisés à la télécharger.
 
@@ -9,14 +9,14 @@ Avant de commencer, installer Vagrant : http://docs.vagrantup.com/v2/getting-sta
 
 ### 1. Git
 ```bash
-git clone git@github.com:LinkValue/AppBuildServer.git
-cd AppBuildServer
+git clone git@github.com:LinkValue/MajoraOTAStore.git
+cd MajoraOTAStore
 ```
 
 ### 2. Hosts
 Pour travailler avec la machine virtuelle, ajouter cet host à la machine locale :
 ```
-### AppBuildServer ###
+### MajoraOTAStore ###
 192.168.100.70 app-build.dev
 ```
 
@@ -31,7 +31,7 @@ Pour custom certaines variables du provisionning, le fichier ```ansible/group_va
 Sur le projet, toutes les commandes utilisant Php doivent être lancées depuis la machine virtuelle, pour éviter les conflits de versions et de permissions.
 ```ssh
 vagrant ssh
-cd /var/www/AppBuildServer
+cd /var/www/MajoraOTAStore
 make prepare
 ```
 
