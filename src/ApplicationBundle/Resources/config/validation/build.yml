@@ -1,0 +1,6 @@
+Majora\OTAStore\ApplicationBundle\Entity\Build:
+    properties:
+        version:
+            - NotBlank: ~
+        filePath:
+            - NotBlank: ~

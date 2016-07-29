@@ -8,7 +8,7 @@ default:
             sessions:
                 symfony2:
                     symfony2: ~
-            files_path: '%paths.base%/src/AppBuild/Bundle/ApplicationBundle/Resources/fixtures/files'
+            files_path: '%paths.base%/src/ApplicationBundle/Resources/fixtures/files'
     suites:
         application:
             type: symfony_bundle

@@ -1,0 +1,21 @@
+
+# Users
+majoraotastore_user_list:
+    path:     /
+    defaults: { _controller: MajoraOTAStoreUserBundle:Security:list }
+
+majoraotastore_user_create:
+    path:     /create
+    defaults: { _controller: MajoraOTAStoreUserBundle:Security:create }
+
+majoraotastore_user_update:
+    path:     /{id}/update
+    defaults: { _controller: MajoraOTAStoreUserBundle:Security:update }
+
+majoraotastore_user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: MajoraOTAStoreUserBundle:Security:delete }
+
+majoraotastore_user_toggle_enable:
+    path:     /{id}/enable
+    defaults: { _controller: MajoraOTAStoreUserBundle:Security:toggleEnable }

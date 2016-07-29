@@ -1,0 +1,17 @@
+
+# Applications
+majoraotastore_admin_application_list:
+    path:     /
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Application:list }
+
+majoraotastore_admin_application_create:
+    path:     /create
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Application:create }
+
+majoraotastore_admin_application_update:
+    path:     /{id}/update
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Application:update }
+
+majoraotastore_admin_application_delete:
+    path:     /{id}/delete
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Application:delete }

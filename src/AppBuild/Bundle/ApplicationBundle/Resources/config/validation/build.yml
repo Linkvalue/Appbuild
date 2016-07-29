@@ -1,6 +1,0 @@
-AppBuild\Bundle\ApplicationBundle\Entity\Build:
-    properties:
-        version:
-            - NotBlank: ~
-        filePath:
-            - NotBlank: ~

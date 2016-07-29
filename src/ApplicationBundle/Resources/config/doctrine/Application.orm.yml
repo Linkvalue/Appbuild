@@ -1,0 +1,62 @@
+Majora\OTAStore\ApplicationBundle\Entity\Application:
+    type: entity
+    repositoryClass: 'Majora\OTAStore\ApplicationBundle\Entity\ApplicationRepository'
+    table: majoraotastore_application
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    uniqueConstraints:
+        label_idx:
+            columns: label
+        slug_idx:
+            columns: slug
+    fields:
+        label:
+            type: string
+        slug:
+            type: string
+            gedmo:
+                slug:
+                    separator: -
+                    style: default
+                    fields:
+                        - label
+        support:
+            type: string
+        packageName:
+            type: string
+            column: package_name
+            nullable: true
+        enabled:
+            type: boolean
+        createdAt:
+            type: datetime
+            column: created_at
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            column: updated_at
+            gedmo:
+                timestampable:
+                    on: update
+    oneToMany:
+        builds:
+            targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\Build'
+            mappedBy: application
+            cascade: ['persist', 'remove']
+    manyToMany:
+        users:
+            targetEntity: 'Majora\OTAStore\UserBundle\Entity\User'
+            inversedBy: applications
+            cascade: ['persist']
+            joinTable:
+                name: majoraotastore_application_user
+                joinColumns:
+                    application_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referencedColumnName: id

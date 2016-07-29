@@ -1,0 +1,75 @@
+{% extends 'MajoraOTAStoreUserBundle::layout.html.twig' %}
+
+{% block title 'user.list.title'|trans %}
+
+{% block header %}
+    <h1>{{ 'user.list.title'|trans }}</h1>
+    <div class="margin-bottom-15">
+        <a href="{{ url('majoraotastore_user_create') }}" class="btn btn-primary">
+            <span class="fa fa-plus"></span>
+            {{ 'user.create.title'|trans }}
+        </a>
+        {% if app.request.get('enabled', true) %}
+            <a href="{{ url('majoraotastore_user_list', { enabled: false }) }}" class="btn btn-xl btn-info">
+                <i class="fa fa-trash"></i> {{ 'admin.icon.trash'|trans }}
+            </a>
+        {% else %}
+            <a href="{{ url('majoraotastore_user_list', { enabled: true }) }}" class="btn btn-xl btn-success">
+                <i class="fa fa-undo"></i> {{ 'admin.icon.undo'|trans }}
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>{{ 'user.list.thead.email'|trans }}</td>
+                <td>{{ 'user.list.thead.firstname'|trans }}</td>
+                <td>{{ 'user.list.thead.lastname'|trans }}</td>
+                <td>{{ 'user.list.thead.role'|trans }}</td>
+                <td class="actions">
+                    {{ 'user.list.thead.actions'|trans }}
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>
+                    <a href="{{ url('majoraotastore_user_update', { id: user.id }) }}">
+                        {{ user.email }}
+                    </a>
+                </td>
+                <td>
+                    {{ user.firstname }}
+                </td>
+                <td>
+                    {{ user.lastname }}
+                </td>
+                <td>
+                    {{ ('user.roles.'~user.role)|trans }}
+                </td>
+                <td class="actions">
+                    <a class="btn btn-primary btn-xs" title="{{ 'user.list.actions.update.title'|trans }}"
+                       href="{{ url('majoraotastore_user_update', { id: user.id }) }}">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    {% if user.enabled %}
+                        <a class="btn btn-primary btn-xs" title="{{ 'user.list.actions.disable.title'|trans }}"
+                           href="{{ url('majoraotastore_user_toggle_enable', { id: user.id }) }}">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    {% else %}
+                        <a class="btn btn-primary btn-xs" title="{{ 'user.list.actions.enable.title'|trans }}"
+                           href="{{ url('majoraotastore_user_toggle_enable', { id: user.id }) }}">
+                            <i class="fa fa-check"></i>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

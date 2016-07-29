@@ -1,0 +1,6 @@
+# Majora => AppBundle => messages.en
+admin:
+    title: Deployment server
+    icon:
+        trash: Trash
+        undo: Back

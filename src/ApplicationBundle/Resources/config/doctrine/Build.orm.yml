@@ -1,0 +1,36 @@
+Majora\OTAStore\ApplicationBundle\Entity\Build:
+    type: entity
+    repositoryClass: 'Majora\OTAStore\ApplicationBundle\Entity\BuildRepository'
+    table: majoraotastore_build
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        version:
+            type: string
+        filePath:
+            type: string
+            column: file_path
+        enabled:
+            type: boolean
+        createdAt:
+            type: datetime
+            column: created_at
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            column: updated_at
+            gedmo:
+                timestampable:
+                    on: update
+    manyToOne:
+        application:
+            targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\Application'
+            inversedBy: builds
+            joinColumn:
+                name: application_id
+                referencedColumnName: id
+                onDelete: cascade
