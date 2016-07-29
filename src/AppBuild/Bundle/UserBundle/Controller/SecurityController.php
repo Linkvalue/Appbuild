@@ -80,7 +80,7 @@ class SecurityController extends Controller
         $form = $this->container->get('form.factory')->create(
             UserType::class,
             $user,
-            array('csrf_token_id' => 'creation')
+            array('csrf_token_id' => UserType::TOKEN_CREATION)
         );
 
         $form->handleRequest($request);
@@ -128,7 +128,7 @@ class SecurityController extends Controller
         $form = $this->container->get('form.factory')->create(
             UserType::class,
             $user,
-            array('csrf_token_id' => 'edition')
+            array('csrf_token_id' => UserType::TOKEN_EDITION)
         );
 
         if ($request->getMethod() == 'POST') {
@@ -229,7 +229,7 @@ class SecurityController extends Controller
         $form = $this->container->get('form.factory')->create(
             UserType::class,
             $user,
-            array('csrf_token_id' => 'my-account')
+            array('csrf_token_id' => UserType::TOKEN_MY_ACCOUNT)
         );
 
         $form->handleRequest($request);

@@ -18,6 +18,9 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class ApplicationType extends AbstractType
 {
+    const TOKEN_CREATION = 'creation';
+    const TOKEN_EDITION = 'edition';
+
     /**
      * @var TranslatorInterface
      */

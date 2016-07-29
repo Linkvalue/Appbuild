@@ -17,6 +17,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class BuildType extends AbstractType
 {
+    const TOKEN_CREATION = 'creation';
+    const TOKEN_EDITION = 'edition';
+
     /**
      * @var string
      */
@@ -63,7 +66,7 @@ class BuildType extends AbstractType
             'label' => 'build.form.version',
         ));
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder, $options) {
             $form = $event->getForm();
 
             /* @var \AppBuild\Bundle\ApplicationBundle\Entity\Build $build */
@@ -72,7 +75,7 @@ class BuildType extends AbstractType
                 && ($application = $build->getApplication())
             ) {
                 $formType = $builder->create('filePath', FileType::class, array(
-                    'required' => false,
+                    'required' => $options['csrf_token_id'] === self::TOKEN_CREATION,
                     'label' => 'build.form.filePath',
                     'auto_initialize' => false,
                 ));

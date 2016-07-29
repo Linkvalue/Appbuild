@@ -70,7 +70,7 @@ class BuildController extends BaseController
         $form = $this->container->get('form.factory')->create(
             BuildType::class,
             $build = (new Build())->setApplication($application),
-            array('csrf_token_id' => 'creation')
+            array('csrf_token_id' => BuildType::TOKEN_CREATION)
         );
 
         if ($request->getMethod() == 'POST') {
@@ -123,7 +123,7 @@ class BuildController extends BaseController
         $form = $this->container->get('form.factory')->create(
             BuildType::class,
             $build,
-            array('csrf_token_id' => 'edition')
+            array('csrf_token_id' => BuildType::TOKEN_EDITION)
         );
 
         if ($request->getMethod() == 'POST') {
