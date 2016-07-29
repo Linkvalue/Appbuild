@@ -27,9 +27,9 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             // projects
-            new AppBuild\Bundle\AppBundle\AppBuildAppBundle(),
-            new AppBuild\Bundle\UserBundle\AppBuildUserBundle(),
-            new AppBuild\Bundle\ApplicationBundle\AppBuildApplicationBundle(),
+            new Majora\OTAStore\AppBundle\MajoraOTAStoreAppBundle(),
+            new Majora\OTAStore\UserBundle\MajoraOTAStoreUserBundle(),
+            new Majora\OTAStore\ApplicationBundle\MajoraOTAStoreApplicationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

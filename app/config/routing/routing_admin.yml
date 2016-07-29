@@ -1,7 +1,7 @@
 # Appbuild admin routing
-appbuild_admin_applicationbundle:
-    resource: "@AppBuildApplicationBundle/Resources/config/routing.yml"
+majoraotastore_admin_applicationbundle:
+    resource: "@MajoraOTAStoreApplicationBundle/Resources/config/routing.yml"
     prefix:   /
-appbuild_userbundle:
-    resource: "@AppBuildUserBundle/Resources/config/routing.yml"
+majoraotastore_userbundle:
+    resource: "@MajoraOTAStoreUserBundle/Resources/config/routing.yml"
     prefix:   /

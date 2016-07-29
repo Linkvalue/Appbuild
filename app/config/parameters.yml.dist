@@ -5,7 +5,7 @@ parameters:
     # Database configurations
     database_host: '127.0.0.1'
     database_port: ~
-    database_name: 'appbuild'
+    database_name: 'majoraotastore'
     database_user: 'root'
     database_password: ~
     database_server_version: ~

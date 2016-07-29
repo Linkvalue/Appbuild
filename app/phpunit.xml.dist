@@ -8,7 +8,7 @@
          bootstrap="autoload.php"
 >
     <testsuites>
-        <testsuite name="appbuild_project">
+        <testsuite name="majoraotastore_project">
             <directory>../src/*/*Bundle/Tests</directory>
             <directory>../src/*/Bundle/*Bundle/Tests</directory>
             <directory>../src/*Bundle/Tests</directory>
