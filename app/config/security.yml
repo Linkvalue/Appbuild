@@ -12,7 +12,7 @@ security:
     firewalls:
         # disables authentication for assets and the profiler
         dev:
-            pattern: '^/(_(profiler|wdt)|css|images|js)/'
+            pattern: '^/(_(profiler|wdt)|css|images|js|uploads)/'
             security: false
 
         # manifest and file downloading must be accessible without logging in
