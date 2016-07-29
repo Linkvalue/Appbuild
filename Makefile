@@ -17,7 +17,7 @@ vm-rebuild: vm-destroy vm-build
 
 # First install
 prepare: install db-build
-	@echo "Project AppBuildServer is built !"
+	@echo "Project MajoraOTAStore is built !"
 
 # Clean
 clean:
@@ -103,7 +103,7 @@ test-install-bin:
 
 run-tests:
 	rm -rf web/tests-coverage/*
-	bin/phpunit -c app --testsuite appbuild_project --coverage-html web/tests-coverage
+	bin/phpunit -c app --testsuite majoraotastore_project --coverage-html web/tests-coverage
 	@echo "\nCoverage report : \n\033[1;32m http://app-build.dev/tests-coverage/index.html\033[0m\n"
 
 # Production
