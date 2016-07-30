@@ -2,5 +2,5 @@ Majora\OTAStore\ApplicationBundle\Entity\Build:
     test_ios_1_5_2:
         application: '@test_ios'
         version: 1.5.2
-        filePath: '/var/www/html/build/appli-ios-de-ouf/070a5b3e279ad4d6d955348174d5dd9fc152f6dcappli.ipa'
+        filePath: '/var/www/html/build/ios-application/070a5b3e279ad4d6d955348174d5dd9fc152f6dcappli.ipa'
         enabled: true

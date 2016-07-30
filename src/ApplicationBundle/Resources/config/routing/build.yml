@@ -24,9 +24,9 @@ majoraotastore_admin_build_get_manifest:
     path:     /{id}/manifest
     defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:getManifest }
 
-majoraotastore_admin_build_get_raw_file:
+majoraotastore_admin_build_stream_file:
     path:     /{id}/file
-    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:getRawFile }
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:streamFile }
 
 majoraotastore_admin_build_toggle_enable:
     path:     /{id}/enable

@@ -21,18 +21,32 @@ class BuildType extends AbstractType
     const TOKEN_EDITION = 'edition';
 
     /**
+     * @var bool
+     */
+    protected $streamBuildsContent;
+
+    /**
      * @var string
      */
-    protected $buildApplicationDir;
+    protected $webBuildsApplicationDir;
+
+    /**
+     * @var string
+     */
+    protected $streamBuildsApplicationDir;
 
     /**
      * construct.
      *
-     * @param string $buildApplicationDir
+     * @param bool   $streamBuildsContent
+     * @param string $webBuildsApplicationDir
+     * @param string $streamBuildsApplicationDir
      */
-    public function __construct($buildApplicationDir = null)
+    public function __construct($streamBuildsContent = null, $webBuildsApplicationDir = null, $streamBuildsApplicationDir = null)
     {
-        $this->buildApplicationDir = $buildApplicationDir;
+        $this->streamBuildsContent = $streamBuildsContent;
+        $this->webBuildsApplicationDir = $webBuildsApplicationDir;
+        $this->streamBuildsApplicationDir = $streamBuildsApplicationDir;
     }
 
     /**
@@ -70,7 +84,9 @@ class BuildType extends AbstractType
             $form = $event->getForm();
 
             /* @var \Majora\OTAStore\ApplicationBundle\Entity\Build $build */
-            if ($this->buildApplicationDir
+            if (!is_null($this->streamBuildsContent)
+                && $this->webBuildsApplicationDir
+                && $this->streamBuildsApplicationDir
                 && ($build = $event->getData())
                 && ($application = $build->getApplication())
             ) {
@@ -82,7 +98,7 @@ class BuildType extends AbstractType
                 $formType->addModelTransformer(
                     new BuildUploadTransformer(
                         sprintf('%s/%s',
-                            $this->buildApplicationDir,
+                            ($this->streamBuildsContent) ? $this->streamBuildsApplicationDir : $this->webBuildsApplicationDir,
                             $application->getSlug()
                         ),
                         $build->getFilePath()

@@ -22,8 +22,17 @@ parameters:
     # Default locale
     default_locale: 'en'
 
-    # Built Application
-    build_application_dir: '%kernel.root_dir%/../build'
+    # Relative path to the directory under "web" directory where builds file will be stored (only used if "stream_builds_content = false")
+    web_relative_builds_application_dir: 'uploads'
+
+    # Streaming builds file content
+    # Set this to true if you don't want your files to be located under "web" directory
+    # (i.e. you don't want your builds to be downloadable using: "http://example.com/my_builds/my_file.ipa"),
+    # be aware that it may cause issues if your web server isn't configured to let PHP stream large files.
+    stream_builds_content: false
+
+    # Path to the directory from where builds file content will be streamed (only used if "stream_builds_content = true")
+    stream_builds_application_dir: '%kernel.root_dir%/../build'
 
     # Assetic use controller
     assetic_use_controller: false
