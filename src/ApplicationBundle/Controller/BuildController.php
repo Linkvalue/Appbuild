@@ -267,7 +267,6 @@ class BuildController extends BaseController
                         )
                     );
                 }
-
                 break;
         }
 
