@@ -192,4 +192,14 @@ class Build
 
         return $this;
     }
+
+    /**
+     * Returns the build file name with its extension.
+     *
+     * @return string
+     */
+    public function getFileNameWithExtension()
+    {
+        return basename($this->filePath);
+    }
 }

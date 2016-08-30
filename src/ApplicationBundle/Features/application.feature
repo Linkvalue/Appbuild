@@ -1,7 +1,7 @@
 Feature: application
   In order to manage applications
   As someone or something
-  I need to be able to list, create, update and delete a application
+  I need to be able to list, create and update applications and application builds
 
   Background:
     Given I am authenticated with role "ROLE_SUPER_ADMIN"
@@ -19,9 +19,13 @@ Feature: application
     When I list all applications
     Then "2" applications should be displayed
 
-  Scenario: Create an application
-    When I add an application with label "my new app"
-    Then the application with label "my new app" should have been saved
+  Scenario: Create an ios application
+    When I add an application with support "ios" with label "my new ios app"
+    Then the application with label "my new ios app" should have been saved
+
+  Scenario: Create an android application
+    When I add an application with support "android" with label "my new android app"
+    Then the application with label "my new android app" should have been saved
 
   Scenario: Update an application
     When I edit the application with id "1" to have label "new label"
@@ -42,4 +46,9 @@ Feature: application
   Scenario: Download an android build
     Given I add a build for application with id "1" with version "3.0" and file "android_v3.apk"
     When I download the latest build
-    Then I receive the latest android build
+    Then I receive the latest build
+
+  Scenario: Download an ios build
+    Given I add a build for application with id "2" with version "2.0.0" and file "ios_v2.ipa"
+    When I download the latest build
+    Then I receive the latest build

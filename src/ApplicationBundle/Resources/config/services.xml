@@ -19,7 +19,9 @@
             class="Majora\OTAStore\ApplicationBundle\Form\Type\BuildType"
             public="true"
         >
-            <argument>%build_application_dir%</argument>
+            <argument>%stream_builds_content%</argument>
+            <argument>%web_builds_application_dir%</argument>
+            <argument>%stream_builds_application_dir%</argument>
             <tag name="form.type" />
         </service>
     </services>

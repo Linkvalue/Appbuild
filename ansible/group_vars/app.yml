@@ -8,6 +8,8 @@ ruby_version: 2.2.3
 pools:
   - { name: 'www', user: 'vagrant', group: 'vagrant', listen: '127.0.0.1:9000' }
 
+php_upload_max_filesize: '1024M'
+php_post_max_size: '1024M'
 php:
   memory_limit: 2G
   extensions:
@@ -24,7 +26,7 @@ php:
     - php5-xdebug
 
 sites:
-  - { name: 'majoraotastore', docroot: '/var/www/MajoraOTAStore', server_name: 'app-build.dev' }
+  - { name: 'majoraotastore', docroot: '/var/www/MajoraOTAStore', server_name: 'app-build.dev', client_max_body_size: '1024M' }
 
 mysql:
   databases:

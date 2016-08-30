@@ -1,8 +1,11 @@
+# bin/behat
 default:
     autoload:
-        '': %paths.base%/src
+        '': '%paths.base%/src'
     extensions:
-        Behat\Symfony2Extension: ~
+        Behat\Symfony2Extension:
+            kernel:
+                env: 'test_stream'
         Behat\MinkExtension:
             default_session: 'symfony2'
             sessions:
@@ -11,8 +14,8 @@ default:
             files_path: '%paths.base%/src/ApplicationBundle/Resources/fixtures/files'
     suites:
         application:
-            type: symfony_bundle
-            bundle: MajoraOTAStoreApplicationBundle
+            type: 'symfony_bundle'
+            bundle: 'MajoraOTAStoreApplicationBundle'
             paths: [ '%paths.base%/src/ApplicationBundle/Features' ]
             contexts:
                 - 'Majora\OTAStore\ApplicationBundle\Features\Context\ApplicationIntegrationContext':
@@ -21,3 +24,10 @@ default:
                     session: '@session'
                     tokenStorage: '@security.token_storage'
                 - 'Behat\MinkExtension\Context\MinkContext'
+
+# bin/behat --profile="nostream"
+nostream:
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                env: 'test_nostream'

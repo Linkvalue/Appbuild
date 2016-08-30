@@ -2,16 +2,17 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Features\Context;
 
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
-use Majora\OTAStore\ApplicationBundle\Entity\Build;
-use Majora\OTAStore\UserBundle\Entity\User;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Hook\Scope\BeforeFeatureScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Driver\BrowserKitDriver;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
+use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\ORM\EntityManager;
+use Majora\OTAStore\ApplicationBundle\Entity\Application;
+use Majora\OTAStore\ApplicationBundle\Entity\Build;
+use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Router;
@@ -23,6 +24,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  */
 class ApplicationIntegrationContext implements SnippetAcceptingContext
 {
+    use KernelDictionary;
+
     const MAIN_TABLE_SELECTOR = '#main-content table';
 
     /** @var EntityManager */
@@ -40,6 +43,14 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     /** @var \Behat\MinkExtension\Context\MinkContext */
     private $minkContext;
 
+    /**
+     * Constructor.
+     *
+     * @param EntityManager         $manager
+     * @param Router                $router
+     * @param Session               $session
+     * @param TokenStorageInterface $tokenStorage
+     */
     public function __construct(
         EntityManager $manager,
         Router $router,
@@ -70,8 +81,13 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
      */
     public static function initBdd(BeforeFeatureScope $scope)
     {
-        exec('php app/console --env=test doctrine:schema:drop --force');
-        exec('php app/console --env=test doctrine:schema:create');
+        // init test_stream
+        exec('php app/console --env=test_stream doctrine:schema:drop --force');
+        exec('php app/console --env=test_stream doctrine:schema:create');
+
+        // init test_nostream
+        exec('php app/console --env=test_nostream doctrine:schema:drop --force');
+        exec('php app/console --env=test_nostream doctrine:schema:create');
     }
 
     /**
@@ -196,16 +212,20 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     }
 
     /**
-     * @When I add an application with label :label
+     * @When I add an application with support :support with label :label
      */
-    public function iAddAnApplication($label)
+    public function iAddAnApplication($support, $label)
     {
         $url = $this->router->generate('majoraotastore_admin_application_create');
         $this->minkContext->visit($url);
 
         $this->minkContext->fillField('majoraotastore_application_label', $label);
-        $this->minkContext->fillField('majoraotastore_application_support', Application::SUPPORT_IOS);
-        $this->minkContext->fillField('majoraotastore_application_packageName', 'my package');
+        $this->minkContext->fillField('majoraotastore_application_support', $support);
+
+        // iOS support needs package identifier
+        if ($support == Application::SUPPORT_IOS) {
+            $this->minkContext->fillField('majoraotastore_application_packageName', 'my package');
+        }
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
@@ -317,34 +337,77 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
         }
 
         $url = $this->router->generate('majoraotastore_admin_build_download', [
-            'application_id' => $this->getApplicationIdForBuildId($build->getApplication()->getId()),
+            'application_id' => $build->getApplication()->getId(),
             'id' => $build->getId(),
         ]);
 
-        //follow correct redirection depending on the support (ios/android)
-        $this->getClient()->followRedirects(true);
+        // Follow redirects?
+        switch ($build->getApplication()->getSupport()) {
+
+            case Application::SUPPORT_IOS:
+                // we're not able to follow iOS protocol redirection
+                $this->getClient()->followRedirects(false);
+                break;
+
+            default:
+                if ($this->getContainer()->getParameter('stream_builds_content')) {
+                    // we can follow build file streaming route
+                    $this->getClient()->followRedirects(true);
+                } else {
+                    // we're not able to follow web relative paths to physical file
+                    $this->getClient()->followRedirects(false);
+                }
+                break;
+        }
         $this->minkContext->visit($url);
     }
 
     /**
-     * @Then I receive the latest android build
+     * @Then I receive the latest build
      */
-    public function iReceiveTheLatestAndroidBuild()
+    public function iReceiveTheLatestBuild()
     {
         $buildRepository = $this->manager->getRepository('MajoraOTAStoreApplicationBundle:Build');
         if (!$build = $buildRepository->findOneBy([], ['id' => 'DESC'])) {
             throw new \RuntimeException('Latest build not found');
         }
 
-        //for android : get the raw file
-        $expectedUrl = $this->router->generate('majoraotastore_admin_build_get_raw_file', [
-            'application_id' => $this->getApplicationIdForBuildId($build->getApplication()->getId()),
-            'id' => $build->getId(),
-        ]);
+        // Download assertions
+        switch ($build->getApplication()->getSupport()) {
 
-        $this->minkContext->assertResponseStatus(200);
-        $this->minkContext->assertPageAddress($expectedUrl);
-        $this->minkContext->assertSession()->responseHeaderEquals('Content-Type', 'application/octet-stream');
+            case Application::SUPPORT_IOS:
+                $this->minkContext->assertResponseStatus(302);
+                if (!preg_match(
+                    '@itms-services://\?action=download-manifest&url=.+application.+build.+manifest@',
+                    $this->getClient()->getInternalResponse()->getHeader('Location')
+                )) {
+                    throw new \RuntimeException('Redirection address does not match ios protocol (itms-services...)');
+                }
+                $this->minkContext->assertSession()->responseHeaderContains('Content-Type', 'text/html');
+                break;
+
+            default:
+                if ($this->getContainer()->getParameter('stream_builds_content')) {
+                    $expectedUrl = $this->router->generate('majoraotastore_admin_build_stream_file', [
+                        'application_id' => $build->getApplication()->getId(),
+                        'id' => $build->getId(),
+                    ]);
+
+                    $this->minkContext->assertResponseStatus(200);
+                    $this->minkContext->assertPageAddress($expectedUrl);
+                    $this->minkContext->assertSession()->responseHeaderEquals('Content-Type', 'application/octet-stream');
+                } else {
+                    $this->minkContext->assertResponseStatus(302);
+                    $this->minkContext->assertSession()->responseHeaderEquals('Location', sprintf(
+                        '/%s/%s/%s',
+                        $this->getContainer()->getParameter('web_relative_builds_application_dir'),
+                        $build->getApplication()->getSlug(),
+                        $build->getFileNameWithExtension()
+                    ));
+                    $this->minkContext->assertSession()->responseHeaderContains('Content-Type', 'text/html');
+                }
+                break;
+        }
     }
 
     /**

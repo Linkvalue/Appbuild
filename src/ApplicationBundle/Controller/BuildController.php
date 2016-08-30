@@ -116,6 +116,10 @@ class BuildController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
+        if ($build->getApplication() != $application) {
+            throw $this->createNotFoundException();
+        }
+
         if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
@@ -169,6 +173,10 @@ class BuildController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
+        if ($build->getApplication() != $application) {
+            throw $this->createNotFoundException();
+        }
+
         if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
@@ -202,6 +210,10 @@ class BuildController extends BaseController
      */
     public function downloadAction(Application $application, Build $build)
     {
+        if ($build->getApplication() != $application) {
+            throw $this->createNotFoundException();
+        }
+
         if (!$this->getUserApplications()->contains($application)) {
             throw $this->createAccessDeniedException();
         }
@@ -232,16 +244,29 @@ class BuildController extends BaseController
                 break;
 
             default:
-                // Download raw build file
-                $response = new RedirectResponse(
-                    $router->generate(
-                        'majoraotastore_admin_build_get_raw_file',
-                        array(
-                            'application_id' => $application->getId(),
-                            'id' => $build->getId(),
+                // Download build file
+                if ($this->container->getParameter('stream_builds_content')) {
+                    // By streaming content
+                    $response = new RedirectResponse(
+                        $router->generate(
+                            'majoraotastore_admin_build_stream_file',
+                            array(
+                                'application_id' => $application->getId(),
+                                'id' => $build->getId(),
+                            )
                         )
-                    )
-                );
+                    );
+                } else {
+                    // Directly
+                    $response = new RedirectResponse(
+                        sprintf(
+                            '/%s/%s/%s',
+                            $this->container->getParameter('web_relative_builds_application_dir'),
+                            $application->getSlug(),
+                            $build->getFileNameWithExtension()
+                        )
+                    );
+                }
                 break;
         }
 
@@ -263,6 +288,10 @@ class BuildController extends BaseController
      */
     public function getManifestAction(Application $application, Build $build)
     {
+        if ($build->getApplication() != $application) {
+            throw $this->createNotFoundException();
+        }
+
         switch ($application->getSupport()) {
 
             case Application::SUPPORT_IOS:
@@ -271,6 +300,13 @@ class BuildController extends BaseController
                     array(
                         'application' => $application,
                         'build' => $build,
+                        'stream_builds_content' => $this->container->getParameter('stream_builds_content'),
+                        'web_relative_build_path' => sprintf(
+                            '%s/%s/%s',
+                            $this->container->getParameter('web_relative_builds_application_dir'),
+                            $application->getSlug(),
+                            $build->getFileNameWithExtension()
+                        ),
                     )
                 );
 
@@ -285,7 +321,7 @@ class BuildController extends BaseController
     }
 
     /**
-     * Download given build raw file.
+     * Download given build file by streaming its content.
      *
      * @ParamConverter("application", options={"mapping": {"application_id": "id"}})
      *
@@ -293,9 +329,15 @@ class BuildController extends BaseController
      * @param Build       $build
      *
      * @return StreamedResponse
+     *
+     * @see "stream_builds_content" parameter
      */
-    public function getRawFileAction(Application $application, Build $build)
+    public function streamFileAction(Application $application, Build $build)
     {
+        if ($build->getApplication() != $application) {
+            throw $this->createNotFoundException();
+        }
+
         $response = new StreamedResponse(function () use ($build) {
             readfile($build->getFilePath());
         });
@@ -320,6 +362,10 @@ class BuildController extends BaseController
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
+        }
+
+        if ($build->getApplication() != $application) {
+            throw $this->createNotFoundException();
         }
 
         if (!$this->getUserApplications()->contains($application)) {
