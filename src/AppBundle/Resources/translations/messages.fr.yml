@@ -4,3 +4,21 @@ admin:
     icon:
         trash: Corbeille
         undo: Retour
+    upload:
+        button: Envoyer un fichier
+        drop:
+            text: Déposez un fichier ici
+            processing: Fichier en cours de traitement...
+        retry: Réessayer
+        remove: Supprimer
+        message:
+            not_allowed: Non autorisé à téléverser un fichier.
+            unexpected_method: Méthode d'envoi de la requête innatendu.
+            upload_failure: Echec de l'envoi du fichier.
+            move_failure: Echec de la mise en place du fichier sur le serveur.
+            default: Une erreur inconnue s'est produite.
+            invalid_extension: 'Le fichier [{file}] a une extension invalide. Les extensions valides sont : [{extensions}].'
+            on_leave: Des fichiers sont en cours d'envoi, l'envoi sera annulé si vous quittez maintenant.
+            too_many_items: 'Trop de fichiers à téléverser. Le nombre maximum de fichiers pouvant être envoyés est [{itemLimit}].'
+            progress_bar: '{percent}% de {total_size}'
+            waiting_for_response: En cours de traitement...

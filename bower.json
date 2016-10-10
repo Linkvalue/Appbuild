@@ -20,6 +20,7 @@
     "moment": "~2.10.3",
     "jquery-ui": "~1.11.4",
     "datatables": "~1.10.7",
-    "datatables-bootstrap3-plugin": "~0.4.0"
+    "datatables-bootstrap3-plugin": "~0.4.0",
+    "fine-uploader": "~5.11.8"
   }
 }

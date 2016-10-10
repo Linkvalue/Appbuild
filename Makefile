@@ -79,7 +79,8 @@ update-parameters:
 db-build:
 	php app/console doctrine:database:create --if-not-exists
 	php app/console doctrine:migrations:migrate -n
-	php app/console doctrine:fixtures:load -n
+	php app/console doctrine:fixtures:load -n --fixtures=src/UserBundle
+	php app/console hautelook_alice:doctrine:fixtures:load -n --append
 
 db-trash:
 	php app/console doctrine:database:drop --force --if-exists
