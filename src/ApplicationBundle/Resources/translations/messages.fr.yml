@@ -35,6 +35,7 @@ build:
     form:
         version: Version du build
         filename: Fichier du build à télécharger
+        comment: Commentaire du build
         submit_button:
             label: Valider
     create:
@@ -50,6 +51,7 @@ build:
         thead:
             label: Libellé
             actions: Actions
+            comment: Commentaire
         actions:
             enable:
                 title: Activer le build

@@ -5,6 +5,7 @@ namespace Majora\OTAStore\ApplicationBundle\Form\Type;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -45,6 +46,10 @@ class BuildType extends AbstractType
         $builder->add('version', TextType::class, array(
             'required' => true,
             'label' => 'build.form.version',
+        ));
+        $builder->add('comment', TextareaType::class, array(
+            'required' => false,
+            'label' => 'build.form.comment',
         ));
         $builder->add('filename', TextType::class, array(
             'required' => false,

@@ -27,6 +27,11 @@ class Build
     /**
      * @var string
      */
+    private $comment;
+
+    /**
+     * @var string
+     */
     private $filePath;
 
     /**
@@ -69,9 +74,7 @@ class Build
     {
         $application = $this->getApplication();
 
-        return sprintf('%s [%s]',
-            $application->getLabel(),
-            $this->getVersion()
+        return sprintf('%s [%s]', $application->getLabel(), $this->getVersion()
         );
     }
 
@@ -203,6 +206,26 @@ class Build
     public function getFileNameWithExtension()
     {
         return basename($this->filePath);
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     *
+     * @return self
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
     }
 
     /**

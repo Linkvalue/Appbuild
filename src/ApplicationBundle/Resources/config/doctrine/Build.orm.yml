@@ -9,6 +9,9 @@ Majora\OTAStore\ApplicationBundle\Entity\Build:
     fields:
         version:
             type: string
+        comment:
+            type: text
+            nullable: true
         filePath:
             type: string
             column: file_path

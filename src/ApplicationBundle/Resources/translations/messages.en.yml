@@ -35,6 +35,7 @@ build:
     form:
         version: Build version
         filename: Build file to be downloaded
+        comment: Build comment
         submit_button:
             label: Save
     create:
@@ -50,6 +51,7 @@ build:
         thead:
             label: Label
             actions: Actions
+            comment: Comment
         actions:
             enable:
                 title: Enable build

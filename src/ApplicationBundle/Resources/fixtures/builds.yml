@@ -4,3 +4,4 @@ Majora\OTAStore\ApplicationBundle\Entity\Build:
         version: 1.5.2
         filePath: '/var/www/MajoraOTAStore/src/ApplicationBundle/Resources/fixtures/files/ios_v2.ipa'
         enabled: true
+        comment: 'This is a comment for this build'
