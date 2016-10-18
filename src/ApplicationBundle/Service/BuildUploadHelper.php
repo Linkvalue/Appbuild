@@ -13,17 +13,17 @@ class BuildUploadHelper
     /**
      * @var bool
      */
-    protected $streamBuildsContent;
+    private $streamBuildsContent;
 
     /**
      * @var string
      */
-    protected $webBuildsApplicationDir;
+    private $webBuildsApplicationDir;
 
     /**
      * @var string
      */
-    protected $streamBuildsApplicationDir;
+    private $streamBuildsApplicationDir;
 
     /**
      * construct.
@@ -32,7 +32,7 @@ class BuildUploadHelper
      * @param string $webBuildsApplicationDir
      * @param string $streamBuildsApplicationDir
      */
-    public function __construct($streamBuildsContent = null, $webBuildsApplicationDir = null, $streamBuildsApplicationDir = null)
+    public function __construct($streamBuildsContent, $webBuildsApplicationDir = '', $streamBuildsApplicationDir = '')
     {
         $this->streamBuildsContent = $streamBuildsContent;
         $this->webBuildsApplicationDir = $webBuildsApplicationDir;

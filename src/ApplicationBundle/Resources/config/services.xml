@@ -31,6 +31,17 @@
             <argument>%web_builds_application_dir%</argument>
             <argument>%stream_builds_application_dir%</argument>
         </service>
+
+        <!-- Build Files Purger -->
+        <service id="appbuild.application.build_files_purger"
+            class="Majora\OTAStore\ApplicationBundle\Service\BuildFilesPurger"
+            public="true"
+        >
+            <argument type="service" id="filesystem" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%web_builds_application_dir%</argument>
+            <argument>%stream_builds_application_dir%</argument>
+        </service>
     </services>
 
 </container>
