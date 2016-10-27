@@ -22,6 +22,14 @@ class PurgeFilesCommand extends ContainerAwareCommand
             ->setName('appbuild:application:purge-files')
             ->setDescription('Purge unused uploaded files.')
             ->addOption('force', 'f', InputOption::VALUE_NONE, 'Immediately purge all unused files without asking for confirmation.')
+            ->addOption(
+                'unused-date-filter',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Set the unused files Finder date filter.
+                Be aware that you may compromise the upload workflow if you purge an unused uploaded file before the user had the time to submit its form.
+                Default value is "< now - 12hours".'
+            )
         ;
     }
 
@@ -32,15 +40,20 @@ class PurgeFilesCommand extends ContainerAwareCommand
     {
         $buildFilesPurger = $this->getContainer()->get('appbuild.application.build_files_purger');
 
+        // Apply configuration
+        if ($unusedDateFilter = $input->getOption('unused-date-filter')) {
+            $buildFilesPurger->setUnusedFilesFinderDateFilter($unusedDateFilter);
+        }
+
+        // Check if there is something to purge
+        $filesToPurge = $buildFilesPurger->getUnusedFiles();
+        if ($filesToPurge->count() === 0) {
+            $output->writeln('Nothing to purge.');
+
+            return;
+        }
+
         if (!$input->getOption('force')) {
-            // Check if there is something to purge
-            $filesToPurge = $buildFilesPurger->getUnusedFiles();
-            if ($filesToPurge->count() === 0) {
-                $output->writeln('Nothing to purge.');
-
-                return;
-            }
-
             // Show all files to purge
             $output->writeln('List of unused files:');
             foreach ($filesToPurge as $file) {

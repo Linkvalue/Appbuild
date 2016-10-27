@@ -75,7 +75,7 @@ class BuildController extends BaseController
             array('csrf_token_id' => BuildType::TOKEN_CREATION)
         );
 
-        if ($request->getMethod() == 'POST') {
+        if ($request->isMethod(Request::METHOD_POST)) {
             // Set build filePath using request build filename
             $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
             $buildFormData = $request->request->get('majoraotastore_build');
@@ -140,7 +140,7 @@ class BuildController extends BaseController
             array('csrf_token_id' => BuildType::TOKEN_EDITION)
         );
 
-        if ($request->getMethod() == 'POST') {
+        if ($request->isMethod(Request::METHOD_POST)) {
             // Set build filePath using request build filename
             $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
             $buildFormData = $request->request->get('majoraotastore_build');
@@ -231,25 +231,25 @@ class BuildController extends BaseController
         $translator = $this->container->get('translator');
 
         if (!$this->isGranted('ROLE_ADMIN') || !$this->getUserApplications()->contains($application)) {
-            return new JsonResponse([
+            return new JsonResponse(array(
                 'success' => false,
                 'error' => $translator->trans('admin.upload.message.not_allowed'),
-            ]);
+            ));
         }
 
-        if (!$request->isXmlHttpRequest() || !$request->isMethod('POST')) {
-            return new JsonResponse([
+        if (!$request->isXmlHttpRequest() || !$request->isMethod(Request::METHOD_POST)) {
+            return new JsonResponse(array(
                 'success' => false,
                 'error' => $translator->trans('admin.upload.message.unexpected_method'),
-            ]);
+            ));
         }
 
         $uploadedFile = $request->files->get('build_file');
         if (!$uploadedFile instanceof UploadedFile) {
-            return new JsonResponse([
+            return new JsonResponse(array(
                 'success' => false,
                 'error' => $translator->trans('admin.upload.message.upload_failure'),
-            ]);
+            ));
         }
 
         $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
@@ -257,16 +257,16 @@ class BuildController extends BaseController
         try {
             $uploadHelper->moveUploadedFile($uploadedFile, $application, $filename);
         } catch (\Exception $e) {
-            return new JsonResponse([
+            return new JsonResponse(array(
                 'success' => false,
                 'error' => $translator->trans('admin.upload.message.move_failure'),
-            ]);
+            ));
         }
 
-        return new JsonResponse([
+        return new JsonResponse(array(
             'success' => true,
             'filename' => $filename,
-        ]);
+        ));
     }
 
     /**

@@ -32,7 +32,7 @@ class BuildUploadHelper
      * @param string $webBuildsApplicationDir
      * @param string $streamBuildsApplicationDir
      */
-    public function __construct($streamBuildsContent, $webBuildsApplicationDir = '', $streamBuildsApplicationDir = '')
+    public function __construct($streamBuildsContent, $webBuildsApplicationDir, $streamBuildsApplicationDir)
     {
         $this->streamBuildsContent = $streamBuildsContent;
         $this->webBuildsApplicationDir = $webBuildsApplicationDir;

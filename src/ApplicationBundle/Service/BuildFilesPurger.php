@@ -32,6 +32,11 @@ class BuildFilesPurger
     private $streamBuildsApplicationDir;
 
     /**
+     * @var string
+     */
+    private $unusedFilesFinderDateFilter;
+
+    /**
      * construct.
      *
      * @param Filesystem    $filesystem
@@ -42,13 +47,29 @@ class BuildFilesPurger
     public function __construct(
         Filesystem $filesystem,
         EntityManager $entityManager,
-        $webBuildsApplicationDir = '',
-        $streamBuildsApplicationDir = ''
+        $webBuildsApplicationDir,
+        $streamBuildsApplicationDir
     ) {
         $this->filesystem = $filesystem;
         $this->entityManager = $entityManager;
         $this->webBuildsApplicationDir = $webBuildsApplicationDir;
         $this->streamBuildsApplicationDir = $streamBuildsApplicationDir;
+
+        // Unused files finder date filter has a default value (!= null)
+        // because we must let the time for user to submit the form after uploading the build file
+        $this->unusedFilesFinderDateFilter = '< now - 12hours';
+    }
+
+    /**
+     * @param $finderDateFilter
+     *
+     * @return $this
+     */
+    public function setUnusedFilesFinderDateFilter($finderDateFilter)
+    {
+        $this->unusedFilesFinderDateFilter = $finderDateFilter;
+
+        return $this;
     }
 
     /**
@@ -77,7 +98,7 @@ class BuildFilesPurger
             ->filter(function (\SplFileInfo $file) use ($usedFilesPath) {
                 return !in_array($file->getRealPath(), $usedFilesPath);
             })
-           ->date('< now - 12hours')
+           ->date($this->unusedFilesFinderDateFilter)
         ;
     }
 

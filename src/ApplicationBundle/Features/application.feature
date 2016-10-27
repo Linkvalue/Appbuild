@@ -10,10 +10,10 @@ Feature: application
       | 1      | android app | android     |
       | 2      | ios app     | ios         |
     Given there are these builds:
-      | app_id | build_id | build_version | build_file |
+      | app_id | build_id | build_version | build_file     |
       | 1      | 1        | 1.0           | android_v3.apk |
       | 1      | 2        | 2.0           | android_v3.apk |
-      | 2      | 3        | 1.0.0         | ios_v2.ipa |
+      | 2      | 3        | 1.0.0         | ios_v2.ipa     |
 
   Scenario: List applications
     When I list all applications

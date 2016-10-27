@@ -44,7 +44,7 @@ class ApplicationController extends BaseController
             array('csrf_token_id' => ApplicationType::TOKEN_CREATION)
         );
 
-        if ($request->getMethod() == 'POST') {
+        if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $em = $this->container->get('doctrine.orm.entity_manager');
@@ -93,7 +93,7 @@ class ApplicationController extends BaseController
             array('csrf_token_id' => ApplicationType::TOKEN_EDITION)
         );
 
-        if ($request->getMethod() == 'POST') {
+        if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $em = $this->container->get('doctrine.orm.entity_manager');
