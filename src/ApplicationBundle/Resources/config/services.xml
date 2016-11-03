@@ -19,10 +19,28 @@
             class="Majora\OTAStore\ApplicationBundle\Form\Type\BuildType"
             public="true"
         >
+            <tag name="form.type" />
+        </service>
+
+        <!-- Build Upload Helper -->
+        <service id="appbuild.application.build_upload_helper"
+            class="Majora\OTAStore\ApplicationBundle\Service\BuildUploadHelper"
+            public="true"
+        >
             <argument>%stream_builds_content%</argument>
             <argument>%web_builds_application_dir%</argument>
             <argument>%stream_builds_application_dir%</argument>
-            <tag name="form.type" />
+        </service>
+
+        <!-- Build Files Purger -->
+        <service id="appbuild.application.build_files_purger"
+            class="Majora\OTAStore\ApplicationBundle\Service\BuildFilesPurger"
+            public="true"
+        >
+            <argument type="service" id="filesystem" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%web_builds_application_dir%</argument>
+            <argument>%stream_builds_application_dir%</argument>
         </service>
     </services>
 

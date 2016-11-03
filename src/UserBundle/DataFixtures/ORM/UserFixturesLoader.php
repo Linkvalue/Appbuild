@@ -8,6 +8,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Fixtures loader for UserBundle.
+ */
 class UserFixturesLoader implements FixtureInterface, ContainerAwareInterface
 {
     /**

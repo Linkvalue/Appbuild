@@ -3,21 +3,19 @@
 namespace Majora\OTAStore\ApplicationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
+use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
 
 /**
- * Fixtures loader for AppBundle.
- *
- * @see @AppBundle/Resources/fixtures/applications.yml
+ * Fixtures loader for ApplicationBundle.
  */
-class ApplicationFixturesLoader extends Loader implements OrderedFixtureInterface
+class ApplicationFixturesLoader extends AbstractLoader implements OrderedFixtureInterface
 {
     /**
      * Returns an array of file paths to fixtures.
      *
-     * @return array<string>
+     * @return string[]
      */
-    protected function getFixtures()
+    public function getFixtures()
     {
         return array(
             __DIR__.'/../../Resources/fixtures/applications.yml',

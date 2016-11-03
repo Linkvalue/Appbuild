@@ -83,26 +83,28 @@ class SecurityController extends Controller
             array('csrf_token_id' => UserType::TOKEN_CREATION)
         );
 
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            // Encode password
-            if (!$password = $form->get('password')->getData()) {
-                throw new ValidatorException('Password must be set.');
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                // Encode password
+                if (!$password = $form->get('password')->getData()) {
+                    throw new ValidatorException('Password must be set.');
+                }
+                $user->setPassword($this->container->get('security.password_encoder')->encodePassword($user, $password));
+
+                // Set role
+                if ($role = $form->get('roles')->getData()) {
+                    $user->setRoles(array($role));
+                }
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                $this->addFlash('success', $this->container->get('translator')->trans('user.create.flash.success'));
+
+                return $this->redirectToRoute('majoraotastore_user_create');
             }
-            $user->setPassword($this->container->get('security.password_encoder')->encodePassword($user, $password));
-
-            // Set role
-            if ($role = $form->get('roles')->getData()) {
-                $user->setRoles(array($role));
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success', $this->container->get('translator')->trans('user.create.flash.success'));
-
-            return $this->redirectToRoute('majoraotastore_user_create');
         }
 
         return $this->render(
@@ -131,7 +133,7 @@ class SecurityController extends Controller
             array('csrf_token_id' => UserType::TOKEN_EDITION)
         );
 
-        if ($request->getMethod() == 'POST') {
+        if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 // Encode password if it is set

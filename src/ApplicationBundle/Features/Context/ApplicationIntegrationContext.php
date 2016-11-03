@@ -14,6 +14,8 @@ use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
 use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -40,6 +42,9 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     /** @var TokenStorageInterface */
     private $tokenStorage;
 
+    /** @var Filesystem */
+    private $filesystem;
+
     /** @var \Behat\MinkExtension\Context\MinkContext */
     private $minkContext;
 
@@ -50,17 +55,20 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
      * @param Router                $router
      * @param Session               $session
      * @param TokenStorageInterface $tokenStorage
+     * @param Filesystem            $filesystem
      */
     public function __construct(
         EntityManager $manager,
         Router $router,
         Session $session,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        Filesystem $filesystem
     ) {
         $this->manager = $manager;
         $this->router = $router;
         $this->session = $session;
         $this->tokenStorage = $tokenStorage;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -184,7 +192,7 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
             $build->setApplication($application);
             $idProperty->setValue($build, $data['build_id']);
             $build->setVersion($data['build_version']);
-            $build->setFilePath('my_path');
+            $build->setFilePath($this->getRealFilePath($data['build_file']));
             $this->manager->persist($build);
         }
         $this->manager->flush();
@@ -285,11 +293,14 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
      */
     public function iAddABuildForApplicationWithIdWithVersion($id, $version, $file)
     {
+        // Perform upload before visiting the form (to workaround AJAX limitations)
+        $filename = $this->uploadBuildFileForApplicationWithId($file, $id);
+
         $url = $this->router->generate('majoraotastore_admin_build_create', ['application_id' => $id]);
         $this->minkContext->visit($url);
 
         $this->minkContext->fillField('majoraotastore_build_version', $version);
-        $this->minkContext->attachFileToField('majoraotastore_build_filePath', $file);
+        $this->minkContext->fillField('majoraotastore_build_filename', $filename);
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
@@ -411,6 +422,37 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     }
 
     /**
+     * @param string $file
+     * @param int    $id
+     *
+     * @return string
+     */
+    private function uploadBuildFileForApplicationWithId($file, $id)
+    {
+        // Create a temporary file which will be actually uploaded
+        $filePath = $this->getRealFilePath($file);
+        $tmpFilePath = sprintf(
+            '%s_tmp.%s',
+            pathinfo($filePath, PATHINFO_FILENAME),
+            pathinfo($filePath, PATHINFO_EXTENSION)
+        );
+        $this->filesystem->copy($filePath, $tmpFilePath);
+
+        // Upload build file
+        $url = $this->router->generate('majoraotastore_admin_build_upload', ['application_id' => $id]);
+        $this->getClient()->request(
+            'POST',
+            $url,
+            array(),
+            array('build_file' => new UploadedFile($tmpFilePath, $file)),
+            array('HTTP_X-Requested-With' => 'XMLHttpRequest')
+        );
+        $response = json_decode($this->getClient()->getInternalResponse()->getContent(), true);
+
+        return $response['filename'];
+    }
+
+    /**
      * @param int $buildId
      *
      * @return int
@@ -425,6 +467,21 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
         }
 
         return $build->getApplication()->getId();
+    }
+
+    /**
+     * @param string $file
+     *
+     * @return string
+     */
+    private function getRealFilePath($file)
+    {
+        return sprintf(
+            '%s%s%s',
+            rtrim(realpath($this->minkContext->getMinkParameter('files_path')), DIRECTORY_SEPARATOR),
+            DIRECTORY_SEPARATOR,
+            $file
+        );
     }
 
     /**

@@ -13,3 +13,5 @@
 {% endblock %}
 
 {% block build_form_action url('majoraotastore_admin_build_update', {'application_id': application.id, 'id': build.id }) %}
+
+{% block upload_script_path path('majoraotastore_admin_build_upload', {'application_id': application.id}) %}

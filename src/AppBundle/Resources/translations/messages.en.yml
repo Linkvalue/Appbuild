@@ -4,3 +4,21 @@ admin:
     icon:
         trash: Trash
         undo: Back
+    upload:
+        button: Upload a file
+        drop:
+            text: Drop a file here
+            processing: Processing dropped file...
+        retry: Retry
+        remove: Remove
+        message:
+            not_allowed: Not allowed to upload file.
+            unexpected_method: Unexpected method used.
+            upload_failure: File not uploaded successfully.
+            move_failure: File setup failure on server side.
+            default: An unknown upload error occurred.
+            invalid_extension: 'The file [{file}] has an invalid extension. Valid extensions: [{extensions}].'
+            on_leave: Files are being uploaded, if you leave now the upload will be canceled.
+            too_many_items: 'Too many files to upload. The max files limit is {itemLimit}.'
+            progress_bar: '{percent}% of {total_size}'
+            waiting_for_response: Processing...

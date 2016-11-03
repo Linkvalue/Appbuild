@@ -23,6 +23,7 @@ default:
                     router: '@router'
                     session: '@session'
                     tokenStorage: '@security.token_storage'
+                    filesystem: '@filesystem'
                 - 'Behat\MinkExtension\Context\MinkContext'
 
 # bin/behat --profile="nostream"

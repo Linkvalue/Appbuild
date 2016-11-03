@@ -2,6 +2,8 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Entity;
 
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
 /**
  * Build.
  */
@@ -201,5 +203,19 @@ class Build
     public function getFileNameWithExtension()
     {
         return basename($this->filePath);
+    }
+
+    /**
+     * Validation method for build filePath property.
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function validateFilePath(ExecutionContextInterface $context)
+    {
+        if (!file_exists($this->filePath)) {
+            $context->buildViolation('build.form.must_upload_file')
+                ->atPath('filename')
+                ->addViolation();
+        }
     }
 }

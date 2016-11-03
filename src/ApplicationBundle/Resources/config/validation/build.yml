@@ -1,6 +1,6 @@
 Majora\OTAStore\ApplicationBundle\Entity\Build:
+    constraints:
+        - Callback: validateFilePath
     properties:
         version:
-            - NotBlank: ~
-        filePath:
             - NotBlank: ~

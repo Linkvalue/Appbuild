@@ -34,7 +34,7 @@ application:
 build:
     form:
         version: Version du build
-        filePath: Fichier du build à télécharger
+        filename: Fichier du build à télécharger
         submit_button:
             label: Valider
     create:

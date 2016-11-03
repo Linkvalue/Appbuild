@@ -2,3 +2,6 @@
 application:
     form:
         must_set_package_name: Cette plateforme nécessite la saisie d'un nom de package.
+build:
+    form:
+        must_upload_file: Vous devez téléverser le fichier du build.

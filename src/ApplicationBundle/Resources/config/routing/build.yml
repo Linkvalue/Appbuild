@@ -16,6 +16,10 @@ majoraotastore_admin_build_delete:
     path:     /{id}/delete
     defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:delete }
 
+majoraotastore_admin_build_upload:
+    path:     /upload
+    defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:uploadAjax }
+
 majoraotastore_admin_build_download:
     path:     /{id}/download
     defaults: { _controller: MajoraOTAStoreApplicationBundle:Build:download }

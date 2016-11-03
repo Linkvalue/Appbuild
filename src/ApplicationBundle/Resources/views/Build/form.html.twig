@@ -2,10 +2,68 @@
 
 {% block content %}
     {{ form_start(form, {'method': 'POST', 'action': block('build_form_action')}) }}
+        {{ form_row(form.version) }}
+
+        {# Upload field #}
+        <div class="form-group{% if not form.filename.vars.valid %} has-error{% endif %}">
+            {{ form_label(form.filename) }}
+            {{ form_errors(form.filename) }}
+            {{ form_widget(form.filename, {'attr': {'class':'hidden'}}) }}
+            <div id="upload-container"></div>
+        </div>
+
         {{ form_rest(form) }}
+
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-check"></i>
             {{ 'build.form.submit_button.label'|trans }}
         </button>
-    </form>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ include('MajoraOTAStoreAppBundle::stylesheets.upload.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('MajoraOTAStoreAppBundle::javascripts.upload.html.twig') }}
+
+    <script>
+        var $uploadContainer = $('#upload-container');
+        $uploadContainer.fineUploader({
+            template: 'upload-container-template',
+            request: {
+                endpoint: '{{ block('upload_script_path') }}',
+                inputName: 'build_file'
+            },
+            multiple: false,
+            validation: {
+                allowedExtensions: ['ipa', 'apk'],
+                itemLimit: 1
+            },
+            text: {
+                defaultResponseError: '{{ 'admin.upload.message.default'|trans|e('js') }}',
+                failUpload: '{{ 'admin.upload.message.upload_failure'|trans|e('js') }}',
+                formatProgress: '{{ 'admin.upload.message.progress_bar'|trans|e('js') }}',
+                waitingForResponse: '{{ 'admin.upload.message.waiting_for_response'|trans|e('js') }}'
+            },
+            messages: {
+                typeError: '{{ 'admin.upload.message.invalid_extension'|trans|e('js') }}',
+                onLeave: '{{ 'admin.upload.message.on_leave'|trans|e('js') }}',
+                tooManyItemsError: '{{ 'admin.upload.message.too_many_items'|trans|e('js') }}'
+            }
+        }).on('error', function (event, id, name, errorReason) {
+            // Clear filename field
+            $('#majoraotastore_build_filename').val('');
+            // Show error message
+            alert(errorReason);
+        }).on('complete', function (event, id, name, responseJSON) {
+            if (responseJSON.success) {
+                // Set filename field
+                $('#majoraotastore_build_filename').val(responseJSON.filename);
+            }
+        });
+    </script>
 {% endblock %}

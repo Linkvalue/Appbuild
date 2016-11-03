@@ -34,7 +34,7 @@ application:
 build:
     form:
         version: Build version
-        filePath: Build file to be downloaded
+        filename: Build file to be downloaded
         submit_button:
             label: Save
     create:
