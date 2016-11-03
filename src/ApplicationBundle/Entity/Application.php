@@ -143,9 +143,7 @@ class Application
     {
         if (!in_array($support, self::getAvailableSupports())) {
             throw new \InvalidArgumentException(sprintf(
-                '[%s] is not a valid support value, supported values are [%s]',
-                $support,
-                implode(',', self::getAvailableSupports())
+                    '[%s] is not a valid support value, supported values are [%s]', $support, implode(',', self::getAvailableSupports())
             ));
         }
 
@@ -300,8 +298,8 @@ class Application
             switch ($this->getSupport()) {
                 case self::SUPPORT_IOS:
                     $context->buildViolation('application.form.must_set_package_name')
-                        ->atPath('packageName')
-                        ->addViolation()
+                            ->atPath('packageName')
+                            ->addViolation()
                     ;
                     break;
                 default:

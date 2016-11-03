@@ -4,9 +4,11 @@ namespace Majora\OTAStore\ApplicationBundle\Controller;
 
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Form\Type\ApplicationType;
+use Majora\OTAStore\ApplicationBundle\Entity\Build;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class ApplicationController extends BaseController
 {
@@ -18,11 +20,34 @@ class ApplicationController extends BaseController
     public function listAction()
     {
         $applications = $this->getUserApplications();
+        $aDate = array();
+        $role = '';
 
-        return $this->render(
-            'MajoraOTAStoreApplicationBundle:Application:list.html.twig',
-            array('applications' => $applications)
-        );
+        //Get role of user
+        foreach ($this->getUser()->getRoles() as $tmp) {
+            $role = $tmp;
+        }
+
+        if ($role == 'ROLE_USER') {
+            foreach ($applications as $application) {
+                $builds = $application->getBuilds();
+
+                foreach ($builds as $build) {
+                    $aDate[$build->getId()]['created'] = $build->getCreatedAt();
+                    $aDate[$build->getId()]['id'] = $build->getId();
+                    $aDate[$build->getId()]['build'] = $build;
+                }
+
+                rsort($aDate);
+
+                if (isset($aDate[0])) {
+                    $build = $aDate[0]['build'];
+                    $application->setBuilds(new ArrayCollection(array($build)));
+                }
+            }
+        }
+
+        return $this->render('MajoraOTAStoreApplicationBundle:Application:list.html.twig', array('applications' => $applications));
     }
 
     /**
@@ -39,9 +64,7 @@ class ApplicationController extends BaseController
         }
 
         $form = $this->container->get('form.factory')->create(
-            ApplicationType::class,
-            $application = new Application(),
-            array('csrf_token_id' => ApplicationType::TOKEN_CREATION)
+                ApplicationType::class, $application = new Application(), array('csrf_token_id' => ApplicationType::TOKEN_CREATION)
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -54,18 +77,17 @@ class ApplicationController extends BaseController
                 $this->addFlash('success', $this->container->get('translator')->trans('application.create.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_admin_application_list'
+                                'majoraotastore_admin_application_list'
                 ));
             }
         }
 
-        return $this->render('MajoraOTAStoreApplicationBundle:Application:create.html.twig',
-            array(
-                'form' => $form->createView(),
-                'application' => $application,
-                'currentUserId' => $this->getUser()->getId(),
-                'applicationSupportIOS' => Application::SUPPORT_IOS,
-            )
+        return $this->render('MajoraOTAStoreApplicationBundle:Application:create.html.twig', array(
+                    'form' => $form->createView(),
+                    'application' => $application,
+                    'currentUserId' => $this->getUser()->getId(),
+                    'applicationSupportIOS' => Application::SUPPORT_IOS,
+                        )
         );
     }
 
@@ -88,9 +110,7 @@ class ApplicationController extends BaseController
         }
 
         $form = $this->container->get('form.factory')->create(
-            ApplicationType::class,
-            $application,
-            array('csrf_token_id' => ApplicationType::TOKEN_EDITION)
+                ApplicationType::class, $application, array('csrf_token_id' => ApplicationType::TOKEN_EDITION)
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -103,19 +123,18 @@ class ApplicationController extends BaseController
                 $this->addFlash('success', $this->container->get('translator')->trans('application.update.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_admin_application_list'
+                                'majoraotastore_admin_application_list'
                 ));
             }
         }
 
         return $this->render(
-            'MajoraOTAStoreApplicationBundle:Application:update.html.twig',
-            array(
-                'form' => $form->createView(),
-                'application' => $application,
-                'currentUserId' => $this->getUser()->getId(),
-                'applicationSupportIOS' => Application::SUPPORT_IOS,
-            )
+                        'MajoraOTAStoreApplicationBundle:Application:update.html.twig', array(
+                    'form' => $form->createView(),
+                    'application' => $application,
+                    'currentUserId' => $this->getUser()->getId(),
+                    'applicationSupportIOS' => Application::SUPPORT_IOS,
+                        )
         );
     }
 
