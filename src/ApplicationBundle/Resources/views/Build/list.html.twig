@@ -39,7 +39,7 @@
         </thead>
         <tbody>
         {% for build in builds %}
-            <tr>
+            <tr data-id="{{ build.id }}">
                 <td>
                     <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: build.id }) }}">
                         {{ build.label }}

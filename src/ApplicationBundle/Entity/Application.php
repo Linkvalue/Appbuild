@@ -203,6 +203,18 @@ class Application
     }
 
     /**
+     * @param Build $build
+     *
+     * @return $this
+     */
+    public function addBuild(Build $build)
+    {
+        $this->builds->add($build);
+
+        return $this;
+    }
+
+    /**
      * @param ArrayCollection $builds
      *
      * @return $this
@@ -285,6 +297,14 @@ class Application
             self::SUPPORT_IOS,
             self::SUPPORT_ANDROID,
         );
+    }
+
+    /**
+     * @return Build
+     */
+    public function getLatestBuild()
+    {
+        return $this->builds->last();
     }
 
     /**

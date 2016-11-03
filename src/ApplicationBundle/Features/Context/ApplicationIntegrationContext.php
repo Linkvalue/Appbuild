@@ -193,7 +193,8 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
             $idProperty->setValue($build, $data['build_id']);
             $build->setVersion($data['build_version']);
             $build->setFilePath($this->getRealFilePath($data['build_file']));
-            $this->manager->persist($build);
+            $application->addBuild($build);
+            $this->manager->persist($application);
         }
         $this->manager->flush();
     }
@@ -217,6 +218,14 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
         $this->minkContext->assertResponseStatus(200);
         $this->minkContext->assertElementOnPage(self::MAIN_TABLE_SELECTOR);
         $this->minkContext->assertNumElements($nbApp, self::MAIN_TABLE_SELECTOR.' > tbody > tr');
+    }
+
+    /**
+     * @Then I should not see the build with version :buildVersion for application with id :applicationId
+     */
+    public function iShouldNotSeeTheBuildWithVersion($buildVersion, $applicationId)
+    {
+        $this->minkContext->assertElementNotContainsText(self::MAIN_TABLE_SELECTOR.' tr[data-id="'.$applicationId.'"] td.latest-build', $buildVersion);
     }
 
     /**

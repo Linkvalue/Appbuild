@@ -19,7 +19,7 @@ application:
         title: Applications
         thead:
             label: Application
-            builds: Builds
+            latest_build: Dernier build
             support: Plateforme
             actions: Actions
         actions:
