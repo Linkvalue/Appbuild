@@ -35,9 +35,9 @@
                     </a>
                 </td>
                 <td class="latest-build">
-                {% if application.latestBuild %}
-                    <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: application.latestBuild.id }) }}">
-                        {{ application.latestBuild.label }}
+                {% if application.latestEnabledBuild %}
+                    <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: application.latestEnabledBuild.id }) }}">
+                        {{ application.latestEnabledBuild.label }}
                     </a>
                 {% endif %}
                 </td>

@@ -302,9 +302,13 @@ class Application
     /**
      * @return Build
      */
-    public function getLatestBuild()
+    public function getLatestEnabledBuild()
     {
-        return $this->builds->last();
+        return $this->builds
+            ->filter(function (Build $build) {
+                return $build->isEnabled();
+            })
+            ->last();
     }
 
     /**
