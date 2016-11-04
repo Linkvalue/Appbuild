@@ -19,7 +19,7 @@
         <thead>
             <tr>
                 <td>{{ 'application.list.thead.label'|trans }}</td>
-                <td>{{ 'application.list.thead.builds'|trans }}</td>
+                <td>{{ 'application.list.thead.latest_build'|trans }}</td>
                 <td>{{ 'application.list.thead.support'|trans }}</td>
                 <td class="actions">
                     {{ 'application.list.thead.actions'|trans }}
@@ -28,19 +28,18 @@
         </thead>
         <tbody>
         {% for application in applications %}
-            <tr>
+            <tr data-id="{{ application.id }}">
                 <td>
                     <a href="{{ url('majoraotastore_admin_build_list', { application_id: application.id }) }}">
                         {{ application.label }}
                     </a>
                 </td>
-                <td>
-                    {% for build in application.builds %}
-                        <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: build.id }) }}">
-                            {{ build.label }}
-                        </a>
-                        <br>
-                    {% endfor %}
+                <td class="latest-build">
+                {% if application.latestEnabledBuild %}
+                    <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: application.latestEnabledBuild.id }) }}">
+                        {{ application.latestEnabledBuild.label }}
+                    </a>
+                {% endif %}
                 </td>
                 <td>
                     {{ ('application.supports.'~application.support)|trans }}

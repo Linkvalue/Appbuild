@@ -18,6 +18,7 @@ Feature: application
   Scenario: List applications
     When I list all applications
     Then "2" applications should be displayed
+    And I should not see the build with version "1.0" for application with id "1"
 
   Scenario: Create an ios application
     When I add an application with support "ios" with label "my new ios app"
