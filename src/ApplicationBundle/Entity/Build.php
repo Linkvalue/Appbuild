@@ -74,7 +74,9 @@ class Build
     {
         $application = $this->getApplication();
 
-        return sprintf('%s [%s]', $application->getLabel(), $this->getVersion()
+        return sprintf('%s [%s]',
+            $application->getLabel(),
+            $this->getVersion()
         );
     }
 
