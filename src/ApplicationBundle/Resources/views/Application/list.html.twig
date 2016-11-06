@@ -10,6 +10,15 @@
                 <span class="fa fa-plus"></span>
                 {{ 'application.create.title'|trans }}
             </a>
+            {% if app.request.get('enabled', true) %}
+                <a href="{{ url('majoraotastore_admin_application_list', { enabled: false }) }}" class="btn btn-xl btn-info">
+                    <i class="fa fa-trash"></i> {{ 'admin.icon.trash'|trans }}
+                </a>
+            {% else %}
+                <a href="{{ url('majoraotastore_admin_application_list', { enabled: true }) }}" class="btn btn-xl btn-success">
+                    <i class="fa fa-undo"></i> {{ 'admin.icon.undo'|trans }}
+                </a>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}
@@ -58,6 +67,17 @@
                            href="{{ url('majoraotastore_admin_build_create', { application_id: application.id }) }}">
                             <i class="fa fa-plus"></i>
                         </a>
+                        {% if application.enabled %}
+                            <a class="btn btn-primary btn-xs" title="{{ 'application.list.actions.disable.title'|trans }}"
+                               href="{{ url('majoraotastore_admin_application_toggle_enable', { id: application.id }) }}">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        {% else %}
+                            <a class="btn btn-primary btn-xs" title="{{ 'application.list.actions.enable.title'|trans }}"
+                               href="{{ url('majoraotastore_admin_application_toggle_enable', { id: application.id }) }}">
+                                <i class="fa fa-check"></i>
+                            </a>
+                        {% endif %}
                     {% endif %}
                 </td>
             </tr>

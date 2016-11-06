@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Controller;
+namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
 
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Form\Type\ApplicationType;
@@ -13,15 +13,25 @@ class ApplicationController extends BaseController
     /**
      * List current user Applications.
      *
+     * @param Request $request
+     *
      * @return Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
+        if (!($isAskingForEnabled = $request->get('enabled', true)) && !$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $applications = $this->getUserApplications();
+
+        list($enabled, $disabled) = $applications->partition(function ($i, Application $application) {
+            return $application->isEnabled();
+        });
 
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Application:list.html.twig',
-            array('applications' => $applications)
+            array('applications' => ($isAskingForEnabled) ? $enabled : $disabled)
         );
     }
 
@@ -141,5 +151,37 @@ class ApplicationController extends BaseController
         $em->flush();
 
         return new RedirectResponse($this->container->get('router')->generate('majoraotastore_admin_application_list'));
+    }
+
+    /**
+     * Toggles the enabled property of the application.
+     *
+     * @param Application $application
+     * @param Request     $request
+     *
+     * @return RedirectResponse
+     */
+    public function toggleEnableAction(Application $application, Request $request)
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$this->getUserApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $application->setEnabled(!$application->isEnabled());
+
+        $em->persist($application);
+        $em->flush();
+
+        return new RedirectResponse($request->headers->get('referer') ?:
+            $this->container->get('router')->generate(
+                'majoraotastore_admin_application_list'
+            )
+        );
     }
 }

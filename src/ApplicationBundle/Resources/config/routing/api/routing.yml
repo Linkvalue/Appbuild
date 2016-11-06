@@ -1,0 +1,4 @@
+
+majoraotastore_api_application:
+    resource: '@MajoraOTAStoreApplicationBundle/Resources/config/routing/api/application.yml'
+    prefix: '/application'

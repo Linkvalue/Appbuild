@@ -5,7 +5,7 @@ vm-build:
 	test -f ansible/group_vars/app.local.yml || cp ansible/group_vars/app.local.yml.dist ansible/group_vars/app.local.yml
 	vagrant up --provision || true
 	vagrant reload || true
-	vagrant ssh -c "/var/www/SiR"
+	vagrant ssh -c "/var/www/MajoraOTAStore"
 
 vm-install:
 	vagrant provision || true

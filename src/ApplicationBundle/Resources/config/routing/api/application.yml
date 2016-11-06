@@ -1,0 +1,9 @@
+
+# Applications
+majoraotastore_api_application_list:
+    path:     '/'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Application:list' }
+
+majoraotastore_api_application_get:
+    path:     '/{id}'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Application:get' }

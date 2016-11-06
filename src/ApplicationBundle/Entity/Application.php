@@ -3,6 +3,7 @@
 namespace Majora\OTAStore\ApplicationBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -42,12 +43,12 @@ class Application
     private $packageName;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|Build[]
      */
     private $builds;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|User[]
      */
     private $users;
 
@@ -195,7 +196,7 @@ class Application
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|Build[]
      */
     public function getBuilds()
     {
@@ -227,7 +228,7 @@ class Application
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|User[]
      */
     public function getUsers()
     {
@@ -300,15 +301,33 @@ class Application
     }
 
     /**
-     * @return Build
+     * @return ArrayCollection|Build[]
      */
-    public function getLatestEnabledBuild()
+    public function getEnabledBuilds()
     {
         return $this->builds
             ->filter(function (Build $build) {
                 return $build->isEnabled();
-            })
-            ->last();
+            });
+    }
+
+    /**
+     * @return Build
+     */
+    public function getLatestEnabledBuild()
+    {
+        return $this->getEnabledBuilds()->last();
+    }
+
+    /**
+     * @return ArrayCollection|Build[]
+     */
+    public function getDisabledBuilds()
+    {
+        return $this->builds
+            ->filter(function (Build $build) {
+                return !$build->isEnabled();
+            });
     }
 
     /**

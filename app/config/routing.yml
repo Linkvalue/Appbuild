@@ -1,13 +1,18 @@
 
-# Appbuild misc routing
+# Misc routing
 majoraotastore_misc:
     resource: 'routing/routing_misc.yml'
     prefix: '/_misc'
 
-# Appbuild admin routing
+# API routing
+majoraotastore_api:
+    resource: 'routing/routing_api.yml'
+    prefix: '/api'
+
+# Admin routing
 majoraotastore_admin:
     resource: 'routing/routing_admin.yml'
-    prefix: '/{_locale}/'
+    prefix: '/{_locale}'
     defaults:
         _locale: '%default_locale%'
     requirements:
@@ -15,15 +20,15 @@ majoraotastore_admin:
     options:
         expose: true
 
-# Redirect majoraotastore_main route to majoraotastore_main_locale route
+# /
 majoraotastore_main:
-    path:  /
+    path:  '/'
     defaults:
         _controller: 'FrameworkBundle:Redirect:redirect'
         route: 'majoraotastore_main_locale'
         permanent: true
 
-# Redirect majoraotastore_main_locale to majoraotastore_user_login route
+# /locale
 majoraotastore_main_locale:
     path: '/%default_locale%'
     defaults:
@@ -34,6 +39,7 @@ majoraotastore_main_locale:
 # Login_check
 majoraotastore_user_login_check:
     path: '/login_check'
+
 # Logout
 majoraotastore_user_logout:
     path: '/logout'

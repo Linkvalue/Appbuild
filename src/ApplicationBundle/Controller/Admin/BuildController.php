@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Controller;
+namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
 
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
@@ -32,19 +32,22 @@ class BuildController extends BaseController
      */
     public function listAction(Application $application, Request $request)
     {
-        if (!$this->getUserApplications()->contains($application)) {
+        if (
+            (!($isAskingForEnabled = $request->get('enabled', true)) || !$application->isEnabled())
+            && !$this->isGranted('ROLE_ADMIN')
+        ) {
             throw $this->createAccessDeniedException();
         }
 
-        list($enabled, $disabled) = $application->getBuilds()->partition(function ($i, Build $build) {
-            return $build->isEnabled();
-        });
+        if (!$this->getUserApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
 
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Build:list.html.twig',
             array(
                 'application' => $application,
-                'builds' => $request->get('enabled', true) ? $enabled : $disabled,
+                'builds' => ($isAskingForEnabled) ? $application->getEnabledBuilds() : $application->getDisabledBuilds(),
             )
         );
     }

@@ -1,0 +1,21 @@
+
+# Applications
+majoraotastore_admin_application_list:
+    path:     '/'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Application:list' }
+
+majoraotastore_admin_application_create:
+    path:     '/create'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Application:create' }
+
+majoraotastore_admin_application_update:
+    path:     '/{id}/update'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Application:update' }
+
+majoraotastore_admin_application_delete:
+    path:     '/{id}/delete'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Application:delete' }
+
+majoraotastore_admin_application_toggle_enable:
+    path:     '/{id}/enable'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Application:toggleEnable' }
