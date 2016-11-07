@@ -32,6 +32,7 @@
         <thead>
         <tr>
             <td>{{ 'build.list.thead.label'|trans }}</td>
+            <td>{{ 'build.list.thead.comment'|trans }}</td>
             <td class="actions">
                 {{ 'build.list.thead.actions'|trans }}
             </td>
@@ -44,6 +45,9 @@
                     <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: build.id }) }}">
                         {{ build.label }}
                     </a>
+                </td>
+                <td>
+                    {{ build.comment|nl2br }}
                 </td>
                 <td class="actions">
                     <a class="btn btn-primary btn-xs" title="{{ 'build.list.actions.download.title'|trans }}"
