@@ -1,0 +1,9 @@
+
+# Application Builds
+majoraotastore_api_application_build_list:
+    path:     '/'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:listForApplication' }
+
+majoraotastore_api_application_build_get_latest:
+    path:     '/latest'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:getLatestForApplication' }
