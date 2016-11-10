@@ -23,6 +23,10 @@ application:
             support: Support
             actions: Actions
         actions:
+            enable:
+                title: Enable application
+            disable:
+                title: Disable application
             update:
                 title: Edit application
             build_list:

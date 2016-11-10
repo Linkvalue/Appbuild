@@ -23,6 +23,10 @@ application:
             support: Plateforme
             actions: Actions
         actions:
+            enable:
+                title: Activer l'application
+            disable:
+                title: Désactiver l'application
             update:
                 title: Modifier l'application
             build_list:

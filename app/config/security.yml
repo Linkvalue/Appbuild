@@ -20,18 +20,23 @@ security:
             pattern: '^/\w+/application/\d+/build/\d+/(manifest|file)'
             security: false
 
+        # public API
+        public_api:
+            pattern: '^/api'
+            security: false
+
         # all remaining routes require authentication
         secured_area:
             pattern: ^/
             anonymous: true
             form_login:
-                login_path: 'majoraotastore_user_login'
-                check_path: '/login_check'
+                login_path: 'majoraotastore_admin_user_login'
+                check_path: 'majoraotastore_user_login_check'
                 default_target_path: 'majoraotastore_admin_application_list'
                 always_use_default_target_path: true # otherwise it redirects to an AJAX callback route
             logout:
                 path: 'majoraotastore_user_logout'
-                target: 'majoraotastore_user_login'
+                target: 'majoraotastore_admin_user_login'
             provider: 'db_user_provider'
 
     role_hierarchy:

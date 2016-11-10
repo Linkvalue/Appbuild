@@ -42,6 +42,22 @@
             <argument>%web_builds_application_dir%</argument>
             <argument>%stream_builds_application_dir%</argument>
         </service>
+
+        <!-- Build Link Builder -->
+        <service id="appbuild.application.build_link_builder"
+            class="Majora\OTAStore\ApplicationBundle\Service\BuildLinkBuilder"
+            public="true"
+        >
+            <argument type="service" id="router" />
+        </service>
+
+        <!-- Serializer -->
+        <service id="appbuild.application.serializer"
+                 class="Majora\OTAStore\ApplicationBundle\Service\Serializer"
+                 public="true"
+        >
+            <argument type="service" id="appbuild.application.build_link_builder" />
+        </service>
     </services>
 
 </container>

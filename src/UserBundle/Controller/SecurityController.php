@@ -103,7 +103,7 @@ class SecurityController extends Controller
 
                 $this->addFlash('success', $this->container->get('translator')->trans('user.create.flash.success'));
 
-                return $this->redirectToRoute('majoraotastore_user_create');
+                return $this->redirectToRoute('majoraotastore_admin_user_create');
             }
         }
 
@@ -153,7 +153,7 @@ class SecurityController extends Controller
                 $this->addFlash('success', $this->container->get('translator')->trans('user.update.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_user_list'
+                    'majoraotastore_admin_user_list'
                 ));
             }
         }
@@ -184,7 +184,7 @@ class SecurityController extends Controller
         $em->remove($user);
         $em->flush();
 
-        return new RedirectResponse($this->container->get('router')->generate('majoraotastore_user_list'));
+        return new RedirectResponse($this->container->get('router')->generate('majoraotastore_admin_user_list'));
     }
 
     /**
@@ -210,7 +210,7 @@ class SecurityController extends Controller
 
         return new RedirectResponse(
             $request->headers->get('referer')
-            ?: $this->container->get('router')->generate('majoraotastore_user_list')
+            ?: $this->container->get('router')->generate('majoraotastore_admin_user_list')
         );
     }
 

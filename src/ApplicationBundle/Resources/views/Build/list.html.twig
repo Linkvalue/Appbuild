@@ -4,23 +4,25 @@
 
 {% block header %}
     <h1>{{ 'build.list.title'|trans }}</h1>
-    <div class="margin-bottom-15">
+    <div class="margin-bottom-15 pull-left">
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ url('majoraotastore_admin_build_create', { application_id: application.id }) }}" class="btn btn-primary">
                 <span class="fa fa-plus"></span>
                 {{ 'build.create.title'|trans }}
             </a>
+            {% if app.request.get('enabled', true) %}
+                <a href="{{ url('majoraotastore_admin_build_list', { application_id: application.id, enabled: false }) }}" class="btn btn-xl btn-info">
+                    <i class="fa fa-trash"></i> {{ 'admin.icon.trash'|trans }}
+                </a>
+            {% else %}
+                <a href="{{ url('majoraotastore_admin_build_list', { application_id: application.id, enabled: true }) }}" class="btn btn-xl btn-success">
+                    <i class="fa fa-undo"></i> {{ 'admin.icon.undo'|trans }}
+                </a>
+            {% endif %}
         {% endif %}
-        {% if app.request.get('enabled', true) %}
-            <a href="{{ url('majoraotastore_admin_build_list', { application_id: application.id, enabled: false }) }}" class="btn btn-xl btn-info">
-                <i class="fa fa-trash"></i> {{ 'admin.icon.trash'|trans }}
-            </a>
-        {% else %}
-            <a href="{{ url('majoraotastore_admin_build_list', { application_id: application.id, enabled: true }) }}" class="btn btn-xl btn-success">
-                <i class="fa fa-undo"></i> {{ 'admin.icon.undo'|trans }}
-            </a>
-        {% endif %}
-        <a href="{{ url('majoraotastore_admin_application_list') }}" class="btn btn-info pull-right">
+    </div>
+    <div class="margin-bottom-15 pull-right">
+        <a href="{{ url('majoraotastore_admin_application_list') }}" class="btn btn-info">
             <span class="fa fa-arrow-left"></span>
             {{ 'application.list.title'|trans }}
         </a>

@@ -1,0 +1,5 @@
+
+# Builds
+majoraotastore_api_build_get:
+    path:     '/{id}'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:get' }
