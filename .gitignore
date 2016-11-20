@@ -1,10 +1,15 @@
-# Vagrant
-.vagrant
-.vagrant.*
-ansible/group_vars/dev.local.yml
+# junk
+.DS_Store
+/.idea/
+/*.log
+.php_cs.*
 
-# Docker
-docker/
+# ansible-vagrant
+/.vagrant/
+/ansible/roles/
+/ansible/vars.local.yml
+/ansible/vagrant-parameters.yml
+/ansible/*.retry
 
 # Cache and logs (Symfony2)
 /app/cache/*
@@ -43,13 +48,6 @@ app/check.php
 
 # Build data
 /build
-
-.DS_Store
-.php_cs.*
-wallet
-
-# IDE
-.idea/
 
 # node.js
 node_modules

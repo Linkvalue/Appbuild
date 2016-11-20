@@ -1,23 +1,35 @@
-#
-# Dev environment
-#
-vm-build:
-	test -f ansible/group_vars/app.local.yml || cp ansible/group_vars/app.local.yml.dist ansible/group_vars/app.local.yml
-	vagrant up --provision || true
-	vagrant reload || true
-	vagrant ssh -c "/var/www/MajoraOTAStore"
+.PHONY: provision start stop ssh destroy rebuild clean install update
 
-vm-install:
-	vagrant provision || true
+#
+# Main targets
+#
+provision: vm-provision
+start: vm-up
+stop: vm-halt
+ssh: vm-ssh
+destroy: vm-destroy
+rebuild: vm-rebuild
+
+#
+# VM
+#
+vm-ssh:
+	vagrant ssh
+
+vm-up:
+	vagrant up
+
+vm-halt:
+	vagrant halt
+
+vm-provision:
+	vagrant up --no-provision
+	vagrant provision
 
 vm-destroy:
-	vagrant destroy -f || true
+	vagrant destroy
 
-vm-rebuild: vm-destroy vm-build
-
-# First install
-prepare: install db-build
-	@echo "Project MajoraOTAStore is built !"
+vm-rebuild: vm-destroy vm-provision
 
 # Clean
 clean:
@@ -61,7 +73,7 @@ install-bower:
 	cd web && ln -fs ../vendor/bower_components/components-font-awesome/fonts
 	cd web && ln -fs ../vendor/bower_components/flag-icon-css/flags
 
-install: install-bin install-git-hooks install-composer install-bower clean
+install: install-bin install-git-hooks install-composer install-bower db-build clean
 
 # Update
 update: update-composer update-bower clean
@@ -102,10 +114,9 @@ test-install-bin:
 	test -f bin/composer || curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
 	bin/composer self-update
 
-run-tests:
-	rm -rf web/tests-coverage/*
-	bin/phpunit -c app --testsuite majoraotastore_project --coverage-html web/tests-coverage
-	@echo "\nCoverage report : \n\033[1;32m http://app-build.dev/tests-coverage/index.html\033[0m\n"
+test-coverage:
+	rm -rf web/test-coverage/*
+	bin/phpunit -c app --testsuite majoraotastore_project --coverage-html web/test-coverage
 
 # Production
 prod-install: install-bin
