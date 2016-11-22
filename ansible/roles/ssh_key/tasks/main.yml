@@ -1,3 +1,0 @@
-- name: Copy SSH private key
-  sudo: no
-  copy: src={{ ssh_key }} dest=~/.ssh/id_rsa mode=600

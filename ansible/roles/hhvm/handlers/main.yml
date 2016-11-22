@@ -1,2 +1,0 @@
-- name: Restart hhvm
-  action: service name=hhvm state=restarted enabled=yes
