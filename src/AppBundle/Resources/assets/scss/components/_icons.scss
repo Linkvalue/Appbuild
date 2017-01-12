@@ -1,0 +1,44 @@
+$icon-transition-prop: $global-transition-prop;
+$icon-transition-duration: $global-transition-duration;
+$icon-transition-timing: $global-transition-timing;
+
+.icon-os {
+  font-size: rem-calc(25);
+}
+
+.icon-android {
+  color: $primary-color;
+}
+
+.icon-action {
+  width: rem-calc(50);
+  height: rem-calc(35);
+  background: $dark-secondary;
+  color: $white;
+  font-size: rem-calc(20);
+  line-height: rem-calc(35);
+  text-align: center;
+  box-shadow: inset 0 0 0 $primary-color;
+  transition-duration: $icon-transition-duration;
+  transition-property: $icon-transition-prop;
+  transition-timing-function: $icon-transition-timing;
+
+  &:hover,
+  &:focus {
+    color: $white;
+    box-shadow: inset 60px 0 0 darken($primary-color, 5%);
+  }
+
+  &:focus {
+    transform: scale(.95);
+  }
+
+  &.icon-update {
+    padding-left: rem-calc(5);
+    line-height: rem-calc(39);
+  }
+
+  &.icon-download {
+    background: $primary-color;
+  }
+}
