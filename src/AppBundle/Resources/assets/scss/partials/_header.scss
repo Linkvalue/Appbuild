@@ -1,139 +1,285 @@
+$header-margin: (
+  small: rem-calc(10px 0 30px),
+  medium: rem-calc(50px 0)
+);
+
+$logo-height: (
+  small: rem-calc(35px),
+  medium: rem-calc(60px)
+);
+
+$button-height: (
+  small: rem-calc(35px),
+  medium: rem-calc(70px)
+);
+
+$header-icon-fz: (
+  small: rem-calc(12px),
+  medium: rem-calc(22px)
+);
+
+$header-space: (
+  small: rem-calc(5px),
+  medium: rem-calc(10px)
+);
+
+
+
 .header {
-  margin: rem-calc(30 0);
   position: relative;
+  margin: map-get($header-margin, small);
+
   @include breakpoint(medium) {
-    margin: rem-calc(50 0);
+    margin: map-get($header-margin, medium);
   }
 }
+
 .header__logo {
   margin: 0;
+
   @include breakpoint(small only) {
-    height: rem-calc(40);
     position: absolute;
-    img {
-      height: 100%;
-      width: auto;
-    }
+    height: map-get($logo-height, small);
   }
-  @include breakpoint(large) {
-    width: rem-calc(215);
+
+  @include breakpoint(medium) {
+    height: map-get($logo-height, medium);
+  }
+
+  a {
+    display: block;
+    height: 100%;
+  }
+
+  img {
+    width: auto;
+    height: 100%;
   }
 }
+
 .header__column-actions {
+  justify-content: center;
+
   @include breakpoint(small only) {
-    margin-top: rem-calc(70);
+    margin-top: map-get($logo-height, small) + (map-get($header-space, small) * 2);
+  }
+}
+
+.nav-secondary {
+  flex: 1 1 100%;
+
+  @include breakpoint(medium) {
+    flex: 0 0 auto;
+  }
+}
+
+.nav-primary {
+  flex: 1 1 100%;
+
+  @include breakpoint(medium) {
+    flex: 1 1 100%;
+  }
+}
+
+
+.nav-primary,
+.nav-secondary {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: - map-get($header-space, small) / 2;
+  margin-left: - map-get($header-space, small) / 2;
+
+  > * {
+    margin-right: map-get($header-space, small) / 2;
+    margin-left: map-get($header-space, small) / 2;
+  }
+
+  @include breakpoint(medium) {
+    justify-content: flex-start;
+    margin-right: - map-get($header-space, medium) / 2;
+    margin-left: - map-get($header-space, medium) / 2;
+
+    > * {
+      margin-right: map-get($header-space, medium) / 2;
+      margin-left: map-get($header-space, medium) / 2;
+    }
   }
 }
 
 
 .form-search {
-  position: relative;
+  //position: relative;
   z-index: 1;
+
   @include breakpoint(small only) {
-    top: - rem-calc(70);
+    //top: - map-get($logo-height, small) + (map-get($header-space, small) * 2);
   }
+
   @include breakpoint(medium) {
     display: flex;
     flex-wrap: nowrap;
   }
-
 }
+
 .form-search__input {
-  background: $secondary-color;
-  height: rem-calc(50);
-  padding: rem-calc(10 20);
-  transition: all .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
-  color: $white;
   display: inline-block;
-  margin-bottom: rem-calc(10);
+  height: map-get($button-height, small);
+  margin-bottom: map-get($header-space, small);
+  padding: rem-calc(10);
+  transition: all .4s cubic-bezier(0, .795, 0, 1);
+  background: $secondary-color;
+  color: $white;
+
   @include breakpoint(small only) {
-    width: rem-calc(50);
     position: absolute;
-    right: 0;
     top: 0;
+    right: 0;
+    width: map-get($button-height, small);
+    margin-bottom: map-get($header-space, small);
+    cursor: pointer;
     opacity: 0;
     z-index: 3;
-    cursor: pointer;
+
     &:focus {
-      z-index: 1;
       width: 100%;
+      cursor: text;
       opacity: 1;
-       cursor: text;
+      z-index: 1;
     }
   }
+
   @include breakpoint(medium) {
-    height: rem-calc(60);
     flex: 1 1 0;
     order: 2;
+    height: map-get($button-height, medium);
+    margin-bottom: map-get($header-space, medium);
+    padding: rem-calc(10 20);
   }
-  &, &:focus {
+
+  &,
+  &:focus {
+    transition: all .4s cubic-bezier(0, .795, 0, 1);
+    border: 2px solid $light-secondary;
     outline: none;
-    border: 2px solid lighten($secondary-color, 10%);
-    transition: all .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
   }
+
   &:focus {
     background: lighten($secondary-color, 2%);
   }
 }
+
 .form-search__button {
-  width: rem-calc(50);
-  height: rem-calc(50);
+  width: map-get($button-height, small);
+  height: map-get($button-height, small);
+  margin-bottom: map-get($header-space, small);
   padding: 0;
-  font-size: rem-calc(22);
-  line-height: rem-calc(52);
-  margin-bottom: rem-calc(10);
+  font-size: map-get($header-icon-fz, small);
+
+
   @include breakpoint(small only) {
     position: absolute;
-    right: 0;
     top: 0;
+    right: 0;
     z-index: 2;
   }
+
   @include breakpoint(medium) {
-    width: rem-calc(60);
-    height: rem-calc(60);
-    line-height: rem-calc(64);
     flex: 0 1 auto;
     order: 1;
-    margin-right: rem-calc(10);
+    width: map-get($button-height, medium);
+    height: map-get($button-height, medium);
+    margin-right: map-get($header-space, medium);
+    margin-bottom: map-get($header-space, medium);
+    font-size: map-get($header-icon-fz, medium);
   }
 }
 
-.button_account {
-  width: rem-calc(50);
-  height: rem-calc(50);
-  line-height: rem-calc(48);
-  padding: 0;
-  font-size: rem-calc(18);
-  background: $dark-secondary;
-  border-color: darken($primary-color, 10%);
-  margin-bottom: rem-calc(10);
+
+
+.button_account,
+.button_language {
+  min-width: map-get($button-height, small);
+  height: map-get($button-height, small);
+
+  margin-bottom: map-get($header-space, small);
+  padding: rem-calc(0 5);
+
   @include breakpoint(medium) {
-    width: rem-calc(60);
-    height: rem-calc(60);
-    line-height: rem-calc(58);
+    width: map-get($button-height, medium);
+    height: map-get($button-height, medium);
+    margin-bottom: map-get($header-space, medium);
   }
+}
+
+
+.button_account,
+.button_account:visited {
+  border-color: $dark-primary;
+  background: $dark-secondary;
+
+  font-size: map-get($header-icon-fz, small);
+
+  line-height: map-get($button-height, small) - rem-calc(2);
+
+  @include breakpoint(medium) {
+    font-size: map-get($header-icon-fz, medium);
+    line-height: map-get($button-height, medium) - rem-calc(2);
+  }
+
   &:hover {
     background-color: $primary-color;
   }
 }
 
-.button_navigation {
-  font-weight: bold;
-  font-style: italic;
-  margin-bottom: rem-calc(10);
-  padding: rem-calc(0 20);
-  height: rem-calc(50);
-  line-height: rem-calc(46);
-  font-size: rem-calc(16);
+
+.button_language {
+  line-height: map-get($button-height, small) - rem-calc(4);
+
+  text-transform: uppercase;
+
   @include breakpoint(medium) {
-    height: rem-calc(60);
-    line-height: rem-calc(56);
+    line-height: map-get($button-height, medium) - rem-calc(4);
   }
-  &:first-child:not(:last-child) {
-    margin-right: rem-calc(8);
+
+  > * {
+    vertical-align: middle;
   }
-  &.active {
-    border-color: darken($primary-color, 10%);
-    background-color: $dark-secondary;
+
+
+  .button__select {
+    padding-right: 5px;
+
+    font-weight: bold;
   }
+
+  .icon-angle-down {
+    font-size: map-get($header-icon-fz, small);
+  }
+
+}
+
+.button__language-wrap {
+  position: relative;
+}
+
+.button__options {
+  right: 0;
+  left: 0;
+  padding: 0;
+  border: $button-border-width solid $light-secondary;
+  background-color: $secondary-color;
+  text-transform: uppercase;
+}
+
+.button__option {
+  display: block;
+  padding: rem-calc(10 10);
+  color: $white;
+  font-weight: bold;
+
+  &:hover {
+    background-color: $light-secondary;
+    color: $white;
+  }
+
 }

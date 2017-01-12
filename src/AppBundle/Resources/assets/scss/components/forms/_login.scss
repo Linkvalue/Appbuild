@@ -1,0 +1,38 @@
+.input-wrap_login {
+  position: relative;
+  margin-bottom: rem-calc(5);
+  text-align: left;
+}
+
+.label_login {
+  position: absolute;
+  top: 50%;
+  left: rem-calc(20);
+  transform: translateY(-50%);
+  transition: all .2s cubic-bezier(.4, 0, .01, .96);
+  pointer-events: none;
+  font-weight: normal;
+}
+
+.input_login {
+  height: auto;
+  margin-bottom: rem-calc(5);
+  padding: rem-calc(20 20 12 20);
+  z-index: 1;
+
+  &:focus,
+  &.active {
+    outline: none;
+
+    ~ .label_login {
+      top: calc(50% - 12px);
+      color: $medium-gray;
+      font-size: rem-calc(10);
+    }
+
+    ~ .bar {
+      width: 100%;
+      margin-left: 0%;
+    }
+  }
+}

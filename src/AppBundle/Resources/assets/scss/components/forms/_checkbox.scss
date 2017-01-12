@@ -1,0 +1,70 @@
+$checkbox-width: rem-calc(165);
+$checkbox-height: (
+  small: rem-calc(35),
+  medium: rem-calc(60)
+);
+
+$checkbox-padding: rem-calc(5);
+$checkbox-border-width: $button-border-width;
+
+.input-wrap__input-checkbox {
+  display: inline-block;
+  position: relative;
+  margin-bottom: $form-input-space;
+  cursor: pointer;
+
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    border: $radio-border-width solid transparent;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+
+    &:checked {
+
+      & + .input-wrap__checkbox {
+        background: $primary-color;
+        color: $medium-secondary;
+        border-color: $dark-primary;
+      }
+    }
+  }
+}
+
+.input-wrap__checkbox {
+  min-width: $checkbox-width;
+  min-height: map-get($checkbox-height, small);
+
+  padding: $checkbox-padding;
+
+  transition-duration: $form-transition-duration;
+  transition-property: $form-transition-prop;
+  transition-timing-function: $form-transition-timing;
+
+  background-color: $light-secondary;
+  color: $white;
+  text-align: center;
+
+  @include breakpoint(medium) {
+    min-height: map-get($checkbox-height, medium);
+  }
+
+  span {
+    display: inline-block;
+  }
+
+  span > * {
+    display: block;
+    line-height: 1;
+  }
+
+  &:hover {
+    background: $primary-color;
+    color: $medium-secondary;
+  }
+}

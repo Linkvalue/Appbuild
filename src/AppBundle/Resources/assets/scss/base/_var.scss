@@ -1,19 +1,17 @@
-$tertiary-color: #222a60;
-$tertiary-color: #222a60;
+$global-space: rem-calc(5);
 
-$level-color: (success, $success-color),
-              (warning, $warning-color),
-              (alert, $alert-color),
-              (pending, $medium-gray);
 
-$steps-color: (primary, $primary-color),
-              (secondary, $secondary-color),
-              (tertiary, $tertiary-color);
+// TRANSITION
+// ---------
 
-$level-color-bg: (success, $success-color),
-              (warning, $warning-color),
-              (alert, $alert-color),
-              (pending, $medium-gray),
-              (primary, $primary-color),
-              (secondary, $secondary-color),
-              (tertiary, $tertiary-color);
+$global-transition-prop: all;
+$global-transition-duration: 400ms;
+$global-transition-timing: ease;
+
+
+// COLOR
+// ---------
+
+$superadmin-color: #37cbaa;
+$admin-color: #37a6cb;
+$downloader-color: $black;

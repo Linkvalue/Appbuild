@@ -1,0 +1,58 @@
+$radio-border-width: $button-border-width;
+
+.input-wrap__input-radio {
+  display: inline-block;
+  position: relative;
+  margin-bottom: $form-input-space;
+  cursor: pointer;
+
+  label {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    height: 100%;
+    border: $radio-border-width solid transparent;
+  }
+
+  .icon {
+    font-size: rem-calc(18);
+  }
+
+  &:hover {
+
+    label {
+      background: $primary-color;
+    }
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    &:checked {
+
+      & + .input-wrap__radio {
+        border-color: $dark-primary;
+        background: $primary-color;
+
+        .icon {
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+.input-wrap__radio {
+
+  transition-duration: $form-transition-duration;
+  transition-property: $form-transition-prop;
+  transition-timing-function: $form-transition-timing;
+
+  &:hover {
+    background: $primary-color;
+
+    .icon {
+      color: $white;
+    }
+  }
+}

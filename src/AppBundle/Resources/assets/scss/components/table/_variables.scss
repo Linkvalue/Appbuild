@@ -1,0 +1,41 @@
+$table-fz: (
+  small: rem-calc(10px),
+  medium: rem-calc(16px)
+);
+
+$table-link-transition-prop: $global-transition-prop;
+$table-link-transition-duration: .1s;
+$table-link-transition-timing: $global-transition-timing;
+
+$table-head-line-margin: rem-calc(10px);
+$table-line-margin: rem-calc(4px);
+
+$table-row-padding: (
+  small: rem-calc(6px 0),
+  medium: rem-calc(10px 0)
+);
+$table-cell-head-padding: (
+  small: rem-calc(5px 10px),
+  medium: rem-calc(10px 20px)
+);
+$table-cell-body-padding: (
+  small: rem-calc(5px 10px),
+  medium: rem-calc(10px 20px)
+);
+
+$table-app-img: rem-calc(40px);
+
+$icon-transition-prop: $global-transition-prop;
+$icon-transition-duration: $global-transition-duration;
+$icon-transition-timing: $global-transition-timing;
+
+$button-icon-size: (
+  width: rem-calc(50),
+  height: rem-calc(35)
+);
+
+$label-height: rem-calc(30px);
+$label-width: (
+  default: rem-calc(40px),
+  build: rem-calc(60px)
+);

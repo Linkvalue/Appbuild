@@ -1,9 +1,21 @@
-body {
-  background: $medium-secondary;
-  position: relative;
-  min-height: 100vh;
+html {
+  @include breakpoint(medium) {
+    font-size: 87.5%;
+  }
+
+	@include breakpoint(large) {
+		font-size: 100%;
+	}
 }
 
-.header-section {
-  margin-bottom: rem-calc(10);
+
+body {
+  position: relative;
+  min-height: 100vh;
+  background: $medium-secondary;
+}
+
+.main-content {
+  padding-right: rem-calc(5);
+  padding-left: rem-calc(5);
 }

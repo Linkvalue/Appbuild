@@ -1,0 +1,50 @@
+$select-triangle-size: rem-calc(10);
+
+.select__toggle {
+  position: relative;
+  cursor: pointer;
+  padding-right: ($select-triangle-size * 2) + map-get($form-label-padding, small);
+
+  &:before {
+    content: '';
+
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: map-get($form-input-padding, small);
+
+    width: $select-triangle-size * 2;
+    height: $select-triangle-size;
+    border-left: $select-triangle-size solid transparent;
+    border-right: $select-triangle-size solid transparent;
+    border-top: $select-triangle-size solid $primary-color;
+
+    transform: translateY(-50%);
+  }
+}
+
+.select__toggle,
+.select__options {
+  .label-role {
+    margin-right: $global-space;
+  }
+}
+
+.select__options {
+  right: 0;
+  color: $black;
+  list-style: none;
+}
+
+.select__option {
+  padding: map-get($form-label-padding, small);
+  cursor: pointer;
+
+  @include breakpoint(medium) {
+    padding: map-get($form-label-padding, medium);
+  }
+
+  &:hover {
+    background-color: $light-gray;
+  }
+}

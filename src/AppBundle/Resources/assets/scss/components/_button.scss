@@ -1,29 +1,197 @@
-.button {
+
+$button-transition-prop: $global-transition-prop;
+$button-transition-duration: .1s;
+$button-transition-timing: $global-transition-timing;
+
+$button-border-width: 2px;
+
+$button-height: (
+  small: rem-calc(35px),
+  medium: rem-calc(70px),
+);
+
+$button-height-small: (
+  small: rem-calc(35px),
+  medium: rem-calc(60px),
+);
+
+$button-background: (
+  default: $secondary-color,
+  confirm: $primary-color,
+  dark: $dark-secondary,
+  active: $dark-secondary
+);
+
+$button-border-color: (
+  default: $light-secondary,
+  confirm: $dark-primary,
+  active: $primary-color
+);
+
+$button-padding: (
+  small: rem-calc(2 20),
+  medium: rem-calc(2 30)
+);
+
+$button-width: (
+  small: rem-calc(120px),
+  medium: rem-calc(200px)
+);
+
+$button-default-fz: (
+  small: rem-calc(12px),
+  medium: rem-calc(20px)
+);
+
+$button-small-fz: (
+  small: rem-calc(11px),
+  medium: rem-calc(16px)
+);
+
+$button-medium-fz: (
+  small: rem-calc(11px),
+  medium: rem-calc(18px)
+);
+
+
+
+
+.button,
+.button:visited {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: rem-calc(10);
+  padding: map-get($button-padding, small);
+
+  transition-duration: $button-transition-duration;
+  transition-property: $button-transition-prop;
+  transition-timing-function: $button-transition-timing;
+
+  border-width: $button-border-width;
+  border-style: solid;
+  border-color: map-get($button-border-color, default);
+
+  background-color: $secondary-color;
+
+  color: $white;
+
+  font-size: map-get($button-default-fz, small);
+  text-align: center;
+
+  cursor: pointer;
+
   appearance: none;
-  transition: all .1s ease-out;
-  border: 2px solid lighten($secondary-color, 10%);
-  &:hover {
-    background: lighten($secondary-color, 5%);
-    transform: scale(1.04);
-  }
+
+  @include breakpoint(medium) {
+    padding: map-get($button-padding, medium);
+    font-size: map-get($button-default-fz, medium);
+  };
+
+  &:hover,
   &:focus {
-    transform: scale(0.95);
     outline: none;
+    background-color: $light-secondary;
+    color: $white;
+  }
+
+  &:not(.button_language):focus {
+    transform: scale(.95);
+  }
+
+  > span {
+    display: inline-block;
+    line-height: normal;
   }
 }
 
-.button_confirm {
-  font-style: italic;
-  font-weight: bold;
-  appearance: none;
-  overflow: hidden;
-  border: 2px solid darken($primary-color, 10%);
-  background-color: $primary-color;
-  font-size: rem-calc(18);
-  &:hover {
-    background: lighten($primary-color, 5%);
+.button_small,
+.button_small:visited {
+  font-size: map-get($button-small-fz, small);
+
+  @include breakpoint(medium) {
+    font-size: map-get($button-small-fz, medium);
   }
 }
-.button_confirm-login {
+
+.button_navigation,
+.button_navigation:visited {
+  height: map-get($button-height, small);
+
+  font-style: italic;
+  font-weight: bold;
+
+  @include breakpoint(medium) {
+    height: map-get($button-height, medium);
+  }
+
+  &.active {
+    border-color: map-get($button-border-color, active);
+    background-color: map-get($button-background, active);
+  }
+}
+
+.button_confirm,
+.button_confirm:visited {
+  border-color: map-get($button-border-color, confirm);
+  background-color: $primary-color;
+  font-size: map-get($button-medium-fz, small);
+  font-style: italic;
+  font-weight: bold;
+
+  &:hover,
+  &:focus {
+    background-color: $light-primary;
+  }
+}
+
+.button_action,
+.button_action:visited {
+  min-width: map-get($button-width, small);
+  height: map-get($button-height-small, small);
+
+  font-size: map-get($button-medium-fz, small);
+
+  @include breakpoint(medium) {
+    width: map-get($button-width, medium);
+    height: map-get($button-height-small, medium);
+
+    font-size: map-get($button-medium-fz, medium);
+  }
+}
+
+.button_confirm-login,
+.button_confirm-login:visited {
   border: 0;
+}
+
+.button_close {
+  position: relative;
+
+  &:before {
+    content: '×';
+    position: absolute;
+    top: 50%;
+    right: rem-calc(20);
+    transform: translateY(-50%);
+    font-style: normal;
+  }
+}
+
+.button_input-wrap-side {
+  margin-left: rem-calc(5);
+}
+
+.row-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: - $global-space;
+  margin-left: - $global-space;
+
+  > .button {
+    margin-right: $global-space;
+    margin-left: $global-space;
+  }
+
 }
