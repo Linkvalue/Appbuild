@@ -1,0 +1,64 @@
+// STYLES FORMS
+
+.input-wrap {
+  position: relative;
+  margin-bottom: rem-calc(5);
+}
+
+.input-wrap__label {
+  position: absolute;
+  top: rem-calc(10);
+  left: rem-calc(20);
+  transition: all .2s cubic-bezier(.4, 0, .01, .96);
+  pointer-events: none;
+}
+
+.input-wrap__input {
+  height: auto;
+  margin-bottom: rem-calc(5);
+  padding: rem-calc(20 20 12 20);
+  z-index: 1;
+
+  &:focus,
+  &.active {
+    outline: none;
+
+    ~ .input-wrap__label {
+      top: rem-calc(5);
+      color: $medium-gray;
+      font-size: rem-calc(10);
+    }
+
+    ~ .bar {
+      width: 100%;
+      margin-left: 0%;
+    }
+  }
+}
+
+.bar {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  margin-left: 50%;
+  transition: all .2s cubic-bezier(1, .1, .35, 1);
+  background: $primary-color;
+}
+
+.article__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.article__actions-message {
+  display: inline-block;
+  margin-top: rem-calc(10);
+  padding: rem-calc(15 12 15 50);
+  border-radius: $global-radius;
+  background: $success-color;
+  color: $white;
+  visibility: hidden;
+}

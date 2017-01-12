@@ -1,0 +1,156 @@
+$table-link-transition-prop: $global-transition-prop;
+$table-link-transition-duration: .1s;
+$table-link-transition-timing: $global-transition-timing;
+
+// STRUCTURE TABlE;
+
+.table {
+
+  @include breakpoint(medium) {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+  }
+}
+
+.table__row {
+  display: flex;
+  @include breakpoint(medium) {
+    display: table-row;
+  }
+}
+
+.table__cell-head {
+  @include breakpoint(medium) {
+    border-bottom: rem-calc(10) solid $dark-secondary;
+  }
+}
+
+.table__row-content {
+  @include breakpoint(small only) {
+    padding: rem-calc(10);
+    margin-bottom: rem-calc(4);
+  }
+}
+
+.table__cell {
+
+  @include breakpoint(small only) {
+    &:not(:first-child) {
+      padding-left: rem-calc(5);
+    }
+    &:not(:last-child) {
+      padding-right: rem-calc(5);
+    }
+  }
+
+  @include breakpoint(medium) {
+    display: table-cell;
+    padding: rem-calc(12 0);
+    vertical-align: middle;
+  }
+
+  &.table__cell--shrink {
+
+    @include breakpoint(medium) {
+      width: 1px;
+    }
+  }
+
+
+  @include breakpoint(medium) {
+
+    &:not(:first-child) {
+      .table__cell__content {
+        border-left: 1px solid $secondary-color;
+      }
+    }
+
+    &.table__cell-head-actions {
+      .table__cell__content {
+        border-left-color: transparent;
+      }
+    }
+  }
+
+
+}
+
+.table__cell__content {
+
+  a {
+    transition-duration: $table-link-transition-duration;
+    transition-property: $table-link-transition-prop;
+    transition-timing-function: $table-link-transition-timing;
+    &:hover,
+    &:focus {
+      color: $primary-color;
+    }
+  }
+
+  @include breakpoint(medium) {
+    padding: rem-calc(10 20);
+  }
+}
+
+.table__cell-content {
+
+  @include breakpoint(medium) {
+    border-bottom: rem-calc(4) solid $dark-secondary;
+  }
+}
+
+.table__row-head {
+  background: $primary-color;
+  color: $white;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.table__row-content {
+  background-color: $white;
+}
+
+// CONTENT TABlE;
+
+.table__cell-build,
+.table__cell-comment {
+
+  .table__cell__content {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.app-picture {
+  display: inline-block;
+  width: rem-calc(40);
+  height: rem-calc(40);
+  border-radius: rem-calc(8);
+  background-color: $black;
+  background-position: center;
+  background-size: cover;
+  vertical-align: middle;
+
+  @include breakpoint(medium) {
+    margin-right: rem-calc(10);
+  }
+}
+
+.label-version {
+  padding: rem-calc(2 15);
+  background: $black;
+  color: $white;
+  font-size: rem-calc(12);
+}
+
+.label-new {
+  padding: rem-calc(2 4);
+  background: $primary-color;
+  color: $white;
+  font-size: rem-calc(12);
+  font-weight: bold;
+  text-transform: uppercase;
+}

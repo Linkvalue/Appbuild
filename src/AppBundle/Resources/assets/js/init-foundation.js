@@ -1,0 +1,3 @@
+/* INIT FOUNDATION */
+
+$(document).foundation();
