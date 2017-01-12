@@ -1,0 +1,10 @@
+body {
+  position: relative;
+  min-height: 100vh;
+  background: $medium-secondary;
+}
+
+[data-anim-appear] {
+  transform: translateY(5px);
+  opacity: 0;
+}

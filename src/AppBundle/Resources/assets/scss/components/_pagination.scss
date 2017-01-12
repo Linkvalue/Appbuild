@@ -1,0 +1,32 @@
+$pagination-transition-prop: $global-transition-prop;
+$pagination-transition-duration: .1s;
+$pagination-transition-timing: $global-transition-timing;
+
+.pagination {
+  margin-top: rem-calc(10);
+
+
+
+  text-align: right;
+}
+
+.pagination__item {
+  display: inline-block;
+}
+
+.pagination__link {
+  display: block;
+  width: rem-calc(40);
+  height: rem-calc(40);
+
+  transition-duration: $pagination-transition-duration;
+  transition-property: $pagination-transition-prop;
+  transition-timing-function: $pagination-transition-timing;
+
+  border: 2px solid $primary-color;
+  background: $dark-secondary;
+  color: $white;
+  line-height: rem-calc(35);
+  text-align: center;
+  font-weight: bold;
+}

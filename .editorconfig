@@ -17,3 +17,6 @@ trim_trailing_whitespace = false
 
 [*.feature]
 indent_size = 2
+
+[*.{html,js,scss}]
+indent_size = 2

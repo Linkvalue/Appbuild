@@ -1,0 +1,81 @@
+$form-login-padding: 30px 0;
+$form-login-header-margin: 90px;
+
+.section-login {
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+  padding: rem-calc($form-login-padding);
+  vertical-align: middle;
+
+  > .row {
+    width: 100%;
+  }
+}
+
+.form-login__header {
+  display: inline-block;
+  margin-bottom: rem-calc($form-login-header-margin);
+
+  > * {
+    margin: 0;
+  }
+}
+
+.logo-baseline {
+  color: $white;
+  font-size: rem-calc(14);
+  font-weight: 300;
+  text-align: right;
+}
+
+.form-login__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: rem-calc(40);
+}
+
+.form-login__forgot-password {
+  position: relative;
+  transition: all .2s ease-out;
+  color: $white;
+  font-size: rem-calc(14);
+  font-style: italic;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    transform: translateY(5px);
+    transition: all .2s ease-out;
+    background-color: $white;
+    opacity: 0;
+  }
+
+  &:hover {
+    color: $white;
+
+    &::after {
+      transform: translateY(3px);
+      opacity: 1;
+    }
+  }
+}
+
+.loader-login {
+  position: absolute;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  transition: all .2s ease-out;
+  background: $primary-color;
+  z-index: 900;
+
+  &.valid {
+    height: 100%;
+    top: 0 !important;
+  }
+}

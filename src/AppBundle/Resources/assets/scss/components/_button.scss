@@ -1,0 +1,46 @@
+$button-transition-prop: $global-transition-prop;
+$button-transition-duration: .1s;
+$button-transition-timing: $global-transition-timing;
+
+$button-border-width: 2px;
+$button-background: lighten($secondary-color, 10%);
+
+.button,
+.button:visited {
+  transition-duration: $button-transition-duration;
+  transition-property: $button-transition-prop;
+  transition-timing-function: $button-transition-timing;
+
+  border-width: $button-border-width;
+  border-style: solid;
+  border-color: $button-background;
+  appearance: none;
+
+  &:hover {
+    transform: scale(1.04);
+    background: lighten($secondary-color, 5%);
+  }
+
+  &:focus {
+    transform: scale(.95);
+    outline: none;
+  }
+}
+
+.button_confirm {
+  border: 2px solid darken($primary-color, 10%);
+  background-color: $primary-color;
+  font-size: rem-calc(18);
+  font-style: italic;
+  font-weight: bold;
+  overflow: hidden;
+  appearance: none;
+
+  &:hover {
+    background: lighten($primary-color, 5%);
+  }
+}
+
+.button_confirm-login {
+  border: 0;
+}

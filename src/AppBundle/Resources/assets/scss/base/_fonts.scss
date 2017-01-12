@@ -1,0 +1,179 @@
+$font-path: '../fonts/' !default;
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('OpenSans-BoldItalic.eot');
+  src: local('Open Sans Bold Italic'), local('OpenSans-BoldItalic'),
+		url('#{$font-path}OpenSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+		url('#{$font-path}OpenSans-BoldItalic.woff') format('woff'),
+		url('#{$font-path}OpenSans-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('#{$font-path}OpenSans-SemiboldItalic.eot');
+  src: local('Open Sans Semibold Italic'), local('OpenSans-SemiboldItalic'),
+		url('#{$font-path}OpenSans-SemiboldItalic.eot?#iefix') format('embedded-opentype'),
+		url('#{$font-path}OpenSans-SemiboldItalic.woff') format('woff'),
+		url('#{$font-path}OpenSans-SemiboldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('#{$font-path}OpenSans-Bold.eot');
+  src: local('Open Sans Bold'), local('OpenSans-Bold'),
+		url('#{$font-path}OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
+		url('#{$font-path}OpenSans-Bold.woff') format('woff'),
+		url('#{$font-path}OpenSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('#{$font-path}OpenSans.eot');
+  src: local('Open Sans'), local('OpenSans'),
+		url('#{$font-path}OpenSans.eot?#iefix') format('embedded-opentype'),
+		url('#{$font-path}OpenSans.woff') format('woff'),
+		url('#{$font-path}OpenSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('#{$font-path}OpenSans-Italic.eot');
+  src: local('Open Sans Italic'), local('OpenSans-Italic'),
+		url('#{$font-path}OpenSans-Italic.eot?#iefix') format('embedded-opentype'),
+		url('#{$font-path}OpenSans-Italic.woff') format('woff'),
+		url('#{$font-path}OpenSans-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('#{$font-path}OpenSans-Semibold.eot');
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'),
+		url('#{$font-path}OpenSans-Semibold.eot?#iefix') format('embedded-opentype'),
+		url('#{$font-path}OpenSans-Semibold.woff') format('woff'),
+		url('#{$font-path}OpenSans-Semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: "fontico";
+  src:url("#{$font-path}fontico.eot");
+  src:url("#{$font-path}fontico.eot?#iefix") format("embedded-opentype"),
+    url("#{$font-path}fontico.woff") format("woff"),
+    url("#{$font-path}fontico.ttf") format("truetype"),
+    url("#{$font-path}fontico.svg#untitled-font-2") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	display: inline-block;
+  vertical-align: middle;
+}
+
+[data-icon]::before {
+  content: attr(data-icon);
+  display: block;
+  font-family: 'fontico';
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]::before,
+[class*=" icon-"]::before {
+  font-family: "fontico";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+$icons: (
+  // TECH
+  icon-apple: '\61',
+  icon-android: '\62',
+  icon-download: '\63',
+  icon-angle-right: '\64',
+  icon-user: '\65',
+  icon-search: '\66',
+  icon-angle-left: '\67',
+  icon-archive: '\68',
+  icon-trash: '\69',
+  icon-update: '\6a',
+  icon-angle-down: '\6b',
+  icon-angle-up: '\6c',
+
+);
+@each $name, $content in $icons {
+
+  .#{$name}:before {
+    content: $content;
+  }
+}
+
+// .icon-apple::before {
+//   content: "\61";
+// }
+//
+// .icon-android::before {
+//   content: "\62";
+// }
+//
+// .icon-download::before {
+//   content: "\63";
+// }
+//
+// .icon-angle-right::before {
+//   content: "\64";
+// }
+//
+// .icon-user::before {
+//   content: "\65";
+// }
+//
+// .icon-search::before {
+//   content: "\66";
+// }
+//
+// .icon-angle-left::before {
+//   content: "\67";
+// }
+//
+// .icon-archive::before {
+//   content: "\68";
+// }
+// .icon-trash::before {
+//   content: "\69";
+// }
+//
+// .icon-update::before {
+//   content: "\6a";
+// }
+// .icon-angle-down:before {
+//   content: "\6b";
+// }
+// .icon-angle-up:before {
+//   content: "\6c";
+// }
