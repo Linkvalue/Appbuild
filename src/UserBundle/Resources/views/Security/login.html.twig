@@ -34,6 +34,11 @@
                 <input type="password" id="password" name="_password" class="form-control"/>
             </div>
 
+            <div class="form-group">
+                <label for="remember_me">{{ 'user.login.form.remember_me.label' | trans }}</label>
+                <input type="checkbox" id="remember_me" name="_remember_me" checked="checked" />
+            </div>
+
             <button type="submit" class="btn btn-default">{{ 'user.login.form.submit' | trans }}</button>
         </form>
     </div>

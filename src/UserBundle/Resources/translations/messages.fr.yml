@@ -11,6 +11,8 @@ user:
                 label: Email :
             password:
                 label: Mot de passe :
+            remember_me:
+                label: Se souvenir de moi
             submit: Se connecter
     logout:
         title: Se déconnecter

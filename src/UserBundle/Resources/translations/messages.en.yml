@@ -11,6 +11,8 @@ user:
                 label: Email :
             password:
                 label: Password :
+            remember_me:
+                label: Keep me logged in
             submit: Login
     logout:
         title: Logout
