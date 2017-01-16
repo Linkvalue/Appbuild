@@ -2,8 +2,8 @@
 
 ## Development
 
-This project uses [LinkValue/majora-ansible-vagrant v2.0.0](https://github.com/LinkValue/majora-ansible-vagrant/tree/v2.0.0) as its development environment,
-so please head to this link and fulfill the **Requirements** section for your OS before everything else.
+This project uses [LinkValue/majora-ansible-vagrant v3.0.0](https://github.com/LinkValue/majora-ansible-vagrant/tree/v3.0.0) as its development environment,
+so please head to this link and fulfill the **Requirements** section for your OS before anything else.
 
 ### Installation
 
@@ -18,7 +18,7 @@ cd MajoraOTAStore
 make provision
 ```
 
-Note: If this fails at some point, don't hesitate to re-run this command several times.
+Note: If it fails at some point, don't hesitate to re-run this command several times.
 
 #### 3. Bootstrap project
 ```bash

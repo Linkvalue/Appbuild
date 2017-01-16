@@ -13,5 +13,5 @@ server 'preweb001.link-value.fr',
   user: fetch(:ssh_user),
   ssh_options: {
     auth_methods: %w(publickey),
-    keys: %w(wallet/.ssh/staging_rsa)
+    keys: %w(capistrano/.ssh/staging_rsa)
   }
