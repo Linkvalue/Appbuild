@@ -1,0 +1,9 @@
+body {
+  background: $medium-secondary;
+  position: relative;
+  min-height: 100vh;
+}
+
+.header-section {
+  margin-bottom: rem-calc(10);
+}

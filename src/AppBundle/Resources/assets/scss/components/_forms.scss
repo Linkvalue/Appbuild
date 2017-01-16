@@ -1,144 +1,46 @@
 /* STYLES FORMS */
 
-.wrap-input {
+.input-wrap {
   position: relative;
-  margin-bottom: rem-calc(30);
-  padding-top: rem-calc(20);
+  margin-bottom: rem-calc(5);
 }
-.wrap-input__label {
+.input-wrap__label {
   position: absolute;
-  left: 0;
-  top: 0;
-  font-weight: 500;
-  transition: all .2s ease;
-  &:not(.wrap-textarea__label) {
-    color: $medium-gray;
-  }
+  left: rem-calc(20);
+  top: rem-calc(10);
+  transition: all .2s cubic-bezier(0.4, 0, 0.01, 0.96);
+  pointer-events: none;
 }
-.wrap-textarea__label {
-  font-weight: bold;
-}
-.input, .textarea {
-  border-bottom: 1px solid $medium-gray;
-  padding-left: 0;
-  padding-right: 0;
-  margin: 0;
-  font-weight: 500;
-}
-.select {
-  padding-left: 0;
-  border-bottom: 1px solid $medium-gray;
-  font-weight: 500;
-  margin: 0;
-}
-.input-date {
-  background-image: url('../img/icon-calendar.svg');
-  background-size: rem-calc(15);
-  background-position: right -1rem center;
-  background-origin: content-box;
-  background-repeat: no-repeat;
-  padding-right: 1.5rem;
-}
-
-@each $steps, $color in $steps-color {
-  .main--step-#{$steps} {
-    .input, .textarea, .select {
-      &:focus {
-        border-bottom: 1px solid $color;
-        &+.wrap-input__label {
-          color: $color;
-        }
-      }
-    }
-  }
-}
-
-/* STYLES RANGE INPUT */
-
-.wrap-range {
-  margin-bottom: rem-calc(10);
-}
-.label-range {
-  color: $medium-gray;
-  font-size: rem-calc(18);
-  font-weight: 500;
-}
-.slider {
-  margin: rem-calc(10 0);
-}
-.wrap-range__last-columns {
-  position: relative;
-}
-
-@each $steps, $color in $steps-color {
-  .main--step-#{$steps} {
-    .slider-fill, .slider-handle {
-      background-color: $color;
-    }
-  }
-}
-.slider-handle {
-  &:focus {
+.input-wrap__input {
+  padding: rem-calc(20 20 12 20);
+  height: auto;
+  z-index: 1;
+  margin-bottom: rem-calc(5);
+  &:focus, &.active {
     outline: none;
-    box-shadow: rem-calc(1 2 4 1) rgba($black, .2);
+    ~ .input-wrap__label {
+      font-size: rem-calc(10);
+      top: rem-calc(5);
+      color: $medium-gray;
+    }
+    ~ .bar {
+      width: 100%;
+      margin-left: 0%;
+    }
   }
 }
-.slider__tooltip {
-  opacity: 0;
-  visibility: hidden;
-  transition: all .4s ease-out;
+.bar {
   position: absolute;
-  left: 80%;
-  top: 0;
-  padding: rem-calc(2 5);
-  width: rem-calc(90);
-  line-height: normal;
-  border-radius: $global-radius;
-  text-align: center;
-  font-weight: normal;
-  transform: translateX(50px);
-  &:before {
-    content: '';
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-right:10px solid $primary-color;
-    right: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    transition: all .4s ease-out;
-  }
-  &.--warning {
-    background: $warning-color;
-    color: inherit;
-    &:before {
-      border-right-color: $warning-color;
-    }
-  }
-  &.--success {
-    background: $success-color;
-    color: $white;
-    &:before {
-      border-right-color: $success-color;
-    }
-  }
-  &.--alert {
-    background: $alert-color;
-    color: $white;
-    &:before {
-      border-right-color: $alert-color;
-    }
-  }
-  &.--active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-  }
+  bottom: 0;
+  background: $primary-color;
+  width: 0;
+  height: 2px;
+  margin-left: 50%;
+  display: block;
+  transition: all .2s cubic-bezier(1, 0.1, 0.35, 1);
 }
 
-/* ACTIONS FORM */
+
 
 .article__actions {
   display: flex;
@@ -154,66 +56,4 @@
   padding: rem-calc(15 12 15 50);
   margin-top: rem-calc(10);
   visibility: hidden;
-}
-
-/* RADIO INPUT */
-
-.lot-validated__notation {
-  cursor: pointer;
-  color: $medium-gray;
-  font-size: rem-calc(20);
-  vertical-align: middle;
-  transition: all .2s ease;
-  &:hover {
-    @each $level, $color in $level-color {
-      &.icon-#{$level} {
-        color: $color;
-      }
-    }
-  }
-}
-.lot-validated__form {
-  display: inline-block;
-  vertical-align: middle;
-}
-.lot-validated__notation-icon {
-  cursor: pointer;
-  color: $medium-gray;
-  font-size: rem-calc(20);
-  vertical-align: middle;
-  transition: all .2s ease;
-}
-.lot-validated__group-radio {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.lot-validated__notation-radio {
-  vertical-align: middle;
-  label {
-    margin: 0;
-  }
-  &:hover {
-    .lot-validated__notation-icon {
-      @each $level, $color in $level-color {
-        &.icon-#{$level} {
-          color: $color;
-        }
-      }
-    }
-  }
-  input[type="radio"] {
-    display:none;
-    &:checked {
-      & + label {
-        .lot-validated__notation-icon {
-          @each $level, $color in $level-color {
-            &.icon-#{$level} {
-              color: $color;
-            }
-          }
-        }
-      }
-    }
-  }
 }

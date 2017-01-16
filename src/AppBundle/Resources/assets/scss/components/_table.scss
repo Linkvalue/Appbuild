@@ -1,8 +1,6 @@
-.article__accordion__container {
-  .table__cell {
-    padding-left: rem-calc(10);
-    padding-right: rem-calc(10);
-  }
+[data-anim-appear] {
+  opacity: 0;
+  transform: translateY(5px);
 }
 
 .table {
@@ -10,7 +8,6 @@
 }
 .table__row {
   display: flex;
-  border-bottom: 1px solid $medium-gray;
 }
 .table__cell {
   flex: 2 1 0;
@@ -18,82 +15,35 @@
   vertical-align: middle;
 }
 .table__cell--small {
-  flex: 1 1 0;
+  flex: 0 1 0;
 }
 .table__cell--large {
   flex-grow: 3;
 }
 
 .table__row-head {
-  color: $medium-gray;
-  font-weight: 500;
-  // & ~ .accordion {
-  //   border-top: 1px solid $medium-gray;
-  // }
+  color: $white;
+  font-weight: bold;
+  font-style: italic;
+  background: $primary-color;
+  margin-bottom: rem-calc(10);
+  padding: rem-calc(15 0);
+}
+.table__cell {
+  padding: rem-calc(12 20);
+  &:not(:last-child) {
+    border-right: 1px solid $secondary-color;
+  }
 }
 .table__row-content {
-  transition: all .3s ease;
-
-}
-.table__cell-head {
-  padding: rem-calc(0 0 20 0);
-  &:not(.text-left) {
-    text-align: right;
-  }
-}
-.table__cell-content {
-  font-weight: 500;
-  padding: rem-calc(20 0);
-  &:not(.text-left) {
-    text-align: right;
-  }
-  .icon {
-    font-size: rem-calc(20);
-  }
-}
-.table__row-accordion {
-
-  .table__cell-content {
-    cursor: pointer;
-  }
-  &:hover {
-    background: rgba($light-gray, .1);
-  }
+  background-color: $white;
+  margin-bottom: rem-calc(4);
+  padding: rem-calc(12 0);
 }
 
-.table__row-accordion-head {
-  &:after {
-    right: - rem-calc(35);
-    top: rem-calc(12);
-  }
-}
-.table__row__container {
-  padding: rem-calc(0 20 0 20);
-  @each $level, $color in $level-color-bg {
-    &.-#{$level} {
-      background: rgba($color, .1);
-    }
-  }
-}
-
-.row__lot-validated {
-  margin-bottom: rem-calc(15);
-  .columns {
-    margin-bottom: rem-calc(5);
-  }
-}
-
-.lot-validated__legend {
-  vertical-align: middle;
-  margin-left: rem-calc(5);
-}
-
-.table__metadata {
-  .table__row {
-    border: 0;
-  }
-  .table__cell-content {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
+.build-version {
+  color: $white;
+  background: $black;
+  font-size: rem-calc(14);
+  padding: rem-calc(3 15);
 }

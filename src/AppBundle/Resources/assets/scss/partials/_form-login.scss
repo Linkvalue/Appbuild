@@ -1,0 +1,60 @@
+.form-login__header {
+  margin-bottom: rem-calc(90);
+  & > * {
+    margin: 0;
+  }
+
+}
+.logo-baseline {
+  text-align: right;
+  font-size: rem-calc(14);
+  font-weight: 300;
+  color: $white;
+}
+
+.form-login__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: rem-calc(40);
+}
+
+.form-login__forgot-password {
+  font-style: italic;
+  font-size: rem-calc(14);
+  color: $white;
+  position: relative;
+  transition: all .2s ease-out;
+  &:after {
+    content: '';
+    display: block;
+    width: 100%;
+    opacity: 0;
+    height: 1px;
+    background-color: $white;
+    transform: translateY(5px);
+    transition: all .2s ease-out;
+  }
+  &:hover {
+    color: $white;
+    &:after {
+      opacity: 1;
+      transform: translateY(3px);
+    }
+  }
+}
+
+.loader-login {
+  position: absolute;
+  z-index: 900;
+  height: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+  transition: all .2s ease-out;
+  background: $primary-color;
+  &.valid {
+    top: 0 !important;
+    height: 100%;
+  }
+}

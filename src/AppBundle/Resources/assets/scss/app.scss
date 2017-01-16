@@ -48,13 +48,13 @@
 
 @import "base/fonts";
 @import "base/var";
+@import "base/layout";
+@import "base/typography";
 
-// @import "components/layout";
-// @import "components/header";
-// @import "components/typography";
-// @import "components/button";
-// @import "components/forms";
-// @import "components/accordion";
-// @import "components/table";
+@import "components/forms";
+@import "components/button";
+@import "components/table";
 
-//@import "components/layout";
+
+@import "partials/header";
+@import "partials/form-login";
