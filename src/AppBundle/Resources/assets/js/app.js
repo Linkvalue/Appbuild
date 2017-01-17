@@ -1,53 +1,52 @@
 $(document).ready(function () {
 
-  // animation on inputs
+    // animation on inputs
 
-  var $form = $('form');
+    const $forms = $('form');
 
-  $form.each(function() {
-    $(this).on('change', function() {
-      var $formInput = $(this).find('.input-wrap__input');
-      $formInput.each(function() {
-        if($(this).val().length != 0) {
-          $(this).addClass('active');
-        } else {
-          $(this).removeClass('active');
-        }
-      })
-    })
-  });
+    $forms.each(function() {
+        const $form = $(this);
+        const $formInputs = $form.find('.input-wrap__input');
 
-  // animation on login button if form is valid
-  // TODO : check if the form is valid
-
-  if ($('[data-button-login]').length != '') {
-    var buttonPos = $('[data-button-login]').offset();
-    $('[data-button-login]').after('<div class="loader-login"></div>');
-    $('.loader-login').css('top', buttonPos.top + 'px');
-
-    $('[data-button-login]').click(function(e) {
-      e.preventDefault();
-      $(this).next('.loader-login').addClass('valid');
+        $form.on('change', () => {
+            $formInputs.each(function() {
+                const $input = $(this);
+                $input.toggleClass('active', $input.val().length > 0);
+            });
+        });
     });
-  }
 
+    // animation on login button if form is valid
+    // TODO : check if the form is valid
 
+    const $buttonLogin = $('[data-button-login]');
 
-  var $elementAppear = $('[data-anim-appear]');
-  var $elementNumber = $elementAppear.length;
+    if ($buttonLogin.length > 0) {
+        const buttonPos = $buttonLogin.offset();
+        const $loader = $('<div class="loader-login"></div>');
 
-  function appear() {
-    $elementAppear.css({
-      'opacity': 1,
-      'transform': 'translateY(0)'
-    })
-  }
+        $loader.css('top', buttonPos.top + 'px');
 
-  for (var i = 0; i <= $elementNumber; i++) {
-    $elementAppear.eq(i).css('transition', 'all .3s ease-out .' + (i + 4) + 's'  )
-  };
+        $buttonLogin.after($loader);
 
-  setTimeout(appear, 200);
+        $buttonLogin.click((e) => {
+            e.preventDefault();
+            $loader.addClass('valid');
+        });
+    }
 
+    const $elementAppear = $('[data-anim-appear]');
 
+    function appear() {
+        $elementAppear.css({
+            'opacity': 1,
+            'transform': 'translateY(0)'
+        });
+    }
+
+    $elementAppear.each(function(idx) {
+        $(this).css('transition', `all .3s ease-out .${ idx + 4 }s`);
+    });
+
+    setTimeout(appear, 200);
 });
