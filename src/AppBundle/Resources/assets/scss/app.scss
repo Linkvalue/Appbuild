@@ -46,15 +46,15 @@
 @include foundation-flex-classes;
 
 
-@import "base/fonts";
-@import "base/var";
-@import "base/layout";
-@import "base/typography";
+@import 'base/fonts';
+@import 'base/var';
+@import 'base/layout';
+@import 'base/typography';
 
-@import "components/forms";
-@import "components/button";
-@import "components/table";
+@import 'components/forms';
+@import 'components/button';
+@import 'components/table';
 
 
-@import "partials/header";
-@import "partials/form-login";
+@import 'partials/header';
+@import 'partials/form-login';
