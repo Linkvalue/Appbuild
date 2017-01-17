@@ -1,1 +1,19 @@
+$tertiary-color: #222a60;
+$tertiary-color: #222a60;
 
+$level-color: (success, $success-color),
+              (warning, $warning-color),
+              (alert, $alert-color),
+              (pending, $medium-gray);
+
+$steps-color: (primary, $primary-color),
+              (secondary, $secondary-color),
+              (tertiary, $tertiary-color);
+
+$level-color-bg: (success, $success-color),
+              (warning, $warning-color),
+              (alert, $alert-color),
+              (pending, $medium-gray),
+              (primary, $primary-color),
+              (secondary, $secondary-color),
+              (tertiary, $tertiary-color);
