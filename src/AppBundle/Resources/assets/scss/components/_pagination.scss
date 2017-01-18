@@ -1,0 +1,20 @@
+.pagination {
+  margin-top: rem-calc(10);
+  text-align: right;
+}
+
+.pagination__item {
+  display: inline-block;
+}
+
+.pagination__link {
+  display: block;
+  width: rem-calc(40);
+  height: rem-calc(40);
+  line-height: rem-calc(35);
+  border: 2px solid $primary-color;
+  background: $dark-secondary;
+  color: $white;
+  font-weight: bold;
+  text-align: center;
+}

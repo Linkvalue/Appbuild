@@ -1,3 +1,5 @@
+// STRUCTURE TABlE;
+
 .table {
   display: table;
   width: 100%;
@@ -15,6 +17,11 @@
 .table__cell {
   display: table-cell;
   padding: rem-calc(12 0);
+  vertical-align: middle;
+
+  &.table__cell--shrink {
+    width: 1px;
+  }
 
   .table__cell__content {
     padding: rem-calc(10 20);
@@ -48,6 +55,23 @@
   background-color: $white;
 }
 
+// CONTENT TABlE;
+
+.app-picture {
+  display: inline-block;
+  width: rem-calc(40);
+  height: rem-calc(40);
+  vertical-align: middle;
+  border-radius: rem-calc(8);
+  background-color: $black;
+  background-position: center;
+  background-size: cover;
+
+  @include breakpoint(medium) {
+    margin-right: rem-calc(10);
+  }
+}
+
 .label-version {
   padding: rem-calc(3 15);
   float: right;
@@ -57,10 +81,11 @@
 }
 
 .label-new {
-  padding: rem-calc(3 5);
+  padding: rem-calc(2 4);
   float: right;
   background: $primary-color;
   color: $white;
   font-size: rem-calc(12);
+  font-weight: bold;
   text-transform: uppercase;
 }

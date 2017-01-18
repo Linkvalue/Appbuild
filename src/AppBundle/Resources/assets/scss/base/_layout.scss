@@ -1,11 +1,14 @@
 body {
   position: relative;
   min-height: 100vh;
-
   background: $medium-secondary;
 }
 
 [data-anim-appear] {
   transform: translateY(5px);
   opacity: 0;
+}
+
+a {
+  transition: all .2s ease-in;
 }
