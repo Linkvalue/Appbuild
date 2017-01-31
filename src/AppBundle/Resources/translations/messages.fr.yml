@@ -22,3 +22,6 @@ admin:
             too_many_items: 'Trop de fichiers à téléverser. Le nombre maximum de fichiers pouvant être envoyés est [{itemLimit}].'
             progress_bar: '{percent}% de {total_size}'
             waiting_for_response: En cours de traitement...
+
+datetime:
+    datetime: 'd/m/Y H:i:s'
