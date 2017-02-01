@@ -48,6 +48,7 @@
                     <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: application.latestEnabledBuild.id }) }}">
                         {{ application.latestEnabledBuild.label }}
                     </a>
+                    ({{ application.latestEnabledBuild.createdAt|date('datetime.datetime'|trans, timezone) }})
                 {% endif %}
                 </td>
                 <td>

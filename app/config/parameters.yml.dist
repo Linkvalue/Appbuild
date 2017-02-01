@@ -22,6 +22,9 @@ parameters:
     # Default locale
     default_locale: 'en'
 
+    # Timezone (such as 'Europe/Paris')
+    timezone: 'UTC'
+
     # Relative path to the directory under "web" directory where builds file will be stored (only used if "stream_builds_content = false")
     web_relative_builds_application_dir: 'uploads'
 

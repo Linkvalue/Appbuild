@@ -47,6 +47,7 @@
                     <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: build.id }) }}">
                         {{ build.label }}
                     </a>
+                    ({{ build.createdAt|date('datetime.datetime'|trans, timezone) }})
                 </td>
                 <td>
                     {{ build.comment|nl2br }}
