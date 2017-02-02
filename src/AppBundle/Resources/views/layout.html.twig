@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ 'admin.title'|trans }}{% endblock %}</title>
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-    {% block stylesheets %}
-      {{ include('MajoraOTAStoreAppBundle::stylesheets.html.twig') }}
-    {% endblock %}
-  </head>
-  <body class="{% block body_class '' %}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{{ 'admin.title'|trans }}{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            {{ include('MajoraOTAStoreAppBundle::stylesheets.html.twig') }}
+        {% endblock %}
+    </head>
+    <body class="{% block body_class '' %}">
 
-    {% block menu %}
+        {% block menu %}
         {% if is_granted('ROLE_USER') %}
-            <nav class="navbar navbar-default">
-                <div class="container">
-                    <p class="navbar-text">{{ 'admin.title' | trans }}</p>
-                    <a href="{{ url('majoraotastore_admin_application_list') }}" class="btn btn-info navbar-btn">{{ 'application.list.title' | trans }}</a>
-                    <a href="{{ url('majoraotastore_admin_user_my_account') }}" class="btn btn-info navbar-btn">{{ 'user.my_account.title' | trans }}</a>
-                    {% if is_granted('ROLE_SUPER_ADMIN') %}
-                        <a href="{{ url('majoraotastore_admin_user_list') }}" class="btn btn-info navbar-btn">{{ 'user.list.title' | trans }}</a>
-                    {% endif %}
-                    <a href="{{ url('majoraotastore_user_logout') }}" class="btn btn-warning navbar-btn pull-right">{{ 'user.logout.title' | trans }}</a>
-                </div>
-            </nav>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <p class="navbar-text">{{ 'admin.title' | trans }}</p>
+                <a href="{{ url('majoraotastore_admin_application_list') }}" class="btn btn-info navbar-btn">{{ 'application.list.title' | trans }}</a>
+                <a href="{{ url('majoraotastore_admin_user_my_account') }}" class="btn btn-info navbar-btn">{{ 'user.my_account.title' | trans }}</a>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <a href="{{ url('majoraotastore_admin_user_list') }}" class="btn btn-info navbar-btn">{{ 'user.list.title' | trans }}</a>
+                {% endif %}
+                <a href="{{ url('majoraotastore_user_logout') }}" class="btn btn-warning navbar-btn pull-right">{{ 'user.logout.title' | trans }}</a>
+            </div>
+        </nav>
         {% endif %}
-    {% endblock %}
+        {% endblock %}
 
-    <main id="container" class="container">
-      {% block header %}
-      {% endblock %}
+        <main id="container" class="container">
+            {% block header %}
+            {% endblock %}
 
-      {% for flashMessage in app.session.flashbag.get('success') %}
-        <div class="alert alert-success">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <strong>{{ flashMessage }}</strong>
-        </div>
-      {% endfor %}
+            <div class="clearfix"></div>
 
-      {% block sidebar %}
-      {% endblock %}
-      {% block container %}
-      <section id="main-content">
-        <section class="wrapper">
-          {% block main %}
-          <div class="row">
-            <div class="col-lg-12">{% block content '' %}</div>
-          </div>
-          {% endblock %}
-        </section>
-      </section>
-      {% endblock %}
-      {% block footer '' %}
-    </main>
+            {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>{{ flashMessage }}</strong>
+            </div>
+            {% endfor %}
 
-    {% block javascripts %}
-      {{ include('MajoraOTAStoreAppBundle::javascripts.html.twig') }}
-    {% endblock %}
-  </body>
+            {% block sidebar %}
+            {% endblock %}
+            {% block container %}
+            <section id="main-content">
+                <section class="wrapper">
+                    {% block main %}
+                    <div class="row">
+                        <div class="col-lg-12">{% block content '' %}</div>
+                    </div>
+                    {% endblock %}
+                </section>
+            </section>
+            {% endblock %}
+            {% block footer '' %}
+        </main>
+
+        {% block javascripts %}
+            {{ include('MajoraOTAStoreAppBundle::javascripts.html.twig') }}
+        {% endblock %}
+    </body>
 </html>
