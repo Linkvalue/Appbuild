@@ -17,10 +17,10 @@ class ApplicationFixturesLoader extends AbstractLoader implements OrderedFixture
      */
     public function getFixtures()
     {
-        return array(
+        return [
             __DIR__.'/../../Resources/fixtures/applications.yml',
             __DIR__.'/../../Resources/fixtures/builds.yml',
-        );
+        ];
     }
 
     /**

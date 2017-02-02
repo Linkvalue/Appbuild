@@ -109,7 +109,7 @@ class BuildFilesPurger
      */
     private function getUsedFilesPath()
     {
-        $usedFiles = array();
+        $usedFiles = [];
 
         $builds = $this->entityManager->getRepository('MajoraOTAStoreApplicationBundle:Build')->findAll();
         foreach ($builds as $build) {

@@ -294,10 +294,10 @@ class Application
      */
     public static function getAvailableSupports()
     {
-        return array(
+        return [
             self::SUPPORT_IOS,
             self::SUPPORT_ANDROID,
-        );
+        ];
     }
 
     /**

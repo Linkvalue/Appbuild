@@ -45,10 +45,10 @@ class BuildController extends BaseController
 
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Build:list.html.twig',
-            array(
+            [
                 'application' => $application,
                 'builds' => ($isAskingForEnabled) ? $application->getEnabledBuilds() : $application->getDisabledBuilds(),
-            )
+            ]
         );
     }
 
@@ -75,7 +75,7 @@ class BuildController extends BaseController
         $form = $this->container->get('form.factory')->create(
             BuildType::class,
             $build = (new Build())->setApplication($application),
-            array('csrf_token_id' => BuildType::TOKEN_CREATION)
+            ['csrf_token_id' => BuildType::TOKEN_CREATION]
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -96,19 +96,19 @@ class BuildController extends BaseController
                 $this->addFlash('success', $this->container->get('translator')->trans('build.create.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_admin_build_list', array(
+                    'majoraotastore_admin_build_list', [
                         'application_id' => $application->getId(),
-                    )
+                    ]
                 ));
             }
         }
 
         return $this->render('MajoraOTAStoreApplicationBundle:Build:create.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
                 'application' => $application,
                 'build' => $build,
-            )
+            ]
         );
     }
 
@@ -140,7 +140,7 @@ class BuildController extends BaseController
         $form = $this->container->get('form.factory')->create(
             BuildType::class,
             $build,
-            array('csrf_token_id' => BuildType::TOKEN_EDITION)
+            ['csrf_token_id' => BuildType::TOKEN_EDITION]
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -161,20 +161,20 @@ class BuildController extends BaseController
                 $this->addFlash('success', $this->container->get('translator')->trans('build.update.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_admin_build_list', array(
+                    'majoraotastore_admin_build_list', [
                         'application_id' => $application->getId(),
-                    )
+                    ]
                 ));
             }
         }
 
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Build:update.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
                 'application' => $application,
                 'build' => $build,
-            )
+            ]
         );
     }
 
@@ -212,9 +212,9 @@ class BuildController extends BaseController
         return new RedirectResponse(
             $this->container->get('router')->generate(
                 'majoraotastore_admin_build_list',
-                array(
+                [
                     'application_id' => $application->getId(),
-                )
+                ]
             )
         );
     }
@@ -234,25 +234,25 @@ class BuildController extends BaseController
         $translator = $this->container->get('translator');
 
         if (!$this->isGranted('ROLE_ADMIN') || !$this->getUserApplications()->contains($application)) {
-            return new JsonResponse(array(
+            return new JsonResponse([
                 'success' => false,
                 'error' => $translator->trans('admin.upload.message.not_allowed'),
-            ));
+            ]);
         }
 
         if (!$request->isXmlHttpRequest() || !$request->isMethod(Request::METHOD_POST)) {
-            return new JsonResponse(array(
+            return new JsonResponse([
                 'success' => false,
                 'error' => $translator->trans('admin.upload.message.unexpected_method'),
-            ));
+            ]);
         }
 
         $uploadedFile = $request->files->get('build_file');
         if (!$uploadedFile instanceof UploadedFile) {
-            return new JsonResponse(array(
+            return new JsonResponse([
                 'success' => false,
                 'error' => $translator->trans('admin.upload.message.upload_failure'),
-            ));
+            ]);
         }
 
         $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
@@ -260,16 +260,16 @@ class BuildController extends BaseController
         try {
             $uploadHelper->moveUploadedFile($uploadedFile, $application, $filename);
         } catch (\Exception $e) {
-            return new JsonResponse(array(
+            return new JsonResponse([
                 'success' => false,
                 'error' => $translator->trans('admin.upload.message.move_failure'),
-            ));
+            ]);
         }
 
-        return new JsonResponse(array(
+        return new JsonResponse([
             'success' => true,
             'filename' => $filename,
-        ));
+        ]);
     }
 
     /**
@@ -295,7 +295,6 @@ class BuildController extends BaseController
         $router = $this->container->get('router');
 
         switch ($build->getApplication()->getSupport()) {
-
             case Application::SUPPORT_IOS:
                 // Redirect to iOS specific protocol to download build manifest
                 $response = new RedirectResponse(
@@ -303,17 +302,17 @@ class BuildController extends BaseController
                         'itms-services://?action=download-manifest&url=%s',
                         urlencode($router->generate(
                             'majoraotastore_admin_build_get_manifest',
-                            array(
+                            [
                                 'application_id' => $application->getId(),
                                 'id' => $build->getId(),
-                            ),
+                            ],
                             true
                         ))
                     ),
                     302,
-                    array(
+                    [
                         'Content-Type' => 'text/html',
-                    )
+                    ]
                 );
                 break;
 
@@ -324,10 +323,10 @@ class BuildController extends BaseController
                     $response = new RedirectResponse(
                         $router->generate(
                             'majoraotastore_admin_build_stream_file',
-                            array(
+                            [
                                 'application_id' => $application->getId(),
                                 'id' => $build->getId(),
-                            )
+                            ]
                         )
                     );
                 } else {
@@ -367,11 +366,10 @@ class BuildController extends BaseController
         }
 
         switch ($application->getSupport()) {
-
             case Application::SUPPORT_IOS:
                 $response = $this->render(
                     sprintf('MajoraOTAStoreApplicationBundle:Manifest:%s/manifest.plist.twig', $application->getSupport()),
-                    array(
+                    [
                         'application' => $application,
                         'build' => $build,
                         'stream_builds_content' => $this->container->getParameter('stream_builds_content'),
@@ -381,7 +379,7 @@ class BuildController extends BaseController
                             $application->getSlug(),
                             $build->getFileNameWithExtension()
                         ),
-                    )
+                    ]
                 );
 
                 $response->headers->set('Content-Type', 'text/xml');
@@ -456,9 +454,9 @@ class BuildController extends BaseController
         return new RedirectResponse($request->headers->get('referer') ?:
             $this->container->get('router')->generate(
                 'majoraotastore_admin_build_list',
-                array(
+                [
                     'application_id' => $application->getId(),
-                )
+                ]
             )
         );
     }

@@ -18,22 +18,22 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', Type\EmailType::class, array(
+            ->add('email', Type\EmailType::class, [
                 'label' => 'user.edit.email.label',
-            ))
-            ->add('firstname', Type\TextType::class, array(
+            ])
+            ->add('firstname', Type\TextType::class, [
                 'label' => 'user.edit.firstname.label',
-            ))
-            ->add('lastname', Type\TextType::class, array(
+            ])
+            ->add('lastname', Type\TextType::class, [
                 'label' => 'user.edit.lastname.label',
-            ))
-            ->add('password', Type\RepeatedType::class, array(
+            ])
+            ->add('password', Type\RepeatedType::class, [
                 'type' => Type\PasswordType::class,
-                'first_options' => array('label' => 'user.edit.password.label.first'),
-                'second_options' => array('label' => 'user.edit.password.label.second'),
+                'first_options' => ['label' => 'user.edit.password.label.first'],
+                'second_options' => ['label' => 'user.edit.password.label.second'],
                 'required' => $options['csrf_token_id'] === self::TOKEN_CREATION,
                 'mapped' => false,
-            ))
+            ])
         ;
 
         // Roles can't be set for "my-account" csrf_token_id
@@ -42,26 +42,26 @@ class UserType extends AbstractType
                 $userRole = $event->getData()->getRole();
                 $form = $event->getForm();
 
-                $form->add('roles', Type\ChoiceType::class, array(
+                $form->add('roles', Type\ChoiceType::class, [
                     'label' => 'user.edit.role.label',
-                    'choices' => array(
+                    'choices' => [
                         'user.roles.ROLE_USER' => 'ROLE_USER',
                         'user.roles.ROLE_ADMIN' => 'ROLE_ADMIN',
                         'user.roles.ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN',
-                    ),
+                    ],
                     'choices_as_values' => true,
                     'mapped' => false,
                     'data' => $userRole,
-                ));
+                ]);
             });
         }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Majora\OTAStore\UserBundle\Entity\User',
-        ));
+        ]);
     }
 
     public function getBlockPrefix()

@@ -2,9 +2,9 @@
 
 namespace Majora\OTAStore\UserBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Majora\OTAStore\UserBundle\Entity\User;
 use Majora\OTAStore\UserBundle\Form\Type\UserType;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,11 +30,11 @@ class SecurityController extends Controller
 
         return $this->render(
             'MajoraOTAStoreUserBundle:Security:login.html.twig',
-            array(
+            [
                 // last username entered by the user
                 'last_username' => $lastUsername,
                 'error' => $error,
-            )
+            ]
         );
     }
 
@@ -59,7 +59,7 @@ class SecurityController extends Controller
 
         return $this->render(
             'MajoraOTAStoreUserBundle:Security:list.html.twig',
-            array('users' => $request->get('enabled', true) ? $enabled : $disabled)
+            ['users' => $request->get('enabled', true) ? $enabled : $disabled]
         );
     }
 
@@ -80,7 +80,7 @@ class SecurityController extends Controller
         $form = $this->container->get('form.factory')->create(
             UserType::class,
             $user,
-            array('csrf_token_id' => UserType::TOKEN_CREATION)
+            ['csrf_token_id' => UserType::TOKEN_CREATION]
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -94,7 +94,7 @@ class SecurityController extends Controller
 
                 // Set role
                 if ($role = $form->get('roles')->getData()) {
-                    $user->setRoles(array($role));
+                    $user->setRoles([$role]);
                 }
 
                 $em = $this->getDoctrine()->getManager();
@@ -109,7 +109,7 @@ class SecurityController extends Controller
 
         return $this->render(
             'MajoraOTAStoreUserBundle:Security:create.html.twig',
-            array('form' => $form->createView())
+            ['form' => $form->createView()]
         );
     }
 
@@ -130,7 +130,7 @@ class SecurityController extends Controller
         $form = $this->container->get('form.factory')->create(
             UserType::class,
             $user,
-            array('csrf_token_id' => UserType::TOKEN_EDITION)
+            ['csrf_token_id' => UserType::TOKEN_EDITION]
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -143,7 +143,7 @@ class SecurityController extends Controller
 
                 // Set role
                 if ($role = $form->get('roles')->getData()) {
-                    $user->setRoles(array($role));
+                    $user->setRoles([$role]);
                 }
 
                 $em = $this->getDoctrine()->getManager();
@@ -160,10 +160,10 @@ class SecurityController extends Controller
 
         return $this->render(
             'MajoraOTAStoreUserBundle:Security:update.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
                 'user' => $user,
-            )
+            ]
         );
     }
 
@@ -231,7 +231,7 @@ class SecurityController extends Controller
         $form = $this->container->get('form.factory')->create(
             UserType::class,
             $user,
-            array('csrf_token_id' => UserType::TOKEN_MY_ACCOUNT)
+            ['csrf_token_id' => UserType::TOKEN_MY_ACCOUNT]
         );
 
         $form->handleRequest($request);
@@ -251,7 +251,7 @@ class SecurityController extends Controller
 
         return $this->render(
             'MajoraOTAStoreUserBundle:Security:my-account.html.twig',
-            array('form' => $form->createView())
+            ['form' => $form->createView()]
         );
     }
 }

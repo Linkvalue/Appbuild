@@ -55,7 +55,7 @@ class User implements AdvancedUserInterface
      */
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
+        $this->roles = ['ROLE_USER'];
         $this->enabled = true;
         $this->applications = new ArrayCollection();
     }
@@ -179,7 +179,7 @@ class User implements AdvancedUserInterface
      */
     public function getAvailableRoles()
     {
-        return array('ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_USER');
+        return ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_USER'];
     }
 
     /**

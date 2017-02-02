@@ -31,7 +31,7 @@ class ApplicationController extends BaseController
 
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Application:list.html.twig',
-            array('applications' => ($isAskingForEnabled) ? $enabled : $disabled)
+            ['applications' => ($isAskingForEnabled) ? $enabled : $disabled]
         );
     }
 
@@ -51,7 +51,7 @@ class ApplicationController extends BaseController
         $form = $this->container->get('form.factory')->create(
             ApplicationType::class,
             $application = new Application(),
-            array('csrf_token_id' => ApplicationType::TOKEN_CREATION)
+            ['csrf_token_id' => ApplicationType::TOKEN_CREATION]
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -70,12 +70,12 @@ class ApplicationController extends BaseController
         }
 
         return $this->render('MajoraOTAStoreApplicationBundle:Application:create.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
                 'application' => $application,
                 'currentUserId' => $this->getUser()->getId(),
                 'applicationSupportIOS' => Application::SUPPORT_IOS,
-            )
+            ]
         );
     }
 
@@ -100,7 +100,7 @@ class ApplicationController extends BaseController
         $form = $this->container->get('form.factory')->create(
             ApplicationType::class,
             $application,
-            array('csrf_token_id' => ApplicationType::TOKEN_EDITION)
+            ['csrf_token_id' => ApplicationType::TOKEN_EDITION]
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -120,12 +120,12 @@ class ApplicationController extends BaseController
 
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Application:update.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
                 'application' => $application,
                 'currentUserId' => $this->getUser()->getId(),
                 'applicationSupportIOS' => Application::SUPPORT_IOS,
-            )
+            ]
         );
     }
 

@@ -32,9 +32,14 @@ framework:
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        handler_id:  ~
-    fragments:       ~
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: 'session.handler.native_file'
+        save_path: '%session_save_path%'
+    fragments: ~
     http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
 
 # Twig Configuration
 twig:

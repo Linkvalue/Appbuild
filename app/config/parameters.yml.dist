@@ -19,6 +19,9 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: 'ThisTokenIsNotSoSecretChangeIt'
 
+    # Symfony session path (set this to '/tmp/sessions' for example if you encounter some issues in dev environment)
+    session_save_path: '%kernel.root_dir%/../var/sessions/%kernel.environment%'
+
     # Default locale
     default_locale: 'en'
 

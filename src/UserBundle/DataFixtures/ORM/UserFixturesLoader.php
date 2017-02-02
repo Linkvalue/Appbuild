@@ -2,9 +2,9 @@
 
 namespace Majora\OTAStore\UserBundle\DataFixtures\ORM;
 
-use Majora\OTAStore\UserBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -37,7 +37,7 @@ class UserFixturesLoader implements FixtureInterface, ContainerAwareInterface
         $userSuperAdmin = new User();
         $encoder = $encoderFactory->getEncoder($userSuperAdmin);
         $userSuperAdmin
-            ->setRoles(array('ROLE_SUPER_ADMIN'))
+            ->setRoles(['ROLE_SUPER_ADMIN'])
             ->setEmail('superadmin@superadmin.fr')
             ->setPassword($encoder->encodePassword('superadmin', null))
             ->setFirstname('SuperAdmin')
@@ -49,7 +49,7 @@ class UserFixturesLoader implements FixtureInterface, ContainerAwareInterface
         $userAdmin = new User();
         $encoder = $encoderFactory->getEncoder($userAdmin);
         $userAdmin
-            ->setRoles(array('ROLE_ADMIN'))
+            ->setRoles(['ROLE_ADMIN'])
             ->setEmail('admin@admin.fr')
             ->setPassword($encoder->encodePassword('admin', null))
             ->setFirstname('Admin')
@@ -61,7 +61,7 @@ class UserFixturesLoader implements FixtureInterface, ContainerAwareInterface
         $userUser = new User();
         $encoder = $encoderFactory->getEncoder($userUser);
         $userUser
-            ->setRoles(array('ROLE_USER'))
+            ->setRoles(['ROLE_USER'])
             ->setEmail('user@user.fr')
             ->setPassword($encoder->encodePassword('user', null))
             ->setFirstname('User')
