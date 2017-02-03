@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.6.1'
 
 # Project
 set :application, 'MajoraOTAStore'
@@ -18,6 +18,7 @@ set :default_env, {}
 
 # Logs
 set :log_level, :debug
+set :format_options, log_file: 'capistrano/logs/capistrano.log'
 
 # Force upload linked_files even if they already exists
 set :force_upload_linked_files, true

@@ -2,7 +2,7 @@
 
 ## Development
 
-This project uses [LinkValue/majora-ansible-vagrant v3.0.0](https://github.com/LinkValue/majora-ansible-vagrant/tree/v3.0.0) as its development environment,
+This project uses [LinkValue/majora-ansible-vagrant v2.2.0](https://github.com/LinkValue/majora-ansible-vagrant/tree/v2.2.0) as its development environment,
 so please head to this link and fulfill the **Requirements** section for your OS before anything else.
 
 ### Installation
@@ -47,8 +47,6 @@ user@user.fr => user
 make db-rebuild
 # update your database schema after adding/removing stuff in your data model
 make db-rebuild db-update db-build
-# run unit tests with code coverage, code coverage will be accessible in web/test-coverage
-make test-coverage
 # run integration tests
 bin/behat
 ```

@@ -33,23 +33,22 @@ vm-rebuild: vm-destroy vm-provision
 
 # Clean
 clean:
-	rm -rf app/cache/*
-	rm -rf app/logs/*
+	rm -rf var/cache/*
+	rm -rf var/logs/*
 	rm -rf vendor/composer/autoload*
-	rm app/bootstrap.php.cache
+	rm var/bootstrap.php.cache
 	test -d web/bundles && rm -rf web/bundles/* || true
 	test -d web/css && rm -rf web/css/* || true
 	test -d web/js && rm -rf web/js/* || true
 	bin/composer dump-autoload
-	bin/composer run-script setup-bootstrap -vv
-	php app/console cache:warmup
-	php app/console assets:install --symlink
-	php app/console assetic:dump --force
+	php bin/console cache:warmup
+	php bin/console assets:install --symlink
+	php bin/console assetic:dump --force
 
 clean-assets:
 	test -d web/css && rm -rf web/css/* || true
 	test -d web/js && rm -rf web/js/* || true
-	php app/console assetic:dump --force
+	php bin/console assetic:dump --force
 
 # Installation
 install-bin:
@@ -89,22 +88,22 @@ update-parameters:
 
 # Database
 db-build:
-	php app/console doctrine:database:create --if-not-exists
-	php app/console doctrine:migrations:migrate -n
-	php app/console doctrine:fixtures:load -n --fixtures=src/UserBundle
-	php app/console hautelook_alice:doctrine:fixtures:load -n --append
+	php bin/console doctrine:database:create --if-not-exists
+	php bin/console doctrine:migrations:migrate -n
+	php bin/console doctrine:fixtures:load -n --fixtures=src/UserBundle
+	php bin/console hautelook_alice:doctrine:fixtures:load -n --append
 
 db-trash:
-	php app/console doctrine:database:drop --force --if-exists
-	php app/console doctrine:database:create
+	php bin/console doctrine:database:drop --force --if-exists
+	php bin/console doctrine:database:create
 
 db-rebuild: db-trash db-build
 
 db-update:
-	php app/console doctrine:schema:validate || test "$$?" -gt 1
-	php app/console doctrine:migrations:migrate -n
-	php app/console doctrine:migrations:diff
-	php app/console doctrine:migrations:migrate -n
+	php bin/console doctrine:schema:validate || test "$$?" -gt 1
+	php bin/console doctrine:migrations:migrate -n
+	php bin/console doctrine:migrations:diff
+	php bin/console doctrine:migrations:migrate -n
 
 # Tests
 test-prepare: test-install-bin install-composer install-bower db-build clean
@@ -114,10 +113,6 @@ test-install-bin:
 	test -f bin/composer || curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
 	bin/composer self-update
 
-test-coverage:
-	rm -rf web/test-coverage/*
-	bin/phpunit -c app --testsuite majoraotastore_project --coverage-html web/test-coverage
-
 # Production
 prod-install: install-bin
 	bin/composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
@@ -125,23 +120,22 @@ prod-install: install-bin
 	bin/bower install --config.interactive=false
 
 prod-build:
-	php app/console doctrine:database:create --if-not-exists --env=prod
-	php app/console doctrine:migration:migrate -n --env=prod
+	php bin/console doctrine:database:create --if-not-exists --env=prod
+	php bin/console doctrine:migration:migrate -n --env=prod
 
 prod-clean:
-	rm -rf app/cache/*
-	rm -rf app/logs/*
+	rm -rf var/cache/*
+	rm -rf var/logs/*
 	rm -rf vendor/composer/autoload*
-	rm app/bootstrap.php.cache
+	rm var/bootstrap.php.cache
 	test -d web/bundles && rm -rf web/bundles/* || true
 	test -d web/css && rm -rf web/css/* || true
 	test -d web/js && rm -rf web/js/* || true
 	test -d web/fonts && rm -rf web/fonts/* || true
 	bin/composer dump-autoload -o
-	bin/composer run-script setup-bootstrap -vv
-	php app/console cache:warmup --env=prod
+	php bin/console cache:warmup --env=prod
 	cp -rf vendor/bower_components/components-font-awesome/fonts web/
-	php app/console assets:install --env=prod
-	php app/console assetic:dump --force --env=prod
+	php bin/console assets:install --env=prod
+	php bin/console assetic:dump --force --env=prod
 
 prod-deploy: prod-install prod-build prod-clean

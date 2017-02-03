@@ -2,9 +2,9 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\UserBundle\Entity\User;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -49,12 +49,12 @@ class ApplicationType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Application::class,
             'csrf_protection' => true,
             'allow_extra_fields' => false,
             'csrf_token_id' => null,
-        ));
+        ]);
     }
 
     /**
@@ -62,28 +62,28 @@ class ApplicationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('label', TextType::class, array(
+        $builder->add('label', TextType::class, [
             'required' => true,
             'label' => 'application.form.label',
-        ));
+        ]);
 
-        $availableSupports = array();
+        $availableSupports = [];
         foreach (Application::getAvailableSupports() as $support) {
             $availableSupports[sprintf('application.supports.%s', $support)] = $support;
         }
-        $builder->add('support', ChoiceType::class, array(
+        $builder->add('support', ChoiceType::class, [
             'required' => true,
             'label' => 'application.form.support',
             'choices' => $availableSupports,
             'choices_as_values' => true,
-        ));
+        ]);
 
-        $builder->add('packageName', TextType::class, array(
+        $builder->add('packageName', TextType::class, [
             'required' => true,
             'label' => 'application.form.package_name',
-        ));
+        ]);
 
-        $builder->add('users', EntityType::class, array(
+        $builder->add('users', EntityType::class, [
             'class' => User::class,
             'choice_label' => function (User $user) {
                 return sprintf('%s %s - %s',
@@ -105,6 +105,6 @@ class ApplicationType extends AbstractType
                 ;
             },
             'label' => 'application.form.users',
-        ));
+        ]);
     }
 }

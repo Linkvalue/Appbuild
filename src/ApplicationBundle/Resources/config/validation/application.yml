@@ -1,6 +1,6 @@
 Majora\OTAStore\ApplicationBundle\Entity\Application:
     constraints:
-        - Callback: [validate]
+        - Callback: validate
     properties:
         support:
             - Choice:

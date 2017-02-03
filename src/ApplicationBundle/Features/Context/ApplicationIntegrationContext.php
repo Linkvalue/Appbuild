@@ -90,12 +90,12 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     public static function initBdd(BeforeFeatureScope $scope)
     {
         // init test_stream
-        exec('php app/console --env=test_stream doctrine:schema:drop --force');
-        exec('php app/console --env=test_stream doctrine:schema:create');
+        exec('php bin/console --env=test_stream doctrine:schema:drop --force');
+        exec('php bin/console --env=test_stream doctrine:schema:create');
 
         // init test_nostream
-        exec('php app/console --env=test_nostream doctrine:schema:drop --force');
-        exec('php app/console --env=test_nostream doctrine:schema:create');
+        exec('php bin/console --env=test_nostream doctrine:schema:drop --force');
+        exec('php bin/console --env=test_nostream doctrine:schema:create');
     }
 
     /**
@@ -115,7 +115,7 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     /**
      * @Given I am authenticated with role :role
      *
-     * @link http://symfony.com/doc/current/cookbook/testing/simulating_authentication.html
+     * @see http://symfony.com/doc/current/cookbook/testing/simulating_authentication.html
      */
     public function iAmAuthenticatedWithRole($role)
     {
@@ -363,7 +363,6 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
 
         // Follow redirects?
         switch ($build->getApplication()->getSupport()) {
-
             case Application::SUPPORT_IOS:
                 // we're not able to follow iOS protocol redirection
                 $this->getClient()->followRedirects(false);
@@ -394,7 +393,6 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
 
         // Download assertions
         switch ($build->getApplication()->getSupport()) {
-
             case Application::SUPPORT_IOS:
                 $this->minkContext->assertResponseStatus(302);
                 if (!preg_match(
@@ -452,9 +450,9 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
         $this->getClient()->request(
             'POST',
             $url,
-            array(),
-            array('build_file' => new UploadedFile($tmpFilePath, $file)),
-            array('HTTP_X-Requested-With' => 'XMLHttpRequest')
+            [],
+            ['build_file' => new UploadedFile($tmpFilePath, $file)],
+            ['HTTP_X-Requested-With' => 'XMLHttpRequest']
         );
         $response = json_decode($this->getClient()->getInternalResponse()->getContent(), true);
 

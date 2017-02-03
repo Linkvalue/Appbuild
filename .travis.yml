@@ -2,12 +2,13 @@ language: php
 
 php:
   - 5.6
+  - 7.0
 
 before_script:
   - gem install sass
   - make test-prepare
 
 script:
-  - bin/phpunit -c app --testsuite="majoraotastore_project" --coverage-clover="coverage.clover"
+  - bin/phpunit --testsuite="majoraotastore_project" --coverage-clover="coverage.clover"
   - bin/behat --no-interaction
   - bin/behat --no-interaction --profile="nostream"
