@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class BuildController.
@@ -306,7 +307,7 @@ class BuildController extends BaseController
                                 'application_id' => $application->getId(),
                                 'id' => $build->getId(),
                             ],
-                            true
+                            UrlGeneratorInterface::ABSOLUTE_URL
                         ))
                     ),
                     302,
