@@ -3,6 +3,7 @@
 namespace Majora\OTAStore\ApplicationBundle\Service;
 
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;
 
 /**
@@ -39,7 +40,7 @@ class BuildLinkBuilder
                 'application_id' => $build->getApplication()->getId(),
                 'id' => $build->getId(),
             ],
-            ($absoluteUrl) ? Router::ABSOLUTE_URL : Router::ABSOLUTE_PATH
+            ($absoluteUrl) ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
         );
     }
 }
