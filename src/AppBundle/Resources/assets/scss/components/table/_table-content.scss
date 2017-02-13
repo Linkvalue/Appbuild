@@ -1,0 +1,181 @@
+.table-link {
+  display: block;
+}
+
+.app-picture {
+  display: inline-block;
+  width: $table-app-img;
+  height: $table-app-img;
+  border-radius: rem-calc(8);
+  background-color: $black;
+  background-position: center;
+  background-size: cover;
+  vertical-align: middle;
+
+  @include breakpoint(medium) {
+    margin-right: rem-calc(10);
+  }
+}
+
+.build-name {
+  > * {
+    display: block;
+  }
+}
+
+.icon-os {
+  font-size: rem-calc(14);
+
+  @include breakpoint(medium) {
+    font-size: rem-calc(25);
+  }
+}
+
+[class^="label-"] {
+  display: inline-block;
+  height: $label-height;
+
+  color: $white;
+
+  font-size: rem-calc(12);
+  line-height: $label-height;
+
+  text-align: center;
+}
+
+.label-version,
+.label-order {
+  background: $black;
+}
+
+.label-order,
+.label-role {
+  width: map-get($label-width, default);
+}
+
+.label-version {
+  width: map-get($label-width, build);
+}
+
+.label-role {
+  &_superadmin {
+    background-color: $superadmin-color;
+  }
+  &_admin {
+    background-color: $admin-color;
+  }
+  &_downloader {
+    background: $black;
+  }
+}
+
+
+@include breakpoint(small only) {
+  .is-new {
+    .label-version {
+      background: $primary-color;
+    }
+  }
+}
+
+.label-new {
+
+  padding: rem-calc(0 4);
+
+  background: $primary-color;
+
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.comment__text {
+  display: block;
+}
+
+.comment__more {
+
+  display: inline-block;
+  position: relative;
+  transition: all .2s ease-out;
+  color: $primary-color;
+  font-style: italic;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    transform: translateY(5px);
+    transition: all .2s ease-out;
+    background-color: $primary-color;
+    opacity: 0;
+  }
+
+  &:hover,
+  &:focus {
+    &::after {
+      transform: translateY(3px);
+      opacity: 1;
+    }
+  }
+
+}
+
+// ICONS ACTION
+
+.icons-action {
+  display: flex;
+  margin-right: - rem-calc(2px);
+  margin-left: - rem-calc(2px);
+  & > * {
+    display: inline-block;
+    margin: rem-calc(0 2px);
+  }
+}
+
+.icon-android {
+  color: $primary-color;
+}
+
+.icon-action {
+  width: map-get($button-icon-size, width);
+  height: map-get($button-icon-size, height);
+  background: $dark-secondary;
+  color: $white;
+  font-size: rem-calc(20);
+  line-height: map-get($button-icon-size, height);
+  text-align: center;
+  box-shadow: inset 0 0 0 $primary-color;
+  transition-duration: $icon-transition-duration;
+  transition-property: $icon-transition-prop;
+  transition-timing-function: $icon-transition-timing;
+
+  &:hover,
+  &:focus {
+    color: $white;
+    box-shadow: inset map-get($button-icon-size, width) 0 0 darken($primary-color, 5%);
+  }
+
+  &:focus {
+    transform: scale(.95);
+  }
+
+  &.icon-update {
+    padding-left: rem-calc(5);
+  }
+
+  &.icon-action_download {
+    background: $primary-color;
+  }
+}
+
+.icon-action_download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-action_download__label {
+  padding-left: rem-calc(2);
+  font-size: rem-calc(12);
+}

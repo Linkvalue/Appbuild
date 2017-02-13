@@ -1,0 +1,72 @@
+button,
+input {
+  font-family: inherit;
+  font-size: inherit;
+  text-align: inherit;
+}
+
+input,
+textarea,
+.input-wrap__input {
+  font-size: map-get($form-input-fz, small);
+
+  @include breakpoint(medium) {
+    font-size: map-get($form-input-fz, medium);
+  }
+}
+
+
+.input-wrap__label {
+  display: flex;
+  flex: 0 0 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: map-get($form-input-inline-height, small);
+  color: $primary-color;
+  font-size: rem-calc(14);
+  font-style: italic;
+  font-weight: bold;
+  line-height: normal;
+  cursor: pointer;
+
+  > * {
+    display: block;
+    flex: 0 0 100%;
+  }
+
+  @include breakpoint(medium) {
+    min-height: map-get($form-input-inline-height, medium);
+  }
+}
+
+.input-wrap__input {
+  height: auto;
+  line-height: normal;
+
+  &:focus,
+  &.active {
+    outline: none;
+  }
+
+}
+
+.input-wrap__label,
+.input-wrap__input,
+.input-wrap__radio {
+  margin-bottom: $form-input-space;
+  padding: map-get($form-label-padding, medium);
+  background-color: $white;
+
+  @include breakpoint(medium) {
+    padding: map-get($form-label-padding, medium);
+  }
+}
+
+textarea {
+  resize: vertical;
+}
+
+::placeholder {
+  color: $secondary-color;
+  font-style: italic;
+}

@@ -1,0 +1,27 @@
+$form-input-padding: (
+  small: rem-calc(15),
+  medium: rem-calc(15 20)
+);
+
+$form-label-padding: (
+  small: rem-calc(15),
+  medium: rem-calc(15)
+);
+
+$form-input-inline-height: (
+  small: rem-calc(35),
+  medium: rem-calc(60)
+);
+
+$form-input-fz: (
+  small: rem-calc(14),
+  medium: rem-calc(16)
+);
+
+$form-input-space: rem-calc(5);
+
+$form-actions-margin: rem-calc(30);
+
+$form-transition-prop: $global-transition-prop;
+$form-transition-duration: .1s;
+$form-transition-timing: $global-transition-timing;

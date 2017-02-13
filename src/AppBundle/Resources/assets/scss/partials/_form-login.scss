@@ -1,15 +1,30 @@
+$form-login-header: rem-calc(90);
+
 .form-login__header {
-  margin-bottom: rem-calc(90);
+  margin-top: $form-login-header;
+  margin-bottom: $form-login-header;
+
   & > * {
     margin: 0;
   }
-
 }
+
 .logo-baseline {
-  text-align: right;
+  color: $white;
   font-size: rem-calc(14);
   font-weight: 300;
-  color: $white;
+  text-align: right;
+}
+
+.bar {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  margin-left: 50%;
+  transition: all .2s cubic-bezier(1, .1, .35, 1);
+  background: $primary-color;
 }
 
 .form-login__actions {
@@ -20,11 +35,12 @@
 }
 
 .form-login__forgot-password {
-  font-style: italic;
-  font-size: rem-calc(14);
-  color: $white;
   position: relative;
+  font-size: rem-calc(14);
+  font-style: italic;
+  color: $white;
   transition: all .2s ease-out;
+
   &:after {
     content: '';
     display: block;
@@ -35,24 +51,27 @@
     transform: translateY(5px);
     transition: all .2s ease-out;
   }
+
   &:hover {
     color: $white;
+
     &:after {
-      opacity: 1;
       transform: translateY(3px);
+      opacity: 1;
     }
   }
 }
 
 .loader-login {
   position: absolute;
-  z-index: 900;
   height: 0;
   width: 100%;
   left: 0;
   right: 0;
   transition: all .2s ease-out;
   background: $primary-color;
+  z-index: 900;
+
   &.valid {
     top: 0 !important;
     height: 100%;

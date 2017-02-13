@@ -1,0 +1,41 @@
+.input-wrap__file-label {
+  height: rem-calc(200);
+  cursor: pointer;
+  z-index: 1;
+
+  &:hover,
+  &:focus {
+
+    & ~ .input-wrap__file-label-fake {
+      color: $dark-gray;
+    }
+  }
+}
+
+.input-wrap__file-label-fake {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+  font-weight: normal;
+  font-style: normal;
+  color: $medium-gray;
+  transition-duration: $form-transition-duration;
+  transition-property: $form-transition-prop;
+  transition-timing-function: $form-transition-timing;
+}
+
+.file-label__select {
+  font-style: normal;
+  font-size: rem-calc(20);
+  font-weight: normal;
+}
+
+.file-label__result {
+  opacity: 0;
+
+  &.js-valid {
+    opacity: 1;
+  }
+}
