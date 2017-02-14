@@ -23,7 +23,7 @@ textarea,
   align-items: center;
   min-height: map-get($form-input-inline-height, small);
   color: $primary-color;
-  font-size: rem-calc(14);
+  font-size: map-get($form-label-fz, small);
   font-style: italic;
   font-weight: bold;
   line-height: normal;
@@ -36,6 +36,7 @@ textarea,
 
   @include breakpoint(medium) {
     min-height: map-get($form-input-inline-height, medium);
+    font-size: map-get($form-label-fz, medium);
   }
 }
 

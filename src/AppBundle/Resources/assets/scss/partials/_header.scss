@@ -4,17 +4,17 @@ $header-margin: (
 );
 
 $logo-height: (
-  small: rem-calc(35px),
+  small: rem-calc(40px),
   medium: rem-calc(60px)
 );
 
 $button-height: (
-  small: rem-calc(35px),
+  small: rem-calc(40px),
   medium: rem-calc(70px)
 );
 
 $header-icon-fz: (
-  small: rem-calc(12px),
+  small: rem-calc(14px),
   medium: rem-calc(22px)
 );
 
@@ -37,7 +37,8 @@ $header-space: (
 .header__logo {
   margin: 0;
 
-  @include breakpoint(small only) {
+  @include breakpoint(small only)
+  @include breakpoint(retina only) {
     position: absolute;
     height: map-get($logo-height, small);
   }
@@ -241,7 +242,9 @@ $header-space: (
     line-height: map-get($button-height, medium) - rem-calc(4);
   }
 
-  > * {
+  .icon,
+  .button__select {
+    display: inline-block;
     vertical-align: middle;
   }
 

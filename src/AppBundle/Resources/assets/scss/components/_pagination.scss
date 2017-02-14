@@ -25,7 +25,7 @@ $pagination-width: rem-calc(40px);
   border: 2px solid $primary-color;
   background: $dark-secondary;
   color: $white;
-  line-height: $pagination-width - rem-calc(4);
   text-align: center;
+  line-height: $pagination-width - rem-calc(4);
   font-weight: bold;
 }

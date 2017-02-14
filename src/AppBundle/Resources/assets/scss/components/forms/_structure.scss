@@ -33,8 +33,7 @@
 
 .columns_label {
   flex: 0 0 auto;
-
-
+  max-width: 100%
 }
 
 .columns_label-boxed {
@@ -57,7 +56,12 @@
 }
 
 .columns_options {
-  flex: 1 1 0;
+  flex: 1 1 100%;
+  max-width: 100%;
+
+  @include breakpoint(medium) {
+    flex: 1 1 0;
+  }
 }
 
 .columns_label,

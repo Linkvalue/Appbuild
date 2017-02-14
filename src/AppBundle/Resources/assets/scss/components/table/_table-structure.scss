@@ -1,8 +1,8 @@
 // STRUCTURE TABlE;
 
 .table {
-  display: table;
   width: 100%;
+  display: table;
   border-collapse: separate;
   font-size: map-get($table-fz, small);
 
@@ -13,12 +13,16 @@
 
 .table__row {
   display: table-row;
-  // display: flex;
-  // align-items: stretch;
 }
 
 .table__cell {
+  display: table-cell;
   padding: map-get($table-row-padding, small);
+  vertical-align: middle;
+
+  @include breakpoint(medium) {
+    padding: map-get($table-row-padding, medium);
+  }
 
   &:not(:first-child) {
 
@@ -60,27 +64,19 @@
           }
         }
       }
+
+      &.table__cell_mobile-right {
+        .table__cell__content {
+          padding-left: 0;
+        }
+      }
     }
   }
-
-
-    display: table-cell;
-    vertical-align: middle;
-
-    @include breakpoint(medium) {
-      padding: map-get($table-row-padding, medium);
-    }
-
-
-
 
 }
 
 .table__cell_shrink {
-
-  //@include breakpoint(medium) {
-    width: 1px;
-  //}
+  width: 1px;
 }
 
 // TABLE HEAD

@@ -6,12 +6,12 @@ $button-transition-timing: $global-transition-timing;
 $button-border-width: 2px;
 
 $button-height: (
-  small: rem-calc(35px),
+  small: rem-calc(40px),
   medium: rem-calc(70px),
 );
 
 $button-height-small: (
-  small: rem-calc(35px),
+  small: rem-calc(40px),
   medium: rem-calc(60px),
 );
 
@@ -49,7 +49,7 @@ $button-small-fz: (
 );
 
 $button-medium-fz: (
-  small: rem-calc(11px),
+  small: rem-calc(14px),
   medium: rem-calc(18px)
 );
 
@@ -100,8 +100,9 @@ $button-medium-fz: (
     transform: scale(.95);
   }
 
-  > span {
+  > * {
     display: inline-block;
+    flex: 0 0 100%;
     line-height: normal;
   }
 }

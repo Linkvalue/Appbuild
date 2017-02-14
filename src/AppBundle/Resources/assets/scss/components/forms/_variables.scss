@@ -1,10 +1,10 @@
 $form-input-padding: (
-  small: rem-calc(15),
+  small: rem-calc(15 10),
   medium: rem-calc(15 20)
 );
 
 $form-label-padding: (
-  small: rem-calc(15),
+  small: rem-calc(15 10),
   medium: rem-calc(15)
 );
 
@@ -14,8 +14,12 @@ $form-input-inline-height: (
 );
 
 $form-input-fz: (
-  small: rem-calc(14),
+  small: rem-calc(12),
   medium: rem-calc(16)
+);
+$form-label-fz: (
+  small: rem-calc(12),
+  medium: rem-calc(14)
 );
 
 $form-input-space: rem-calc(5);

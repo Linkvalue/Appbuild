@@ -4,6 +4,7 @@
 
 .app-picture {
   display: inline-block;
+  position: relative;
   width: $table-app-img;
   height: $table-app-img;
   border-radius: rem-calc(8);
@@ -12,14 +13,25 @@
   background-size: cover;
   vertical-align: middle;
 
+  @include breakpoint(small only) {
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+  }
+
   @include breakpoint(medium) {
     margin-right: rem-calc(10);
   }
 }
 
 .build-name {
+  word-break: break-all;
   > * {
     display: block;
+
   }
 }
 
