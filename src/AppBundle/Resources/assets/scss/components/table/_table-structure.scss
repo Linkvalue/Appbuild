@@ -34,9 +34,9 @@
         content: '';
         width: 1px;
         position: absolute;
-        left: 0;
         top: 0;
         bottom: 0;
+        left: 0;
         background-color: $secondary-color;
       }
     }
@@ -134,12 +134,6 @@
 }
 
 @include breakpoint(small only) {
-  //
-  // .table__cell {
-  //   display: flex;
-  //   flex: 1 0 auto;
-  //   align-items: stretch;
-  // }
 
   .table__cell-head__content,
   .table__cell__content {
@@ -147,46 +141,6 @@
     flex: 1 0 auto;
     align-items: center;
   }
-
-  // .table__cell-head-app,
-  // .table__cell-app {
-  //   flex: 1 0 40%;
-  // }
-  //
-  // .table__cell-head-last-comment,
-  // .table__cell-last-comment {
-  //   flex: 1 0 60%;
-  // }
-  //
-  // .table__cell-head-comment,
-  // .table__cell-comment {
-  //   flex: 1 0 65%;
-  // }
-  //
-  // .table__cell-head-label-build,
-  // .table__cell-label-build {
-  //   flex: 1 0 35%;
-  // }
-
-  // .table__cell_mobile-right {
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   bottom: 0;
-  // }
-
-  .table__cell-comment {
-    .table__cell__content {
-      //padding-right: map-get($button-icon-size, width) + rem-calc(20);
-    }
-  }
-
-  .table__cell-last-build {
-    .table__cell__content {
-      //padding-left: $table-app-img + rem-calc(20);
-    }
-  }
-
 }
 
 .table__cell-last-build,

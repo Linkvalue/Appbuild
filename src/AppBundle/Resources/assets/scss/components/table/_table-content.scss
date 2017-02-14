@@ -126,7 +126,7 @@
   &:hover,
   &:focus {
     &::after {
-      transform: translateY(3px);
+      transform: translateY(0);
       opacity: 1;
     }
   }
@@ -152,15 +152,15 @@
 .icon-action {
   width: map-get($button-icon-size, width);
   height: map-get($button-icon-size, height);
+  transition-duration: $icon-transition-duration;
+  transition-property: $icon-transition-prop;
+  transition-timing-function: $icon-transition-timing;
   background: $dark-secondary;
   color: $white;
   font-size: rem-calc(20);
   line-height: map-get($button-icon-size, height);
   text-align: center;
   box-shadow: inset 0 0 0 $primary-color;
-  transition-duration: $icon-transition-duration;
-  transition-property: $icon-transition-prop;
-  transition-timing-function: $icon-transition-timing;
 
   &:hover,
   &:focus {
