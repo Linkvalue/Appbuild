@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var $    = require('gulp-load-plugins')();
 var webpack = require('webpack-stream');
 var babel = require('gulp-babel');
+var scsslint = require('gulp-scss-lint');
 var browserSync = require('browser-sync').create();
 
 var baseSources = path.resolve('.', 'src', 'AppBundle', 'Resources', 'assets');
@@ -18,23 +19,29 @@ var PATHS = {
   },
   dest: {
     js: path.join(distPath, 'js'),
-    css: path.join(distPath, 'css')
+    css: path.join(distPath, 'css'),
   }
 };
 
 var sassModulesPaths = [
   // Paths to Sass libraries, which can then be loaded with @import
   'node_modules/normalize.scss/sass',
-  'node_modules/foundation-sites/scss'
+  'node_modules/foundation-sites/scss',
 ];
 var assetsPaths = [
-  '{img,fonts}/**/*'
+  '{img,fonts}/**/*',
 ];
 const scssPaths = [
   './app.scss',
 ];
 var jsPaths = [
-  './index.js'
+  './index.js',
+];
+
+const scssCleanPaths = [
+  '**/*.scss',
+  '!./foundation/**.scss',
+  '!./base/fonts/**.scss',
 ];
 
 
@@ -92,22 +99,28 @@ gulp.task('scripts', function() {
     .pipe(browserSync.stream());
 });
 
+// gulp.task('scss-lint', function() {
+//   return gulp.src(scssCleanPaths, { cwd: PATHS.src.css })
+//     .pipe(scsslint())
+//     .pipe(scsslint.failReporter());
+// });
+
 
 gulp.task('watch', function() {
   browserSync.init({
     server: {
       baseDir: './web/flat',
       routes: {
-          '/css': './web/css',
-          '/js': './web/js',
-          '/img': './web/img',
-          '/fonts': './web/fonts'
+        '/css': './web/css',
+        '/js': './web/js',
+        '/img': './web/img',
+        '/fonts': './web/fonts'
       }
     }
   });
 
   gulp.watch(['**/*.html'], { cwd: PATHS.src.html }).on('change', browserSync.reload);
-  gulp.watch(['**/*.scss'], { cwd: PATHS.src.css }, ['sass']);
+  gulp.watch(['**/*.scss'], { cwd: PATHS.src.css }, ['sass', 'scss-lint']);
   gulp.watch(['**/*.js'], { cwd: PATHS.src.js }, ['scripts']);
 });
 
@@ -115,7 +128,7 @@ gulp.task('browserSync:reload', function() {
   browserSync.reload();
 });
 
-gulp.task('build', ['sass', 'scripts', 'copy']);
+gulp.task('build', ['sass', 'scss-lint', 'scripts', 'copy']);
 
 gulp.task('dev', ['build', 'watch']);
 

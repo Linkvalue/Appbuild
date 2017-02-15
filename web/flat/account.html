@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AppBuild</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
-    <link rel="stylesheet" href="./css/app.css">
+    <link rel="stylesheet" href="../css/app.css">
   </head>
   <body>
     <div class="row main-content">
@@ -15,7 +15,7 @@
         <header class="header">
           <div class="row">
             <div class="columns small-12 medium-3">
-              <h1 class="logo header__logo"><a href="apps.html"><img src="./img/logo.svg" alt=""></a></h1>
+              <h1 class="logo header__logo"><a href="apps.html"><img src="../img/logo.svg" alt=""></a></h1>
             </div>
             <div class="header__column-actions columns small-12 medium-9 row">
               <div class="search columns small-12 medium-expand">
@@ -48,7 +48,9 @@
               <h1 class="title title_header-section">mon compte</h1>
             </div>
           </header>
-          <form action="">
+
+          <form action="" data-anim-appear>
+
             <div class="row row-form">
               <div class="columns small-12 large-6">
                 <div class="input-wrap input-wrap_inline">
@@ -81,7 +83,7 @@
                       <label class="input-wrap__label" for="mail-user">Adresse mail</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre adresse mail" />
+                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre adresse mail" autocorrect="off" autocomplete="email" autocapitalize="off" />
                     </div>
                   </div>
                 </div>
@@ -226,7 +228,7 @@
     </div>
 
 
-    <script src="./js/main.js"></script>
+    <script src="../js/main.js"></script>
 
   </body>
 </html>

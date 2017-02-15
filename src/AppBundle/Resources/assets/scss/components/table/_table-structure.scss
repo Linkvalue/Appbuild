@@ -71,6 +71,19 @@
         }
       }
     }
+
+    @include breakpoint(medium down) {
+      &.table__cell-head-app,
+      &.table__cell-app {
+        .table__cell-head__content,
+        .table__cell__content {
+
+          &:after {
+            background-color: transparent;
+          }
+        }
+      }
+    }
   }
 
 }

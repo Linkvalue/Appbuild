@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AppBuild</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
-    <link rel="stylesheet" href="./css/app.css">
+    <link rel="stylesheet" href="../css/app.css">
   </head>
   <body>
     <div class="row main-content">
@@ -15,7 +15,7 @@
         <header class="header">
           <div class="row">
             <div class="columns small-12 medium-3">
-              <h1 class="logo header__logo"><a href="apps.html"><img src="./img/logo.svg" alt=""></a></h1>
+              <h1 class="logo header__logo"><a href="apps.html"><img src="../img/logo.svg" alt=""></a></h1>
             </div>
             <div class="header__column-actions columns small-12 medium-9 row">
               <div class="search columns small-12 medium-expand">
@@ -46,19 +46,19 @@
             <div class="columns">
               <h1 class="title title_header-section">Mes applications</h1>
             </div>
-            <div class="columns shrink show-for-medium">
+            <div class="columns shrink show-for-medium show-for-up-mobile">
               <a href="update-app.html" class="button button_navigation"><span>Créer une nouvelle application</span></a>
             </div>
           </header>
           <article class="table">
             <div class="table__row table__row-head" data-anim-appear>
-              <div class="table__cell table__cell-head show-for-medium">
+              <div class="table__cell table__cell-head show-for-large">
                 <div class="table__cell-head__content">OS</div>
               </div>
               <div class="table__cell table__cell-head table__cell-head-app">
                 <div class="table__cell-head__content">Application</div>
               </div>
-              <div class="table__cell table__cell-head table__cell-head-last-build show-for-medium">
+              <div class="table__cell table__cell-head table__cell-head-last-build show-for-medium show-for-up-mobile">
                 <div class="table__cell-head__content">Dernier build</div>
               </div>
               <div class="table__cell table__cell-head table__cell-head-last-comment">
@@ -70,7 +70,7 @@
             </div>
 
             <div class="table__row table__row-body is-new" data-anim-appear>
-              <div class="table__cell table__cell-body table__cell_shrink show-for-medium table__cell-os">
+              <div class="table__cell table__cell-body table__cell_shrink table__cell-os show-for-large">
                 <div class="table__cell__content">
                   <i class="icon icon-os icon-android"></i>
                 </div>
@@ -81,31 +81,31 @@
                     <div class="row align-middle">
                       <div class="columns shrink">
                         <span class="app-picture" style="background-image:url('')">
-                          <i class="icon icon-os icon-android hide-for-medium"></i>
+                          <i class="icon icon-os icon-android hide-for-large"></i>
                         </span>
                       </div>
                       <div class="columns build-name">
                         <strong>RemindTheLink</strong>
-                        <span class="app-date hide-for-medium">13 janv. 2017</span>
+                        <span class="app-date hide-for-large">13 janv. 2017</span>
                       </div>
                     </div>
                   </a>
                 </div>
               </div>
-              <div class="table__cell table__cell-body table__cell-last-build show-for-medium">
+              <div class="table__cell table__cell-body table__cell-last-build show-for-medium show-for-up-mobile">
                 <div class="table__cell__content">
                   <a class="table-link" href="">
                     <div class="row align-middle">
-                      <div class="columns shrink show-for-medium">
+                      <div class="columns shrink">
                         <i class="icon icon-download show-for-large"></i>
                       </div>
                       <div class="columns build-name">
                         <strong>RemindTheLink</strong>
-                        <span class="app-date show-for-medium">13 janv. 2017</span>
+                        <span class="app-date">13 janv. 2017</span>
                       </div>
                     </div>
                   </a>
-                  <span class="label-version show-for-medium">0.1</span>
+                  <span class="label-version">0.1</span>
                 </div>
               </div>
               <div class="table__cell table__cell-body table__cell-last-comment">
@@ -114,7 +114,7 @@
                     <span class="comment__text">Truc de fifou...</span>
                     <a class="comment__more" data-open="modal-comment-1">Lire la suite</a>
                   </p>
-                  <span class="label-new show-for-medium">nouveau</span>
+                  <span class="label-new show-for-medium show-for-up-mobile">nouveau</span>
                   <div class="reveal" id="modal-comment-1" data-reveal>
                     <h3 class="title">Commentaire</h3>
                     <p class="reveal__content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. In culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -127,7 +127,7 @@
               <div class="table__cell table__cell-body table__cell_shrink table__cell_mobile-right">
                 <div class="table__cell__content">
                   <div class="icons-action">
-                    <a href="update-app.html" class="icon icon-action icon-update show-for-medium"></a>
+                    <a href="update-app.html" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
                     <a href="" class="icon-action icon-action_download hide-for-medium">
                       <i class="icon icon-download"></i><span class="icon-action_download__label ">0.1</span>
                     </a>
@@ -149,6 +149,6 @@
     </div>
 
 
-    <script src="./js/main.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>

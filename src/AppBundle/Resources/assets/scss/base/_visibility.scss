@@ -1,0 +1,15 @@
+$size-device-width: rem-calc($mobile-max-device-width);
+
+@media screen and (max-device-width: $size-device-width - rem-calc(1px)) {
+
+  .show-for-up-mobile {
+    display: none !important;
+  }
+}
+
+@media screen and (min-device-width: $size-device-width) {
+
+  .hide-for-up-mobile {
+    display: none !important;
+  }
+}

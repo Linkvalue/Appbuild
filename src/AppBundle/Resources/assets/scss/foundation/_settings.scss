@@ -46,7 +46,15 @@
 // 1. Global
 // ---------
 
-$global-font-size: 100%;
+
+@include breakpoint(small only) {
+  $global-font-size: 87.5%;
+};
+
+@include breakpoint(medium) {
+  $global-font-size: 100%;
+};
+
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
 $foundation-palette: (
@@ -87,7 +95,7 @@ $print-transparent-backgrounds: true;
 
 $breakpoints: (
   small: 0,
-  medium: 690px,
+  medium: 700px,
   large: 1024px,
   xlarge: 1200px,
   xxlarge: 1440px,
@@ -335,7 +343,7 @@ $drilldown-background: $white;
 $dropdown-padding: 0;
 $dropdown-background: $body-background;
 $dropdown-border: 0;
-$dropdown-font-size: 1rem;
+$dropdown-font-size: inheritc;
 $dropdown-width: auto;
 $dropdown-radius: $global-radius;
 $dropdown-sizes: (

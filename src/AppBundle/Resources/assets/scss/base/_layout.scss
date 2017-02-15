@@ -1,11 +1,11 @@
+$body-padding-bottom: rem-calc(50);
+
 html {
-  @include breakpoint(medium) {
+
+  @include breakpoint(medium only) {
     font-size: 87.5%;
   }
 
-	@include breakpoint(large) {
-		font-size: 100%;
-	}
 }
 
 
@@ -13,6 +13,11 @@ body {
   position: relative;
   min-height: 100vh;
   background: $medium-secondary;
+
+  @include breakpoint(large) {
+    padding-bottom: $body-padding-bottom;
+  }
+
 }
 
 .main-content {

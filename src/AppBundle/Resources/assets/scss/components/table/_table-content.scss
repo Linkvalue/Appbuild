@@ -13,7 +13,7 @@
   background-size: cover;
   vertical-align: middle;
 
-  @include breakpoint(small only) {
+  @include breakpoint(medium down) {
     .icon {
       position: absolute;
       top: 50%;
@@ -38,7 +38,7 @@
 .icon-os {
   font-size: rem-calc(14);
 
-  @include breakpoint(medium) {
+  @include breakpoint(large) {
     font-size: rem-calc(25);
   }
 }
@@ -66,7 +66,11 @@
 }
 
 .label-version {
-  width: map-get($label-width, build);
+  width: map-get($label-width, default);
+
+  @include breakpoint(large) {
+    width: map-get($label-width, build);
+  }
 }
 
 .label-role {

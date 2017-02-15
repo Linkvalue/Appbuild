@@ -1,0 +1,9 @@
+$breakpoint-mobile: $mobile-max-device-width;
+
+@mixin breakpoint-custom($point) {
+
+  @media screen and (max-device-width: $breakpoint-mobile) {
+    @content;
+  }
+
+}

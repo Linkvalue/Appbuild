@@ -1,6 +1,6 @@
 $header-margin: (
   small: rem-calc(10px 0 30px),
-  medium: rem-calc(50px 0)
+  large: rem-calc(50px 0)
 );
 
 $logo-height: (
@@ -29,16 +29,15 @@ $header-space: (
   position: relative;
   margin: map-get($header-margin, small);
 
-  @include breakpoint(medium) {
-    margin: map-get($header-margin, medium);
+  @include breakpoint(large) {
+    margin: map-get($header-margin, large);
   }
 }
 
 .header__logo {
   margin: 0;
 
-  @include breakpoint(small only)
-  @include breakpoint(retina only) {
+  @include breakpoint(small only) {
     position: absolute;
     height: map-get($logo-height, small);
   }
@@ -109,12 +108,7 @@ $header-space: (
 
 
 .form-search {
-  //position: relative;
   z-index: 1;
-
-  @include breakpoint(small only) {
-    //top: - map-get($logo-height, small) + (map-get($header-space, small) * 2);
-  }
 
   @include breakpoint(medium) {
     display: flex;
