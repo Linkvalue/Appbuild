@@ -1,0 +1,19 @@
+.msg-error {
+  position: absolute;
+  bottom: rem-calc(5);
+  left: 0;
+  margin-left: 0 !important;
+  padding-left: map-get($form-padding-side, small);
+  font-style: italic;
+  font-size: map-get($form-error-fz, small);
+  color: $alert-color;
+
+  @include breakpoint(medium) {
+    padding-left: map-get($form-padding-side, medium);
+    font-size: map-get($form-error-fz, medium);
+  }
+}
+
+.label-error {
+  color: $alert-color;
+}

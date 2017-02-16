@@ -1,10 +1,10 @@
 $form-input-padding: (
   small: rem-calc(15 10),
-  medium: rem-calc(15 20)
+  medium: rem-calc(15)
 );
-$form-padding-right: (
+$form-padding-side: (
   small: rem-calc(10),
-  medium: rem-calc(20)
+  medium: rem-calc(15)
 );
 
 $form-label-padding: (
@@ -24,6 +24,10 @@ $form-input-fz: (
 $form-label-fz: (
   small: rem-calc(12),
   medium: rem-calc(14)
+);
+$form-error-fz: (
+  small: rem-calc(10),
+  medium: rem-calc(12)
 );
 
 $form-input-space: rem-calc(5);

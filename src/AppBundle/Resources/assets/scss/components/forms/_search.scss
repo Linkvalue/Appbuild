@@ -4,6 +4,15 @@
 
 .input-wrap__input-search {
   height: 100%;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+
+  &:focus {
+    border-top: 2px solid $primary-color;
+    border-left: 2px solid $primary-color;
+    border-right: 2px solid $primary-color;
+  }
 }
 
 .search__results {
@@ -13,12 +22,15 @@
   left: 0;
   max-height: rem-calc(200px);
   margin: 0;
-  overflow-y: auto;
-  list-style: none;
-  z-index: 1;
+  border-right: 2px solid $primary-color;
+  border-bottom: 2px solid $primary-color;
+  border-left: 2px solid $primary-color;
   background: $white;
+  list-style: none;
   opacity: 0;
   visibility: hidden;
+  z-index: 1;
+  overflow-y: auto;
 
   &.is-open {
     opacity: 1;

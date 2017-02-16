@@ -2,11 +2,11 @@ $select-triangle-size: rem-calc(10);
 
 .select__toggle {
   position: relative;
-  padding-right: ($select-triangle-size * 2) + map-get($form-padding-right, small);
+  padding-right: ($select-triangle-size * 2) + map-get($form-padding-side, small);
   cursor: pointer;
 
   @include breakpoint(medium) {
-    padding-right: ($select-triangle-size * 2) + map-get($form-padding-right, medium);
+    padding-right: ($select-triangle-size * 2) + map-get($form-padding-side, medium);
   }
 
   &:before {
@@ -15,7 +15,7 @@ $select-triangle-size: rem-calc(10);
     display: block;
     position: absolute;
     top: 50%;
-    right: map-get($form-padding-right, small);
+    right: map-get($form-padding-side, small);
 
     width: $select-triangle-size * 2;
     height: $select-triangle-size;
@@ -26,7 +26,7 @@ $select-triangle-size: rem-calc(10);
     transform: translateY(-50%);
 
     @include breakpoint(medium) {
-      right: map-get($form-padding-right, medium);
+      right: map-get($form-padding-side, medium);
     }
   }
 }

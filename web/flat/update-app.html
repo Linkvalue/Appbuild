@@ -5,6 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AppBuild</title>
+    <link rel="icon" type="image/png" href="../img/favicon.png" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="../css/app.css">
   </head>
@@ -53,10 +54,11 @@
             <div class="input-wrap input-wrap_inline">
               <div class="row">
                 <div class="columns columns_label columns_label-boxed">
-                  <label class="input-wrap__label" for="name-app">Nom de l'application</label>
+                  <label class="input-wrap__label label-error" for="name-app">Nom de l'application</label>
                 </div>
                 <div class="columns columns_input">
                   <input class="input-wrap__input" type="text" id="name-app" placeholder="indiquez le nom de l'app" />
+                  <span class="msg-error">Le nom n'est pas valide</span>
                 </div>
               </div>
             </div>
