@@ -35,7 +35,7 @@
                 </div>
               </div>
               <div class="nav-primary columns">
-                <a href="apps.html" class="button button_navigation"><span>application</span></a>
+                <a href="apps.html" class="button button_navigation"><span>applications</span></a>
                 <a href="users.html" class="button button_navigation"><span>utilisateurs</span></a>
               </div>
             </div>
@@ -56,7 +56,7 @@
                   <label class="input-wrap__label" for="name-app">Nom de l'application</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="text" id="name-app" placeholder="Indiquez le nom de l'app" />
+                  <input class="input-wrap__input" type="text" id="name-app" placeholder="indiquez le nom de l'app" />
                 </div>
               </div>
             </div>
@@ -67,6 +67,16 @@
                 </div>
                 <div class="columns columns_input">
                   <textarea class="input-wrap__input" type="text" id="desc-app" rows="5" placeholder="..."></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="input-wrap input-wrap_inline">
+              <div class="row">
+                <div class="columns columns_label columns_label-boxed">
+                  <label class="input-wrap__label" for="icon-app">Icône de l'application</label>
+                </div>
+                <div class="columns columns_input">
+                  <input class="input-wrap__input" type="file" id="icon-app" />
                 </div>
               </div>
             </div>
@@ -100,7 +110,16 @@
                 <label class="input-wrap__label" for="users-app">Utilisateurs</label>
               </div>
               <div class="columns columns_input">
-                <input class="input-wrap__input" type="text" id="users-app" placeholder="Tapez le nom de l'utilisateur" />
+                <div class="input-wrap__search" data-select-search>
+                  <input class="input-wrap__input input-wrap__input-search" type="search" id="users-app" placeholder="tapez le nom de l'utilisateur" data-select-search />
+                  <div class="text" data-select-search-label></div>
+                  <ul class="search__results" data-select-search-results>
+                    <li class="search__result">Jean</li>
+                    <li class="search__result">Josey</li>
+                    <li class="search__result">Aline</li>
+                    <li class="search__result">Jean</li>
+                  </ul>
+                </div>
               </div>
               <div class="columns shrink">
                 <a data-open="modal-create-user" class="button button_action button_navigation button_input-wrap-side"><span>créer un nouvel utilisateur</span></a>
@@ -115,17 +134,17 @@
                   </div>
                 </div>
                 <div class="columns_options__action">
-                  <a href="" class="button button_action"><span>supprimer l'utilisateur</span></a></div>
+                  <a href="" class="button button_action"><span>supprimer l'utilisateur</span></a>
                 </div>
+              </div>
             </div>
             <div class="form-actions row align-justify">
               <div class="columns row-buttons">
-                <a href="" class="button button_action button_confirm"><span>valider</span></a>
-                <a href="" class="button button_action"><span>annuler</span></a>
+                <a href="" class="button button_action button_confirm" onclick="history.back()"><span>valider</span></a>
+                <a href="" class="button button_action" onclick="history.back()"><span>annuler</span></a>
               </div>
             </div>
           </form>
-
         </section>
       </div>
     </div>

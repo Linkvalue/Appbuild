@@ -1,10 +1,8 @@
-// STRUCTURE TABlE;
-
 .table {
-  width: 100%;
   display: table;
-  border-collapse: separate;
+  width: 100%;
   font-size: map-get($table-fz, small);
+  border-collapse: separate;
 
   @include breakpoint(medium) {
     font-size: map-get($table-fz, medium);
@@ -106,11 +104,10 @@
 }
 
 .table__cell-head__content {
-
-  padding: rem-calc(5 10);
+  padding: map-get($table-cell-head-padding, small);
 
   @include breakpoint(medium) {
-    padding: rem-calc(10 20);
+    padding: map-get($table-cell-head-padding, medium);
   }
 }
 
@@ -127,7 +124,7 @@
 }
 
 .table__cell__content {
-
+  margin: 0;
   padding: map-get($table-cell-body-padding, small);
 
   @include breakpoint(medium) {
@@ -163,5 +160,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .columns-first {
+      flex: 1 1 0;
+      min-width: initial;
+    }
+
+    .columns-last {
+      flex: 0 0 auto;
+      max-width: 100%;
+    }
   }
 }

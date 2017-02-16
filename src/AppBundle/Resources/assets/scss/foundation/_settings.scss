@@ -516,7 +516,7 @@ $reveal-background: $medium-secondary;
 $reveal-width: 600px;
 $reveal-max-width: $global-width;
 $reveal-padding: rem-calc(40);
-$reveal-border: 0;
+$reveal-border: 2px solid $secondary-color;
 $reveal-radius: $global-radius;
 $reveal-zindex: 1005;
 $reveal-overlay-background: rgba($black, .40);

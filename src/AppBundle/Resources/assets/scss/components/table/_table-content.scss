@@ -1,7 +1,3 @@
-.table-link {
-  display: block;
-}
-
 .app-picture {
   display: inline-block;
   position: relative;
@@ -23,7 +19,7 @@
   }
 
   @include breakpoint(medium) {
-    margin-right: rem-calc(10);
+    margin-right: rem-calc(8);
   }
 }
 
@@ -32,6 +28,14 @@
   > * {
     display: block;
 
+  }
+}
+
+.app-date {
+  font-size: map-get($table-date-fz, small);
+
+  @include breakpoint(medium) {
+    font-size: map-get($table-date-fz, medium);
   }
 }
 
@@ -45,14 +49,20 @@
 
 [class^="label-"] {
   display: inline-block;
-  height: $label-height;
+  height: map-get($label-height, small);
 
   color: $white;
 
-  font-size: rem-calc(12);
-  line-height: $label-height;
+  font-size: map-get($label-fz, small);
+  line-height: map-get($label-height, small);
 
   text-align: center;
+
+  @include breakpoint(medium) {
+    height: map-get($label-height, medium);
+    line-height: map-get($label-height, medium);
+    font-size: map-get($label-fz, medium);
+  }
 }
 
 .label-version,
@@ -62,7 +72,11 @@
 
 .label-order,
 .label-role {
-  width: map-get($label-width, default);
+  width: map-get($label-width, small);
+
+  @include breakpoint(medium) {
+    width: map-get($label-width, default);
+  }
 }
 
 .label-version {
@@ -74,6 +88,8 @@
 }
 
 .label-role {
+  font-weight: 600;
+
   &_superadmin {
     background-color: $superadmin-color;
   }
@@ -95,7 +111,6 @@
 }
 
 .label-new {
-
   padding: rem-calc(0 4);
 
   background: $primary-color;
@@ -169,7 +184,7 @@
   &:hover,
   &:focus {
     color: $white;
-    box-shadow: inset map-get($button-icon-size, width) 0 0 darken($primary-color, 5%);
+    box-shadow: inset  (- map-get($button-icon-size, width)) 0 0 darken($primary-color, 5%);
   }
 
   &:focus {

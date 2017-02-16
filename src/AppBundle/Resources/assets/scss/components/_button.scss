@@ -15,6 +15,11 @@ $button-height-small: (
   medium: rem-calc(60px),
 );
 
+$button-height-login: (
+  small: rem-calc(40px),
+  medium: rem-calc(50px),
+);
+
 $button-background: (
   default: $secondary-color,
   confirm: $primary-color,
@@ -40,7 +45,7 @@ $button-width: (
 
 $button-default-fz: (
   small: rem-calc(12px),
-  medium: rem-calc(20px)
+  medium: rem-calc(18px)
 );
 
 $button-small-fz: (
@@ -165,18 +170,9 @@ $button-medium-fz: (
 .button_confirm-login,
 .button_confirm-login:visited {
   border: 0;
-}
 
-.button_close {
-  position: relative;
-
-  &:before {
-    content: '×';
-    position: absolute;
-    top: 50%;
-    right: rem-calc(20);
-    transform: translateY(-50%);
-    font-style: normal;
+  @include breakpoint(medium) {
+    height: map-get($button-height-login, medium);
   }
 }
 

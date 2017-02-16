@@ -15,4 +15,4 @@ for (let elem of $elementAppear) {
   $(elem).css('transition-delay', `${i}ms`);
 }
 
-setTimeout(appear, 200);
+appear();

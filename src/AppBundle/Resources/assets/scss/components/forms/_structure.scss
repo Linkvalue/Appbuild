@@ -73,12 +73,13 @@
 
 .columns_input {
 
-  .input-wrap__input {
+  .input-wrap__input,
+  .input-wrap__search {
     flex: 0 0 100%;
     max-width: 100%;
   }
 
-  > *:not(.input-wrap__input) {
+  > *:not(.input-wrap__input, .input-wrap__search) {
     flex: 0 0 auto;
   }
 

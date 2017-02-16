@@ -35,7 +35,7 @@
                 </div>
               </div>
               <div class="nav-primary columns">
-                <a href="apps.html" class="button button_navigation"><span>application</span></a>
+                <a href="apps.html" class="button button_navigation"><span>applications</span></a>
                 <a href="users.html" class="button button_navigation"><span>utilisateurs</span></a>
               </div>
             </div>
@@ -117,7 +117,7 @@
                     </div>
                     <div class="columns columns_input">
                       <button class="select__toggle input-wrap__input" type="button" data-toggle="select-role-user" data-select-display>
-                        selectionne un rôle
+                        sélectionnez un rôle
                       </button>
                       <ul class="dropdown-pane select__options" id="select-role-user" data-dropdown data-select-options data-close-on-click="true">
                         <li class="select__option"><span class="label-role label-role_superadmin">S</span> <strong>Super administrateur</strong> <span>(admin + gestion des utilisateurs)</span></li>
@@ -136,9 +136,9 @@
                     </div>
                     <div class="columns columns_input">
                       <button class="select__toggle input-wrap__input" type="button" data-toggle="select-app-user" data-select-display>
-                        Choisir une application
+                        choisir une(des) application(s)
                       </button>
-                      <ul class="dropdown-pane select__options" id="select-app-user" data-dropdown data-select-options data-close-on-click="true">
+                      <ul class="dropdown-pane select__options" id="select-app-user" data-dropdown data-select-options data-close-on-click="true" data-dropdown-multiple>
                         <li class="select__option">Bitween</li>
                         <li class="select__option">Link</li>
                       </ul>
@@ -149,8 +149,8 @@
             </div>
             <div class="form-actions row align-justify">
               <div class="columns row-buttons">
-                <a href="users.html" class="button button_action button_confirm"><span>valider</span></a>
-                <a href="users.html" class="button button_action"><span>annuler</span></a>
+                <a href="" class="button button_action button_confirm" onclick="history.back()"><span>valider</span></a>
+                <a href="" class="button button_action" onclick="history.back()"><span>annuler</span></a>
               </div>
               <div class="columns row-buttons">
                 <a href="" class="button button_action"><span>supprimer l'utilisateur</span></a>

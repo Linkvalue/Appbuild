@@ -40,19 +40,42 @@ $select-triangle-size: rem-calc(10);
 
 .select__options {
   right: 0;
+  transition-duration: $form-transition-duration;
+  transition-property: $form-transition-prop;
+  transition-timing-function: $form-transition-timing;
   color: $black;
+  font-size: map-get($form-input-fz, small);
   list-style: none;
+  opacity: 0;
+
+  @include breakpoint(medium) {
+    font-size: map-get($form-input-fz, medium);
+  }
+
+
+  &.is-open {
+    opacity: 1;
+  }
 }
 
 .select__option {
   padding: map-get($form-label-padding, small);
   cursor: pointer;
+  transition-duration: $form-transition-duration;
+  transition-property: $form-transition-prop;
+  transition-timing-function: $form-transition-timing;
 
   @include breakpoint(medium) {
     padding: map-get($form-label-padding, medium);
   }
 
   &:hover {
-    background-color: $light-gray;
+    background-color: $primary-color;
+    color: $white;
+
+    .label-role {
+      background: $white;
+      color: $primary-color;
+    }
   }
 }

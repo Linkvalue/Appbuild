@@ -1,0 +1,48 @@
+.input-wrap__search {
+  position: relative;
+}
+
+.input-wrap__input-search {
+  height: 100%;
+}
+
+.search__results {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  max-height: rem-calc(200px);
+  margin: 0;
+  overflow-y: auto;
+  list-style: none;
+  z-index: 1;
+  background: $white;
+  opacity: 0;
+  visibility: hidden;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.search__result {
+  padding: map-get($form-input-padding, small);
+  cursor: pointer;
+
+  @include breakpoint(medium) {
+    padding: map-get($form-input-padding, medium);
+  }
+
+  &:hover {
+    background: $primary-color;
+    color: $white;
+  }
+}
+
+.text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: text;
+}

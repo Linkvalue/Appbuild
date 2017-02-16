@@ -1,16 +1,16 @@
 $reveal-box-shadow: 2px 2px 5px rgba($black, .5);
 $reveal-content-margin: rem-calc(20px);
+$reveal-padding: (
+  small: rem-calc(10px),
+  medium: rem-calc(40px)
+);
 
 $reveal-transition-prop: $global-transition-prop;
 $reveal-transition-duration: $global-transition-duration;
 $reveal-transition-timing: $global-transition-timing;
 
 .reveal {
-  outline: none;
-
-  color: $white;
-
-  box-shadow: $reveal-box-shadow;
+  padding: map-get($reveal-padding, small);
 
   transform: translateY(-50%);
 
@@ -18,7 +18,17 @@ $reveal-transition-timing: $global-transition-timing;
   transition-property: $reveal-transition-prop;
   transition-timing-function: $reveal-transition-timing;
 
+  outline: none;
+
+  color: $white;
+
+  box-shadow: $reveal-box-shadow;
+
   overflow-y: initial;
+
+  @include breakpoint(medium) {
+    padding: map-get($reveal-padding, medium);
+  }
 
   .button {
     margin-top: rem-calc(10);

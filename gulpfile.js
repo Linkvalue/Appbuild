@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var $    = require('gulp-load-plugins')();
 var webpack = require('webpack-stream');
 var babel = require('gulp-babel');
-var scsslint = require('gulp-scss-lint');
 var browserSync = require('browser-sync').create();
 
 var baseSources = path.resolve('.', 'src', 'AppBundle', 'Resources', 'assets');
@@ -47,9 +46,9 @@ const scssCleanPaths = [
 
 
 gulp.task('copy', function() {
-    return gulp.src(assetsPaths, { cwd: baseSources })
-        .pipe(gulp.dest(distPath))
-        .pipe(browserSync.stream())
+  return gulp.src(assetsPaths, { cwd: baseSources })
+    .pipe(gulp.dest(distPath))
+    .pipe(browserSync.stream())
 })
 
 /**
@@ -99,13 +98,6 @@ gulp.task('scripts', function() {
     .pipe(browserSync.stream());
 });
 
-// gulp.task('scss-lint', function() {
-//   return gulp.src(scssCleanPaths, { cwd: PATHS.src.css })
-//     .pipe(scsslint())
-//     .pipe(scsslint.failReporter());
-// });
-
-
 gulp.task('watch', function() {
   browserSync.init({
     server: {
@@ -120,7 +112,7 @@ gulp.task('watch', function() {
   });
 
   gulp.watch(['**/*.html'], { cwd: PATHS.src.html }).on('change', browserSync.reload);
-  gulp.watch(['**/*.scss'], { cwd: PATHS.src.css }, ['sass', 'scss-lint']);
+  gulp.watch(['**/*.scss'], { cwd: PATHS.src.css }, ['sass']);
   gulp.watch(['**/*.js'], { cwd: PATHS.src.js }, ['scripts']);
 });
 
@@ -128,7 +120,7 @@ gulp.task('browserSync:reload', function() {
   browserSync.reload();
 });
 
-gulp.task('build', ['sass', 'scss-lint', 'scripts', 'copy']);
+gulp.task('build', ['sass', 'scripts', 'copy']);
 
 gulp.task('dev', ['build', 'watch']);
 

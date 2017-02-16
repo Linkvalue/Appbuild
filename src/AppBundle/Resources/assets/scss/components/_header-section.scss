@@ -33,6 +33,7 @@ $button-back-transition-timing: $global-transition-timing;
 
     .link-back__button {
       margin-right: rem-calc(5);
+      background: $primary-color;
     }
   }
 }
