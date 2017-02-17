@@ -9,6 +9,11 @@ $reveal-transition-prop: $global-transition-prop;
 $reveal-transition-duration: $global-transition-duration;
 $reveal-transition-timing: $global-transition-timing;
 
+$reveal-content-padding: (
+  small: rem-calc(15 10),
+  medium: rem-calc(15)
+);
+
 .reveal {
   padding: map-get($reveal-padding, small);
 
@@ -56,4 +61,43 @@ $reveal-transition-timing: $global-transition-timing;
 
 .reveal__content {
   margin-bottom: $reveal-content-margin;
+
+  .row {
+    margin-right: - $global-space;
+    margin-left: - $global-space;
+  }
+}
+
+.reveal__block {
+  margin-bottom: $global-space * 2;
+  padding: map-get($reveal-content-padding, small);
+  background: $white;
+  color: $black;
+
+  @include breakpoint (medium) {
+    padding: map-get($reveal-content-padding, medium);
+  }
+
+  .label {
+    margin-right: $global-space * 2;
+    color: $primary-color;
+    font-style: italic;
+    font-weight: bold;
+  }
+
+}
+
+.reveal__columns {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+
+  > * {
+    flex: 1 1 0;
+  }
+
+  .reveal__block {
+    display: flex;
+    align-items: center;
+  }
 }
