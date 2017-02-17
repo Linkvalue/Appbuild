@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>AppBuild</title>
     <link rel="icon" type="image/png" href="../img/favicon.png" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
@@ -48,7 +48,7 @@
               <h1 class="title title_header-section">modifier/créer un utilisateur</h1>
             </div>
           </header>
-          <form action="" data-anim-appear>
+          <form action="" data-anim-appear data-abide novalidate>
             <div class="row row-form">
               <div class="columns small-12 large-6">
                 <div class="input-wrap input-wrap_inline">
@@ -57,7 +57,8 @@
                       <label class="input-wrap__label" for="name-user">Nom</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="text" id="name-user" placeholder="votre nom" />
+                      <input class="input-wrap__input" type="text" id="name-user" placeholder="votre nom" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -69,7 +70,8 @@
                       <label class="input-wrap__label" for="firstname-user">Prénom</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="text" id="firstname-user" placeholder="votre prénom" />
+                      <input class="input-wrap__input" type="text" id="firstname-user" placeholder="votre prénom" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -81,7 +83,8 @@
                       <label class="input-wrap__label" for="mail-user" autocorrect="off" autocomplete="email" autocapitalize="off">Adresse mail</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre mail" />
+                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre mail" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -93,7 +96,8 @@
                       <label class="input-wrap__label" for="password-user">Mot de passe</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="password" id="password-user" placeholder="votre mot de passe" />
+                      <input class="input-wrap__input" type="password" id="password-user" placeholder="votre mot de passe" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -105,7 +109,8 @@
                       <label class="input-wrap__label" for="password2-user">Répétez le mot de passe</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="password" id="password2-user" placeholder="répétez le mot de passe" />
+                      <input class="input-wrap__input" type="password" id="password2-user" placeholder="répétez le mot de passe" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -121,7 +126,7 @@
                         sélectionnez un rôle
                       </button>
                       <ul class="dropdown-pane select__options" id="select-role-user" data-dropdown data-select-options data-close-on-click="true">
-                        <li class="select__option"><span class="label-role label-role_superadmin">S</span> <strong>Super administrateur</strong> <span>(admin + gestion des utilisateurs)</span></li>
+                        <li class="select__option"><span class="label-role label-role_superadmin">S</span> <strong>Super administrateur</strong> <span>(admin et gestion des utilisateurs)</span></li>
                         <li class="select__option"><span class="label-role label-role_admin">A</span> <strong>Admin</strong> <span>(admin)</span></li>
                         <li class="select__option"><span class="label-role label-role_downloader">T</span> <strong>Téléchargeur</strong></li>
                       </ul>
@@ -150,7 +155,7 @@
             </div>
             <div class="form-actions row align-justify">
               <div class="columns row-buttons">
-                <a href="" class="button button_action button_confirm" onclick="history.back()"><span>valider</span></a>
+                <button type="submit" class="button button_action button_confirm"><span>valider</span></button>
                 <a href="" class="button button_action" onclick="history.back()"><span>annuler</span></a>
               </div>
               <div class="columns row-buttons">

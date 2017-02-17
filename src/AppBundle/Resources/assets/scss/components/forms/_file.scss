@@ -1,7 +1,15 @@
-.input-wrap__file-label {
-  height: rem-calc(200);
-  cursor: pointer;
-  z-index: 1;
+$uploader-large-height: rem-calc(200px);
+$uploader-small-height: rem-calc(30px);
+
+$uploader-large-fz: rem-calc(30px);
+$uploader-small-fz: rem-calc(16px);
+
+
+.input-wrap__file {
+  position: relative;
+}
+
+.upload__file {
 
   &:hover,
   &:focus {
@@ -10,32 +18,263 @@
       color: $dark-gray;
     }
   }
+
+
+  &.large {
+    .qq-uploader-selector {
+      min-height: $uploader-large-height;
+    }
+  }
+
+  &.small {
+    .qq-uploader-selector {
+      min-height: $uploader-small-height;
+    }
+  }
 }
 
-.input-wrap__file-label-fake {
+.input-wrap__file-label {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  z-index: 7;
+}
+
+.qq-uploader-selector {
+  width: inherit;
+  overflow-y: hidden;
+
+  &:before {
+    content: attr(qq-drop-text) " ";
+    position: absolute;
+    z-index: 3;
+    font-size: rem-calc(30px);
+    left: 50%;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    color: $medium-gray;
+  }
+}
+
+.upload__file.large {
+  .qq-uploader-selector {
+    &:before {
+      font-size: $uploader-large-fz;
+    }
+  }
+}
+
+.upload__file.small {
+  .qq-uploader-selector {
+    &:before {
+      font-size: $uploader-small-fz;
+    }
+  }
+}
+
+.qq-total-progress-bar-container,
+.qq-progress-bar-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.qq-progress-bar {
+  display: block;
+  width: 0%;
+  height: 2px;
+  background: $primary-color;
+}
+
+.qq-upload-drop-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
   text-align: center;
-  font-weight: normal;
-  font-style: normal;
-  color: $medium-gray;
   transition-duration: $form-transition-duration;
   transition-property: $form-transition-prop;
   transition-timing-function: $form-transition-timing;
-}
 
-.file-label__select {
-  font-style: normal;
-  font-size: rem-calc(20);
-  font-weight: normal;
-}
-
-.file-label__result {
-  opacity: 0;
-
-  &.js-valid {
-    opacity: 1;
+  &:before {
+    content: attr(qq-drop-text) " ";
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    color: $medium-gray;
   }
+}
+
+.large .qq-upload-drop-area {
+
+  &:before {
+    font-size: $uploader-large-fz;
+  }
+}
+
+.small .qq-upload-drop-area {
+
+  &:before {
+    font-size: $uploader-small-fz;
+  }
+}
+
+.qq-upload-drop-area-active {
+  background-color: $light-gray;
+}
+
+.qq-upload-button {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.qq-drop-processing {
+  display: block;
+}
+
+// list upload
+
+.qq-upload-list {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+
+  margin: 0;
+
+  background-color: $white;
+
+  list-style: none;
+  text-align: center;
+  z-index: 6;
+
+  li {
+    position: relative;
+    flex: 0 0 90%;
+    max-width: 90%;
+    margin: rem-calc(40) $global-space $global-space $global-space;
+    padding: map-get($form-input-padding, small);
+    border: 2px solid $primary-color;
+    border-radius: 6px;
+    text-align: center;
+
+    @include breakpoint(medium) {
+      flex: 0 0 30%;
+      max-width: 30%;
+      padding: map-get($form-input-padding, medium);
+    }
+    @include breakpoint(large) {
+      flex: 0 0 20%;
+      max-width: 20%;
+    }
+
+    &.qq-upload-fail {
+      border-color: lighten($medium-gray, 25%);
+    }
+  }
+}
+
+.qq-upload-cancel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: - rem-calc(15);
+  right: - rem-calc(15);
+  width: rem-calc(30);
+  height: rem-calc(30);
+  border-radius: 100%;
+  transition-duration: $form-transition-duration;
+  transition-property: $form-transition-prop;
+  transition-timing-function: $form-transition-timing;
+  background-color: $black;
+  text-indent: -9999px;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: 0 2px 1px rgba($black, .3);
+
+  &:before {
+    content: '×';
+    display: block;
+    text-indent: 0;
+    color: $white;
+    font-weight: bold;
+  }
+
+  &:hover,
+  &:focus {
+    transform: translateY(1px);
+    background-color: $dark-gray;
+  }
+}
+
+.qq-upload-retry {
+  height: map-get($button-height-small, small);
+
+  margin-top: $global-space;
+  margin-bottom: $global-space * 2;
+
+  transition-duration: $button-transition-duration;
+  transition-property: $button-transition-prop;
+  transition-timing-function: $button-transition-timing;
+
+  border-width: $button-border-width;
+  border-style: solid;
+  border-color: map-get($button-border-color, default);
+
+  background-color: $secondary-color;
+
+  color: $white;
+
+  font-size: map-get($button-small-fz, small);
+  text-align: center;
+
+  cursor: pointer;
+
+  @include breakpoint(medium) {
+    padding: map-get($button-padding, medium);
+    font-size: map-get($button-small-fz, medium);
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+    background-color: $light-secondary;
+    color: $white;
+  }
+}
+
+.qq-upload-file {
+  display: block;
+  width: auto;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.qq-upload-size {
+  font-size: $form-size-small;
+  color: $medium-gray;
+  text-transform: uppercase;
+}
+
+.qq-edit-filename {
+  display: none;
+}
+
+.qq-hide {
+  display: none;
 }

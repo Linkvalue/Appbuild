@@ -26,6 +26,7 @@ var sassModulesPaths = [
   // Paths to Sass libraries, which can then be loaded with @import
   'node_modules/normalize.scss/sass',
   'node_modules/foundation-sites/scss',
+  'node_modules/fine-uploader/fine-uploader',
 ];
 var assetsPaths = [
   '{img,fonts}/**/*',

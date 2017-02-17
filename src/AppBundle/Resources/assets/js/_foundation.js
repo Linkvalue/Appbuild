@@ -13,7 +13,7 @@ import 'foundation-sites/js/foundation.util.mediaQuery';
 /**
  * MODULES
  */
-// import 'foundation-sites/js/foundation.abide';
+import 'foundation-sites/js/foundation.abide';
 // import 'foundation-sites/js/foundation.accordion';
 // import 'foundation-sites/js/foundation.accordionMenu';
 // import 'foundation-sites/js/foundation.drilldown';

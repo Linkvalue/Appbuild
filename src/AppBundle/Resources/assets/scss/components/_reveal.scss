@@ -62,10 +62,10 @@ $reveal-content-padding: (
 .reveal__content {
   margin-bottom: $reveal-content-margin;
 
-  .row {
-    margin-right: - $global-space;
-    margin-left: - $global-space;
-  }
+  // .row {
+  //   margin-right: - $global-space;
+  //   margin-left: - $global-space;
+  // }
 }
 
 .reveal__block {

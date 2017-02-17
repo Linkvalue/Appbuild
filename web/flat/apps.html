@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0">
     <title>AppBuild</title>
     <link rel="icon" type="image/png" href="../img/favicon.png" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
@@ -62,10 +62,10 @@
               <div class="table__cell table__cell-head table__cell-head-last-build show-for-medium show-for-up-mobile">
                 <div class="table__cell-head__content">Dernier build</div>
               </div>
-              <div class="table__cell table__cell-head table__cell-head-last-comment">
+              <div class="table__cell table__cell-head table__cell-head-last-comment table__cell-last">
                 <div class="table__cell-head__content">Commentaire</div>
               </div>
-              <div class="table__cell table__cell-head table__cell-head-action table__cell_shrink">
+              <div class="table__cell table__cell-head table__cell-head-action table__cell_shrink show-for-medium">
                 <div class="table__cell-head__content"></div>
               </div>
             </div>
@@ -78,15 +78,15 @@
               </div>
               <div class="table__cell table__cell-body table__cell-app">
                 <div class="table__cell__content">
-                  <a class="table-link row align-middle" href="builds.html">
+                  <a class="table-link app-name-wrap align-middle" href="builds.html">
                     <div class="columns shrink">
-                      <span class="app-picture" style="background-image:url('')">
+                      <span class="app-picture" style="background-image:url('');">
                         <i class="icon icon-os icon-android hide-for-large"></i>
                       </span>
                     </div>
-                    <div class="columns build-name">
-                      <strong>RemindTheLink</strong>
-                      <span class="app-date hide-for-large">13 janv. 2017</span>
+                    <div class="columns app-name">
+                      <strong class="line">RemindTheLink</strong>
+                      <span class="app-date hide-for-large line">13 janv. 2017</span>
                     </div>
                   </a>
                 </div>
@@ -99,8 +99,8 @@
                       <i class="icon icon-download show-for-large"></i>
                     </div>
                     <div class="columns build-name">
-                      <strong>RemindTheLink</strong>
-                      <span class="app-date">13 janv. 2017</span>
+                      <strong class="line">RemindTheLink</strong>
+                      <span class="line app-date">13 janv. 2017</span>
                     </div>
                   </a>
                   <div class="columns-last">
@@ -108,12 +108,12 @@
                   </div>
                 </div>
               </div>
-              <div class="table__cell table__cell-body table__cell-last-comment">
+              <div class="table__cell table__cell-body table__cell-last-comment table__cell-last">
                 <div class="table__cell__content">
-                  <p class="comment columns-first">
-                    <span class="comment__text">Truc de fifou...</span>
-                    <a class="comment__more" data-open="modal-comment-1">Lire la suite</a>
-                  </p>
+                  <div class="comment columns-first">
+                    <span class="line comment__text">Truc de fifou...</span>
+                    <a class="comment__more line" data-open="modal-comment-1">Lire la suite</a>
+                  </div>
                   <div class="columns-last">
                     <span class="label-new show-for-medium show-for-up-mobile">nouveau</span>
                   </div>

@@ -1,12 +1,13 @@
-.msg-error {
+.form-error {
+  display: none;
   position: absolute;
   bottom: rem-calc(5);
   left: 0;
   margin-left: 0 !important;
   padding-left: map-get($form-padding-side, small);
-  font-style: italic;
-  font-size: map-get($form-error-fz, small);
   color: $alert-color;
+  font-size: map-get($form-error-fz, small);
+  font-style: italic;
 
   @include breakpoint(medium) {
     padding-left: map-get($form-padding-side, medium);
@@ -14,6 +15,6 @@
   }
 }
 
-.label-error {
+.is-invalid-label {
   color: $alert-color;
 }

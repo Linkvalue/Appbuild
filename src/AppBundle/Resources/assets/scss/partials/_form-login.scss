@@ -1,4 +1,5 @@
 $form-login-header: rem-calc(90);
+$form-login-small-fz: rem-calc(14);
 
 $form-login-transition-prop: $global-transition-prop;
 $form-login-transition-duration: $global-transition-duration;
@@ -15,8 +16,8 @@ $form-login-transition-timing: $global-transition-timing;
 
 .logo-baseline {
   color: $white;
-  font-size: rem-calc(14);
-  font-weight: 300;
+  font-family: $lv-font-family;
+  font-size: $form-login-small-fz;
   text-align: right;
 }
 
@@ -27,7 +28,9 @@ $form-login-transition-timing: $global-transition-timing;
   width: 0;
   height: 2px;
   margin-left: 50%;
-  transition: all .2s cubic-bezier(1, .1, .35, 1);
+  transition-duration: .2s;
+  transition-property: $form-login-transition-prop;
+  transition-timing-function: cubic-bezier(1, .1, .35, 1);
   background: $primary-color;
 }
 
@@ -44,7 +47,7 @@ $form-login-transition-timing: $global-transition-timing;
   transition-property: $form-login-transition-prop;
   transition-timing-function: $form-login-transition-timing;
   color: $white;
-  font-size: rem-calc(14);
+  font-size: $form-login-small-fz;
   font-style: italic;
 
   &::after {

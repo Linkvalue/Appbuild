@@ -1,11 +1,14 @@
 
 .row-form {
-  margin-left: - $form-input-space / 2;
-  margin-right: - $form-input-space / 2;
+  &,
+  &.row {
+    margin-right: - ($form-input-space / 2);
+    margin-left: - ($form-input-space / 2);
+  }
 
   > .columns {
-    padding-left: $form-input-space / 2;
     padding-right: $form-input-space / 2;
+    padding-left: $form-input-space / 2;
   }
 }
 
@@ -33,7 +36,7 @@
 
 .columns_label {
   flex: 0 0 auto;
-  max-width: 100%
+  max-width: 100%;
 }
 
 .columns_label-boxed {

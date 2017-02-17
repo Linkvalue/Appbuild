@@ -17,6 +17,7 @@ textarea,
   display: block;
   width: 100%;
   border: 0;
+  border-radius: 0;
   font-size: map-get($form-input-fz, small);
   line-height: normal;
 
@@ -51,6 +52,17 @@ label {
   cursor: pointer;
 }
 
+.label {
+  color: $primary-color;
+  font-size: map-get($form-label-fz, small);
+  font-style: italic;
+  font-weight: bold;
+
+  @include breakpoint(medium) {
+    font-size: map-get($form-label-fz, medium);
+  }
+}
+
 .input-wrap__label {
   display: flex;
   flex: 0 0 100%;
@@ -77,7 +89,8 @@ label {
 
 .input-wrap__label,
 .input-wrap__input,
-.input-wrap__radio {
+.input-wrap__radio,
+.input-wrap__file {
   padding: map-get($form-label-padding, small);
   background-color: $white;
 
@@ -89,7 +102,8 @@ label {
 .input-wrap__label,
 .input-wrap__radio,
 .input-wrap__search,
-.input-wrap__input:not(.input-wrap__input-search) {
+.input-wrap__input:not(.input-wrap__input-search),
+.input-wrap__file {
   margin-bottom: $form-input-space;
 }
 

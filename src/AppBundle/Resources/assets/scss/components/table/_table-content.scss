@@ -1,8 +1,41 @@
+.line {
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  @include breakpoint(small only) {
+    height: $table-line-height;
+  }
+
+  @include breakpoint(medium down) {
+    width: 100%;
+  }
+}
+
+.app-name-wrap {
+  display: flex;
+  flex-flow: row nowrap;
+
+  > * {
+    padding: 0;
+  }
+}
+
+.app-name {
+  flex: 0 0 calc(100% - (#{$table-app-img} + #{$table-app-img-space}));
+  max-width: calc(100% - (#{$table-app-img} + #{$table-app-img-space}));
+
+  > * {
+    display: block;
+  }
+}
+
 .app-picture {
   display: inline-block;
   position: relative;
   width: $table-app-img;
   height: $table-app-img;
+  margin-right: $table-app-img-space;
   border-radius: rem-calc(8);
   background-color: $black;
   background-position: center;
@@ -18,21 +51,20 @@
     }
   }
 
-  @include breakpoint(medium) {
-    margin-right: rem-calc(8);
-  }
 }
 
 .build-name {
-  word-break: break-all;
+
+
+
   > * {
     display: block;
-
   }
 }
 
 .app-date {
   font-size: map-get($table-date-fz, small);
+  margin-top: rem-calc(2px);
 
   @include breakpoint(medium) {
     font-size: map-get($table-date-fz, medium);
@@ -60,8 +92,8 @@
 
   @include breakpoint(medium) {
     height: map-get($label-height, medium);
-    line-height: map-get($label-height, medium);
     font-size: map-get($label-fz, medium);
+    line-height: map-get($label-height, medium);
   }
 }
 

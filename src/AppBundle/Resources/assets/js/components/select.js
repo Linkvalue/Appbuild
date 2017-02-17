@@ -1,20 +1,19 @@
-$('[data-select-display]').each(function() {
+$('[data-select-display]').each((idx, elem) => {
 
-  var $selectDisplay = $(this);
-  var id = $(this).attr('data-toggle');
-  var $selectOptions = $(`[data-select-options][id="${id}"]`);
+  const $selectDisplay = $(elem);
+  const id =  $selectDisplay.attr('data-toggle');
+  const $selectOptions = $(`[data-select-options][id="${id}"]`);
 
-  var $selectOptionItem = $selectOptions.children('li');
+  const $selectOptionItem = $selectOptions.children('li');
 
-  $selectOptionItem.click(function() {
-    $selectDisplay.html($(this).html());
+  $selectOptionItem.on('click', (e) => {
+    $selectDisplay.html($(e.target).html());
     $selectOptions.foundation('close');
-
   });
 });
 
 
-$('[data-select-search]').each( (idx, elem) => {
+$('[data-select-search]').each((idx, elem) => {
   const $selectSearch = $(elem);
   const $selectSearchInput = $(elem).find('[data-select-search]');
   const $selectSearchOptions = $(elem).find('[data-select-search-results]');
@@ -23,7 +22,7 @@ $('[data-select-search]').each( (idx, elem) => {
 
   // Add id on each children
 
-  $selectSearchOption.each( (idx, elem) => {
+  $selectSearchOption.each((idx, elem) => {
     $(elem).attr('data-id', `${idx}`);
   });
 
