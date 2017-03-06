@@ -1,5 +1,14 @@
 const $progressButtons = $('[data-load]');
 
+function closeModal(btn, time) {
+  if($(btn).closest('.reveal').length > 0) {
+    const $reveal = $(btn).closest('.reveal');
+    setTimeout(() => {
+      $reveal.foundation('close');
+    }, time + 900);
+  };
+}
+
 $progressButtons.each((idx, elem) => {
   const $progressButton = $(elem);
   const timeLoader = 900;
@@ -13,18 +22,27 @@ $progressButtons.each((idx, elem) => {
   $progressLine.css('transition-duration', `${timeLoader}ms`);
   $progressLineCheck.css('transition-delay', `${timeLoader + 300}ms`);
 
-  $progressButton.click(() => {
-    $progressButton
-      .addClass('js-button-loading');
+  $progressButton.click( () => {
 
-    if($progressButton.closest('.reveal').length > 0) {
-      const $reveal = $progressButton.closest('.reveal');
-      setTimeout(() => {
-        $reveal.foundation('close');
-      }, timeLoader + 900);
+    if ($progressButton.closest('form[data-abide]').length > 0) {
+      const $form = $progressButton.closest('form[data-abide]');
+
+      $progressButton.on("formvalid.zf.abide", function(ev, frm) {
+        ev.preventDefault();
+        $progressButton
+          .addClass('js-button-loading');
+
+        closeModal($progressButton);
+      });
+
+    } else {
+      $progressButton
+        .addClass('js-button-loading');
+
+      closeModal($progressButton, timeLoader);
     };
+
   });
 
-  //setTimeout(() => $progressButton.removeClass('js-button-loading'), timeLoader);
 
 });

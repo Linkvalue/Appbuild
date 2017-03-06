@@ -92,7 +92,7 @@ $button-medium-fz: (
   @include breakpoint(medium) {
     padding: map-get($button-padding, medium);
     font-size: map-get($button-default-fz, medium);
-  };
+  }
 
   &:hover,
   &:focus {

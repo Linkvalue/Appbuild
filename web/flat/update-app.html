@@ -3,11 +3,87 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>AppBuild</title>
     <link rel="icon" type="image/png" href="../img/favicon.png" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="../css/app.css">
+    <script type="text/template" id="qq-template">
+      <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-text="Déplace un fichier ici ou choisis-en un">
+          <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+              <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+          </div>
+          <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone qq-drop-text="Déplace un fichier ici ou choisis-en un">
+              <span class="qq-upload-drop-area-text-selector"></span>
+          </div>
+          <div class="qq-upload-button-selector qq-upload-button">
+              <div>Upload a file</div>
+          </div>
+          <span class="qq-drop-processing-selector qq-drop-processing">
+              <span>Processing dropped files...</span>
+              <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+          </span>
+          <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+              <li>
+                  <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                  <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+                      <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                  </div>
+                  <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                  <div class="qq-thumbnail-wrapper">
+                      <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+                  </div>
+                  <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
+                  <button type="button" class="qq-upload-retry-selector qq-upload-retry">
+                      <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+                      Retry
+                  </button>
+
+                  <div class="qq-file-info">
+                      <div class="qq-file-name">
+                          <span class="qq-upload-file-selector qq-upload-file"></span>
+                          <span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>
+                      </div>
+                      <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                      <span class="qq-upload-size-selector qq-upload-size"></span>
+                      <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
+                          <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+                      </button>
+                      <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
+                          <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+                      </button>
+                      <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
+                          <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+                      </button>
+                  </div>
+              </li>
+          </ul>
+
+          <dialog class="qq-alert-dialog-selector">
+              <div class="qq-dialog-message-selector"></div>
+              <div class="qq-dialog-buttons">
+                  <button type="button" class="qq-cancel-button-selector">Close</button>
+              </div>
+          </dialog>
+
+          <dialog class="qq-confirm-dialog-selector">
+              <div class="qq-dialog-message-selector"></div>
+              <div class="qq-dialog-buttons">
+                  <button type="button" class="qq-cancel-button-selector">No</button>
+                  <button type="button" class="qq-ok-button-selector">Yes</button>
+              </div>
+          </dialog>
+
+          <dialog class="qq-prompt-dialog-selector">
+              <div class="qq-dialog-message-selector"></div>
+              <input type="text">
+              <div class="qq-dialog-buttons">
+                  <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                  <button type="button" class="qq-ok-button-selector">Ok</button>
+              </div>
+          </dialog>
+      </div>
+    </script>
   </head>
   <body>
     <div class="row main-content">
@@ -50,15 +126,15 @@
             </div>
           </header>
 
-          <form action="" data-anim-appear>
+          <form action="" data-anim-appear data-abide novalidate>
             <div class="input-wrap input-wrap_inline">
               <div class="row">
                 <div class="columns columns_label columns_label-boxed">
-                  <label class="input-wrap__label label-error" for="name-app">Nom de l'application</label>
+                  <label class="input-wrap__label" for="name-app">Nom de l'application</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="text" id="name-app" placeholder="indiquez le nom de l'app" />
-                  <span class="msg-error">Le nom n'est pas valide</span>
+                  <input class="input-wrap__input" type="text" id="name-app" placeholder="indiquez le nom de l'app" required />
+                  <span class="form-error">Le champ est obligatoire</span>
                 </div>
               </div>
             </div>
@@ -73,26 +149,22 @@
               </div>
             </div>
             <div class="input-wrap input-wrap_inline">
-              <div class="row">
-                <div class="columns columns_label columns_label-boxed">
-                  <label class="input-wrap__label" for="icon-app">Icône de l'application</label>
-                </div>
-                <div class="columns columns_input">
-                  <input class="input-wrap__input" type="file" id="icon-app" />
-                </div>
+              <div class="input-wrap__file input-wrap__file_inline">
+                <label class="label input-wrap__file-label" for="icon-app">Icône de l'application</label>
+                <div class="upload__file small" id="uploader-img"></div>
               </div>
             </div>
             <div class="input-wrap input-wrap_inline input-wrap_links">
               <div class="row">
                 <div class="columns columns_label columns_label-boxed">
-                  <label for="plateform-app" class="input-wrap__label">Plateforme</label>
+                  <label for="plateform-app" class="input-wrap__label" required>Plateforme</label>
                 </div>
                 <div class="columns columns_input">
                   <div class="input-wrap__input-radio">
-                    <input type="radio" name="plateform-app" value="apple" id="apple" required><label class="input-wrap__radio" for="apple"><i class="icon icon-apple">  </i></label>
+                    <input type="radio" name="plateform-app" value="apple" id="apple"><label class="input-wrap__radio" for="apple"><i class="icon icon-apple">  </i></label>
                   </div>
                   <div class="input-wrap__input-radio">
-                    <input type="radio" name="plateform-app" value="android" id="android" required><label class="input-wrap__radio" for="android"><i class="icon icon-android">  </i></label>
+                    <input type="radio" name="plateform-app" value="android" id="android"><label class="input-wrap__radio" for="android"><i class="icon icon-android">  </i></label>
                   </div>
                 </div>
               </div>
@@ -103,7 +175,8 @@
                   <label class="input-wrap__label" for="package-app"><span>Nom de package</span><span class="show-for-medium show-for-up-mobile">(aka. Bundle identifier)</span></label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="text" id="package-app" placeholder="ex : Bundle" />
+                  <input class="input-wrap__input" type="text" id="package-app" placeholder="ex : Bundle" required />
+                  <span class="form-error">Le champ est obligatoire</span>
                 </div>
               </div>
             </div>
@@ -129,10 +202,10 @@
               <div class="columns columns_offset small-12">
                 <div class="columns_options">
                   <div class="input-wrap__input-checkbox">
-                    <input type="checkbox" name="users-list" value="user-1" id="user-1" required><label class="input-wrap__checkbox" for="user-1"><span><strong>Annabelle goetz</strong><span>téléchargeur</span></span></label>
+                    <input type="checkbox" name="users-list" value="user-1" id="user-1"><label class="input-wrap__checkbox" for="user-1"><span><strong>Annabelle goetz</strong><span>téléchargeur</span></span></label>
                   </div>
                   <div class="input-wrap__input-checkbox">
-                    <input type="checkbox" name="users-list" value="user-2" id="user-2" required><label class="input-wrap__checkbox" for="user-2"><span><strong>Annabelle goetz</strong><span>téléchargeur</span></span></label>
+                    <input type="checkbox" name="users-list" value="user-2" id="user-2"><label class="input-wrap__checkbox" for="user-2"><span><strong>Annabelle goetz</strong><span>téléchargeur</span></span></label>
                   </div>
                 </div>
                 <div class="columns_options__action">
@@ -142,7 +215,7 @@
             </div>
             <div class="form-actions row align-justify">
               <div class="columns row-buttons">
-                <a href="" class="button button_action button_confirm" onclick="history.back()"><span>valider</span></a>
+                <button type="submit" class="button button_action button_confirm" data-button-form><span>valider</span></button>
                 <a href="" class="button button_action" onclick="history.back()"><span>annuler</span></a>
               </div>
             </div>
@@ -153,7 +226,7 @@
 
     <div class="reveal large" id="modal-create-user" data-reveal>
       <h3 class="title">Créer un nouvel utilisateur</h3>
-      <form action="">
+      <form action="" data-abide novalidate>
         <div class="reveal__content row row-form">
           <div class="columns small-12 large-6">
             <div class="input-wrap input-wrap_inline">
@@ -162,7 +235,8 @@
                   <label class="input-wrap__label" for="name-user">Nom</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="text" id="name-user" placeholder="votre nom" />
+                  <input class="input-wrap__input" type="text" id="name-user" placeholder="votre nom" required />
+                  <span class="form-error">Le champ est obligatoire</span>
                 </div>
               </div>
             </div>
@@ -174,7 +248,8 @@
                   <label class="input-wrap__label" for="firstname-user">Prénom</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="text" id="firstname-user" placeholder="votre prénom" />
+                  <input class="input-wrap__input" type="text" id="firstname-user" placeholder="votre prénom" required />
+                  <span class="form-error">Le champ est obligatoire</span>
                 </div>
               </div>
             </div>
@@ -186,7 +261,8 @@
                   <label class="input-wrap__label" for="mail-user">Adresse mail</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre prénom" />
+                  <input class="input-wrap__input" type="email" id="mail-user" placeholder="adresse mail" required />
+                  <span class="form-error">Le champ est obligatoire</span>
                 </div>
               </div>
             </div>
@@ -198,7 +274,8 @@
                   <label class="input-wrap__label" for="password-user">Mot de passe</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="password" id="password-user" placeholder="votre nom" />
+                  <input class="input-wrap__input" type="password" id="password-user" placeholder="mot de passer" required />
+                  <span class="form-error">Le champ est obligatoire</span>
                 </div>
               </div>
             </div>
@@ -210,7 +287,8 @@
                   <label class="input-wrap__label" for="password2-user">Mot de passe</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="password" id="password2-user" placeholder="votre prénom" />
+                  <input class="input-wrap__input" type="password" id="password2-user" placeholder="confirmez le mot de passe" required />
+                  <span class="form-error">Le champ est obligatoire</span>
                 </div>
               </div>
             </div>
@@ -226,10 +304,9 @@
                     selectionne un rôle
                   </button>
                   <ul class="dropdown-pane select__options" id="select-role-user" data-dropdown data-select-options data-close-on-click="true">
-                    <li class="select__option"><span class="label-role label-role_superadmin">S</span> <strong>Super administrateur</strong> <span>(admin + gestion des utilisateurs)</span></li>
+                    <li class="select__option"><span class="label-role label-role_superadmin">S</span> <strong>Super administrateur</strong> <span>(admin et gestion des utilisateurs)</span></li>
                     <li class="select__option"><span class="label-role label-role_admin">A</span> <strong>Admin</strong> <span>(admin)</span></li>
-                    <li class="select__option"><span class="label-role label-role_downloader">T</span> <strong>Téléchargeur</strong></li>
-                  </ul>
+                    <li class="select__option"><span class="label-role label-role_downloader">T</span> <strong>Téléchargeur</strong></li>                  </ul>
                 </div>
               </div>
             </div>
@@ -238,7 +315,7 @@
 
         </div>
         <div class="row-buttons">
-          <button class="button button_action button_confirm" type="button" data-load>
+          <button class="button button_action button_confirm" type="submit" data-load>
             <span>valider</span>
           </button>
           <button class="button button_action" data-close aria-label="Close modal" type="button">

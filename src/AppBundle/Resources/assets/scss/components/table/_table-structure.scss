@@ -3,6 +3,7 @@
   width: 100%;
   font-size: map-get($table-fz, small);
   border-collapse: separate;
+      line-height: normal;
 
   @include breakpoint(medium) {
     font-size: map-get($table-fz, medium);
@@ -10,16 +11,38 @@
 }
 
 .table__row {
-  display: table-row;
+  display: flex;
+  align-items: stretch;
+
+  @include breakpoint(medium) {
+    display: table-row;
+  }
 }
 
 .table__cell {
-  display: table-cell;
+  display: flex;
+
   padding: map-get($table-row-padding, small);
-  vertical-align: middle;
+
+  @include breakpoint(small only) {
+    flex: 1 0 0;
+  }
+
 
   @include breakpoint(medium) {
+    display: table-cell;
     padding: map-get($table-row-padding, medium);
+    vertical-align: middle;
+  }
+
+  .table__cell__content,
+  .table__cell-head__content {
+    width: 100%;
+
+    > * {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 
   &:not(:first-child) {
@@ -63,11 +86,6 @@
         }
       }
 
-      &.table__cell_mobile-right {
-        .table__cell__content {
-          padding-left: 0;
-        }
-      }
     }
 
     @include breakpoint(medium down) {
@@ -82,12 +100,22 @@
         }
       }
     }
+
+
   }
 
 }
 
 .table__cell_shrink {
-  width: 1px;
+
+  @include breakpoint(small only) {
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
+
+  @include breakpoint(medium) {
+    width: 1px;
+  }
 }
 
 // TABLE HEAD
@@ -170,5 +198,55 @@
       flex: 0 0 auto;
       max-width: 100%;
     }
+  }
+}
+
+.comment.columns-first {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+}
+
+
+// TABLE CELL SPECIFICATION MOBILE
+
+
+
+@include breakpoint(small only) {
+
+  .table__cell_mobile-right {
+
+    position: absolute;
+    right: 0;
+    height: 100%;
+
+    .table__cell__content {
+      padding-left: 0;
+    }
+  }
+
+  .table__cell-last {
+    padding-right: map-get($button-icon-size, width) + ($table-padding-side-mobile);
+  }
+
+  .table__cell-role,
+  .table__cell-firstname,
+  .table__cell-head-lastname,
+  .table__cell-head-role {
+    flex: 0 0 50px;
+    max-width: 50px;
+  }
+
+  .table__cell-app,
+  .table__cell-head-app,
+  .table__cell-last {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .table__cell-mail,
+  .table__cell-head-mail {
+    flex: 0 0 calc(100% - 100px);
+    max-width: calc(100% - 100px);
   }
 }

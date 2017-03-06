@@ -3,6 +3,8 @@ $table-fz: (
   medium: rem-calc(16px)
 );
 
+$table-line-height: rem-calc(15px);
+
 $table-link-transition-prop: $global-transition-prop;
 $table-link-transition-duration: .1s;
 $table-link-transition-timing: $global-transition-timing;
@@ -23,7 +25,11 @@ $table-cell-body-padding: (
   medium: rem-calc(3px 20px)
 );
 
+$table-padding-side-mobile: rem-calc(10px);
+
 $table-app-img: rem-calc(40px);
+
+$table-app-img-space: rem-calc(8px);
 
 $icon-transition-prop: $global-transition-prop;
 $icon-transition-duration: $global-transition-duration;

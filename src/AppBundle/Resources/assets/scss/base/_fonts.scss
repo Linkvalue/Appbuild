@@ -2,67 +2,11 @@
 $font-path: '../fonts/' !default;
 
 @font-face {
-  font-family: 'Open Sans';
-  src: url('OpenSans-BoldItalic.eot');
-  src: local('Open Sans Bold Italic'), local('OpenSans-BoldItalic'),
-		url('#{$font-path}OpenSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
-		url('#{$font-path}OpenSans-BoldItalic.woff') format('woff'),
-		url('#{$font-path}OpenSans-BoldItalic.ttf') format('truetype');
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  src: url('#{$font-path}OpenSans-SemiboldItalic.eot');
-  src: local('Open Sans Semibold Italic'), local('OpenSans-SemiboldItalic'),
-		url('#{$font-path}OpenSans-SemiboldItalic.eot?#iefix') format('embedded-opentype'),
-		url('#{$font-path}OpenSans-SemiboldItalic.woff') format('woff'),
-		url('#{$font-path}OpenSans-SemiboldItalic.ttf') format('truetype');
-  font-weight: 600;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  src: url('#{$font-path}OpenSans-Bold.eot');
-  src: local('Open Sans Bold'), local('OpenSans-Bold'),
-		url('#{$font-path}OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
-		url('#{$font-path}OpenSans-Bold.woff') format('woff'),
-		url('#{$font-path}OpenSans-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  src: url('#{$font-path}OpenSans.eot');
-  src: local('Open Sans'), local('OpenSans'),
-		url('#{$font-path}OpenSans.eot?#iefix') format('embedded-opentype'),
-		url('#{$font-path}OpenSans.woff') format('woff'),
-		url('#{$font-path}OpenSans.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  src: url('#{$font-path}OpenSans-Italic.eot');
-  src: local('Open Sans Italic'), local('OpenSans-Italic'),
-		url('#{$font-path}OpenSans-Italic.eot?#iefix') format('embedded-opentype'),
-		url('#{$font-path}OpenSans-Italic.woff') format('woff'),
-		url('#{$font-path}OpenSans-Italic.ttf') format('truetype');
+  font-family: 'ITC Avant Garde';
+  src: url('ITCAvantGardeStd-XLt.eot');
+  src: url('#{$font-path}ITCAvantGardeStd-XLt.eot?#iefix') format('embedded-opentype'),
+		url('#{$font-path}ITCAvantGardeStd-XLt.woff') format('woff'),
+		url('#{$font-path}ITCAvantGardeStd-XLt.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  src: url('#{$font-path}OpenSans-Semibold.eot');
-  src: local('Open Sans Semibold'), local('OpenSans-Semibold'),
-		url('#{$font-path}OpenSans-Semibold.eot?#iefix') format('embedded-opentype'),
-		url('#{$font-path}OpenSans-Semibold.woff') format('woff'),
-		url('#{$font-path}OpenSans-Semibold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>AppBuild</title>
     <link rel="icon" type="image/png" href="../img/favicon.png" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
@@ -50,7 +50,7 @@
             </div>
           </header>
 
-          <form action="" data-anim-appear>
+          <form action="" data-anim-appear data-abide novalidate>
             <div class="row row-form">
               <div class="columns small-12 large-6">
                 <div class="input-wrap input-wrap_inline">
@@ -59,7 +59,8 @@
                       <label class="input-wrap__label" for="name-user">Nom</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="text" id="name-user" placeholder="votre nom" />
+                      <input class="input-wrap__input" type="text" id="name-user" placeholder="votre nom" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -71,7 +72,8 @@
                       <label class="input-wrap__label" for="firstname-user">Prénom</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="text" id="firstname-user" placeholder="votre prénom" />
+                      <input class="input-wrap__input" type="text" id="firstname-user" placeholder="votre prénom" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -83,7 +85,8 @@
                       <label class="input-wrap__label" for="mail-user">Adresse mail</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre adresse mail" autocorrect="off" autocomplete="email" autocapitalize="off" />
+                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre adresse mail" autocorrect="off" autocomplete="email" autocapitalize="off" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -95,7 +98,8 @@
                       <label class="input-wrap__label" for="password-user">Mot de passe</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="password" id="password-user" placeholder="mot de passe" />
+                      <input class="input-wrap__input" type="password" id="password-user" placeholder="mot de passe" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -107,7 +111,8 @@
                       <label class="input-wrap__label" for="password2-user">Confirmation</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="password" id="password2-user" placeholder="répétez le mot de passe" />
+                      <input class="input-wrap__input" type="password" id="password2-user" placeholder="répétez le mot de passe" required />
+                      <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
@@ -115,7 +120,7 @@
             </div>
             <div class="form-actions">
               <div class="row-buttons">
-                <button class="button button_action button_confirm" type="button" onclick="history.back()">
+                <button class="button button_action button_confirm" type="submit">
                   <span>sauvegarder</span>
                 </button>
                 <a href="" class="button button_action" onclick="history.back()">
