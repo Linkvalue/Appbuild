@@ -32,42 +32,42 @@ $checkbox-border-width: $button-border-width;
   }
 }
 
-.input-wrap__checkbox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: $checkbox-width;
-  min-height: map-get($checkbox-height, small);
-  margin: 0;
-  padding: $checkbox-padding;
-
-  border: $radio-border-width solid transparent;
-
-  transition-duration: $form-transition-duration;
-  transition-property: $form-transition-prop;
-  transition-timing-function: $form-transition-timing;
-
-  background-color: $light-secondary;
-  color: $white;
-  text-align: center;
-  font-size: map-get($form-label-fz, small);
-
-  @include breakpoint(medium) {
-    min-height: map-get($checkbox-height, medium);
-    font-size: map-get($form-label-fz, medium);
-  }
-
-  span {
-    display: inline-block;
-  }
-
-  span > * {
-    display: block;
-    line-height: 1;
-  }
-
-  &:hover {
-    background: $primary-color;
-    color: $medium-secondary;
-  }
-}
+// .input-wrap__checkbox {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   min-width: $checkbox-width;
+//   min-height: map-get($checkbox-height, small);
+//   margin: 0;
+//   padding: $checkbox-padding;
+//
+//   border: $radio-border-width solid transparent;
+//
+//   transition-duration: $form-transition-duration;
+//   transition-property: $form-transition-prop;
+//   transition-timing-function: $form-transition-timing;
+//
+//   background-color: $light-secondary;
+//   color: $white;
+//   text-align: center;
+//   font-size: map-get($form-label-fz, small);
+//
+//   @include breakpoint(medium) {
+//     min-height: map-get($checkbox-height, medium);
+//     font-size: map-get($form-label-fz, medium);
+//   }
+//
+//   span {
+//     display: inline-block;
+//   }
+//
+//   span > * {
+//     display: block;
+//     line-height: 1;
+//   }
+//
+//   &:hover {
+//     background: $primary-color;
+//     color: $medium-secondary;
+//   }
+// }

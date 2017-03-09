@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/app.css">
   </head>
   <body>
-    <div class="row main-content">
+    <div id="create-user" class="row main-content">
 
       <div class="columns small-12">
         <header class="header">
@@ -80,10 +80,10 @@
                 <div class="input-wrap input-wrap_inline">
                   <div class="row">
                     <div class="columns columns_label">
-                      <label class="input-wrap__label" for="mail-user" autocorrect="off" autocomplete="email" autocapitalize="off">Adresse mail</label>
+                      <label class="input-wrap__label" for="mail-user">Adresse mail</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre mail" required />
+                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre adresse mail" autocorrect="off" autocomplete="email" autocapitalize="off" pattern="email" required />
                       <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
@@ -93,24 +93,24 @@
                 <div class="input-wrap input-wrap_inline">
                   <div class="row">
                     <div class="columns columns_label">
-                      <label class="input-wrap__label" for="password-user">Mot de passe</label>
+                      <label class="input-wrap__label" for="password">Mot de passe</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="password" id="password-user" placeholder="votre mot de passe" required />
+                      <input class="input-wrap__input" type="text" id="password" placeholder="mot de passe" required />
                       <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="columns small-12 large-6" >
+              <div class="columns small-12 large-6">
                 <div class="input-wrap input-wrap_inline">
                   <div class="row">
                     <div class="columns columns_label">
-                      <label class="input-wrap__label" for="password2-user">Répétez le mot de passe</label>
+                      <label class="input-wrap__label" for="password-confirmation">Confirmation</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="password" id="password2-user" placeholder="répétez le mot de passe" required />
-                      <span class="form-error">Le champ est obligatoire</span>
+                      <input class="input-wrap__input" type="text" id="password-confirmation" placeholder="répétez le mot de passe" required data-validator="check_password" data-equal-to="password" />
+                      <span class="form-error">Le mot de passe n'est pas identique</span>
                     </div>
                   </div>
                 </div>
@@ -135,19 +135,25 @@
                 </div>
               </div>
               <div class="columns small-12">
-                <div class="input-wrap input-wrap_inline">
-                  <div class="row">
-                    <div class="columns columns_label">
-                      <label class="input-wrap__label" for="role-user">Associer une application</label>
-                    </div>
-                    <div class="columns columns_input">
-                      <button class="select__toggle input-wrap__input" type="button" data-toggle="select-app-user" data-select-display>
-                        choisir une(des) application(s)
-                      </button>
-                      <ul class="dropdown-pane select__options" id="select-app-user" data-dropdown data-select-options data-close-on-click="true" data-dropdown-multiple>
-                        <li class="select__option">Bitween</li>
-                        <li class="select__option">Link</li>
+                <div class="row input-wrap input-wrap_block js-select">
+                  <div class="columns columns_label columns_label-boxed">
+                    <label class="input-wrap__label" for="role-user">Associer une application</label>
+                  </div>
+                  <div class="columns columns_input">
+                    <div class="input-wrap__search">
+                      <input class="input-wrap__input input-wrap__input-search" type="search" id="role-user" placeholder="Choisir une(des) application(s)" />
+                      <ul class="search__results js-select__options">
+                        <li class="search__result js-select__option" data-id=""><span>Bitween</span></li>
+                        <li class="search__result js-select__option" data-id=""><span>Link</span></li>
+                        <li class="search__result js-select__option" data-id=""><span>App</span></li>
+                        <li class="search__result js-select__option" data-id=""><span>Bitween</span></li>
                       </ul>
+                    </div>
+                  </div>
+                  <div class="columns columns_offset small-12 js-results" id="js-results">
+                    <div class="columns_options js-results-elems"></div>
+                    <div class="columns_options__action">
+                      <a href="#" class="button button_action js-delete-elem"><span>supprimer l'utilisateur</span></a>
                     </div>
                   </div>
                 </div>

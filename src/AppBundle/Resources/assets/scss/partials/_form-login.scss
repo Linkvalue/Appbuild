@@ -21,19 +21,6 @@ $form-login-transition-timing: $global-transition-timing;
   text-align: right;
 }
 
-.bar {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  margin-left: 50%;
-  transition-duration: .2s;
-  transition-property: $form-login-transition-prop;
-  transition-timing-function: cubic-bezier(1, .1, .35, 1);
-  background: $primary-color;
-}
-
 .form-login__actions {
   display: flex;
   flex-direction: column;

@@ -4,14 +4,17 @@
   text-align: left;
 }
 
-.label_login {
+.bar {
+  display: block;
   position: absolute;
-  top: 50%;
-  left: rem-calc(20);
-  transform: translateY(-50%);
-  transition: all .2s cubic-bezier(.4, 0, .01, .96);
-  pointer-events: none;
-  font-weight: normal;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  margin-left: 50%;
+  transition-duration: .2s;
+  transition-property: $form-transition-prop;
+  transition-timing-function: cubic-bezier(1, .1, .35, 1);
+  background: $primary-color;
 }
 
 .input_login {
@@ -20,13 +23,14 @@
   padding: rem-calc(20 20 12 20);
   z-index: 1;
 
+
   &:focus,
-  &.active {
+  &.active,
+  &.is-invalid-input {
     outline: none;
 
     ~ .label_login {
       top: calc(50% - 12px);
-      color: $medium-gray;
       font-size: rem-calc(10);
     }
 
@@ -34,5 +38,32 @@
       width: 100%;
       margin-left: 0%;
     }
+  }
+
+  &.is-invalid-input {
+    ~ .bar {
+      background-color: $alert-color;
+    }
+  }
+
+  &:focus,
+  &.active {
+    ~ .label_login {
+      color: $medium-gray;
+    }
+  }
+}
+
+.label_login {
+  position: absolute;
+  top: 50%;
+  left: rem-calc(20);
+  transform: translateY(-50%);
+  transition: all .2s cubic-bezier(.4, 0, .01, .96);
+  pointer-events: none;
+  font-weight: normal;
+
+  &.is-invalid-label {
+    color: $alert-color;
   }
 }

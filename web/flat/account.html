@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/app.css">
   </head>
   <body>
-    <div class="row main-content">
+    <div id="account" class="row main-content">
 
       <div class="columns small-12">
         <header class="header">
@@ -50,7 +50,7 @@
             </div>
           </header>
 
-          <form action="" data-anim-appear data-abide novalidate>
+          <form action="" data-anim-appear data-abide novalidate id="check-password">
             <div class="row row-form">
               <div class="columns small-12 large-6">
                 <div class="input-wrap input-wrap_inline">
@@ -85,7 +85,7 @@
                       <label class="input-wrap__label" for="mail-user">Adresse mail</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre adresse mail" autocorrect="off" autocomplete="email" autocapitalize="off" required />
+                      <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre adresse mail" autocorrect="off" autocomplete="email" autocapitalize="off" pattern="email" required />
                       <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
@@ -95,10 +95,10 @@
                 <div class="input-wrap input-wrap_inline">
                   <div class="row">
                     <div class="columns columns_label">
-                      <label class="input-wrap__label" for="password-user">Mot de passe</label>
+                      <label class="input-wrap__label" for="password">Mot de passe</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="password" id="password-user" placeholder="mot de passe" required />
+                      <input class="input-wrap__input" type="text" id="password" placeholder="mot de passe" required />
                       <span class="form-error">Le champ est obligatoire</span>
                     </div>
                   </div>
@@ -108,11 +108,11 @@
                 <div class="input-wrap input-wrap_inline">
                   <div class="row">
                     <div class="columns columns_label">
-                      <label class="input-wrap__label" for="password2-user">Confirmation</label>
+                      <label class="input-wrap__label" for="password-confirmation">Confirmation</label>
                     </div>
                     <div class="columns columns_input">
-                      <input class="input-wrap__input" type="password" id="password2-user" placeholder="répétez le mot de passe" required />
-                      <span class="form-error">Le champ est obligatoire</span>
+                      <input class="input-wrap__input" type="text" id="password-confirmation" placeholder="répétez le mot de passe" required data-validator="check_password" data-equal-to="password" />
+                      <span class="form-error">Le mot de passe n'est pas identique</span>
                     </div>
                   </div>
                 </div>
@@ -133,104 +133,6 @@
       </div>
     </div>
 
-    <div class="reveal large" id="modal-create-user" data-reveal>
-      <h3 class="title">Créer un nouvel utilisateur</h3>
-      <form action="">
-        <div class="reveal__content row row-form">
-          <div class="columns small-12 large-6">
-            <div class="input-wrap input-wrap_inline">
-              <div class="row">
-                <div class="columns columns_label">
-                  <label class="input-wrap__label" for="name-user">Nom</label>
-                </div>
-                <div class="columns columns_input">
-                  <input class="input-wrap__input" type="text" id="name-user" placeholder="votre nom" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="columns small-12 large-6">
-            <div class="input-wrap input-wrap_inline">
-              <div class="row">
-                <div class="columns columns_label">
-                  <label class="input-wrap__label" for="firstname-user">Prénom</label>
-                </div>
-                <div class="columns columns_input">
-                  <input class="input-wrap__input" type="text" id="firstname-user" placeholder="votre prénom" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="columns small-12">
-            <div class="input-wrap input-wrap_inline">
-              <div class="row">
-                <div class="columns columns_label">
-                  <label class="input-wrap__label" for="mail-user">Adresse mail</label>
-                </div>
-                <div class="columns columns_input">
-                  <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre prénom" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="columns small-12 large-6">
-            <div class="input-wrap input-wrap_inline">
-              <div class="row">
-                <div class="columns columns_label">
-                  <label class="input-wrap__label" for="password-user">Mot de passe</label>
-                </div>
-                <div class="columns columns_input">
-                  <input class="input-wrap__input" type="password" id="password-user" placeholder="votre nom" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="columns small-12 large-6">
-            <div class="input-wrap input-wrap_inline">
-              <div class="row">
-                <div class="columns columns_label">
-                  <label class="input-wrap__label" for="password2-user">Mot de passe</label>
-                </div>
-                <div class="columns columns_input">
-                  <input class="input-wrap__input" type="password" id="password2-user" placeholder="votre prénom" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="columns small-12">
-            <div class="input-wrap input-wrap_inline">
-              <div class="row">
-                <div class="columns columns_label">
-                  <label class="input-wrap__label" for="role-user">Rôle</label>
-                </div>
-                <div class="columns columns_input">
-                  <select id="role-user" class="input-wrap__input">
-                    <option value="">Choisis un rôle</option>
-                    <option class="ta" value="superadmin">
-                      <span class="label-role label-role_superadmin">S</span> <strong>Super administrateur</strong> <span>(admin + gestion des utilisateurs)</span>
-                    </option>
-                    <option value="admin">
-                      <span class="label-role label-role_admin">A</span> <strong>Admin</strong> <span>(admin)</span>
-                    </option>
-                    <option value="downloader">
-                      <span class="label-role label-role_downloader">T</span> <strong>téléchargeur</strong> <span>(téléchargement)</span>
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row-buttons">
-          <button class="button button_action button_confirm" type="button" data-load>
-            <span>valider</span>
-          </button>
-          <button class="button button_action" data-close aria-label="Close modal" type="button">
-            annuler
-          </button>
-        </div>
-      </form>
-    </div>
 
 
     <script src="../js/main.js"></script>
