@@ -42,8 +42,8 @@
 .columns_label-boxed {
 
   @include breakpoint(large) {
-    flex: 0 0 16%;
-    max-width: 16%;
+    flex: 0 0 17%;
+    max-width: 17%;
   }
 }
 
@@ -59,6 +59,8 @@
 }
 
 .columns_options {
+  display: flex;
+  flex-flow: row wrap;
   flex: 1 1 100%;
   max-width: 100%;
 

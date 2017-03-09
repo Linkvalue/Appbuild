@@ -63,8 +63,8 @@
 }
 
 .app-date {
+  margin-top: rem-calc(3px);
   font-size: map-get($table-date-fz, small);
-  margin-top: rem-calc(2px);
 
   @include breakpoint(medium) {
     font-size: map-get($table-date-fz, medium);
@@ -159,17 +159,24 @@
 
   display: inline-block;
   position: relative;
-  transition: all .2s ease-out;
+  margin-top: rem-calc(3px);
   color: $primary-color;
+  font-size: map-get($table-date-fz, small);
   font-style: italic;
+
+  @include breakpoint(medium) {
+    font-size: map-get($table-date-fz, medium);
+  }
 
   &::after {
     content: '';
     display: block;
     width: 100%;
     height: 1px;
-    transform: translateY(5px);
-    transition: all .2s ease-out;
+    transform: translateY(8px);
+    transition-duration: $table-link-transition-duration;
+    transition-property: $table-link-transition-prop;
+    transition-timing-function: $table-link-transition-timing;
     background-color: $primary-color;
     opacity: 0;
   }

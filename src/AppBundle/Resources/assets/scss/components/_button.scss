@@ -5,6 +5,8 @@ $button-transition-timing: $global-transition-timing;
 
 $button-border-width: 2px;
 
+$button-margin: rem-calc(10px);
+
 $button-height: (
   small: rem-calc(40px),
   medium: rem-calc(70px),
@@ -35,12 +37,14 @@ $button-border-color: (
 
 $button-padding: (
   small: rem-calc(2 20),
-  medium: rem-calc(2 30)
+  medium: rem-calc(2 30),
+  fix: rem-calc(5)
 );
 
 $button-width: (
   small: rem-calc(120px),
-  medium: rem-calc(200px)
+  medium: rem-calc(200px),
+  check: rem-calc(165px)
 );
 
 $button-default-fz: (
@@ -67,7 +71,7 @@ $button-medium-fz: (
   align-items: center;
   justify-content: center;
 
-  margin-bottom: rem-calc(10);
+  margin-bottom: $button-margin;
   padding: map-get($button-padding, small);
 
   transition-duration: $button-transition-duration;
@@ -173,6 +177,42 @@ $button-medium-fz: (
 
   @include breakpoint(medium) {
     height: map-get($button-height-login, medium);
+  }
+}
+
+.button_checkbox,
+.button_checkbox:visited {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: map-get($button-width, check);
+  height: map-get($button-height-small, small);
+
+  margin-right: $button-margin / 2;
+  margin-bottom: $button-margin / 2;
+  padding: map-get($button-padding, fix);
+
+  border-color: transparent;
+
+  background-color: $light-secondary;
+  font-size: map-get($button-small-fz, small);
+
+  @include breakpoint(medium) {
+    width: map-get($button-width, check);
+    height: map-get($button-height-small, medium);
+
+    font-size: map-get($button-medium-fz, small);
+  }
+  span > * {
+    display: block;
+    line-height: 1;
+  }
+
+  &:hover,
+  &.is-checked {
+    background: $primary-color;
+    color: $medium-secondary;
   }
 }
 

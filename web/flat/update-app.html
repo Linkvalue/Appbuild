@@ -59,14 +59,14 @@
               </li>
           </ul>
 
-          <dialog class="qq-alert-dialog-selector">
+          <dialog class="hide qq-alert-dialog-selector">
               <div class="qq-dialog-message-selector"></div>
               <div class="qq-dialog-buttons">
                   <button type="button" class="qq-cancel-button-selector">Close</button>
               </div>
           </dialog>
 
-          <dialog class="qq-confirm-dialog-selector">
+          <dialog class="hide qq-confirm-dialog-selector">
               <div class="qq-dialog-message-selector"></div>
               <div class="qq-dialog-buttons">
                   <button type="button" class="qq-cancel-button-selector">No</button>
@@ -74,7 +74,7 @@
               </div>
           </dialog>
 
-          <dialog class="qq-prompt-dialog-selector">
+          <dialog class="hide qq-prompt-dialog-selector">
               <div class="qq-dialog-message-selector"></div>
               <input type="text">
               <div class="qq-dialog-buttons">
@@ -161,15 +161,15 @@
                 </div>
                 <div class="columns columns_input">
                   <div class="input-wrap__input-radio">
-                    <input type="radio" name="plateform-app" value="apple" id="apple"><label class="input-wrap__radio" for="apple"><i class="icon icon-apple">  </i></label>
+                    <input type="radio" name="plateform-app" value="apple" id="apple" data-for="input-package"><label class="input-wrap__radio" for="apple"><i class="icon icon-apple"></i></label>
                   </div>
                   <div class="input-wrap__input-radio">
-                    <input type="radio" name="plateform-app" value="android" id="android"><label class="input-wrap__radio" for="android"><i class="icon icon-android">  </i></label>
+                    <input type="radio" name="plateform-app" value="android" id="android"><label class="input-wrap__radio" for="android"><i class="icon icon-android"></i></label>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="input-wrap input-wrap_inline">
+            <div class="input-wrap input-wrap_inline" id="input-package">
               <div class="row">
                 <div class="columns columns_label columns_label-boxed">
                   <label class="input-wrap__label" for="package-app"><span>Nom de package</span><span class="show-for-medium show-for-up-mobile">(aka. Bundle identifier)</span></label>
@@ -180,36 +180,30 @@
                 </div>
               </div>
             </div>
-            <div class="row input-wrap input-wrap_block">
+            <div class="row input-wrap input-wrap_block js-select">
               <div class="columns columns_label columns_label-boxed">
                 <label class="input-wrap__label" for="users-app">Utilisateurs</label>
               </div>
               <div class="columns columns_input">
-                <div class="input-wrap__search" data-select-search>
+                <div class="input-wrap__search">
                   <input class="input-wrap__input input-wrap__input-search" type="search" id="users-app" placeholder="tapez le nom de l'utilisateur" data-select-search />
-                  <div class="text" data-select-search-label></div>
-                  <ul class="search__results" data-select-search-results>
-                    <li class="search__result">Jean</li>
-                    <li class="search__result">Josey</li>
-                    <li class="search__result">Aline</li>
-                    <li class="search__result">Jean</li>
+                  <ul class="search__results js-select__options">
+                    <li class="search__result js-select__option" data-id=""><span><strong>Annabelle goetz</strong> - <span>téléchargeur</span></span></li>
+                    <li class="search__result js-select__option" data-id=""><span><strong>Annabelle goetz</strong> - <span>téléchargeur</span></span></li>
+                    <li class="search__result js-select__option" data-id=""><span><strong>Annabelle goetz</strong> - <span>téléchargeur</span></span></li>
+                    <li class="search__result js-select__option" data-id=""><span><strong>Annabelle goetz</strong> - <span>téléchargeur</span></span></li>
                   </ul>
                 </div>
               </div>
               <div class="columns shrink">
                 <a data-open="modal-create-user" class="button button_action button_navigation button_input-wrap-side"><span>créer un nouvel utilisateur</span></a>
               </div>
-              <div class="columns columns_offset small-12">
-                <div class="columns_options">
-                  <div class="input-wrap__input-checkbox">
-                    <input type="checkbox" name="users-list" value="user-1" id="user-1"><label class="input-wrap__checkbox" for="user-1"><span><strong>Annabelle goetz</strong><span>téléchargeur</span></span></label>
-                  </div>
-                  <div class="input-wrap__input-checkbox">
-                    <input type="checkbox" name="users-list" value="user-2" id="user-2"><label class="input-wrap__checkbox" for="user-2"><span><strong>Annabelle goetz</strong><span>téléchargeur</span></span></label>
-                  </div>
+              <div class="columns columns_offset small-12 js-results" id="js-results">
+                <div class="columns_options js-results-elems">
+
                 </div>
                 <div class="columns_options__action">
-                  <a href="" class="button button_action"><span>supprimer l'utilisateur</span></a>
+                  <a href="" class="button button_action js-delete-elem"><span>supprimer l'utilisateur</span></a>
                 </div>
               </div>
             </div>
@@ -261,7 +255,7 @@
                   <label class="input-wrap__label" for="mail-user">Adresse mail</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="email" id="mail-user" placeholder="adresse mail" required />
+                  <input class="input-wrap__input" type="email" id="mail-user" placeholder="votre adresse mail" autocorrect="off" autocomplete="email" autocapitalize="off" pattern="email" required />
                   <span class="form-error">Le champ est obligatoire</span>
                 </div>
               </div>
@@ -271,10 +265,10 @@
             <div class="input-wrap input-wrap_inline">
               <div class="row">
                 <div class="columns columns_label">
-                  <label class="input-wrap__label" for="password-user">Mot de passe</label>
+                  <label class="input-wrap__label" for="password">Mot de passe</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="password" id="password-user" placeholder="mot de passer" required />
+                  <input class="input-wrap__input" type="text" id="password" placeholder="mot de passe" required />
                   <span class="form-error">Le champ est obligatoire</span>
                 </div>
               </div>
@@ -284,11 +278,11 @@
             <div class="input-wrap input-wrap_inline">
               <div class="row">
                 <div class="columns columns_label">
-                  <label class="input-wrap__label" for="password2-user">Mot de passe</label>
+                  <label class="input-wrap__label" for="password-confirmation">Confirmation</label>
                 </div>
                 <div class="columns columns_input">
-                  <input class="input-wrap__input" type="password" id="password2-user" placeholder="confirmez le mot de passe" required />
-                  <span class="form-error">Le champ est obligatoire</span>
+                  <input class="input-wrap__input" type="text" id="password-confirmation" placeholder="répétez le mot de passe" required data-validator="check_password" data-equal-to="password" />
+                  <span class="form-error">Le mot de passe n'est pas identique</span>
                 </div>
               </div>
             </div>

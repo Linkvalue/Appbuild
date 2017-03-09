@@ -7,3 +7,13 @@ Allow to host iOS/Android application builds for an easy installation on allowed
 ## Contribute
 
 [See our CONTRIBUTING guide](CONTRIBUTING.md)
+
+
+## Getting Started
+
+run these commands to set up the front
+
+```bash
+npm install
+npm start
+```

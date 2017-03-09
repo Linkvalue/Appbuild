@@ -50,6 +50,12 @@
     background: $primary-color;
     color: $white;
   }
+
+  &.is-disabled {
+    color: $medium-gray;
+    cursor: not-allowed;
+    background: inherit;
+  }
 }
 
 .text {
