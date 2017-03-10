@@ -28,12 +28,6 @@ function selectFilter () {
       });
     };
 
-    // Add id on each children
-
-    //$selectElem.each((idx, elem) => {
-      //$(elem).attr('data-id', `${idx}`);
-    //});
-
     // Open the options list when you click on search input
 
     $inputSearch.on('click', (e) => {
