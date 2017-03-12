@@ -3,6 +3,9 @@
 namespace Majora\OTAStore\ApplicationBundle\Service;
 
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
+use Majora\OTAStore\ApplicationBundle\Entity\Build;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -81,13 +84,40 @@ class BuildUploadHelper
     /**
      * Move uploaded file to its final destination.
      *
-     * @param UploadedFile $uploadedFile
-     * @param Application  $application
-     * @param string       $filename
+     * @param File|UploadedFile $uploadedFile
+     * @param Application       $application
+     * @param string            $filename
      */
-    public function moveUploadedFile(UploadedFile $uploadedFile, Application $application, $filename)
+    public function moveUploadedFile(File $uploadedFile, Application $application, $filename)
     {
         $uploadedFile->move($this->getBasePath($application), $filename);
+    }
+
+    /**
+     * Put binary content into a tmp file and return it into a Symfony\Component\HttpFoundation\File\File
+     * This binary file has to be moved or deleted manually.
+     *
+     * @param $fileContent mixed The file binary content (Can be either a string, an array or a stream resource.)
+     * @param $filename string The file name
+     *
+     * @return File The created file in temp folder
+     *
+     * @throws FileException if the file could not be created
+     */
+    public function createTempFile($fileContent, $filename)
+    {
+        $filePath = DIRECTORY_SEPARATOR.
+            trim(sys_get_temp_dir(), DIRECTORY_SEPARATOR).
+            DIRECTORY_SEPARATOR.
+            ltrim($filename, DIRECTORY_SEPARATOR);
+
+        $writeRes = file_put_contents($filePath, $fileContent);
+
+        if ($writeRes === false) {
+            throw new FileException(sprintf('Could not create temp file "%s"', $fileContent));
+        }
+
+        return new File($filePath);
     }
 
     /**

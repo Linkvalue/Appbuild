@@ -3,3 +3,9 @@
 majoraotastore_api_build_get:
     path:     '/{id}'
     defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:get' }
+    methods:  [GET, HEAD]
+
+majoraotastore_api_build_add_file:
+    path:     '/{id}/file'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:uploadFile' }
+    methods:  [PUT]

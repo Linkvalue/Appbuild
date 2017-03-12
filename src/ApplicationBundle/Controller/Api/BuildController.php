@@ -4,12 +4,15 @@ namespace Majora\OTAStore\ApplicationBundle\Controller\Api;
 
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
+use Majora\OTAStore\ApplicationBundle\Form\Type\BuildType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class BuildController extends Controller
+class BuildController extends ApiController
 {
     /**
      * Get enabled build by id.
@@ -68,5 +71,102 @@ class BuildController extends Controller
         }
 
         return new JsonResponse($this->container->get('appbuild.application.serializer')->serializeBuildForDownloading($latestBuild));
+    }
+
+    /**
+     * Create a new build for the application.
+     *
+     * @ParamConverter("application", options={"mapping": {"application_id": "id"}})
+     *
+     * @param Application $application
+     * @param Request     $request
+     *
+     * @return Response
+     */
+    public function createForApplicationAction(Application $application, Request $request)
+    {
+        $this->checkEditRight($application);
+
+        $form = $this->container->get('form.factory')->create(
+            BuildType::class,
+            $build = (new Build())->setApplication($application)->setEnabled(false)
+        );
+        $data = json_decode($request->getContent(), true);
+        $form->submit($data);
+
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $em->persist($build);
+        $em->flush();
+
+        return new JsonResponse([
+            'build_id' => $build->getId(),
+            'upload_location' => $this->generateUrl(
+                'majoraotastore_api_build_add_file',
+                ['id' => $build->getId()],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
+        ]);
+    }
+
+    /**
+     * Upload file for a build.
+     *
+     * @param Build   $build   The build computed from url param
+     * @param Request $request The request
+     *
+     * @return JsonResponse The response
+     *
+     * @throws \Exception An uncatched exception
+     */
+    public function uploadFileAction(Build $build, Request $request)
+    {
+        $application = $build->getApplication();
+        $filename = $build->getLabel();
+
+        $this->checkEditRight($application);
+
+        $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
+
+        try {
+            $tmpFile = $uploadHelper->createTempFile($request->getContent(), $filename);
+            $uploadHelper->moveUploadedFile($tmpFile, $application, $filename);
+        } catch (\Exception $e) {
+            if ($e instanceof FileException) {
+                return new JsonResponse(['errors' => ['Cannot upload this file.']], 500);
+            }
+            throw $e;
+        }
+
+        $build
+            ->setFilePath($uploadHelper->getFilePath($application, $filename))
+            ->setEnabled(true);
+
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $em->persist($build);
+        $em->flush();
+
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+
+        return $response;
+    }
+
+    /**
+     * Check if the user has edit right on application.
+     *
+     * @param Application $application
+     */
+    private function checkEditRight(Application $application)
+    {
+        /*
+         TODO handle de authentication
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$this->getUserApplications()->contains($application)) {
+            throw $this->createAccessDeniedException();
+        }
+        */
     }
 }

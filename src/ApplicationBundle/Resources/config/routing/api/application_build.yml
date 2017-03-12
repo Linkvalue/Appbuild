@@ -1,9 +1,16 @@
 
 # Application Builds
+majoraotastore_api_application_build_add:
+    path:     '/'
+    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:createForApplication' }
+    methods:  [PUT]
+
 majoraotastore_api_application_build_list:
     path:     '/'
     defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:listForApplication' }
+    methods:  [GET, HEAD]
 
 majoraotastore_api_application_build_get_latest:
     path:     '/latest'
     defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:getLatestForApplication' }
+    methods:  [GET, HEAD]
