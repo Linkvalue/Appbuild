@@ -64,8 +64,7 @@ function selectFilter () {
 
       if (!$option.hasClass('is-disabled')) {
         const optionID = $option.attr('data-id');
-        const tagArray = $option.html().split(" - ");
-        const tag = tagArray[0] + tagArray[1];
+        const tag = $option.html();
         const result = {id: optionID, name: tag};
 
       	// Push the item in the table
@@ -81,6 +80,8 @@ function selectFilter () {
         // Close the list
         $selectElems.removeClass('is-open');
       };
+
+
     });
 
     $results.on('click', '.js-results-elem', (e) => {
@@ -121,9 +122,9 @@ function selectFilter () {
 
 
         // and we remove the class disabled
-
         $selectElem.filter(`[data-id="${optionID}"]`).removeClass('is-disabled');
       });
+
     });
 
   });

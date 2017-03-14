@@ -164,7 +164,7 @@ $button-medium-fz: (
   font-size: map-get($button-medium-fz, small);
 
   @include breakpoint(medium) {
-    width: map-get($button-width, medium);
+    min-width: map-get($button-width, medium);
     height: map-get($button-height-small, medium);
 
     font-size: map-get($button-medium-fz, medium);
