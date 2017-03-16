@@ -15,6 +15,11 @@ security:
             pattern: '^/(_(profiler|wdt)|css|images|js|uploads)/'
             security: false
 
+        # js translations bundle route must be accessible without logging in
+        js_translations:
+            pattern: '^/translations'
+            security: false
+
         # manifest and file downloading must be accessible without logging in
         accessible_files:
             pattern: '^/\w+/application/\d+/build/\d+/(manifest|file)'
