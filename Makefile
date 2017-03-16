@@ -37,18 +37,9 @@ clean:
 	rm -rf var/logs/*
 	rm -rf vendor/composer/autoload*
 	rm var/bootstrap.php.cache
-	test -d web/bundles && rm -rf web/bundles/* || true
-	test -d web/css && rm -rf web/css/* || true
-	test -d web/js && rm -rf web/js/* || true
 	bin/composer dump-autoload
 	php bin/console cache:warmup
-	php bin/console assets:install --symlink
-	php bin/console assetic:dump --force
-
-clean-assets:
-	test -d web/css && rm -rf web/css/* || true
-	test -d web/js && rm -rf web/js/* || true
-	php bin/console assetic:dump --force
+	npm run build
 
 # Installation
 install-bin:
@@ -66,22 +57,16 @@ install-git-hooks:
 install-composer:
 	bin/composer install
 
-install-bower:
-	test -L bin/bower || (npm install bower && cd bin && ln -fs ../node_modules/bower/bin/bower)
-	bin/bower install --config.interactive=false
-	cd web && ln -fs ../vendor/bower_components/components-font-awesome/fonts
-	cd web && ln -fs ../vendor/bower_components/flag-icon-css/flags
+install-npm:
+	npm install
 
-install: install-bin install-git-hooks install-composer install-bower db-build clean
+install: install-bin install-git-hooks install-composer install-npm db-build clean
 
 # Update
-update: update-composer update-bower clean
+update: update-composer clean
 
 update-composer:
 	bin/composer update
-
-update-bower:
-	bower update --config.interactive=false
 
 update-parameters:
 	bin/composer run-script set-parameters-yml -vv
@@ -106,7 +91,7 @@ db-update:
 	php bin/console doctrine:migrations:migrate -n
 
 # Tests
-test-prepare: test-install-bin install-composer install-bower db-build clean
+test-prepare: test-install-bin install-composer install-npm db-build clean
 
 test-install-bin:
 	test -d bin/ || mkdir bin/
@@ -116,8 +101,7 @@ test-install-bin:
 # Production
 prod-install: install-bin
 	bin/composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
-	test -L bin/bower || (npm install bower && cd bin && ln -fs ../node_modules/bower/bin/bower)
-	bin/bower install --config.interactive=false
+	npm install
 
 prod-build:
 	php bin/console doctrine:database:create --if-not-exists --env=prod
@@ -128,14 +112,8 @@ prod-clean:
 	rm -rf var/logs/*
 	rm -rf vendor/composer/autoload*
 	rm var/bootstrap.php.cache
-	test -d web/bundles && rm -rf web/bundles/* || true
-	test -d web/css && rm -rf web/css/* || true
-	test -d web/js && rm -rf web/js/* || true
-	test -d web/fonts && rm -rf web/fonts/* || true
 	bin/composer dump-autoload -o
 	php bin/console cache:warmup --env=prod
-	cp -rf vendor/bower_components/components-font-awesome/fonts web/
-	php bin/console assets:install --env=prod
-	php bin/console assetic:dump --force --env=prod
+	npm run build
 
 prod-deploy: prod-install prod-build prod-clean

@@ -39,10 +39,7 @@
 .bundle
 
 # Assets and user uploads
-/web/css
-/web/js
-/web/flags
-/web/fonts
+/web/assets/
 /web/uploads/
 
 # PHP-CS-Fixer

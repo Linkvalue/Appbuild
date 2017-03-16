@@ -5,7 +5,7 @@ php:
   - 7.0
 
 before_script:
-  - gem install sass
+  - nvm install "$(jq -r '.engines.node' package.json)"
   - make test-prepare
 
 script:

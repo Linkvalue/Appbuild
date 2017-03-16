@@ -1,7 +1,10 @@
 {% extends 'MajoraOTAStoreApplicationBundle::layout.html.twig' %}
 
 {% block content %}
-    {{ form_start(form, {'method': 'POST', 'action': block('application_form_action')}) }}
+    {{ form_start(form, {'method': 'POST', 'action': block('application_form_action'), 'attr': {
+        'data-current-user-id': currentUserId,
+        'data-application-support-ios': applicationSupportIOS,
+    }}) }}
     {{ form_rest(form) }}
     <button type="submit" class="btn btn-primary">
         <i class="fa fa-check"></i>
@@ -12,40 +15,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-
-    <script>
-        var currentUserId = '{{ currentUserId }}';
-        var applicationSupportIOS = '{{ applicationSupportIOS }}';
-
-        // Check and hide current user from Users list
-        // (if this was unchecked by mistake, current user would lost his ability to act on this application)
-        $('#majoraotastore_application_users_' + currentUserId)
-            .prop('checked', true)
-            .closest('.checkbox').hide()
-        ;
-
-        // Set up application packageName field visibility.
-        $supportField = $('#majoraotastore_application_support');
-        setupPackageNameVisibility($supportField);
-        $supportField.change(function() {
-            setupPackageNameVisibility($supportField);
-        });
-
-        /**
-         * Show package name field depending on application support.
-         *
-         * @param {object} $supportField
-         */
-        function setupPackageNameVisibility($supportField) {
-            if ($supportField.val() === applicationSupportIOS) {
-                $('#majoraotastore_application_packageName').prop('disabled', false)
-                    .closest('.form-group').removeClass('hidden')
-                ;
-            } else {
-                $('#majoraotastore_application_packageName').prop('disabled', true)
-                    .closest('.form-group').addClass('hidden')
-                ;
-            }
-        }
-    </script>
+    <script src="{{ asset('assets/application-form.js') }}"></script>
 {% endblock %}

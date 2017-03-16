@@ -5,9 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{{ 'admin.title'|trans }}{% endblock %}</title>
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-        {% block stylesheets %}
-            {{ include('MajoraOTAStoreAppBundle::stylesheets.html.twig') }}
-        {% endblock %}
     </head>
     <body class="{% block body_class '' %}">
 
@@ -57,7 +54,12 @@
         </main>
 
         {% block javascripts %}
-            {{ include('MajoraOTAStoreAppBundle::javascripts.html.twig') }}
+            <script src="{{ asset('assets/jquery.js') }}"></script>
+            <script src="{{ asset('assets/bazinga-translator.js') }}"></script>
+            <script src="{{ url('bazinga_jstranslation_js') }}"></script>
+            <script src="{{ asset('assets/fos-js-routing.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+            <script src="{{ asset('assets/main.js') }}"></script>
         {% endblock %}
     </body>
 </html>

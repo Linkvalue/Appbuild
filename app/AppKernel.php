@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class AppKernel extends Kernel
 {
@@ -18,7 +19,6 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
             // vendors
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
@@ -60,5 +60,18 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+
+        // Handle webpack-dev-server assets dynamically served
+        if ($this->getEnvironment() === 'dev') {
+            $loader->load(function (ContainerBuilder $container) {
+                if ($container->getParameter('use_webpack_dev_server')) {
+                    $container->loadFromExtension('framework', [
+                        'assets' => [
+                            'base_url' => 'http://'.$container->getParameter('webpack_dev_server_host').':8080',
+                        ],
+                    ]);
+                }
+            });
+        }
     }
 }
