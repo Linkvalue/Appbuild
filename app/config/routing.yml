@@ -2,7 +2,6 @@
 # Misc routing
 majoraotastore_misc:
     resource: 'routing/routing_misc.yml'
-    prefix: '/_misc'
 
 # API routing
 majoraotastore_api:
