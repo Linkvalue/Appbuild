@@ -130,11 +130,8 @@ class BuildController extends ApiController
         try {
             $tmpFile = $uploadHelper->createTempFile($request->getContent(), $filename);
             $uploadHelper->moveUploadedFile($tmpFile, $application, $filename);
-        } catch (\Exception $e) {
-            if ($e instanceof FileException) {
-                return new JsonResponse(['errors' => ['Cannot upload this file.']], 500);
-            }
-            throw $e;
+        } catch (FileException $e) {
+            return new JsonResponse(['errors' => ['Cannot upload this file.']], 500);
         }
 
         $build
