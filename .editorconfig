@@ -15,5 +15,5 @@ indent_style = tab
 [*.md]
 trim_trailing_whitespace = false
 
-[*.feature]
+[*.{feature,json,js}]
 indent_size = 2

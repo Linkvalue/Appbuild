@@ -50,46 +50,6 @@ twig:
     globals:
         timezone: '%timezone%'
 
-# Assetic Configuration
-assetic:
-    debug: '%kernel.debug%'
-    use_controller: '%assetic_use_controller%'
-    bundles:
-        - 'MajoraOTAStoreAppBundle'
-    filters:
-        cssrewrite: ~
-        scss:
-            apply_to: '\.scss$'
-    assets:
-        compiled_vendors_css:
-            output: 'css/vendors.css'
-            inputs:
-                - '%bower_path%/bootstrap/dist/css/bootstrap.min.css'
-                - '%bower_path%/components-font-awesome/css/font-awesome.min.css'
-                - '%bower_path%/datatables-bootstrap3-plugin/media/css/datatables-bootstrap3.min.css'
-
-        compiled_vendors_js:
-            output: 'js/vendors.js'
-            inputs:
-                - '%bower_path%/lodash/lodash.min.js'
-                - '%bower_path%/jquery/dist/jquery.min.js'
-                - '%bower_path%/bootstrap/dist/js/bootstrap.min.js'
-                - '%bower_path%/moment/min/moment.min.js'
-                - '%bower_path%/jquery.cookie/jquery.cookie.js'
-                - '%bower_path%/jquery-ui/jquery-ui.min.js'
-                - '%bower_path%/datatables/media/js/jquery.dataTables.min.js'
-                - '%bower_path%/datatables-bootstrap3-plugin/media/js/datatables-bootstrap3.min.js'
-
-        compiled_upload_css:
-            output: 'css/upload.css'
-            inputs:
-                - '%bower_path%/fine-uploader/dist/fine-uploader-new.min.css'
-
-        compiled_upload_js:
-            output: 'js/upload.js'
-            inputs:
-                - '%bower_path%/fine-uploader/dist/jquery.fine-uploader.min.js'
-
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -121,3 +81,7 @@ stof_doctrine_extensions:
         default:
             timestampable: true
             sluggable: true
+
+bazinga_js_translation:
+    active_locales: '%enabled_locales%'
+    locale_fallback: '%default_locale%'

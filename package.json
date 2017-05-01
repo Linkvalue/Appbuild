@@ -1,0 +1,39 @@
+{
+  "name": "majora-ota-store",
+  "version": "1.0.0",
+  "license": "MIT",
+  "engines": {
+    "node": "6.9.4"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --host 0.0.0.0 --watch-poll",
+    "build": "NODE_ENV=production webpack"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "components-font-awesome": "^4.7.0",
+    "datatables": "^1.10.13",
+    "datatables-bootstrap3-plugin": "^0.5.0",
+    "fine-uploader": "^5.14.1",
+    "isdev": "^1.0.1",
+    "jquery": "^2.2.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-loader": "^6.4.0",
+    "babel-preset-es2015": "^6.24.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.27.3",
+    "file-loader": "^0.10.1",
+    "nave": "^2.2.3",
+    "node-sass": "^4.5.0",
+    "postcss-loader": "^1.3.3",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.14.0",
+    "uglify-js": "^2.8.13",
+    "uglifyjs-webpack-plugin": "^0.3.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.2"
+  }
+}

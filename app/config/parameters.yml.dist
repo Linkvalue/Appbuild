@@ -19,6 +19,10 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: 'ThisTokenIsNotSoSecretChangeIt'
 
+    # use webpack-dev-server to watch assets modification in development environment
+    use_webpack_dev_server: false
+    webpack_dev_server_host: 'majoraotastore.dev' # could be 'localhost' if you're not using the provided Vagrant environment
+
     # Symfony session path (set this to '/tmp/sessions' for example if you encounter some issues in dev environment)
     session_save_path: '%kernel.root_dir%/../var/sessions/%kernel.environment%'
 
@@ -39,6 +43,3 @@ parameters:
 
     # Path to the directory from where builds file content will be streamed (only used if "stream_builds_content = true")
     stream_builds_application_dir: '%kernel.root_dir%/../build'
-
-    # Assetic use controller
-    assetic_use_controller: false

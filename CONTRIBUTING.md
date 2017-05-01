@@ -40,6 +40,30 @@ admin@admin.fr => admin
 user@user.fr => user
 ```
 
+### Frontend development
+
+All the assets (CSS/JS) are handled by Webpack.
+
+By default, you'll have to run `npm run build` each time you edit an asset file to see the modification in your browser (after refreshing it).
+
+But you can also use the webpack-dev-server to watch assets modification without needed to rebuild assets or even refreshing your browser.
+
+First, activate the webpack-dev-server support in your `parameters.yml` file:
+
+```yml
+# parameters.yml
+
+...
+
+use_webpack_dev_server: true
+
+```
+
+Then run the following command:
+
+```bash
+npm start
+```
 
 ### Common tasks
 ```bash
