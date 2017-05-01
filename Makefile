@@ -48,7 +48,6 @@ install-bin:
 	bin/composer self-update
 	test -f bin/php-cs-fixer || wget http://get.sensiolabs.org/php-cs-fixer.phar -O bin/php-cs-fixer
 	php bin/php-cs-fixer self-update
-	test -f /usr/bin/ruby || (test -f /usr/local/bin/ruby && sudo ln -fs /usr/local/bin/ruby /usr/bin/ruby)
 
 install-git-hooks:
 	test -f .git/hooks/pre-commit || wget https://raw.githubusercontent.com/LinkValue/symfony-git-hooks/master/pre-commit -O .git/hooks/pre-commit
@@ -100,7 +99,7 @@ test-install-bin:
 
 # Production
 prod-install: install-bin
-	bin/composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+	SYMFONY_ENV=prod bin/composer install --no-dev --optimize-autoloader --no-interaction
 	npm install
 
 prod-build:
