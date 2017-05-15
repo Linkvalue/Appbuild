@@ -6,7 +6,7 @@
     "node": "6.9.4"
   },
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --watch-poll",
+    "start": "webpack-dev-server --public majoraotastore.dev:8080 --watch-poll",
     "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
