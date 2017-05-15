@@ -86,7 +86,12 @@ const config = {
   },
 };
 
-if (!isDev) {
+if (isDev) {
+  config['devServer'] = {
+    host: '0.0.0.0',
+    disableHostCheck: true,
+  };
+} else {
   config.plugins.push(new UglifyJSPlugin());
 }
 

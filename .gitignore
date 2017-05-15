@@ -30,13 +30,8 @@
 !/bin/console
 !/bin/symfony_requirements
 
-# capistrano
-/capistrano/.ssh/
-/capistrano/logs/
-/app/config/parameters_*.yml
-
-# Managed by Bundler
-.bundle
+# deploy
+/deploy/
 
 # Assets and user uploads
 /web/assets/
@@ -44,7 +39,6 @@
 
 # PHP-CS-Fixer
 /.php_cs.*
-/cs_fixer_*
 
 # node.js
 /node_modules/

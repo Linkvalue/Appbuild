@@ -12,7 +12,6 @@
     - composer
     - mysql
     - nodejs
-    - capistrano
   vars_files:
     - vars.yml
     - vars.local.yml
