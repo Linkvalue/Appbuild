@@ -26,3 +26,8 @@
     {{ include('MajoraOTAStoreAppBundle::upload-container-template.html.twig') }}
     <script src="{{ asset('assets/build-form.js') }}"></script>
 {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/build-form.css') }}" />
+{% endblock %}

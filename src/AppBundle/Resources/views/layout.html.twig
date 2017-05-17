@@ -5,6 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{{ 'admin.title'|trans }}{% endblock %}</title>
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('assets/vendor.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/main.css') }}" />
+        {% endblock %}
     </head>
     <body class="{% block body_class '' %}">
 
@@ -59,6 +64,8 @@
             <script src="{{ url('bazinga_jstranslation_js') }}"></script>
             <script src="{{ asset('assets/fos-js-routing.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+            <script src="{{ asset('assets/common.js') }}"></script>
+            <script src="{{ asset('assets/vendor.js') }}"></script>
             <script src="{{ asset('assets/main.js') }}"></script>
         {% endblock %}
     </body>

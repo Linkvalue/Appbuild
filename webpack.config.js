@@ -2,9 +2,21 @@ const path = require('path');
 const isDev = require('isdev');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const { optimize } = require('webpack');
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractCSS = new ExtractTextPlugin({
+  filename: '[name].css?[contenthash]',
+  allChunks: true,
+});
+const extractSASS = new ExtractTextPlugin({
+  filename: '[name].css?[contenthash]',
+  allChunks: true,
+});
 
 const config = {
   entry: {
+    vendor: './src/AppBundle/Resources/public/js/vendor.js',
     main: './src/AppBundle/Resources/public/js/main.js',
     'application-form': './src/AppBundle/Resources/public/js/application-form.js',
     'build-form': './src/AppBundle/Resources/public/js/build-form.js',
@@ -26,29 +38,31 @@ const config = {
         },
       },
       {
-        test: /\.css/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-        ],
+        test: /\.css$/,
+        use: isDev
+          ? ['style-loader', 'css-loader']
+          : extractCSS.extract({
+            fallback: 'style-loader',
+            use: {
+              loader: 'css-loader',
+            },
+          }),
       },
       {
         test: /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'sass-loader',
-          },
-        ],
+        use: isDev
+          ? ['style-loader', 'css-loader', 'sass-loader']
+          : extractSASS.extract({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+              },
+              {
+                loader: 'sass-loader',
+              },
+            ],
+          }),
       },
       {
         test: /\.(png|gif|jpg|svg|woff2?|ttf|eot)$/,
@@ -73,6 +87,7 @@ const config = {
         to: 'bazinga-translator.js',
       },
     ]),
+    new optimize.CommonsChunkPlugin({ name: 'common', filename: 'common.js' }),
   ],
   externals: {
     jquery: 'jQuery',
@@ -93,6 +108,8 @@ if (isDev) {
   };
 } else {
   config.plugins.push(new UglifyJSPlugin());
+  config.plugins.push(extractCSS);
+  config.plugins.push(extractSASS);
 }
 
 module.exports = config;
