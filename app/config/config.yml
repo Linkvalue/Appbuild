@@ -10,9 +10,6 @@ parameters:
     routing_locales: '(fr|en)'
     enabled_locales: ['fr', 'en']
 
-    # Bower
-    bower_path: '%kernel.root_dir%/../vendor/bower_components'
-
     # Web
     web_builds_application_dir: '%kernel.root_dir%/../web/%web_relative_builds_application_dir%'
 
@@ -49,6 +46,7 @@ twig:
         - 'bootstrap_3_layout.html.twig'
     globals:
         timezone: '%timezone%'
+        use_webpack_dev_server: '%use_webpack_dev_server%'
 
 # Doctrine Configuration
 doctrine:
