@@ -76,7 +76,7 @@ bin/behat
 ```
 
 
-### Get a token (WIP)
+### Get a token
 ```bash
 curl -X POST http://majoraotastore.dev/app_dev.php/api/login_check -d _username=admin@admin.fr -d _password=admin
 ```

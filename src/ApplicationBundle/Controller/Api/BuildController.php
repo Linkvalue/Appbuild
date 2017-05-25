@@ -4,7 +4,7 @@ namespace Majora\OTAStore\ApplicationBundle\Controller\Api;
 
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
-use Majora\OTAStore\ApplicationBundle\Form\Type\BuildType;
+use Majora\OTAStore\ApplicationBundle\Form\Type\BuildAPIType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -85,14 +85,27 @@ class BuildController extends ApiController
      */
     public function createForApplicationAction(Application $application, Request $request)
     {
-        $this->checkEditRight($application);
-
         $form = $this->container->get('form.factory')->create(
-            BuildType::class,
+            BuildAPIType::class,
             $build = (new Build())->setApplication($application)->setEnabled(false)
         );
         $data = json_decode($request->getContent(), true);
         $form->submit($data);
+
+        if (!$form->isValid()) {
+            $errors = [];
+            foreach ($form->getErrors() as $error) {
+                $errors[] = $error->getMessage();
+            }
+
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors,
+            ];
+
+            return new JsonResponse($data, 400);
+        }
 
         $em = $this->container->get('doctrine.orm.entity_manager');
         $em->persist($build);
@@ -121,9 +134,11 @@ class BuildController extends ApiController
     public function uploadFileAction(Build $build, Request $request)
     {
         $application = $build->getApplication();
-        $filename = $build->getLabel();
+        $filename = $request->query->get('filename');
 
-        $this->checkEditRight($application);
+        if (!$filename) {
+            $filename = $build->getLabel();
+        }
 
         $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
 
@@ -146,24 +161,5 @@ class BuildController extends ApiController
         $response->setStatusCode(200);
 
         return $response;
-    }
-
-    /**
-     * Check if the user has edit right on application.
-     *
-     * @param Application $application
-     */
-    private function checkEditRight(Application $application)
-    {
-        /*
-         TODO handle de authentication
-        if (!$this->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
-
-        if (!$this->getUserApplications()->contains($application)) {
-            throw $this->createAccessDeniedException();
-        }
-        */
     }
 }

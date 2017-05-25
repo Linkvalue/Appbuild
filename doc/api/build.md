@@ -71,7 +71,7 @@ GET /api/application/{application_id}/build/latest
 }
 ```
 
-## Create a new build (WIP)
+## Create a new build
 
 ### Request
 
@@ -98,19 +98,21 @@ PUT /api/application/{application_id}/build
 }
 ```
 
-## Upload a file for a build (WIP)
+## Upload a file for a build
 
-Note: This route is generally given by `Create a new build`.
+Note: This route is given by `Create a new build` through `upload_location` response field.
+`filename` query param should match the build type (`ipa` or `apk`).
 
 ### Request
 
 ```
-PUT /api/build/{build_id}/file
+PUT /api/build/{build_id}/file?filename={filename}
 ```
 
 ```
 Binary file in body
 ```
+
 ### Response
 
 200 OK

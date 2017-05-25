@@ -71,7 +71,7 @@ if [ ! -f "$p_file" ]; then
     exit 404;
 fi
 
-filename=${$(basename $p_file)%.*}
+filename=$(basename $p_file)
 
 if test $p_verbose; then
   echo "File to upload : $p_file"
@@ -139,7 +139,8 @@ function apiUploadBuild() {
     ${upload_location} \
     -H 'Cache-control: no-cache' \
     -H "Authorization: Bearer ${jwt}" \
-    --data-binary "@${file_path}"
+    --data-binary "@${file_path}" \
+    -G --data-urlencode "filename=${filename}"
 }
 
 #############################################################################
@@ -165,13 +166,16 @@ fi
 #   - build_version : the version of the build (ex: 1.2)
 #   - build_comment : a comment on the new build (ex: "A fix on the offline mode")
 echo -n "Creation of the build : "
-upload_location=`apiCreateBuild ${jwt} ${p_app_id} ${p_version} ${p_comment} | jq -r ".upload_location"`
+api_create_build_ret=`apiCreateBuild ${jwt} ${p_app_id} ${p_version} ${p_comment}`
+upload_location=`echo ${api_create_build_ret} | jq -r ".upload_location"`
 
-if [ $? -eq 0 ]; then
+if [ $? -eq 0 ] && [ "$upload_location" != "null" ]; then
   echo "done"
+  echo "$upload_location"
 else
   echo "Error: Something wrong happened with build creation";
   echo "Please make sure that the application exist and the version is correct"
+  echo "${api_create_build_ret}"
   exit 530
 fi
 
