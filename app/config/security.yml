@@ -27,8 +27,21 @@ security:
 
         # public API
         public_api:
+            pattern:  '^/api/login'
+            stateless: true
+            anonymous: true
+            form_login:
+                check_path: 'majoraotastore_api_login_check'
+                success_handler: 'lexik_jwt_authentication.handler.authentication_success'
+                failure_handler: 'lexik_jwt_authentication.handler.authentication_failure'
+                require_previous_session: false
+
+        api:
             pattern: '^/api'
-            security: false
+            stateless: true
+            guard:
+                authenticators:
+                    - 'lexik_jwt_authentication.jwt_token_authenticator'
 
         # all remaining routes require authentication
         secured_area:
@@ -53,4 +66,6 @@ security:
     access_control:
         - { path: '/login', roles: 'IS_AUTHENTICATED_ANONYMOUSLY' }
         - { path: '/register', roles: 'IS_AUTHENTICATED_ANONYMOUSLY' }
+        - { path: '^/api/login', roles: 'IS_AUTHENTICATED_ANONYMOUSLY' }
         - { path: '^/', roles: 'ROLE_USER' }
+        - { path: '^/api', roles: 'ROLE_USER' }

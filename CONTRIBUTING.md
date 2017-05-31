@@ -74,3 +74,13 @@ make db-rebuild db-update db-build
 # run integration tests
 bin/behat
 ```
+
+
+### Get a token
+```bash
+curl -X POST http://majoraotastore.dev/app_dev.php/api/login_check -d _username=admin@admin.fr -d _password=admin
+```
+output :
+```
+{"token":"eyJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6WyJS...2FcOf0m0juoxmorX_N9bNO0cucRJuLTf5-5PZCsohqAFMcXdPX50Qvn8"}
+```

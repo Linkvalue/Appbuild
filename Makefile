@@ -59,7 +59,12 @@ install-composer:
 install-npm:
 	npm install
 
-install: install-bin install-git-hooks install-composer install-npm db-build clean
+install-jwt:
+	mkdir -p var/jwt
+	test -f var/jwt/private.pem || openssl genrsa -out var/jwt/private.pem -passout pass:Majora -aes256 4096
+	test -f var/jwt/public.pem || openssl rsa -in var/jwt/private.pem -passin pass:Majora -pubout -out var/jwt/public.pem
+
+install: install-bin install-git-hooks install-composer install-jwt install-npm db-build clean
 
 # Update
 update: update-composer clean

@@ -83,7 +83,7 @@ const config = {
         to: 'fos-js-routing.js',
       },
       {
-        from: './vendor/willdurand/js-translation-bundle/Bazinga/Bundle/JsTranslationBundle/Resources/public/js/translator.min.js',
+        from: './vendor/willdurand/js-translation-bundle/Resources/public/js/translator.min.js',
         to: 'bazinga-translator.js',
       },
     ]),

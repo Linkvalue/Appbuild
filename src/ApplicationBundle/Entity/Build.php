@@ -237,6 +237,11 @@ class Build
      */
     public function validateFilePath(ExecutionContextInterface $context)
     {
+        // If the file is enabled, it can have an empty filePath
+        if (!$this->enabled && !$this->filePath) {
+            return;
+        }
+
         if (!file_exists($this->filePath)) {
             $context->buildViolation('build.form.must_upload_file')
                 ->atPath('filename')

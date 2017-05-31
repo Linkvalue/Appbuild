@@ -1,0 +1,92 @@
+{
+	"variables": [],
+	"info": {
+		"name": "OTAStore",
+		"_postman_id": "d9afe88c-d385-0479-cf72-6083aea6b180",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Login",
+			"request": {
+				"url": "http://majoraotastore.dev/app_dev.php/api/login_check",
+				"method": "POST",
+				"header": [
+					{
+						"key": "//Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "_username",
+							"value": "superadmin@superadmin.fr",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "_password",
+							"value": "superadmin",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create build for application",
+			"request": {
+				"url": "http://majoraotastore.dev/app_dev.php/api/application/1/build/",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"version\": 1.2,\n\t\"comment\": \"this is a good comment\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Send a new build",
+			"request": {
+				"url": "http://majoraotastore.dev/app_dev.php/api/build/9/file",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1NVUEVSX0FETUlOIl0sInVzZXJuYW1lIjoic3VwZXJhZG1pbkBzdXBlcmFkbWluLmZyIiwiaWF0IjoxNDk1MzE2NzUwLCJleHAiOjE1MjY4NTI3NTB9.8VtBYhoVtZeHFtAZxqwY7rypm7kGhrRqzvuBLZct7qCuKfqxPC9K_V9p7yc6MKKiGGjzLE_6--eFQaxJshhCH4wXnIdVE6EhTpTMIwHBvuEw_7Scktbn51GQbdJH3qkMrG9VFKf5bG0WstHnir45x-Y6syNeAOabjwRbbQwMuDBrvxz9OWwI1uCvWMeR73AIga5nm5rASyGYiB4A9LiBsoUKVRMTAOviSwMzqpw9zlH_KZsY3UzjvdG0j2W9xqjvW-kVV9m_9yarA__xgKStIugeAp3dT9P5LB4bKEhOPv9k38x6UPgNe2lot4qv3U1e2h1mfoeoR0IakNjfLdGAKvU9Da0Hs63w8FGM8e6KGIz4P1j8ockMnp7V-_WUEOl7RLimoVMBFXZqY6zFUqFTFcN8ABTXcB5vIphzTEJef7Ks9CU5179cZJA5kcc_Bp5-nbO5dSripZYg0PcAeApn8GWm1EK3kSU-4JzH3WbC_JfeJLzwpMY_AiAoBT3J8m0eAs8dt915VygphE2hX0cFDGfxoXFaY8UFlbySGIT4kRL7NtSrR1Obvw9jvzhnpf3XpriD1f_piIlSzekH5xjcECQRyQHY_22fiHFE3fZXHBBI0b43s4bl8KY-St8jVVFzWR0oVnSL43gMz3krNgEDEKNDrSmw4DDJ9b63xBiYDrU",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": ""
+					}
+				},
+				"description": "The build, iOS or Android app"
+			},
+			"response": []
+		}
+	]
+}

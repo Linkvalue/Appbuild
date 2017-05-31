@@ -70,3 +70,49 @@ GET /api/application/{application_id}/build/latest
   "download_link": "http://app-build.dev/app_dev.php/fr/application/1/build/1/download"
 }
 ```
+
+## Create a new build
+
+### Request
+
+Note : The route return an url to upload and it can be somewhere else than the API.
+
+```
+PUT /api/application/{application_id}/build
+```
+```json
+{
+  "version": "1.5.2",
+  "comment": "This is a comment for this build.\nWith a line break.\nAnd another one.\n"
+}
+```
+
+### Response
+
+200 OK
+
+```json
+{
+  "build_id": 4,
+  "upload_location": "http://app-build.domain/api/build/4/file"
+}
+```
+
+## Upload a file for a build
+
+Note: This route is given by `Create a new build` through `upload_location` response field.
+`filename` query param should match the build type (`ipa` or `apk`).
+
+### Request
+
+```
+PUT /api/build/{build_id}/file?filename={filename}
+```
+
+```
+Binary file in body
+```
+
+### Response
+
+200 OK

@@ -3,7 +3,9 @@
 majoraotastore_api_application_list:
     path:     '/'
     defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Application:list' }
+    methods:  [GET, HEAD]
 
 majoraotastore_api_application_get:
     path:     '/{id}'
     defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Application:get' }
+    methods:  [GET, HEAD]

@@ -15,6 +15,7 @@ Majora\OTAStore\ApplicationBundle\Entity\Build:
         filePath:
             type: string
             column: file_path
+            nullable: true
         enabled:
             type: boolean
         createdAt:
