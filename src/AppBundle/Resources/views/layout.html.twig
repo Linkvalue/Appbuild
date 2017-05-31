@@ -7,8 +7,10 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
 
         {% block stylesheets %}
+            {% if not use_webpack_dev_server %}
             <link rel="stylesheet" href="{{ asset('assets/vendor.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/main.css') }}" />
+            {% endif %}
         {% endblock %}
     </head>
     <body class="{% block body_class '' %}">

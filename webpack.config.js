@@ -40,7 +40,16 @@ const config = {
       {
         test: /\.css$/,
         use: isDev
-          ? ['style-loader', 'css-loader']
+          ? [
+            {
+              loader: 'style-loader',
+              options: {sourceMap: true},
+            },
+            {
+              loader: 'css-loader',
+              options: {sourceMap: true},
+            },
+          ]
           : extractCSS.extract({
             fallback: 'style-loader',
             use: {
@@ -51,7 +60,20 @@ const config = {
       {
         test: /\.scss$/,
         use: isDev
-          ? ['style-loader', 'css-loader', 'sass-loader']
+          ? [
+            {
+              loader: 'style-loader',
+              options: {sourceMap: true},
+            },
+            {
+              loader: 'css-loader',
+              options: {sourceMap: true},
+            },
+            {
+              loader: 'sass-loader',
+              options: {sourceMap: true},
+            },
+          ]
           : extractSASS.extract({
             fallback: 'style-loader',
             use: [
@@ -99,14 +121,14 @@ const config = {
       path.resolve(__dirname, 'node_modules'),
     ],
   },
-};
-
-if (isDev) {
-  config['devServer'] = {
+  devtool: 'cheap-module-source-map',
+  devServer: {
     host: '0.0.0.0',
     disableHostCheck: true,
-  };
-} else {
+  },
+};
+
+if (!isDev) {
   config.plugins.push(new UglifyJSPlugin());
   config.plugins.push(extractCSS);
   config.plugins.push(extractSASS);

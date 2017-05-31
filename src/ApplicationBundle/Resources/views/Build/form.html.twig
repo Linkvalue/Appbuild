@@ -29,5 +29,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
+
+    {% if not use_webpack_dev_server %}
     <link rel="stylesheet" href="{{ asset('assets/build-form.css') }}" />
+    {% endif %}
 {% endblock %}
