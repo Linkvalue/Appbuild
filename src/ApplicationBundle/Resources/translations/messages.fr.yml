@@ -1,67 +1,98 @@
 # Majora => ApplicationBundle => messages.fr
 application:
     form:
-        label: Nom de l'application
-        support: Plateforme
-        package_name: Nom de package (aka. Bundle identifier)
-        users: Utilisateurs autorisés à télécharger l'application
-        submit_button:
-            label: Valider
+        label:
+            label: Nom de l'application
+            placeholder: indiquez le nom de l'app
+            error: Le champ est obligatoire
+        description:
+            label: Description
+            placeholder: ...
+        support:
+            label: OS
+        package_name:
+            label: Nom de package
+            description: (aka. Bundle identifier)
+            placeholder: 'ex : com.example.app'
+            error: Le champ est obligatoire
+        users:
+            label: Utilisateurs
+            placeholder: tapez le nom de l'utilisateur
+            remove_button: retirer l'utilisateur
+        submit:
+            label: sauvegarder
+        cancel:
+            label: annuler
+        disable:
+            label: désactiver l'application
+        enable:
+            label: activer l'application
     create:
-        title: Nouvelle application
+        title: créer une nouvelle application
         flash:
             success: Votre application a bien été créée.
     update:
-        title: Mise à jour de l'application
+        title: mise à jour de l'application
         flash:
             success: Votre application a bien été mise à jour.
     list:
-        title: Applications
+        title: mes applications
+        buttons:
+            disabled_applications: applications désactivés
+            enabled_applications: applications activés
         thead:
             label: Application
             latest_build: Dernier build
-            support: Plateforme
+            latest_comment: Commentaire
+            support: OS
             actions: Actions
-        actions:
-            enable:
-                title: Activer l'application
-            disable:
-                title: Désactiver l'application
-            update:
-                title: Modifier l'application
-            build_list:
-                title: Voir la liste des builds disponibles
-    supports:
-        ios: iOS
-        android: Android
+        latest_build:
+            no_build: aucun build
+        latest_comment:
+            read_more: Lire la suite
+            no_comment: aucun commentaire
+        latest_comment_modal:
+            title: Commentaire
+            close: fermer
 
 build:
     form:
-        version: Version du build
-        filename: Fichier du build à télécharger
-        comment: Commentaire du build
-        submit_button:
-            label: Valider
+        version:
+            label: Version du build
+            placeholder: 'ex : 0.1.0'
+            error: Le champ est obligatoire
+        file:
+            label: Fichier du build (.ipa ou .apk)
+        comment:
+            label: Commentaire
+            placeholder: ...
+        submit:
+            label: sauvegarder
+        cancel:
+            label: annuler
+        disable:
+            label: désactiver le build
+        enable:
+            label: activer le build
     create:
-        title: Nouveau build
+        title: nouveau build
         flash:
             success: Votre build a bien été créé
     update:
-        title: Mise à jour du build
+        title: mise à jour du build
         flash:
             success: Votre build a bien été mis à jour
     list:
-        title: Builds
+        title: builds
+        buttons:
+            disabled_builds: builds désactivés
+            enabled_builds: builds activés
         thead:
             label: Libellé
             actions: Actions
             comment: Commentaire
-        actions:
-            enable:
-                title: Activer le build
-            disable:
-                title: Désactiver le build
-            update:
-                title: Modifier le build
-            download:
-                title: Télécharger le build
+        comment_modal:
+            title: détail build
+            close: fermer
+            name: Nom
+            comment: Commentaire

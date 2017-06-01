@@ -1,0 +1,68 @@
+$font-path: '../fonts/';
+
+@font-face {
+  font-family: "fontico";
+  src:url("#{$font-path}fontico.eot");
+  // sass-lint:disable indentation
+  src:url("#{$font-path}fontico.eot?#iefix") format("embedded-opentype"),
+    url("#{$font-path}fontico.woff") format("woff"),
+    url("#{$font-path}fontico.ttf") format("truetype"),
+    url("#{$font-path}fontico.svg#untitled-font-2") format("svg");
+  // sass-lint:enable indentation
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon {
+  display: inline-block;
+  font-family: 'fontico';
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-icon]::before {
+  content: attr(data-icon);
+  display: inline-block;
+  font-family: 'fontico';
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.icon:before {
+  display: inline-block;
+}
+
+$icons: (
+  apple: '\61',
+  android: '\62',
+  download: '\63',
+  angle-right: '\64',
+  user: '\65',
+  search: '\66',
+  angle-left: '\67',
+  archive: '\68',
+  trash: '\69',
+  update: '\6a',
+  angle-down: '\6b',
+  angle-up: '\6c',
+  check: '\6d',
+);
+
+@each $name, $content in $icons {
+  .icon-#{$name}:before {
+    content: $content;
+  }
+}

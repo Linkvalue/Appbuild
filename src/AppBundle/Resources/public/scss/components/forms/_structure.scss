@@ -1,0 +1,117 @@
+
+.row-form {
+  &,
+  &.row {
+    margin-right: - ($form-input-space / 2);
+    margin-left: - ($form-input-space / 2);
+  }
+
+  > .columns {
+    padding-right: $form-input-space / 2;
+    padding-left: $form-input-space / 2;
+  }
+}
+
+.input-wrap {
+  position: relative;
+
+  &.row,
+  & > .row {
+    margin: 0;
+  }
+  .columns {
+    padding: 0;
+  }
+
+  .button {
+    margin-bottom: $form-input-space;
+  }
+}
+
+.input-wrap_links {
+  .columns_label {
+    margin-right: $form-input-space;
+  }
+}
+
+.columns_label {
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
+.columns_label-boxed {
+
+  @include breakpoint(large) {
+    flex: 0 0 17%;
+    max-width: 17%;
+  }
+}
+
+.columns_offset {
+
+  display: flex;
+  flex-wrap: wrap;
+
+  @include breakpoint(large) {
+    flex: 1 1 100%;
+    margin-left: 16%;
+  }
+}
+
+.columns_options {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 1 100%;
+  max-width: 100%;
+
+  @include breakpoint(medium) {
+    flex: 1 1 0;
+  }
+}
+
+.columns_label,
+.columns_input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.columns_input {
+  position: relative;
+
+  .input-wrap__input,
+  .input-wrap__search {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  > *:not(.input-wrap__input, .input-wrap__search) {
+    flex: 0 0 auto;
+  }
+
+  > *:not(:first-child) {
+    margin-left: $form-input-space;
+  }
+}
+
+.form-actions {
+  margin-top: $form-actions-margin;
+
+  > * {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  @include breakpoint(medium) {
+    > * {
+      max-width: 100%;
+      flex: 0 0 auto;
+    }
+  }
+}
+
+.columns_label-multilines {
+  .input-wrap__label {
+    align-items: flex-start;
+  }
+}

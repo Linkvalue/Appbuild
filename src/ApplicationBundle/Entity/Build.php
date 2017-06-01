@@ -73,10 +73,8 @@ class Build
      */
     public function getLabel()
     {
-        $application = $this->getApplication();
-
         return sprintf('%s [%s]',
-            $application->getLabel(),
+            $this->getApplication()->getLabel(),
             $this->getVersion()
         );
     }
@@ -249,7 +247,7 @@ class Build
      */
     public function validateFilePath(ExecutionContextInterface $context)
     {
-        // If the file is enabled, it can have an empty filePath
+        // If the file is disabled, it can have an empty filePath
         if (!$this->enabled && !$this->filePath) {
             return;
         }

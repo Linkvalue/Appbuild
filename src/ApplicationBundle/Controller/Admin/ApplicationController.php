@@ -4,6 +4,7 @@ namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
 
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Form\Type\ApplicationType;
+use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,7 +57,15 @@ class ApplicationController extends BaseController
 
         if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Force current user to be linked to the application (except if its a super admin because it's useless)
+                /** @var User $currentUser */
+                if (!$application->getUsers()->contains($currentUser = $this->getUser())
+                    && $currentUser->getRole() !== 'ROLE_SUPER_ADMIN'
+                ) {
+                    $application->addUser($currentUser);
+                }
+
                 $em = $this->container->get('doctrine.orm.entity_manager');
                 $em->persist($application);
                 $em->flush();
@@ -72,9 +81,6 @@ class ApplicationController extends BaseController
         return $this->render('MajoraOTAStoreApplicationBundle:Application:create.html.twig',
             [
                 'form' => $form->createView(),
-                'application' => $application,
-                'currentUserId' => $this->getUser()->getId(),
-                'applicationSupportIOS' => Application::SUPPORT_IOS,
             ]
         );
     }
@@ -105,7 +111,15 @@ class ApplicationController extends BaseController
 
         if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Force current user to be linked to the application (except if its a super admin because it's useless)
+                /** @var User $currentUser */
+                if (!$application->getUsers()->contains($currentUser = $this->getUser())
+                    && $currentUser->getRole() !== 'ROLE_SUPER_ADMIN'
+                ) {
+                    $application->addUser($currentUser);
+                }
+
                 $em = $this->container->get('doctrine.orm.entity_manager');
                 $em->persist($application);
                 $em->flush();
@@ -122,9 +136,6 @@ class ApplicationController extends BaseController
             'MajoraOTAStoreApplicationBundle:Application:update.html.twig',
             [
                 'form' => $form->createView(),
-                'application' => $application,
-                'currentUserId' => $this->getUser()->getId(),
-                'applicationSupportIOS' => Application::SUPPORT_IOS,
             ]
         );
     }

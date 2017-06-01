@@ -24,6 +24,8 @@ default:
                     session: '@session'
                     tokenStorage: '@security.token_storage'
                     filesystem: '@filesystem'
+                    streamBuildsContent: '%%stream_builds_content%%'
+                    webRelativeBuildsApplicationDir: '%%web_relative_builds_application_dir%%'
                 - 'Behat\MinkExtension\Context\MinkContext'
 
 # bin/behat --profile="nostream"

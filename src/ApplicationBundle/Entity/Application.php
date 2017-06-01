@@ -4,6 +4,7 @@ namespace Majora\OTAStore\ApplicationBundle\Entity;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -27,6 +28,11 @@ class Application
      * @var string
      */
     private $label;
+
+    /**
+     * @var string
+     */
+    private $description;
 
     /**
      * @var string
@@ -115,6 +121,26 @@ class Application
                 $this->getSupport()
             )
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
     }
 
     /**
@@ -226,6 +252,18 @@ class Application
     }
 
     /**
+     * @param User $user
+     *
+     * @return $this
+     */
+    public function addUser(User $user)
+    {
+        $this->users->add($user);
+
+        return $this;
+    }
+
+    /**
      * @param ArrayCollection $users
      *
      * @return $this
@@ -295,10 +333,11 @@ class Application
      */
     public function getEnabledBuilds()
     {
-        return $this->builds
-            ->filter(function (Build $build) {
-                return $build->isEnabled();
-            });
+        return $this->builds->matching(
+            Criteria::create()
+                ->where(Criteria::expr()->eq('enabled', true))
+                ->orderBy(['createdAt' => Criteria::ASC])
+        );
     }
 
     /**

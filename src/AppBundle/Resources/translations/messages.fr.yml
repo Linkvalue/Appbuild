@@ -1,25 +1,47 @@
 # Majora => AppBundle => messages.fr
 admin:
-    title: Serveur de déploiement
-    icon:
-        trash: Corbeille
-        undo: Retour
+    title: appbuild - Serveur de déploiement
+    logo:
+        alt: appbuild
+        baseline: by LinkValue
+    header:
+        search:
+            submit: Search
+        language:
+            fr: fr
+            en: en
+        links:
+            applications: applications
+            users: utilisateurs
+    alert:
+        dismiss_alert: Retirer l'alert
     upload:
         button: Envoyer un fichier
         drop:
-            text: Déposez un fichier ici
+            text: Déplace un fichier ici ou choisis-en un
             processing: Fichier en cours de traitement...
+        edit: Editer le nom du fichier
         retry: Réessayer
         remove: Supprimer
+        stop: Pause
+        resume: Continue
+        dialog:
+            close: Fermer
+        confirm:
+            yes: Oui
+            no: Non
+        prompt:
+            cancel: Annuler
+            ok: Ok
         message:
-            not_allowed: Non autorisé à téléverser un fichier.
-            unexpected_method: Méthode d'envoi de la requête innatendu.
-            upload_failure: Echec de l'envoi du fichier.
-            move_failure: Echec de la mise en place du fichier sur le serveur.
-            default: Une erreur inconnue s'est produite.
-            invalid_extension: 'Le fichier [{file}] a une extension invalide. Les extensions valides sont : [{extensions}].'
-            on_leave: Des fichiers sont en cours d'envoi, l'envoi sera annulé si vous quittez maintenant.
-            too_many_items: 'Trop de fichiers à téléverser. Le nombre maximum de fichiers pouvant être envoyés est [{itemLimit}].'
+            not_allowed: Non autorisé à envoyer un fichier
+            unexpected_method: Méthode d'envoi de la requête innatendu
+            upload_failure: Echec de l'envoi du fichier
+            move_failure: Echec de la mise en place du fichier sur le serveur
+            default: Une erreur inconnue s'est produite
+            invalid_extension: 'Le fichier [{file}] a une extension invalide. Les extensions valides sont : [{extensions}]'
+            on_leave: Des fichiers sont en cours d'envoi, l'envoi sera annulé si vous quittez maintenant
+            too_many_items: 'Trop de fichiers à envoyer. Le nombre maximum de fichiers pouvant être envoyés est [{itemLimit}]'
             progress_bar: '{percent}% de {total_size}'
             waiting_for_response: En cours de traitement...
 

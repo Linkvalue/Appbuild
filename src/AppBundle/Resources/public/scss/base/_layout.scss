@@ -1,0 +1,30 @@
+$body-padding-bottom: rem-calc(50);
+
+html {
+
+  @include breakpoint(medium only) {
+    font-size: 87.5%;
+  }
+
+}
+
+
+body {
+  position: relative;
+  min-height: 100vh;
+  background: $medium-secondary;
+
+  @include breakpoint(large) {
+    padding-bottom: $body-padding-bottom;
+  }
+
+}
+
+.main-content {
+  padding-right: rem-calc(5);
+  padding-left: rem-calc(5);
+}
+
+.section-results + .section-results {
+  margin-top: $body-padding-bottom;
+}

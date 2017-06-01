@@ -6,11 +6,11 @@ use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
 use Majora\OTAStore\ApplicationBundle\Form\Type\BuildAPIType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Validator\ConstraintViolation;
 
 class BuildController extends ApiController
 {
@@ -74,7 +74,7 @@ class BuildController extends ApiController
     }
 
     /**
-     * Create a new build for the application.
+     * Create a new disabled build for application.
      *
      * @ParamConverter("application", options={"mapping": {"application_id": "id"}})
      *
@@ -87,24 +87,20 @@ class BuildController extends ApiController
     {
         $form = $this->container->get('form.factory')->create(
             BuildAPIType::class,
-            $build = (new Build())->setApplication($application)->setEnabled(false)
+            $build = (new Build())
+                ->setApplication($application)
+                ->setEnabled(false)
         );
-        $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), JSON_OBJECT_AS_ARRAY);
         $form->submit($data);
 
-        if (!$form->isValid()) {
+        if (!$form->isSubmitted() || !$form->isValid()) {
             $errors = [];
             foreach ($form->getErrors() as $error) {
                 $errors[] = $error->getMessage();
             }
 
-            $data = [
-                'type' => 'validation_error',
-                'title' => 'There was a validation error',
-                'errors' => $errors,
-            ];
-
-            return new JsonResponse($data, 400);
+            return new JsonResponse(['errors' => $errors], 400);
         }
 
         $em = $this->container->get('doctrine.orm.entity_manager');
@@ -122,44 +118,50 @@ class BuildController extends ApiController
     }
 
     /**
-     * Upload file for a build.
+     * Upload file for a build and enable it.
      *
-     * @param Build   $build   The build computed from url param
-     * @param Request $request The request
+     * @param Build   $build
+     * @param Request $request
      *
-     * @return JsonResponse The response
-     *
-     * @throws \Exception An uncatched exception
+     * @return JsonResponse
      */
     public function uploadFileAction(Build $build, Request $request)
     {
         $application = $build->getApplication();
-        $filename = $request->query->get('filename');
+        $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
+        $translator = $this->container->get('translator');
 
-        if (!$filename) {
+        if (!$filename = $request->query->get('filename')) {
             $filename = $build->getSlug();
         }
-
-        $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
 
         try {
             $tmpFile = $uploadHelper->createTempFile($request->getContent(), $filename);
             $uploadHelper->moveUploadedFile($tmpFile, $application, $filename);
-        } catch (FileException $e) {
-            return new JsonResponse(['errors' => ['Cannot upload this file.']], 500);
+        } catch (\Exception $e) {
+            return new JsonResponse(['errors' => [$translator->trans('admin.upload.message.upload_failure')]], 500);
         }
 
         $build
             ->setFilePath($uploadHelper->getFilePath($application, $filename))
-            ->setEnabled(true);
+            ->setEnabled(true)
+        ;
+
+        $constraintViolationList = $this->container->get('validator')->validate($build);
+        if ($constraintViolationList->count() > 0) {
+            $errors = [];
+            foreach ($constraintViolationList as $error) {
+                /* @var ConstraintViolation $error */
+                $errors[] = $error->getMessage();
+            }
+
+            return new JsonResponse(['errors' => $errors], 400);
+        }
 
         $em = $this->container->get('doctrine.orm.entity_manager');
         $em->persist($build);
         $em->flush();
 
-        $response = new JsonResponse();
-        $response->setStatusCode(200);
-
-        return $response;
+        return new JsonResponse();
     }
 }

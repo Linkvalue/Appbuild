@@ -65,13 +65,11 @@ class AppKernel extends Kernel
         // Handle webpack-dev-server assets dynamically served
         if ($this->getEnvironment() === 'dev') {
             $loader->load(function (ContainerBuilder $container) {
-                if ($container->getParameter('use_webpack_dev_server')) {
-                    $container->loadFromExtension('framework', [
-                        'assets' => [
-                            'base_url' => 'http://'.$container->getParameter('webpack_dev_server_host').':8080',
-                        ],
-                    ]);
-                }
+                $container->loadFromExtension('framework', [
+                    'assets' => [
+                        'base_url' => 'http://'.$container->getParameter('webpack_dev_server_host').':8080',
+                    ],
+                ]);
             });
         }
     }

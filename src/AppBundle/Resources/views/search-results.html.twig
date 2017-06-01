@@ -1,0 +1,371 @@
+
+{# TODO search #}
+
+<h1 class="title">Résultats pour "toto"</h1>
+<section class="section-results">
+  <header class="row align-middle header-section" data-anim-appear>
+    <div class="columns">
+      <h2 class="title title_header-section">Mes applications</h2>
+    </div>
+    <div class="columns shrink show-for-medium show-for-up-mobile">
+      <a href="update-app.html" class="button button_navigation"><span>Créer une nouvelle application</span></a>
+    </div>
+  </header>
+  <article class="table">
+    <div class="table__row table__row-head" data-anim-appear>
+      <div class="table__cell table__cell-head show-for-large">
+        <div class="table__cell-head__content">OS</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-app">
+        <div class="table__cell-head__content">Application</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-last-build show-for-medium show-for-up-mobile">
+        <div class="table__cell-head__content">Dernier build</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-last-comment table__cell-last">
+        <div class="table__cell-head__content">Commentaire</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-action table__cell_shrink show-for-medium">
+        <div class="table__cell-head__content"></div>
+      </div>
+    </div>
+
+    <div class="table__row table__row-body is-new" data-anim-appear>
+      <div class="table__cell table__cell-body table__cell_shrink table__cell-os show-for-large">
+        <div class="table__cell__content">
+          <i class="icon icon-os icon-android"></i>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-app">
+        <div class="table__cell__content">
+          <a class="table-link app-name-wrap align-middle" href="builds.html">
+            <div class="columns shrink">
+              <span class="app-picture" style="background-image:url('');">
+                <i class="icon icon-os icon-android hide-for-large"></i>
+              </span>
+            </div>
+            <div class="columns app-name">
+              <strong class="line">RemindTheLink</strong>
+              <span class="app-date hide-for-large line">13 janv. 2017</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-last-build show-for-medium show-for-up-mobile">
+        <div class="table__cell__content">
+
+          <a class="columns-first table-link row align-middle" href="">
+            <div class="columns shrink">
+              <i class="icon icon-download show-for-large"></i>
+            </div>
+            <div class="columns build-name">
+              <strong class="line">RemindTheLink</strong>
+              <span class="line app-date">13 janv. 2017</span>
+            </div>
+          </a>
+          <div class="columns-last">
+            <span class="label-version">0.1</span>
+          </div>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-last-comment table__cell-last">
+        <div class="table__cell__content">
+          <div class="comment columns-first">
+            <span class="line comment__text">Truc de fifou...</span>
+            <a class="comment__more line" data-open="modal-comment-1">Lire la suite</a>
+          </div>
+          <div class="columns-last">
+            <span class="label-new show-for-medium show-for-up-mobile">nouveau</span>
+          </div>
+          <div class="reveal" id="modal-comment-1" data-reveal>
+            <h3 class="title">Commentaire</h3>
+            <p class="reveal__content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. In culpa qui officia deserunt mollit anim id est laborum.</p>
+            <button class="button button_action button_confirm" data-close aria-label="Close modal" type="button">
+              <span aria-hidden="true">fermer</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell_shrink table__cell_mobile-right">
+        <div class="table__cell__content">
+          <div class="icons-action">
+            <a href="update-app.html" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
+            <a href="" class="icon-action icon-action_download hide-for-medium">
+              <i class="icon icon-download"></i><span class="icon-action_download__label ">0.1</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+</section>
+<section class="section-results">
+
+  <header class="row align-middle header-section" data-anim-appear>
+    <div class="columns">
+      <h1 class="title title_header-section">builds</h1>
+    </div>
+    <div class="columns shrink row-buttons show-for-medium show-for-up-mobile">
+      <a href="create-build.html" class="button button_navigation"><span>nouveau build</span></a>
+    </div>
+  </header>
+  <article class="table">
+    <div class="table__row table__row-head" data-anim-appear>
+      <div class="table__cell table__cell-head table__cell-head-label-build">
+        <div class="table__cell-head__content">Libellé</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-comment">
+        <div class="table__cell-head__content">Commentaire</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-actions table__cell_shrink">
+        <div class="table__cell-head__content show-for-medium show-for-up-mobile">Actions</div>
+      </div>
+    </div>
+
+    <div class="table__row table__row-body" data-anim-appear>
+      <div class="table__cell table__cell-body table__cell-label-build">
+        <div class="table__cell__content">
+          <a class="table-link row align-middle" href="">
+            <div class="columns shrink show-for-medium show-for-up-mobile">
+              <span class="label-order">1</span>
+            </div>
+            <div class="columns build-name">
+              <strong class="line">Keepe - android</strong>
+              <span class="line app-date">13 janv. 2017</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-comment table__cell-last">
+        <div class="table__cell__content">
+          <p class="comment line">aucun commentaire</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-actions table__cell_mobile-right table__cell_shrink">
+        <div class="table__cell__content">
+          <div class="icons-action">
+            <a href="" class="icon-action icon-action_download">
+              <i class="icon icon-download"></i><span class="icon-action_download__label hide-for-medium">0.1</span>
+            </a>
+            <a href="create-build.html" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
+            <a href="" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
+            <a data-open="modal-trash-1" class="icon icon-action icon-trash show-for-medium show-for-up-mobile"></a>
+          </div>
+          <div class="reveal" id="modal-trash-1" data-reveal>
+            <h3 class="title">Êtes-vous sûre de vouloir supprimer ce build ?</h3>
+            <div class="row-buttons">
+              <button class="button button_action button_confirm" type="button" data-load>
+                <span>supprimer</span>
+              </button>
+              <button class="button button_action" data-close aria-label="Close modal" type="button">
+                annuler
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table__row table__row-body" data-anim-appear>
+      <div class="table__cell table__cell-body table__cell-label-build">
+        <div class="table__cell__content">
+          <a class="table-link row align-middle" href="">
+            <div class="columns shrink show-for-medium show-for-up-mobile">
+              <span class="label-order">2</span>
+            </div>
+            <div class="columns build-name">
+              <strong>Keepe - android</strong>
+              <span class="app-date">13 janv. 2017</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-comment table__cell-last">
+        <div class="table__cell__content">
+          <p class="comment">
+            <span class="comment__text line">Truc de fifou ce build...</span>
+            <a class="comment__more line " data-open="modal-comment-1">Lire la suite</a>
+          </p>
+          <div class="reveal large" id="modal-comment-1" data-reveal>
+            <h3 class="title">détail build</h3>
+            <div class="reveal__content">
+              <div class="row">
+
+                <div class="columns reveal__columns">
+                  <div class="reveal__block">
+                    <span class="label">Nom</span>
+                    <span><strong>Keeppe</strong></span>
+                  </div>
+                </div>
+                <div class="columns shrink show-for-medium">
+                  <div class="reveal__block">
+                    <div class="icons-action">
+                      <a href="" class="icon-action icon-action_download">
+                        <i class="icon icon-download"></i><span class="icon-action_download__label hide-for-medium">0.1</span>
+                      </a>
+                      <a href="create-build.html" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
+                      <a href="" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
+                      <a data-open="modal-trash-2" class="icon icon-action icon-trash show-for-medium show-for-up-mobile"></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns small-12">
+                  <div class="reveal__block">
+                    <span class="label">Commentaire</span>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="button button_action button_confirm" data-close aria-label="Close modal" type="button">
+              <span aria-hidden="true">fermer</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-actions table__cell_mobile-right table__cell_shrink">
+        <div class="table__cell__content">
+          <div class="icons-action">
+            <a href="" class="icon-action icon-action_download">
+              <i class="icon icon-download"></i><span class="icon-action_download__label hide-for-medium">0.1</span>
+            </a>
+            <a href="create-build.html" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
+            <a href="" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
+            <a data-open="modal-trash-2" class="icon icon-action icon-trash show-for-medium show-for-up-mobile"></a>
+          </div>
+          <div class="reveal" id="modal-trash-2" data-reveal>
+            <h3 class="title">Êtes-vous sûre de vouloir supprimer ce build ?</h3>
+            <div class="row-buttons">
+              <button class="button button_action button_confirm" type="button" data-load>
+                <span>supprimer</span>
+              </button>
+              <button class="button button_action" data-close aria-label="Close modal" type="button">
+                annuler
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+<section class="section-results">
+  <header class="row align-middle header-section" data-anim-appear>
+    <div class="columns">
+      <h1 class="title title_header-section">utilisateurs</h1>
+    </div>
+    <div class="columns shrink show-for-medium show-for-up-mobile">
+      <a href="create-user.html" class="button button_navigation"><span>créer un nouvel utilisateur</span></a>
+    </div>
+  </header>
+  <article class="table">
+    <div class="table__row table__row-head" data-anim-appear>
+      <div class="table__cell table__cell-head table__cell-head-role table__cell_shrink">
+        <div class="table__cell-head__content">Rôle</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-mail">
+        <div class="table__cell-head__content">Email</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-firstname show-for-medium">
+        <div class="table__cell-head__content">Prénom</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-lastname">
+        <div class="table__cell-head__content">Nom</div>
+      </div>
+      <div class="table__cell table__cell-head table__cell-head-action table__cell_shrink show-for-medium show-for-up-mobile">
+        <div class="table__cell-head__content"></div>
+      </div>
+    </div>
+
+    <div class="table__row table__row-body" data-anim-appear>
+      <div class="table__cell table__cell-body table__cell-role table__cell_shrink">
+        <div class="table__cell__content">
+          <span class="label-role label-role_superadmin">S</span>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-mail">
+        <div class="table__cell__content">
+          <p class="comment line">johndoe@gmail.com</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-firstname">
+        <div class="table__cell__content">
+          <p class="show-for-medium">John</p>
+          <p class="hide-for-medium">JL</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-lastname show-for-medium">
+        <div class="table__cell__content">
+          <p class="comment">Doe</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-action table__cell_shrink show-for-medium show-for-up-mobile">
+        <div class="table__cell__content">
+          <div class="icons-action">
+            <a href="create-user.html" class="icon icon-action icon-update"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table__row table__row-body" data-anim-appear>
+      <div class="table__cell table__cell-body table__cell-role table__cell_shrink">
+        <div class="table__cell__content">
+          <span class="label-role label-role_downloader">T</span>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-mail">
+        <div class="table__cell__content">
+          <p class="comment line">johndoe@gmail.com</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-firstname">
+        <div class="table__cell__content">
+          <p class="show-for-medium">John</p>
+          <p class="hide-for-medium">JL</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-lastname show-for-medium">
+        <div class="table__cell__content">
+          <p class="comment">Doe</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-action table__cell_shrink show-for-medium show-for-up-mobile">
+        <div class="table__cell__content">
+          <div class="icons-action">
+            <a href="create-user.html" class="icon icon-action icon-update"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table__row table__row-body" data-anim-appear>
+      <div class="table__cell table__cell-body table__cell-role table__cell_shrink">
+        <div class="table__cell__content">
+          <span class="label-role label-role_admin">A</span>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-mail">
+        <div class="table__cell__content">
+          <p class="comment">johndoe@gmail.com</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-firstname">
+        <div class="table__cell__content">
+          <p class="show-for-medium">John</p>
+          <p class="hide-for-medium">JL</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-lastname show-for-medium">
+        <div class="table__cell__content">
+          <p class="comment">Doe</p>
+        </div>
+      </div>
+      <div class="table__cell table__cell-body table__cell-action table__cell_shrink show-for-medium show-for-up-mobile">
+        <div class="table__cell__content">
+          <div class="icons-action">
+            <a href="create-user.html" class="icon icon-action icon-update"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>

@@ -1,0 +1,19 @@
+{
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "comma-dangle": ["error", "always-multiline"],
+        "semi": ["error", "always"],
+        "quotes": ["error", "single", { "avoidEscape": true }],
+        "no-var": "error",
+        "eol-last": "error",
+        "prefer-arrow-callback": "error",
+        "no-new-require": "error",
+        "no-sync": "error"
+    },
+    "parserOptions": {
+        "sourceType": "module"
+    }
+}

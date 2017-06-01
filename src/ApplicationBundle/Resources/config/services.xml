@@ -11,7 +11,7 @@
             public="true"
         >
             <tag name="form.type" />
-            <argument type="service" id="translator" />
+            <argument type="service" id="security.token_storage" />
         </service>
 
         <!-- Build Form Type -->

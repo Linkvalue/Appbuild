@@ -1,0 +1,112 @@
+[type='text'],
+[type='password'],
+[type='date'],
+[type='datetime'],
+[type='datetime-local'],
+[type='month'],
+[type='week'],
+[type='email'],
+[type='number'],
+[type='search'],
+[type='tel'],
+[type='time'],
+[type='url'],
+[type='color'],
+textarea,
+.input-wrap__input {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  font-size: map-get($form-input-fz, small);
+  line-height: normal;
+
+  @include breakpoint(medium) {
+    font-size: map-get($form-input-fz, medium);
+  }
+
+  &::placeholder {
+    color: $input-placeholder-color;
+    font-style: italic;
+    font-weight: normal;
+  }
+
+  &:focus,
+  &.active {
+    outline: none;
+  }
+}
+
+[type='submit'],
+[type='button'] {
+  appearance: none;
+}
+
+button,
+input {
+  font-family: inherit;
+  text-align: inherit;
+}
+
+label {
+  cursor: pointer;
+}
+
+.label {
+  color: $primary-color;
+  font-size: map-get($form-label-fz, small);
+  font-style: italic;
+  font-weight: bold;
+
+  @include breakpoint(medium) {
+    font-size: map-get($form-label-fz, medium);
+  }
+}
+
+.input-wrap__label {
+  display: flex;
+  flex: 0 0 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: map-get($form-input-inline-height, small);
+  color: $primary-color;
+  font-size: map-get($form-label-fz, small);
+  font-style: italic;
+  font-weight: bold;
+  line-height: normal;
+  cursor: pointer;
+
+  @include breakpoint(medium) {
+    min-height: map-get($form-input-inline-height, medium);
+    font-size: map-get($form-label-fz, medium);
+  }
+
+  > * {
+    display: block;
+    flex: 0 0 100%;
+  }
+}
+
+.input-wrap__label,
+.input-wrap__input,
+.input-wrap__radio,
+.input-wrap__file {
+  padding: map-get($form-label-padding, small);
+  background-color: $white;
+
+  @include breakpoint(medium) {
+    padding: map-get($form-label-padding, medium);
+  }
+}
+
+.input-wrap__label,
+.input-wrap__radio,
+.input-wrap__search,
+.input-wrap__input:not(.input-wrap__input-search),
+.input-wrap__file {
+  margin-bottom: $form-input-space;
+}
+
+textarea {
+  resize: vertical;
+}

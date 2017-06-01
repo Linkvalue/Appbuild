@@ -1,16 +1,193 @@
-{% extends 'MajoraOTAStoreApplicationBundle::layout.html.twig' %}
+{% extends 'MajoraOTAStoreAppBundle:Layout:layout_authenticated.html.twig' %}
 
 {% block content %}
-    {{ form_start(form, {'method': 'POST', 'action': block('application_form_action'), 'attr': {
-        'data-current-user-id': currentUserId,
-        'data-application-support-ios': applicationSupportIOS,
-    }}) }}
-    {{ form_rest(form) }}
-    <button type="submit" class="btn btn-primary">
-        <i class="fa fa-check"></i>
-        {{ 'application.form.submit_button.label'|trans }}
-    </button>
-    {{ form_end(form) }}
+    {# TODO application.image #}
+    {#<script type="text/template" id="qq-template">#}
+        {#<div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-text="Déplace un fichier ici ou choisis-en un">#}
+            {#<div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">#}
+                {#<div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>#}
+            {#</div>#}
+            {#<div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone qq-drop-text="Déplace un fichier ici ou choisis-en un">#}
+                {#<span class="qq-upload-drop-area-text-selector"></span>#}
+            {#</div>#}
+            {#<div class="qq-upload-button-selector qq-upload-button">#}
+                {#<div>Upload a file</div>#}
+            {#</div>#}
+          {#<span class="qq-drop-processing-selector qq-drop-processing">#}
+              {#<span>Processing dropped files...</span>#}
+              {#<span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>#}
+          {#</span>#}
+            {#<ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">#}
+                {#<li>#}
+                    {#<span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>#}
+                    {#<div class="qq-progress-bar-container-selector qq-progress-bar-container">#}
+                        {#<div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>#}
+                    {#</div>#}
+                    {#<span class="qq-upload-spinner-selector qq-upload-spinner"></span>#}
+                    {#<div class="qq-thumbnail-wrapper">#}
+                        {#<img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>#}
+                    {#</div>#}
+                    {#<button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>#}
+                    {#<button type="button" class="qq-upload-retry-selector qq-upload-retry">#}
+                        {#<span class="qq-btn qq-retry-icon" aria-label="Retry"></span>#}
+                        {#Retry#}
+                    {#</button>#}
+
+                    {#<div class="qq-file-info">#}
+                        {#<div class="qq-file-name">#}
+                            {#<span class="qq-upload-file-selector qq-upload-file"></span>#}
+                            {#<span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>#}
+                        {#</div>#}
+                        {#<input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">#}
+                        {#<span class="qq-upload-size-selector qq-upload-size"></span>#}
+                        {#<button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">#}
+                            {#<span class="qq-btn qq-delete-icon" aria-label="Delete"></span>#}
+                        {#</button>#}
+                        {#<button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">#}
+                            {#<span class="qq-btn qq-pause-icon" aria-label="Pause"></span>#}
+                        {#</button>#}
+                        {#<button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">#}
+                            {#<span class="qq-btn qq-continue-icon" aria-label="Continue"></span>#}
+                        {#</button>#}
+                    {#</div>#}
+                {#</li>#}
+            {#</ul>#}
+
+            {#<dialog class="hide qq-alert-dialog-selector">#}
+                {#<div class="qq-dialog-message-selector"></div>#}
+                {#<div class="qq-dialog-buttons">#}
+                    {#<button type="button" class="qq-cancel-button-selector">Close</button>#}
+                {#</div>#}
+            {#</dialog>#}
+
+            {#<dialog class="hide qq-confirm-dialog-selector">#}
+                {#<div class="qq-dialog-message-selector"></div>#}
+                {#<div class="qq-dialog-buttons">#}
+                    {#<button type="button" class="qq-cancel-button-selector">No</button>#}
+                    {#<button type="button" class="qq-ok-button-selector">Yes</button>#}
+                {#</div>#}
+            {#</dialog>#}
+
+            {#<dialog class="hide qq-prompt-dialog-selector">#}
+                {#<div class="qq-dialog-message-selector"></div>#}
+                {#<input type="text">#}
+                {#<div class="qq-dialog-buttons">#}
+                    {#<button type="button" class="qq-cancel-button-selector">Cancel</button>#}
+                    {#<button type="button" class="qq-ok-button-selector">Ok</button>#}
+                {#</div>#}
+            {#</dialog>#}
+        {#</div>#}
+    {#</script>#}
+
+    <header class="row align-middle header-section header-section-title" data-anim-appear>
+        <div class="columns">
+            <h1 class="title title_header-section">{% block title '' %}</h1>
+        </div>
+    </header>
+
+    {% include 'MajoraOTAStoreAppBundle:Includes:form_errors.html.twig' %}
+
+    <form name="majoraotastore_application" method="post" data-anim-appear data-abide novalidate>
+        <div class="input-wrap input-wrap_inline">
+            <div class="row">
+                <div class="columns columns_label columns_label-boxed">
+                    <label class="input-wrap__label" for="majoraotastore_application_label">{{ 'application.form.label.label'|trans }}</label>
+                </div>
+                <div class="columns columns_input">
+                    <input class="input-wrap__input" type="text" id="majoraotastore_application_label" name="majoraotastore_application[label]" value="{{ form.vars.value.label }}" placeholder="{{ 'application.form.label.placeholder'|trans }}" required />
+                    <span class="form-error">{{ 'application.form.label.error'|trans }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="input-wrap input-wrap_inline">
+            <div class="row">
+                <div class="columns columns_label columns_label-boxed columns_label-multilines">
+                    <label class="input-wrap__label" for="desc-app">{{ 'application.form.description.label'|trans }}</label>
+                </div>
+                <div class="columns columns_input">
+                    <textarea class="input-wrap__input" type="text" id="majoraotastore_application_description" name="majoraotastore_application[description]" rows="5" placeholder="{{ 'application.form.description.placeholder'|trans }}">{{ form.vars.value.description }}</textarea>
+                </div>
+            </div>
+        </div>
+        {# TODO application.image #}
+        {#<div class="input-wrap input-wrap_inline">#}
+            {#<div class="input-wrap__file input-wrap__file_inline">#}
+                {#<label class="label input-wrap__file-label" for="icon-app">Icône de l'application</label>#}
+                {#<div class="upload__file small" id="uploader-img"></div>#}
+            {#</div>#}
+        {#</div>#}
+        <div class="input-wrap input-wrap_inline input-wrap_links">
+            <div class="row">
+                <div class="columns columns_label columns_label-boxed">
+                    <label for="plateform-app" class="input-wrap__label">{{ 'application.form.support.label'|trans }}</label>
+                </div>
+                <div class="columns columns_input">
+                    {% for choice in form.support.vars.choices %}
+                    <div class="input-wrap__input-radio">
+                        <input type="radio" id="majoraotastore_application_support-{{ choice.value }}" name="majoraotastore_application[support]" value="{{ choice.value }}" {{ form.vars.value.support == choice.value ? 'checked' : (loop.first ? 'checked') }} {{ (choice.value == 'ios') ? 'data-show-when-checked="majoraotastore_application_packageName_wrapper" data-required-when-checked="majoraotastore_application_packageName"' }}>
+                        <label class="input-wrap__radio" for="majoraotastore_application_support-{{ choice.value }}"><i class="icon icon-{{ (choice.value == 'ios') ? 'apple' : 'android' }}"></i></label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="input-wrap input-wrap_inline" id="majoraotastore_application_packageName_wrapper">
+            <div class="row">
+                <div class="columns columns_label columns_label-boxed">
+                    <label class="input-wrap__label" for="majoraotastore_application_packageName">
+                        <span>{{ 'application.form.package_name.label'|trans }}</span>
+                        <span class="show-for-medium show-for-up-mobile">{{ 'application.form.package_name.description'|trans }}</span>
+                    </label>
+                </div>
+                <div class="columns columns_input">
+                    <input class="input-wrap__input" type="text" id="majoraotastore_application_packageName" name="majoraotastore_application[packageName]" value="{{ form.vars.value.packageName }}" placeholder="{{ 'application.form.package_name.placeholder'|trans }}" />
+                    <span class="form-error">{{ 'application.form.package_name.error'|trans }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row input-wrap input-wrap_block" data-select-filter>
+            <div class="columns columns_label columns_label-boxed">
+                <label class="input-wrap__label" for="majoraotastore_application_users">{{ 'application.form.users.label'|trans }}</label>
+            </div>
+            <div class="columns columns_input">
+                <div class="input-wrap__search">
+                    <input class="input-wrap__input input-wrap__input-search" type="search" id="majoraotastore_application_users" placeholder="{{ 'application.form.users.placeholder'|trans }}" />
+                    <ul class="search__results" data-select-filter-options>
+                        {% for choice in form.users.vars.choices %}
+                        <li class="search__result" data-select-filter-option data-id="{{ choice.value }}" data-name="majoraotastore_application[users][]" {{ choice.value in form.users.vars.value ? 'data-selected' }}>
+                            <span><strong>{{ choice.data.firstname }} {{ choice.data.lastname }}</strong><span>{{ ('user.roles.'~choice.data.role~'.label')|trans }}</span></span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {# TODO create users from application create/update form #}
+            {#<div class="columns shrink">#}
+                {#<a data-open="modal-create-user" class="button button_action button_navigation button_input-wrap-side"><span>créer un nouvel utilisateur</span></a>#}
+            {#</div>#}
+            <div class="columns columns_offset small-12" data-select-filter-results>
+                <div class="columns_options" data-select-filter-results-elems></div>
+                <div class="columns_options__action">
+                    <a class="button button_action" data-select-filter-delete-button><span>{{ 'application.form.users.remove_button'|trans }}</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions row align-justify">
+            <div class="columns row-buttons">
+                <button type="submit" class="button button_action button_confirm">
+                    <span>{{ 'application.form.submit.label'|trans }}</span>
+                </button>
+                <a href="{{ url('majoraotastore_admin_application_list') }}" class="button button_action">
+                    <span>{{ 'application.form.cancel.label'|trans }}</span>
+                </a>
+            </div>
+            <div class="columns row-buttons">
+                {% block extra_buttons '' %}
+            </div>
+        </div>
+        {{ form_row(form._token) }}
+    </form>
+
 {% endblock %}
 
 {% block javascripts %}

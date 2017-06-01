@@ -11,7 +11,7 @@ mysql:
   databases:
     - { name: 'majoraotastore' }
 
-php_versions: ['5.6']
+php_versions: ['7.0']
 php_upload_max_filesize: '1024M'
 php_post_max_size: '1024M'
 

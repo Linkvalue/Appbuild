@@ -2,13 +2,13 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Features\Context;
 
-use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeFeatureScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Driver\BrowserKitDriver;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
-use Behat\Symfony2Extension\Context\KernelDictionary;
+use Behat\MinkExtension\Context\MinkContext;
 use Doctrine\ORM\EntityManager;
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
@@ -24,11 +24,10 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 /**
  * Defines application features from the specific context.
  */
-class ApplicationIntegrationContext implements SnippetAcceptingContext
+class ApplicationIntegrationContext implements Context
 {
-    use KernelDictionary;
-
-    const MAIN_TABLE_SELECTOR = '#main-content table';
+    /** @var MinkContext */
+    private $minkContext;
 
     /** @var EntityManager */
     private $manager;
@@ -45,8 +44,11 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     /** @var Filesystem */
     private $filesystem;
 
-    /** @var \Behat\MinkExtension\Context\MinkContext */
-    private $minkContext;
+    /** @var bool */
+    private $streamBuildsContent;
+
+    /** @var string */
+    private $webRelativeBuildsApplicationDir;
 
     /**
      * Constructor.
@@ -56,35 +58,28 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
      * @param Session               $session
      * @param TokenStorageInterface $tokenStorage
      * @param Filesystem            $filesystem
+     * @param bool                  $streamBuildsContent
+     * @param string                $webRelativeBuildsApplicationDir
      */
     public function __construct(
         EntityManager $manager,
         Router $router,
         Session $session,
         TokenStorageInterface $tokenStorage,
-        Filesystem $filesystem
+        Filesystem $filesystem,
+        $streamBuildsContent,
+        $webRelativeBuildsApplicationDir
     ) {
         $this->manager = $manager;
         $this->router = $router;
         $this->session = $session;
         $this->tokenStorage = $tokenStorage;
         $this->filesystem = $filesystem;
+        $this->streamBuildsContent = $streamBuildsContent;
+        $this->webRelativeBuildsApplicationDir = $webRelativeBuildsApplicationDir;
     }
 
     /**
-     * @BeforeScenario
-     */
-    public function gatherContexts(BeforeScenarioScope $scope)
-    {
-        /* @var \Behat\Behat\Context\Environment\InitializedContextEnvironment $environment */
-        $environment = $scope->getEnvironment();
-
-        $this->minkContext = $environment->getContext('Behat\MinkExtension\Context\MinkContext');
-    }
-
-    /**
-     * Bootstrap test database.
-     *
      * @BeforeFeature
      */
     public static function initBdd(BeforeFeatureScope $scope)
@@ -104,12 +99,21 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     public function truncateBdd(BeforeScenarioScope $scope)
     {
         $connection = $this->manager->getConnection();
-
         $schemaManager = $connection->getSchemaManager();
-        $tables = $schemaManager->listTables();
-        foreach ($tables as $table) {
+        foreach ($schemaManager->listTables() as $table) {
             $connection->exec(sprintf('DELETE FROM %s', $table->getName()));
         }
+    }
+
+    /**
+     * @BeforeScenario
+     */
+    public function gatherContexts(BeforeScenarioScope $scope)
+    {
+        /* @var \Behat\Behat\Context\Environment\InitializedContextEnvironment $environment */
+        $environment = $scope->getEnvironment();
+
+        $this->minkContext = $environment->getContext(MinkContext::class);
     }
 
     /**
@@ -167,6 +171,7 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
             $idProperty->setValue($application, $data['app_id']);
             $application->setLabel($data['app_label']);
             $application->setSupport($data['app_support']);
+            $application->setPackageName($data['app_package_name'] ?: null);
             $this->manager->persist($application);
         }
         $this->manager->flush();
@@ -216,8 +221,16 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     public function applicationsShouldBeDisplayed($nbApp)
     {
         $this->minkContext->assertResponseStatus(200);
-        $this->minkContext->assertElementOnPage(self::MAIN_TABLE_SELECTOR);
-        $this->minkContext->assertNumElements($nbApp, self::MAIN_TABLE_SELECTOR.' > tbody > tr');
+        $this->minkContext->assertElementOnPage('article.table');
+        $this->minkContext->assertNumElements($nbApp, 'article.table > .table__row-body');
+    }
+
+    /**
+     * @Then I should see the build with version :buildVersion for application with id :applicationId
+     */
+    public function iShouldSeeTheBuildWithVersion($buildVersion, $applicationId)
+    {
+        $this->minkContext->assertElementContainsText('article.table > .table__row-body[data-id="'.$applicationId.'"] .table__cell-last-build .label-version', $buildVersion);
     }
 
     /**
@@ -225,7 +238,7 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
      */
     public function iShouldNotSeeTheBuildWithVersion($buildVersion, $applicationId)
     {
-        $this->minkContext->assertElementNotContainsText(self::MAIN_TABLE_SELECTOR.' tr[data-id="'.$applicationId.'"] td.latest-build', $buildVersion);
+        $this->minkContext->assertElementNotContainsText('article.table > .table__row-body[data-id="'.$applicationId.'"] .table__cell-last-build .label-version', $buildVersion);
     }
 
     /**
@@ -236,18 +249,18 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
         $url = $this->router->generate('majoraotastore_admin_application_create');
         $this->minkContext->visit($url);
 
-        $this->minkContext->fillField('majoraotastore_application_label', $label);
-        $this->minkContext->fillField('majoraotastore_application_support', $support);
+        $this->minkContext->fillField('majoraotastore_application[label]', $label);
+        $this->minkContext->selectOption('majoraotastore_application[support]', $support);
 
         // iOS support needs package identifier
         if ($support == Application::SUPPORT_IOS) {
-            $this->minkContext->fillField('majoraotastore_application_packageName', 'my package');
+            $this->minkContext->fillField('majoraotastore_application[packageName]', 'my package');
         }
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
         $page = $this->minkContext->getSession()->getPage();
-        $page->find('css', 'form[name=majoraotastore_application]')->submit();
+        $page->find('css', 'form[name="majoraotastore_application"]')->submit();
     }
 
     /**
@@ -256,8 +269,8 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     public function theApplicationWithLabelShouldHaveBeenSaved($label)
     {
         $this->minkContext->assertResponseStatus(200);
-        $this->minkContext->assertElementOnPage(self::MAIN_TABLE_SELECTOR);
-        $this->minkContext->assertElementContainsText(self::MAIN_TABLE_SELECTOR, $label);
+        $this->minkContext->assertElementOnPage('article.table');
+        $this->minkContext->assertElementContainsText('article.table', $label);
     }
 
     /**
@@ -268,12 +281,12 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
         $url = $this->router->generate('majoraotastore_admin_application_update', ['id' => $id]);
         $this->minkContext->visit($url);
 
-        $this->minkContext->fillField('majoraotastore_application_label', $label);
+        $this->minkContext->fillField('majoraotastore_application[label]', $label);
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
         $page = $this->minkContext->getSession()->getPage();
-        $page->find('css', 'form[name=majoraotastore_application]')->submit();
+        $page->find('css', 'form[name="majoraotastore_application"]')->submit();
     }
 
     /**
@@ -293,8 +306,8 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     public function buildsShouldBeDisplayed($nbBuilds)
     {
         $this->minkContext->assertResponseStatus(200);
-        $this->minkContext->assertElementOnPage(self::MAIN_TABLE_SELECTOR);
-        $this->minkContext->assertNumElements($nbBuilds, self::MAIN_TABLE_SELECTOR.' > tbody > tr');
+        $this->minkContext->assertElementOnPage('article.table');
+        $this->minkContext->assertNumElements($nbBuilds, 'article.table > .table__row-body');
     }
 
     /**
@@ -308,13 +321,13 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
         $url = $this->router->generate('majoraotastore_admin_build_create', ['application_id' => $id]);
         $this->minkContext->visit($url);
 
-        $this->minkContext->fillField('majoraotastore_build_version', $version);
-        $this->minkContext->fillField('majoraotastore_build_filename', $filename);
+        $this->minkContext->fillField('majoraotastore_build[version]', $version);
+        $this->minkContext->getSession()->getPage()->find('css', '[name="majoraotastore_build[filename]"]')->setValue($filename);
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
         $page = $this->minkContext->getSession()->getPage();
-        $page->find('css', 'form[name=majoraotastore_build]')->submit();
+        $page->find('css', 'form[name="majoraotastore_build"]')->submit();
     }
 
     /**
@@ -323,8 +336,8 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
     public function theBuildWithVersionShouldHaveBeenSaved($version)
     {
         $this->minkContext->assertResponseStatus(200);
-        $this->minkContext->assertElementOnPage(self::MAIN_TABLE_SELECTOR);
-        $this->minkContext->assertElementContainsText(self::MAIN_TABLE_SELECTOR, $version);
+        $this->minkContext->assertElementOnPage('article.table');
+        $this->minkContext->assertElementContainsText('article.table', $version);
     }
 
     /**
@@ -338,12 +351,12 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
         ]);
         $this->minkContext->visit($url);
 
-        $this->minkContext->fillField('majoraotastore_build_version', $version);
+        $this->minkContext->fillField('majoraotastore_build[version]', $version);
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
         $page = $this->minkContext->getSession()->getPage();
-        $page->find('css', 'form[name=majoraotastore_build]')->submit();
+        $page->find('css', 'form[name="majoraotastore_build"]')->submit();
     }
 
     /**
@@ -369,7 +382,7 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
                 break;
 
             default:
-                if ($this->getContainer()->getParameter('stream_builds_content')) {
+                if ($this->streamBuildsContent) {
                     // we can follow build file streaming route
                     $this->getClient()->followRedirects(true);
                 } else {
@@ -405,7 +418,7 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
                 break;
 
             default:
-                if ($this->getContainer()->getParameter('stream_builds_content')) {
+                if ($this->streamBuildsContent) {
                     $expectedUrl = $this->router->generate('majoraotastore_admin_build_stream_file', [
                         'application_id' => $build->getApplication()->getId(),
                         'id' => $build->getId(),
@@ -418,7 +431,7 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
                     $this->minkContext->assertResponseStatus(302);
                     $this->minkContext->assertSession()->responseHeaderEquals('Location', sprintf(
                         '/%s/%s/%s',
-                        $this->getContainer()->getParameter('web_relative_builds_application_dir'),
+                        $this->webRelativeBuildsApplicationDir,
                         $build->getApplication()->getSlug(),
                         $build->getFileNameWithExtension()
                     ));
@@ -454,7 +467,7 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
             ['build_file' => new UploadedFile($tmpFilePath, $file)],
             ['HTTP_X-Requested-With' => 'XMLHttpRequest']
         );
-        $response = json_decode($this->getClient()->getInternalResponse()->getContent(), true);
+        $response = json_decode($this->getClient()->getInternalResponse()->getContent(), JSON_OBJECT_AS_ARRAY);
 
         return $response['filename'];
     }
@@ -498,7 +511,6 @@ class ApplicationIntegrationContext implements SnippetAcceptingContext
      */
     private function getClient()
     {
-        /* @var BrowserKitDriver $driver */
         $driver = $this->minkContext->getSession()->getDriver();
         if (!$driver instanceof BrowserKitDriver) {
             throw new UnsupportedDriverActionException('This step is only supported by the BrowserKitDriver', $driver);

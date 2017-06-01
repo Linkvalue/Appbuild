@@ -1,67 +1,98 @@
 # Majora => ApplicationBundle => messages.en
 application:
     form:
-        label: Application name
-        support: Support/Platform
-        package_name: Package name (aka. Bundle identifier)
-        users: Users allowed to download this application
-        submit_button:
-            label: Save
+        label:
+            label: Application name
+            placeholder: type the application name
+            error: This field is mandatory
+        description:
+            label: Description
+            placeholder: ...
+        support:
+            label: OS
+        package_name:
+            label: Package name
+            description: (aka. Bundle identifier)
+            placeholder: e.g. com.example.app
+            error: This field is mandatory
+        users:
+            label: Users
+            placeholder: type the user name
+            remove_button: remove user
+        submit:
+            label: save
+        cancel:
+            label: cancel
+        disable:
+            label: disable application
+        enable:
+            label: enable application
     create:
-        title: New application
+        title: create a new application
         flash:
             success: Your application was successfully created.
     update:
-        title: Update application
+        title: update application
         flash:
             success: Your application was successfully updated.
     list:
-        title: Applications
+        title: my applications
+        buttons:
+            disabled_applications: disabled applications
+            enabled_applications: enabled applications
         thead:
             label: Application
             latest_build: Latest build
-            support: Support
+            latest_comment: Comment
+            support: OS
             actions: Actions
-        actions:
-            enable:
-                title: Enable application
-            disable:
-                title: Disable application
-            update:
-                title: Edit application
-            build_list:
-                title: See list of available builds
-    supports:
-        ios: iOS
-        android: Android
+        latest_build:
+            no_build: no build
+        latest_comment:
+            read_more: Read more
+            no_comment: no comment
+        latest_comment_modal:
+            title: Comment
+            close: close
 
 build:
     form:
-        version: Build version
-        filename: Build file to be downloaded
-        comment: Build comment
-        submit_button:
-            label: Save
+        version:
+            label: Build version
+            placeholder: e.g. 0.1.0
+            error: This field is mandatory
+        file:
+            label: Build file (.ipa or .apk)
+        comment:
+            label: Comment
+            placeholder: ...
+        submit:
+            label: save
+        cancel:
+            label: cancel
+        disable:
+            label: disable build
+        enable:
+            label: enable build
     create:
-        title: New build
+        title: new build
         flash:
             success: Your build was successfully created.
     update:
-        title: Update build
+        title: update build
         flash:
             success: Your build was successfully updated.
     list:
-        title: Builds
+        title: builds
+        buttons:
+            disabled_builds: disabled builds
+            enabled_builds: enabled builds
         thead:
             label: Label
             actions: Actions
             comment: Comment
-        actions:
-            enable:
-                title: Enable build
-            disable:
-                title: Disable build
-            update:
-                title: Update build
-            download:
-                title: Download build
+        comment_modal:
+            title: build detail
+            close: close
+            name: Name
+            comment: Comment

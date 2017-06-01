@@ -1,0 +1,249 @@
+.line {
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  @include breakpoint(small only) {
+    height: $table-line-height;
+  }
+
+  @include breakpoint(medium down) {
+    width: 100%;
+  }
+}
+
+.app-name-wrap {
+  display: flex;
+  flex-flow: row nowrap;
+
+  > * {
+    padding: 0;
+  }
+}
+
+.app-name {
+  flex: 0 0 calc(100% - (#{$table-app-img} + #{$table-app-img-space}));
+  max-width: calc(100% - (#{$table-app-img} + #{$table-app-img-space}));
+
+  > * {
+    display: block;
+  }
+}
+
+.app-picture {
+  display: inline-block;
+  position: relative;
+  width: $table-app-img;
+  height: $table-app-img;
+  margin-right: $table-app-img-space;
+  border-radius: rem-calc(8);
+  background-color: rgba($black, .9);
+  background-position: center;
+  background-size: cover;
+  vertical-align: middle;
+
+  @include breakpoint(medium down) {
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+  }
+
+}
+
+.build-name {
+
+
+
+  > * {
+    display: block;
+  }
+}
+
+.app-date {
+  margin-top: rem-calc(3px);
+  font-size: map-get($table-date-fz, small);
+
+  @include breakpoint(medium) {
+    font-size: map-get($table-date-fz, medium);
+  }
+}
+
+.icon-os {
+  font-size: rem-calc(14);
+
+  @include breakpoint(large) {
+    font-size: rem-calc(25);
+  }
+}
+
+[class^="label-"] {
+  display: inline-block;
+  height: map-get($label-height, small);
+
+  color: $white;
+
+  font-size: map-get($label-fz, small);
+  line-height: map-get($label-height, small);
+
+  text-align: center;
+
+  @include breakpoint(medium) {
+    height: map-get($label-height, medium);
+    font-size: map-get($label-fz, medium);
+    line-height: map-get($label-height, medium);
+  }
+}
+
+.label-version,
+.label-order {
+  background: $black;
+}
+
+.label-order,
+.label-role {
+  width: map-get($label-width, small);
+
+  @include breakpoint(medium) {
+    width: map-get($label-width, default);
+  }
+}
+
+.label-version {
+  width: map-get($label-width, latest-build);
+}
+
+.label-role {
+  font-weight: 600;
+
+  &_superadmin {
+    background-color: $superadmin-color;
+  }
+  &_admin {
+    background-color: $admin-color;
+  }
+  &_downloader {
+    background: $black;
+  }
+}
+
+
+@include breakpoint(small only) {
+  .is-new {
+    .label-version {
+      background: $primary-color;
+    }
+  }
+}
+
+.label-new {
+  padding: rem-calc(0 4);
+
+  background: $primary-color;
+
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.comment__text {
+  display: block;
+  width: rem-calc(200);
+  white-space: nowrap;
+}
+
+.comment__more {
+
+  display: inline-block;
+  position: relative;
+  margin-top: rem-calc(3px);
+  color: $primary-color;
+  font-size: map-get($table-date-fz, small);
+  font-style: italic;
+
+  @include breakpoint(medium) {
+    font-size: map-get($table-date-fz, medium);
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    transform: translateY(8px);
+    transition-duration: $table-link-transition-duration;
+    transition-property: $table-link-transition-prop;
+    transition-timing-function: $table-link-transition-timing;
+    background-color: $primary-color;
+    opacity: 0;
+  }
+
+  &:hover,
+  &:focus {
+    &::after {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+}
+
+// ICONS ACTION
+
+.icons-action {
+  display: flex;
+  margin-right: - rem-calc(2px);
+  margin-left: - rem-calc(2px);
+  & > * {
+    display: inline-block;
+    margin: rem-calc(0 2px);
+  }
+}
+
+.icon-android {
+  color: $primary-color;
+}
+
+.icon-action {
+  width: map-get($button-icon-size, width);
+  height: map-get($button-icon-size, height);
+  transition-duration: $icon-transition-duration;
+  transition-property: $icon-transition-prop;
+  transition-timing-function: $icon-transition-timing;
+  background: $dark-secondary;
+  color: $white;
+  font-size: rem-calc(20);
+  line-height: map-get($button-icon-size, height);
+  text-align: center;
+  box-shadow: inset 0 0 0 $primary-color;
+
+  &:hover,
+  &:focus {
+    color: $white;
+    box-shadow: inset  (- map-get($button-icon-size, width)) 0 0 darken($primary-color, 5%);
+  }
+
+  &:focus {
+    transform: scale(.95);
+  }
+
+  &.icon-update {
+    padding-left: rem-calc(5);
+  }
+
+  &.icon-action_download {
+    background: $primary-color;
+  }
+}
+
+.icon-action_download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-action_download__label {
+  padding-left: rem-calc(2);
+  font-size: rem-calc(12);
+}

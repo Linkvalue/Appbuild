@@ -1,0 +1,19 @@
+{% extends 'MajoraOTAStoreAppBundle::base.html.twig' %}
+
+{% block body %}
+    <section class="{% block section_class '' %}">
+        <div class="row align-center align-middle">
+            <div class="columns small-10 medium-5 large-4 form-login text-center">
+
+                {% block header %}
+                <header class="form-login__header">
+                    <h1 class="logo"><img src="{{ asset('assets/img/logo.svg') }}" alt="{{ 'admin.logo.alt'|trans }}"></h1>
+                    <h2 class="logo-baseline">{{ 'admin.logo.baseline'|trans }}</h2>
+                </header>
+                {% endblock %}
+
+                {% block content '' %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,20 @@
+$appear-transition-prop: $global-transition-prop;
+$appear-transition-duration: $global-transition-duration;
+$appear-transition-timing: $global-transition-timing;
+
+[data-anim-appear] {
+  transform: translate3d(0, 5px, 0);
+
+  transition-duration: $appear-transition-duration;
+  transition-property: opacity, transform;
+  transition-timing-function: $appear-transition-timing;
+
+  opacity: 0;
+}
+
+.no-js {
+  [data-anim-appear] {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

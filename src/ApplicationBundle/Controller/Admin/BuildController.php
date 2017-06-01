@@ -89,7 +89,7 @@ class BuildController extends BaseController
                 );
             }
             $form->handleRequest($request);
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->container->get('doctrine.orm.entity_manager');
                 $em->persist($build);
                 $em->flush();
@@ -107,8 +107,6 @@ class BuildController extends BaseController
         return $this->render('MajoraOTAStoreApplicationBundle:Build:create.html.twig',
             [
                 'form' => $form->createView(),
-                'application' => $application,
-                'build' => $build,
             ]
         );
     }
@@ -154,7 +152,7 @@ class BuildController extends BaseController
                 );
             }
             $form->handleRequest($request);
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->container->get('doctrine.orm.entity_manager');
                 $em->persist($build);
                 $em->flush();
@@ -173,8 +171,6 @@ class BuildController extends BaseController
             'MajoraOTAStoreApplicationBundle:Build:update.html.twig',
             [
                 'form' => $form->createView(),
-                'application' => $application,
-                'build' => $build,
             ]
         );
     }

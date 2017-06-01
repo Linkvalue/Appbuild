@@ -1,59 +1,80 @@
 # Majora => UserBundle => messages.fr
 user:
     roles:
-        ROLE_USER: Téléchargeur (télécharger des app)
-        ROLE_ADMIN: Admin (Téléchargeur + créer des app + donner accès aux app)
-        ROLE_SUPER_ADMIN: Super Admin (Admin + créer et modifier des utilisateurs)
+        ROLE_USER:
+            label: Téléchargeur
+            description: ''
+            letter: T
+        ROLE_ADMIN:
+            label: Admin
+            description: ''
+            letter: A
+        ROLE_SUPER_ADMIN:
+            label: Super administrateur
+            description: (admin et gestion des utilisateurs)
+            letter: S
     login:
         title: Connectez-vous
         form:
             email:
-                label: Email :
+                label: email
             password:
-                label: Mot de passe :
+                label: mot de passe
             remember_me:
-                label: Se souvenir de moi
-            submit: Se connecter
+                label: se souvenir de moi
+            submit: se connecter
     logout:
         title: Se déconnecter
     list:
-        title: Utilisateurs
+        title: utilisateurs
+        buttons:
+            disabled_users: utilisateurs désactivés
+            enabled_users: utilisateurs activés
         thead:
             firstname: Prénom
             lastname: Nom
             role: Rôle
             email: Email
-            actions: Actions
-        actions:
-            update:
-                title: Modifier l'utilisateur
-            enable:
-                title: Activer l'utilisateur
-            disable:
-                title: Désactiver l'utilisateur
+    form:
+        lastname:
+            label: Nom
+            placeholder: nom
+            error: Le champ est obligatoire
+        firstname:
+            label: Prénom
+            placeholder: prénom
+            error: Le champ est obligatoire
+        email:
+            label: Adresse mail
+            placeholder: adresse mail
+            error: Le champ est obligatoire
+        password:
+            label: Mot de passe
+            placeholder: nouveau mot de passe
+            error: Le champ est obligatoire
+        password_confirm:
+            label: Confirmation
+            placeholder: répétez le mot de passe
+            error: Le mot de passe n'est pas identique
+        role:
+            label: Role
+        submit:
+            label: sauvegarder
+        cancel:
+            label: annuler
+        disable:
+            label: désactiver l'utilisateur
+        enable:
+            label: activer l'utilisateur
     create:
-        title: Créer un utilisateur
+        title: créer un nouvel utilisateur
         flash:
             success: L'utilisateur a bien été créé
     update:
-        title: Modifier un utilisateur
+        title: modifier un utilisateur
         flash:
             success: L'utilisateur a bien été mis à jour
     my_account:
-        title: Mon compte
+        title: mon compte
         flash:
             success: Votre compte a bien été mis à jour
-    edit:
-        submit: Enregistrer
-        email:
-            label: Email :
-        firstname:
-            label: Prénom :
-        lastname:
-            label: Nom :
-        password:
-            label:
-                first: Mot de passe :
-                second: Répéter le mot de passe :
-        role:
-            label: Rôle

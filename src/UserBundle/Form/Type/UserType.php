@@ -2,6 +2,7 @@
 
 namespace Majora\OTAStore\UserBundle\Form\Type;
 
+use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,57 +16,60 @@ class UserType extends AbstractType
     const TOKEN_EDITION = 'edition';
     const TOKEN_MY_ACCOUNT = 'my-account';
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'majoraotastore_user';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => User::class,
+            'csrf_protection' => true,
+            'allow_extra_fields' => false,
+            'csrf_token_id' => null,
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', Type\EmailType::class, [
-                'label' => 'user.edit.email.label',
-            ])
-            ->add('firstname', Type\TextType::class, [
-                'label' => 'user.edit.firstname.label',
-            ])
-            ->add('lastname', Type\TextType::class, [
-                'label' => 'user.edit.lastname.label',
-            ])
+            ->add('email', Type\EmailType::class, ['error_bubbling' => true])
+            ->add('firstname', Type\TextType::class, ['error_bubbling' => true])
+            ->add('lastname', Type\TextType::class, ['error_bubbling' => true])
             ->add('password', Type\RepeatedType::class, [
+                'error_bubbling' => true,
                 'type' => Type\PasswordType::class,
-                'first_options' => ['label' => 'user.edit.password.label.first'],
-                'second_options' => ['label' => 'user.edit.password.label.second'],
-                'required' => $options['csrf_token_id'] === self::TOKEN_CREATION,
                 'mapped' => false,
             ])
         ;
 
-        // Roles can't be set for "my-account" csrf_token_id
+        // Roles can't be set for "my-account"
         if ($options['csrf_token_id'] !== self::TOKEN_MY_ACCOUNT) {
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
                 $userRole = $event->getData()->getRole();
                 $form = $event->getForm();
 
-                $form->add('roles', Type\ChoiceType::class, [
-                    'label' => 'user.edit.role.label',
+                $form->add('role', Type\ChoiceType::class, [
+                    'error_bubbling' => true,
                     'choices' => [
-                        'user.roles.ROLE_USER' => 'ROLE_USER',
-                        'user.roles.ROLE_ADMIN' => 'ROLE_ADMIN',
-                        'user.roles.ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN',
+                        'ROLE_USER',
+                        'ROLE_ADMIN',
+                        'ROLE_SUPER_ADMIN',
                     ],
-                    'choices_as_values' => true,
-                    'mapped' => false,
                     'data' => $userRole,
+                    'mapped' => false,
                 ]);
             });
         }
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => 'Majora\OTAStore\UserBundle\Entity\User',
-        ]);
-    }
-
-    public function getBlockPrefix()
-    {
-        return 'majoraotastore_user';
     }
 }

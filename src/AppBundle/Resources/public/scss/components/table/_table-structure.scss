@@ -1,0 +1,264 @@
+.table {
+  display: table;
+  width: 100%;
+  font-size: map-get($table-fz, small);
+  border-collapse: separate;
+  line-height: normal;
+
+  @include breakpoint(medium) {
+    font-size: map-get($table-fz, medium);
+  }
+}
+
+.table__row {
+  display: flex;
+  align-items: stretch;
+
+  @include breakpoint(medium) {
+    display: table-row;
+  }
+}
+
+.table__cell {
+  display: flex;
+
+  padding: map-get($table-row-padding, small);
+
+  @include breakpoint(small only) {
+    flex: 1 0 0;
+  }
+
+
+  @include breakpoint(medium) {
+    display: table-cell;
+    padding: map-get($table-row-padding, medium);
+    vertical-align: middle;
+  }
+
+  .table__cell__content,
+  .table__cell-head__content {
+    width: 100%;
+
+    > * {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  &:not(:first-child) {
+
+    .table__cell__content,
+    .table__cell-head__content {
+      position: relative;
+
+      &:after {
+        content: '';
+        width: 1px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background-color: $secondary-color;
+      }
+    }
+
+    &.table__cell-head.table__cell-head-action {
+
+      .table__cell-head__content {
+
+        &:after {
+          background-color: transparent;
+        }
+      }
+    }
+
+    @include breakpoint(small only) {
+
+      &.table__cell_mobile-right,
+      &.table__cell-head-app,
+      &.table__cell-app {
+        .table__cell-head__content,
+        .table__cell__content {
+
+          &:after {
+            background-color: transparent;
+          }
+        }
+      }
+
+    }
+
+    @include breakpoint(medium down) {
+      &.table__cell-head-app,
+      &.table__cell-app {
+        .table__cell-head__content,
+        .table__cell__content {
+
+          &:after {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+
+
+  }
+
+}
+
+.table__cell_shrink {
+
+  @include breakpoint(small only) {
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
+
+  @include breakpoint(medium) {
+    width: 1px;
+  }
+}
+
+// TABLE HEAD
+
+.table__row-head {
+  background: $primary-color;
+  color: $white;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.table__cell-head {
+  border-bottom: $table-head-line-margin solid $medium-secondary;
+}
+
+.table__cell-head__content {
+  padding: map-get($table-cell-head-padding, small);
+
+  @include breakpoint(medium) {
+    padding: map-get($table-cell-head-padding, medium);
+  }
+}
+
+// TABLE BODY
+
+.table__row-body {
+  position: relative;
+  background-color: $white;
+}
+
+
+.table__cell-body {
+  border-bottom: $table-line-margin solid $medium-secondary;
+}
+
+.table__cell__content {
+  margin: 0;
+  padding: map-get($table-cell-body-padding, small);
+
+  @include breakpoint(medium) {
+    padding: map-get($table-cell-body-padding, medium);
+  }
+
+  a {
+    transition-duration: $table-link-transition-duration;
+    transition-property: $table-link-transition-prop;
+    transition-timing-function: $table-link-transition-timing;
+
+    &:not(.icon-action):hover,
+    &:not(.icon-action):focus {
+      color: $primary-color;
+    }
+  }
+}
+
+@include breakpoint(small only) {
+
+  .table__cell-head__content,
+  .table__cell__content {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+  }
+}
+
+.table__cell-os {
+
+  .table__cell__content {
+    text-align: center;
+  }
+
+}
+
+.table__cell-last-build,
+.table__cell-last-comment {
+
+  .table__cell__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .columns-first {
+      flex: 1 1 0;
+      min-width: initial;
+    }
+
+    .columns-last {
+      flex: 0 0 auto;
+      max-width: 100%;
+    }
+  }
+}
+
+.comment.columns-first {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+}
+
+
+// TABLE CELL SPECIFICATION MOBILE
+
+
+
+@include breakpoint(small only) {
+
+  .table__cell_mobile-right {
+
+    position: absolute;
+    right: 0;
+    height: 100%;
+
+    .table__cell__content {
+      padding-left: 0;
+    }
+  }
+
+  .table__cell-last {
+    padding-right: map-get($button-icon-size, width) + ($table-padding-side-mobile);
+  }
+
+  .table__cell-firstname,
+  .table__cell-head-firstname {
+    flex: 0 0 150px;
+    max-width: 150px;
+  }
+
+  .table__cell-role,
+  .table__cell-head-role {
+    flex: 0 0 50px;
+    max-width: 50px;
+  }
+
+  .table__cell-mail,
+  .table__cell-head-mail {
+    flex: 0 0 calc(100% - 200px);
+    max-width: calc(100% - 200px);
+  }
+
+  .table__cell-app,
+  .table__cell-head-app,
+  .table__cell-last {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}

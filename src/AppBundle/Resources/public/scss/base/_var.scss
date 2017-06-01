@@ -1,0 +1,23 @@
+$global-space: rem-calc(5);
+$mobile-max-device-width: 740px;
+
+
+// TRANSITION
+// ---------
+
+$global-transition-prop: all;
+$global-transition-duration: 400ms;
+$global-transition-timing: ease;
+
+
+// COLOR
+// ---------
+
+$superadmin-color: #37cbaa;
+$admin-color: #37a6cb;
+$downloader-color: $black;
+
+// TYPOGRAPHY
+// ---------
+
+$lv-font-family: helvetica, sans-serif;

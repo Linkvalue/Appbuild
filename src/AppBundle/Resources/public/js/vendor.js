@@ -1,6 +1,10 @@
-import 'bootstrap/dist/js/bootstrap.min.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'datatables/media/js/jquery.dataTables.min.js';
-import 'datatables-bootstrap3-plugin/media/js/datatables-bootstrap3.js';
-import 'datatables-bootstrap3-plugin/media/css/datatables-bootstrap3.css';
-import 'components-font-awesome/css/font-awesome.min.css';
+import 'foundation-sites/dist/js/plugins/foundation.core.min.js';
+import 'foundation-sites/dist/js/plugins/foundation.util.box.min.js';
+import 'foundation-sites/dist/js/plugins/foundation.util.touch.min.js';
+import 'foundation-sites/dist/js/plugins/foundation.util.keyboard.min.js';
+import 'foundation-sites/dist/js/plugins/foundation.util.triggers.min.js';
+import 'foundation-sites/dist/js/plugins/foundation.util.mediaQuery.min.js';
+import 'foundation-sites/dist/js/plugins/foundation.abide.min.js';
+import 'foundation-sites/dist/js/plugins/foundation.dropdown.min.js';
+import 'foundation-sites/dist/js/plugins/foundation.responsiveMenu.min.js';
+import 'foundation-sites/dist/js/plugins/foundation.reveal.min.js';

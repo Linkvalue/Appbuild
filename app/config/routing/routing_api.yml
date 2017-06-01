@@ -1,4 +1,7 @@
 # API routing
+majoraotastore_api_login_check:
+    path: '/login_check'
+
 majoraotastore_api_applicationbundle:
     resource: '@MajoraOTAStoreApplicationBundle/Resources/config/routing/api/routing.yml'
     prefix:   '/'

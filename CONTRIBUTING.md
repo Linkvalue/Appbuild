@@ -8,24 +8,26 @@ so please head to this link and fulfill the **Requirements** section for your OS
 ### Installation
 
 #### 1. Clone project
-```bash
+```shell
 git clone git@github.com:LinkValue/MajoraOTAStore.git
 cd MajoraOTAStore
 ```
 
 #### 2. Virtual machine provisioning
-```bash
+```shell
 make provision
 ```
 
-Note: If it fails at some point, don't hesitate to re-run this command several times.
+Note: If it unluckily fails at some point, don't hesitate to re-run this command several times.
 
-#### 3. Bootstrap project
-```bash
+#### 3. Install project
+```shell
 # connect to the VM
 make ssh
-# then install the project for development
+# install the project for development (you'll have to press "Enter" several times to keep default parameters)
 make install
+# serve assets for development environment
+npm start
 ```
 
 #### 4. Enjoy
@@ -42,45 +44,21 @@ user@user.fr => user
 
 ### Frontend development
 
-All the assets (CSS/JS) are handled by Webpack.
+Front assets (css/js/images) are handled by [Webpack](https://webpack.js.org/).
 
-By default, you'll have to run `npm run build` each time you edit an asset file to see the modification in your browser (after refreshing it).
-
-But you can also use the webpack-dev-server to watch assets modification without needed to rebuild assets or even refreshing your browser.
-
-First, activate the webpack-dev-server support in your `parameters.yml` file:
-
-```yml
-# parameters.yml
-
-...
-
-use_webpack_dev_server: true
-
-```
-
-Then run the following command:
-
-```bash
+When you're in development environment (i.e. `http://majoraotastore.dev/app_dev.php/...`), the project is configured to use webpack dev server to serve assets, it means that the project will seems to be broken until you run the following command:
+```shell
 npm start
 ```
 
+When you're in production environment (i.e. `http://majoraotastore.dev/...`), the project will use the assets found in `web/assets`, it means that you'll have to run `npm run build` each time you edit an asset file to see the modification in your browser (after refreshing it). 
+
 ### Common tasks
-```bash
+```shell
 # rebuild the whole database with clean fixtures
 make db-rebuild
 # update your database schema after adding/removing stuff in your data model
 make db-rebuild db-update db-build
-# run integration tests
+# run functional tests
 bin/behat
-```
-
-
-### Get a token
-```bash
-curl -X POST http://majoraotastore.dev/app_dev.php/api/login_check -d _username=admin@admin.fr -d _password=admin
-```
-output :
-```
-{"token":"eyJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6WyJS...2FcOf0m0juoxmorX_N9bNO0cucRJuLTf5-5PZCsohqAFMcXdPX50Qvn8"}
 ```

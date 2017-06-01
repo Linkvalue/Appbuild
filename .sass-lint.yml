@@ -1,0 +1,11 @@
+options:
+    merge-default-rules: false
+files:
+    include: 'src/**/*.scss'
+rules:
+    no-warn: 2
+    no-debug: 2
+    no-important: 2
+    indentation:
+        - 2
+        - size: 2

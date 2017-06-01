@@ -43,17 +43,10 @@ class BuildType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('version', TextType::class, [
-            'required' => true,
-            'label' => 'build.form.version',
-        ]);
-        $builder->add('comment', TextareaType::class, [
-            'required' => false,
-            'label' => 'build.form.comment',
-        ]);
+        $builder->add('version', TextType::class, ['error_bubbling' => true]);
+        $builder->add('comment', TextareaType::class, ['error_bubbling' => true]);
         $builder->add('filename', TextType::class, [
-            'required' => false,
-            'label' => 'build.form.filename',
+            'error_bubbling' => true,
             'mapped' => false,
         ]);
     }

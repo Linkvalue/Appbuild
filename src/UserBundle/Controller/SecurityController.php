@@ -85,7 +85,7 @@ class SecurityController extends Controller
 
         if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 // Encode password
                 if (!$password = $form->get('password')->getData()) {
                     throw new ValidatorException('Password must be set.');
@@ -93,7 +93,7 @@ class SecurityController extends Controller
                 $user->setPassword($this->container->get('security.password_encoder')->encodePassword($user, $password));
 
                 // Set role
-                if ($role = $form->get('roles')->getData()) {
+                if ($role = $form->get('role')->getData()) {
                     $user->setRoles([$role]);
                 }
 
@@ -103,7 +103,7 @@ class SecurityController extends Controller
 
                 $this->addFlash('success', $this->container->get('translator')->trans('user.create.flash.success'));
 
-                return $this->redirectToRoute('majoraotastore_admin_user_create');
+                return $this->redirectToRoute('majoraotastore_admin_user_list');
             }
         }
 
@@ -135,14 +135,14 @@ class SecurityController extends Controller
 
         if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 // Encode password if it is set
                 if ($password = $form->get('password')->getData()) {
                     $user->setPassword($this->container->get('security.password_encoder')->encodePassword($user, $password));
                 }
 
                 // Set role
-                if ($role = $form->get('roles')->getData()) {
+                if ($role = $form->get('role')->getData()) {
                     $user->setRoles([$role]);
                 }
 
@@ -152,9 +152,7 @@ class SecurityController extends Controller
 
                 $this->addFlash('success', $this->container->get('translator')->trans('user.update.flash.success'));
 
-                return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_admin_user_list'
-                ));
+                return $this->redirectToRoute('majoraotastore_admin_user_list');
             }
         }
 
@@ -162,7 +160,6 @@ class SecurityController extends Controller
             'MajoraOTAStoreUserBundle:Security:update.html.twig',
             [
                 'form' => $form->createView(),
-                'user' => $user,
             ]
         );
     }
@@ -235,7 +232,7 @@ class SecurityController extends Controller
         );
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             // Encode password if it is set
             if ($password = $form->get('password')->getData()) {
                 $user->setPassword($this->container->get('security.password_encoder')->encodePassword($user, $password));

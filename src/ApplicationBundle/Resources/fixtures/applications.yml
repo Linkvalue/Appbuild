@@ -4,3 +4,12 @@ Majora\OTAStore\ApplicationBundle\Entity\Application:
         label: Test application
         packageName: com.link-value.test
         enabled: true
+    test_android:
+        support: android
+        label: Test application Android
+        enabled: true
+    test_ios_without_build:
+        support: ios
+        label: Test application without build
+        packageName: test.without.build
+        enabled: true

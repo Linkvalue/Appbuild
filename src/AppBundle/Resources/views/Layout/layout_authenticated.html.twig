@@ -1,0 +1,64 @@
+{% extends 'MajoraOTAStoreAppBundle::base.html.twig' %}
+
+{% block body %}
+
+        <div class="row main-content">
+            <div class="columns small-12">
+
+                {% block header %}
+                <header class="header">
+                    <div class="row">
+                        <div class="columns small-12 medium-3">
+                            <h1 class="logo header__logo"><a href="{{ url('majoraotastore_admin_application_list') }}"><img src="{{ asset('assets/img/logo.svg') }}" alt="{{ 'admin.logo.alt'|trans }}"></a></h1>
+                        </div>
+                        <div class="header__column-actions columns small-12 medium-9 row">
+                            {# TODO: search feature #}
+                            {#<div class="search columns small-12 medium-expand">#}
+                                {#<form class="form-search" action="" autocomplete="on">#}
+                                    {#<input id="search" name="search" type="text" class="form-search__input">#}
+                                    {#<button id="search_submit" value="{{ 'admin.header.search.submit'|trans }}" type="submit" class="form-search__button button button_confirm"><i class="icon icon-search"> </i></button>#}
+                                {#</form>#}
+                            {#</div>#}
+                            {% if is_granted('ROLE_USER') %}
+                            <div class="nav-secondary columns">
+                                <a href="{{ url('majoraotastore_admin_user_my_account') }}" class="button button_account" title="{{ 'user.my_account.title'|trans }}"><i class="icon icon-user"></i></a>
+                                <div class="button__language-wrap">
+                                    <button class="button button_language" data-toggle="select-lang"><span><span class="button__select">{{ ('admin.header.language.'~app.request.locale)|trans }}</span><i class="icon icon-angle-down"></i></span></button>
+                                    <div class="button__options dropdown-pane" id="select-lang" data-dropdown data-close-on-click="true">
+                                        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}" class="button__option">{{ 'admin.header.language.en'|trans }}</a>
+                                        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}" class="button__option">{{ 'admin.header.language.fr'|trans }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="nav-primary columns">
+                                <a href="{{ url('majoraotastore_admin_application_list') }}" class="button button_navigation {{ app.request.pathInfo matches '@^/'~app.request.locale~'/application/@' ? 'active' }}">
+                                    <span>{{ 'admin.header.links.applications'|trans }}</span>
+                                </a>
+                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                <a href="{{ url('majoraotastore_admin_user_list') }}" class="button button_navigation {{ app.request.pathInfo matches '@^/'~app.request.locale~'/user/@' ? 'active' }}">
+                                    <span>{{ 'admin.header.links.users'|trans }}</span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                {% endblock %}
+
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="callout success" data-closable>
+                    <div>{{ flashMessage }}</div>
+                    <button class="close-button" aria-label="{{ 'admin.alert.dismiss_alert'|trans }}" type="button" data-close>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+
+                <section class="{% block section_class '' %}">
+                {% block content '' %}
+                </section>
+
+            </div>
+        </div>
+{% endblock %}

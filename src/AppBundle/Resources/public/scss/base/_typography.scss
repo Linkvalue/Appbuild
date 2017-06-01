@@ -1,0 +1,23 @@
+$title-fz: (
+  small: rem-calc(18),
+  medium: rem-calc(22)
+);
+$title-margin-b: rem-calc(20);
+
+.title {
+
+  margin-bottom: $title-margin-b;
+
+  color: $white;
+  font-size: map-get($title-fz, small);
+  font-style: italic;
+  font-weight: bold;
+
+  @include breakpoint(medium) {
+    font-size: map-get($title-fz, medium);
+  }
+}
+
+.title_header-section {
+  margin-bottom: 0;
+}
