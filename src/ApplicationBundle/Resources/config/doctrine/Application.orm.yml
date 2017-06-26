@@ -7,21 +7,13 @@ Majora\OTAStore\ApplicationBundle\Entity\Application:
             type: integer
             generator: { strategy: AUTO }
     uniqueConstraints:
-        label_idx:
-            columns: label
-        slug_idx:
-            columns: slug
+        label_support_idx:
+            columns:
+                - label
+                - support
     fields:
         label:
             type: string
-        slug:
-            type: string
-            gedmo:
-                slug:
-                    separator: -
-                    style: default
-                    fields:
-                        - label
         support:
             type: string
         packageName:

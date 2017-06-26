@@ -2,6 +2,7 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Entity;
 
+use Cocur\Slugify\Slugify;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -77,6 +78,17 @@ class Build
         return sprintf('%s [%s]',
             $application->getLabel(),
             $this->getVersion()
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return sprintf('%s-%s',
+            $this->getApplication()->getSlug(),
+            (new Slugify())->slugify($this->getVersion())
         );
     }
 
