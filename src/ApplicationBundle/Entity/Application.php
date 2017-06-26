@@ -2,6 +2,7 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -26,11 +27,6 @@ class Application
      * @var string
      */
     private $label;
-
-    /**
-     * @var string
-     */
-    private $slug;
 
     /**
      * @var string
@@ -112,19 +108,13 @@ class Application
      */
     public function getSlug()
     {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     *
-     * @return $this
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
+        return (new Slugify())->slugify(
+            sprintf(
+                '%s-%s',
+                $this->getLabel(),
+                $this->getSupport()
+            )
+        );
     }
 
     /**

@@ -137,7 +137,7 @@ class BuildController extends ApiController
         $filename = $request->query->get('filename');
 
         if (!$filename) {
-            $filename = $build->getLabel();
+            $filename = $build->getSlug();
         }
 
         $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');

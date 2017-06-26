@@ -1,7 +1,6 @@
 Majora\OTAStore\ApplicationBundle\Entity\Application:
     test_ios:
         support: ios
-        label: Test application iOS
-        slug: test-application-ios
+        label: Test application
         packageName: com.link-value.test
         enabled: true
