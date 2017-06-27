@@ -1,0 +1,20 @@
+.form-error {
+  display: none;
+  position: absolute;
+  bottom: rem-calc(5);
+  left: 0;
+  margin-left: 0 !important; // sass-lint:disable-line no-important
+  padding-left: map-get($form-padding-side, small);
+  color: $alert-color;
+  font-size: map-get($form-error-fz, small);
+  font-style: italic;
+
+  @include breakpoint(medium) {
+    padding-left: map-get($form-padding-side, medium);
+    font-size: map-get($form-error-fz, medium);
+  }
+}
+
+.is-invalid-label {
+  color: $alert-color;
+}

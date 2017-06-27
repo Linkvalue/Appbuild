@@ -33,28 +33,17 @@ vm-rebuild: vm-destroy vm-provision
 
 # Clean
 clean:
-	rm -rf var/cache/*
-	rm -rf var/logs/*
-	rm -rf vendor/composer/autoload*
-	rm var/bootstrap.php.cache
-	bin/composer dump-autoload
+	php bin/console cache:clear --no-warmup
 	php bin/console cache:warmup
-	npm run build
 
 # Installation
 install-bin:
 	mkdir -p bin
 	test -f bin/composer || curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
-	bin/composer self-update
 	test -f bin/php-cs-fixer || wget http://get.sensiolabs.org/php-cs-fixer.phar -O bin/php-cs-fixer
-	php bin/php-cs-fixer self-update
-
-install-git-hooks:
-	test -f .git/hooks/pre-commit || wget https://raw.githubusercontent.com/LinkValue/symfony-git-hooks/master/pre-commit -O .git/hooks/pre-commit
-	chmod +x .git/hooks/pre-commit || true
 
 install-composer:
-	bin/composer install
+	php bin/composer install
 
 install-npm:
 	npm install
@@ -64,16 +53,13 @@ install-jwt:
 	test -f var/jwt/private.pem || openssl genrsa -out var/jwt/private.pem -passout pass:Majora -aes256 4096
 	test -f var/jwt/public.pem || openssl rsa -in var/jwt/private.pem -passin pass:Majora -pubout -out var/jwt/public.pem
 
-install: install-bin install-git-hooks install-composer install-jwt install-npm db-build clean
+install: install-bin install-composer install-jwt install-npm db-build assets-build clean
 
 # Update
 update: update-composer clean
 
 update-composer:
-	bin/composer update
-
-update-parameters:
-	bin/composer run-script set-parameters-yml -vv
+	php bin/composer update
 
 # Database
 db-build:
@@ -94,30 +80,25 @@ db-update:
 	php bin/console doctrine:migrations:diff
 	php bin/console doctrine:migrations:migrate -n
 
-# Tests
-test-prepare: test-install-bin install-composer install-npm db-build clean
+# Assets
+assets-build:
+	npm run build
 
-test-install-bin:
-	test -d bin/ || mkdir bin/
-	test -f bin/composer || curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
-	bin/composer self-update
+assets-watch:
+	npm start
 
 # Production
 prod-install: install-bin
-	SYMFONY_ENV=prod bin/composer install --no-dev --optimize-autoloader --no-interaction
+	SYMFONY_ENV=prod php bin/composer install --no-dev --optimize-autoloader --no-interaction
 	npm install
 
 prod-build:
-	php bin/console doctrine:database:create --if-not-exists --env=prod
-	php bin/console doctrine:migration:migrate -n --env=prod
+	php bin/console doctrine:database:create --env=prod --if-not-exists
+	php bin/console doctrine:migration:migrate --env=prod -n
+	npm run build
 
 prod-clean:
-	rm -rf var/cache/*
-	rm -rf var/logs/*
-	rm -rf vendor/composer/autoload*
-	rm var/bootstrap.php.cache
-	bin/composer dump-autoload -o
+	php bin/console cache:clear --env=prod --no-warmup
 	php bin/console cache:warmup --env=prod
-	npm run build
 
 prod-deploy: prod-install prod-build prod-clean

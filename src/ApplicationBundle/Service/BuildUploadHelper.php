@@ -106,14 +106,14 @@ class BuildUploadHelper
      */
     public function createTempFile($fileContent, $filename)
     {
-        $filePath = DIRECTORY_SEPARATOR.
-            trim(sys_get_temp_dir(), DIRECTORY_SEPARATOR).
-            DIRECTORY_SEPARATOR.
-            ltrim($filename, DIRECTORY_SEPARATOR);
+        $filePath = sprintf(
+            '%s%s%s',
+            rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR),
+            DIRECTORY_SEPARATOR,
+            ltrim($filename, DIRECTORY_SEPARATOR)
+        );
 
-        $writeRes = file_put_contents($filePath, $fileContent);
-
-        if ($writeRes === false) {
+        if (file_put_contents($filePath, $fileContent) === false) {
             throw new FileException(sprintf('Could not create temp file "%s"', $fileContent));
         }
 

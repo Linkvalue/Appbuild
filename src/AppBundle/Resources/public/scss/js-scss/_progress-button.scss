@@ -1,0 +1,48 @@
+$progress-button-transition-prop: $global-transition-prop;
+$progress-button-transition-duration: .1s;
+$progress-button-transition-timing: ease-in-out;
+
+[data-load] {
+  position: relative;
+
+  .progress {
+    position: absolute;
+    top: 0;
+    right: 100%;
+    left: 0;
+    height: 100%;
+    background-color: $dark-primary;
+    transition-property: $progress-button-transition-prop;
+    transition-timing-function: $progress-button-transition-timing;
+    z-index: 0;
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      transition-duration: $progress-button-transition-duration;
+      transition-property: $progress-button-transition-prop;
+      transition-timing-function: $progress-button-transition-timing;
+      color: $white;
+      opacity: 0;
+    }
+  }
+
+  span {
+    position: relative;
+
+    z-index: 1;
+  }
+
+  &.js-button-loading {
+
+    .progress {
+      right: 0;
+    }
+    .icon {
+      opacity: 1;
+    }
+  }
+
+}

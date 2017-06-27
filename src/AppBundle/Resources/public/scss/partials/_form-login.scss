@@ -1,0 +1,80 @@
+$form-login-header: rem-calc(90);
+$form-login-small-fz: rem-calc(14);
+
+$form-login-transition-prop: $global-transition-prop;
+$form-login-transition-duration: $global-transition-duration;
+$form-login-transition-timing: $global-transition-timing;
+
+.form-login__header {
+  margin-top: $form-login-header;
+  margin-bottom: $form-login-header;
+
+  > * {
+    margin: 0;
+  }
+}
+
+.logo-baseline {
+  color: $white;
+  font-family: $lv-font-family;
+  font-size: $form-login-small-fz;
+  text-align: right;
+  font-style: italic;
+}
+
+.form-login__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: rem-calc(40);
+}
+
+.form-login__forgot-password {
+  position: relative;
+  transition-duration: $form-login-transition-duration;
+  transition-property: $form-login-transition-prop;
+  transition-timing-function: $form-login-transition-timing;
+  color: $white;
+  font-size: $form-login-small-fz;
+  font-style: italic;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    transform: translateY(5px);
+    transition-duration: $form-login-transition-duration;
+    transition-property: $form-login-transition-prop;
+    transition-timing-function: $form-login-transition-timing;
+    background-color: $white;
+    opacity: 0;
+  }
+
+  &:hover {
+    color: $white;
+
+    &::after {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+.loader-login {
+  position: absolute;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  transition-duration: $form-login-transition-duration;
+  transition-property: $form-login-transition-prop;
+  transition-timing-function: $form-login-transition-timing;
+  background: $primary-color;
+  z-index: 900;
+
+  &.valid {
+    height: 100%;
+    top: 0 !important; // sass-lint:disable-line no-important
+  }
+}

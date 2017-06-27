@@ -1,14 +1,17 @@
 language: php
 
 php:
-  - 5.6
-  - 7.0
+    - 5.6.19
+    - 7.0
+    - 7.1
 
 before_script:
-  - nvm install "$(jq -r '.engines.node' package.json)"
-  - make test-prepare
+    - nvm install "$(jq -r '.engines.node' package.json)"
+    - make install-bin install-composer install-npm db-build clean
 
 script:
-  - bin/phpunit --testsuite="majoraotastore_project" --coverage-clover="coverage.clover"
-  - bin/behat --no-interaction
-  - bin/behat --no-interaction --profile="nostream"
+    - npm run lint
+    - php bin/php-cs-fixer fix src/ --dry-run
+    - bin/phpunit --testsuite="majoraotastore_project" --coverage-clover="coverage.clover"
+    - bin/behat --no-interaction
+    - bin/behat --no-interaction --profile="nostream"

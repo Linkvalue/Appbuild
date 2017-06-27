@@ -1,7 +1,4 @@
 
-majoraotastore_api_login_check:
-    path: '/login_check'
-
 majoraotastore_api_application_build:
     resource: '@MajoraOTAStoreApplicationBundle/Resources/config/routing/api/application_build.yml'
     prefix: '/application/{application_id}/build'

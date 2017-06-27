@@ -5,7 +5,7 @@ SCRIPT_NAME=$0
 # Prerequisites
 if ! type "jq" > /dev/null 2>&1; then
   echo "Error: jq command is missing" # only work on recent Bash versions and Zsh
-  echo "Please install <jq> command to parse the json response of the api request."
+  echo "Please install <jq> command to parse the json response of the api responses."
   echo "On Mac : brew install jq"
   echo "On Debian : apt-get install jq"
   exit 500
@@ -23,12 +23,12 @@ EP_CREATE_BUILD='application/:application_id/build/'
 ######################################
 # USAGE
 function usage() {
-  echo "Usage: $SCRIPT_NAME [-hupafrciv] file"
+  echo "Usage: $SCRIPT_NAME [-achpruv] file"
   echo " - a <application id> : Specify an application id"
   echo " - c <build comment> : Specify an build comment"
   echo " - h : Help, print this usage"
   echo " - p <password> : Specify a password"
-  echo " - r <build release> : Specify an build version number"
+  echo " - r <build release> : Specify a build version number"
   echo " - u <username> : Specify a username"
   echo " - v : verbose mode"
   echo ""
@@ -41,16 +41,16 @@ function usage() {
 # DEFAULT PARAMETERS
 p_verbose='false'
 p_interactive_fallback='false' # Allows the script to ask the user in prompt if the param is not passed
-p_username=superadmin@superadmin.fr
-p_password=superadmin
+p_username='superadmin@superadmin.fr'
+p_password='superadmin'
 p_app_id=7
-p_version=1.2
+p_version='1.2'
 p_comment=''
 
 ######################################
 # OPTION PARAMETERS
 
-while getopts 'u:p:a:f:r:c:ivh' flag; do
+while getopts 'u:p:a:f:r:c:vh' flag; do
   case "${flag}" in
     h) usage; exit 0 ;;
     v) p_verbose='true' ;;
@@ -67,8 +67,8 @@ shift $(( OPTIND - 1 ))
 p_file="${1:-${BUILD_PATH}}"
 
 if [ ! -f "$p_file" ]; then
-    echo "File not found : ${p_file}"
-    exit 404;
+  echo "File not found : ${p_file}"
+  exit 404;
 fi
 
 filename=$(basename $p_file)
@@ -100,8 +100,10 @@ function apiLogin() {
     $(getAPIUrl "login_check") \
     -H 'Cache-control: no-cache' \
     -H 'Content-type: multipart/form-data' \
-    -F _username=${username} \
-    -F _password=${password}
+    -d "{
+      \"username\": ${username},
+      \"password\": \"${password}\"
+    }"
 }
 
 function apiCreateBuild() {
@@ -123,7 +125,7 @@ function apiCreateBuild() {
     -H "Content-type: application/json" \
     -H "Authorization: Bearer ${jwt}" \
     -d "{
-      \"version\": ${build_version},
+      \"version\": \"${build_version}\",
       \"comment\": \"${build_comment}\"
     }"
 }

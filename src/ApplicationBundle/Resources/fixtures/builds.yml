@@ -5,6 +5,20 @@ Majora\OTAStore\ApplicationBundle\Entity\Build:
         filePath: '/var/www/MajoraOTAStore/src/ApplicationBundle/Resources/fixtures/files/ios_v2.ipa'
         enabled: true
         comment: |
-            This is a comment for this build.
+            This is a comment for the latest build.
             With a line break.
             And another one.
+        createdAt: '<(new \DateTime("-1 days"))>'
+    test_ios_1_0_9:
+        application: '@test_ios'
+        version: 1.0.9
+        filePath: '/var/www/MajoraOTAStore/src/ApplicationBundle/Resources/fixtures/files/ios_v2.ipa'
+        enabled: true
+        comment: |
+            This is the comment for the first build.
+        createdAt: '<(new \DateTime("-2 days"))>'
+    test_android_0_2_0_0_rc_4:
+        application: '@test_android'
+        version: 0.2.0.0RC4
+        filePath: '/var/www/MajoraOTAStore/src/ApplicationBundle/Resources/fixtures/files/android_v3.apk'
+        enabled: true

@@ -1,59 +1,80 @@
 # Majora => UserBundle => messages.fr
 user:
     roles:
-        ROLE_USER: Downloader (download applications)
-        ROLE_ADMIN: Admin (Downloader + create applications + give access to applications)
-        ROLE_SUPER_ADMIN: Super Admin (Admin + create and edit users)
+        ROLE_USER:
+            label: Downloader
+            description: ''
+            letter: D
+        ROLE_ADMIN:
+            label: Admin
+            description: ''
+            letter: A
+        ROLE_SUPER_ADMIN:
+            label: Super Admin
+            description: (admin and users management)
+            letter: S
     login:
         title: Login
         form:
             email:
-                label: Email :
+                label: email
             password:
-                label: Password :
+                label: password
             remember_me:
-                label: Keep me logged in
-            submit: Login
+                label: keep me logged in
+            submit: login
     logout:
         title: Logout
     list:
-        title: Users
+        title: users
+        buttons:
+            disabled_users: disabled users
+            enabled_users: enabled users
         thead:
             firstname: Firstname
             lastname: Lastname
             role: Role
             email: Email
-            actions: Actions
-        actions:
-            update:
-                title: Edit user
-            enable:
-                title: Enable user
-            disable:
-                title: Disable user
+    form:
+        lastname:
+            label: Lastname
+            placeholder: lastname
+            error: This field is mandatory
+        firstname:
+            label: Firstname
+            placeholder: firstname
+            error: This field is mandatory
+        email:
+            label: Email address
+            placeholder: email address
+            error: This field is mandatory
+        password:
+            label: Password
+            placeholder: new password
+            error: This field is mandatory
+        password_confirm:
+            label: Confirm
+            placeholder: repeat password
+            error: Password is not identical
+        role:
+            label: Role
+        submit:
+            label: save
+        cancel:
+            label: cancel
+        disable:
+            label: disable user
+        enable:
+            label: enable user
     create:
-        title: New user
+        title: create a new user
         flash:
             success: User was successfully created
     update:
-        title: Update user
+        title: edit user
         flash:
             success: User was successfully updated
     my_account:
-        title: My account
+        title: my account
         flash:
             success: Your account was successfully updated
-    edit:
-        submit: Save
-        email:
-            label: Email :
-        firstname:
-            label: Firstname :
-        lastname:
-            label: Lastname :
-        password:
-            label:
-                first: Password :
-                second: Repeat the password :
-        role:
-            label: Role

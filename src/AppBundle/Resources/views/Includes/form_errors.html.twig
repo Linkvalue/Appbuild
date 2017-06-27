@@ -1,0 +1,12 @@
+{% if form is defined and not form.vars.valid %}
+<div class="callout alert" data-closable>
+    <ul>
+        {% for error in form.vars.errors %}
+        <li>{{ error.message }}</li>
+        {% endfor %}
+    </ul>
+    <button class="close-button" aria-label="{{ 'admin.alert.dismiss_alert'|trans }}" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}

@@ -1,7 +1,7 @@
 # Majora => ApplicationBundle => validators.en
 application:
     form:
-        must_set_package_name: This application support requires to set a Package Name.
+        must_set_package_name: This application OS requires to set a Package name.
 build:
     form:
         must_upload_file: You have to upload the build file.

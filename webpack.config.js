@@ -3,7 +3,6 @@ const isDev = require('isdev');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const { optimize } = require('webpack');
-
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractCSS = new ExtractTextPlugin({
   filename: '[name].css?[contenthash]',
@@ -30,6 +29,7 @@ const config = {
     rules: [
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -39,52 +39,37 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: isDev
-          ? [
-            {
-              loader: 'style-loader',
-              options: {sourceMap: true},
-            },
+        use: extractCSS.extract({
+          fallback: {
+            loader: 'style-loader',
+            options: { sourceMap: true },
+          },
+          use: [
             {
               loader: 'css-loader',
-              options: {sourceMap: true},
+              options: { sourceMap: true },
             },
-          ]
-          : extractCSS.extract({
-            fallback: 'style-loader',
-            use: {
-              loader: 'css-loader',
-            },
-          }),
+          ],
+        }),
       },
       {
         test: /\.scss$/,
-        use: isDev
-          ? [
-            {
-              loader: 'style-loader',
-              options: {sourceMap: true},
-            },
+        use: extractSASS.extract({
+          fallback: {
+            loader: 'style-loader',
+            options: { sourceMap: true },
+          },
+          use: [
             {
               loader: 'css-loader',
-              options: {sourceMap: true},
+              options: { sourceMap: true },
             },
             {
               loader: 'sass-loader',
-              options: {sourceMap: true},
+              options: { sourceMap: true },
             },
-          ]
-          : extractSASS.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-              },
-              {
-                loader: 'sass-loader',
-              },
-            ],
-          }),
+          ],
+        }),
       },
       {
         test: /\.(png|gif|jpg|svg|woff2?|ttf|eot)$/,
@@ -96,6 +81,14 @@ const config = {
   },
   plugins: [
     new CopyWebpackPlugin([
+      {
+        from: './src/AppBundle/Resources/public/img',
+        to: 'img',
+      },
+      {
+        from: './src/AppBundle/Resources/public/favicons',
+        to: 'favicons',
+      },
       {
         from: './node_modules/jquery/dist/jquery.min.js',
         to: 'jquery.js',
@@ -110,6 +103,8 @@ const config = {
       },
     ]),
     new optimize.CommonsChunkPlugin({ name: 'common', filename: 'common.js' }),
+    extractCSS,
+    extractSASS,
   ],
   externals: {
     jquery: 'jQuery',
@@ -121,17 +116,23 @@ const config = {
       path.resolve(__dirname, 'node_modules'),
     ],
   },
-  devtool: 'cheap-module-source-map',
+  devtool: isDev ? 'cheap-module-eval-source-map' : 'source-map',
   devServer: {
     host: '0.0.0.0',
     disableHostCheck: true,
   },
 };
 
-if (!isDev) {
-  config.plugins.push(new UglifyJSPlugin());
-  config.plugins.push(extractCSS);
-  config.plugins.push(extractSASS);
+if (isDev) {
+  config.module.rules.push({
+    enforce: 'pre',
+    test: /\.js$/,
+    loader: 'eslint-loader',
+  });
+} else {
+  config.plugins.push(
+    new UglifyJSPlugin({ sourceMap: true })
+  );
 }
 
 module.exports = config;

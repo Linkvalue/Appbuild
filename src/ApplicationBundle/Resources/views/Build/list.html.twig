@@ -1,82 +1,146 @@
-{% extends 'MajoraOTAStoreApplicationBundle::layout.html.twig'%}
+{% extends 'MajoraOTAStoreAppBundle:Layout:layout_authenticated.html.twig' %}
 
 {% block title 'build.list.title'|trans %}
 
-{% block header %}
-    <h1>{{ 'build.list.title'|trans }}</h1>
-    <div class="margin-bottom-15 pull-left">
+{% block content %}
+
+    <header class="row align-middle header-section" data-anim-appear>
+        <div class="columns">
+            <h1 class="title title_header-section">{{ 'build.list.title'|trans }}</h1>
+            <a class="link-back" href="{{ url('majoraotastore_admin_application_list') }}">
+                <span class="link-back__button"><i class="icon icon-angle-left"></i></span>
+                <i>{{ application.label }}</i>
+            </a>
+        </div>
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ url('majoraotastore_admin_build_create', { application_id: application.id }) }}" class="btn btn-primary">
-                <span class="fa fa-plus"></span>
-                {{ 'build.create.title'|trans }}
+        <div class="columns shrink row-buttons show-for-medium show-for-up-mobile">
+            <a href="{{ url('majoraotastore_admin_build_create', { application_id: application.id }) }}" class="button button_navigation">
+                <span>{{ 'build.create.title'|trans }}</span>
             </a>
             {% if app.request.get('enabled', true) %}
-                <a href="{{ url('majoraotastore_admin_build_list', { application_id: application.id, enabled: false }) }}" class="btn btn-xl btn-info">
-                    <i class="fa fa-trash"></i> {{ 'admin.icon.trash'|trans }}
-                </a>
+            <a href="{{ url('majoraotastore_admin_build_list', { application_id: application.id, enabled: false }) }}" class="button button_navigation">
+                <span>{{ 'build.list.buttons.disabled_builds'|trans }}</span>
+            </a>
             {% else %}
-                <a href="{{ url('majoraotastore_admin_build_list', { application_id: application.id, enabled: true }) }}" class="btn btn-xl btn-success">
-                    <i class="fa fa-undo"></i> {{ 'admin.icon.undo'|trans }}
-                </a>
+            <a href="{{ url('majoraotastore_admin_build_list', { application_id: application.id }) }}" class="button button_navigation">
+                <span>{{ 'build.list.buttons.enabled_builds'|trans }}</span>
+            </a>
             {% endif %}
+        </div>
         {% endif %}
-    </div>
-    <div class="margin-bottom-15 pull-right">
-        <a href="{{ url('majoraotastore_admin_application_list') }}" class="btn btn-info">
-            <span class="fa fa-arrow-left"></span>
-            {{ 'application.list.title'|trans }}
-        </a>
-    </div>
-{% endblock %}
+    </header>
 
-{% block content %}
-    <table class="table table-striped table-bordered table-hover">
-        <thead>
-        <tr>
-            <td>{{ 'build.list.thead.label'|trans }}</td>
-            <td>{{ 'build.list.thead.comment'|trans }}</td>
-            <td class="actions">
-                {{ 'build.list.thead.actions'|trans }}
-            </td>
-        </tr>
-        </thead>
-        <tbody>
+    <article class="table">
+        <div class="table__row table__row-head" data-anim-appear>
+            <div class="table__cell table__cell-head table__cell-head-label-build">
+                <div class="table__cell-head__content">{{ 'build.list.thead.label'|trans }}</div>
+            </div>
+            <div class="table__cell table__cell-head table__cell-head-comment">
+                <div class="table__cell-head__content">{{ 'build.list.thead.comment'|trans }}</div>
+            </div>
+            <div class="table__cell table__cell-head table__cell-head-actions table__cell_shrink">
+                <div class="table__cell-head__content show-for-medium show-for-up-mobile">{{ 'build.list.thead.actions'|trans }}</div>
+            </div>
+        </div>
+
         {% for build in builds %}
-            <tr data-id="{{ build.id }}">
-                <td>
-                    <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: build.id }) }}">
-                        {{ build.label }}
+        <div class="table__row table__row-body" data-anim-appear>
+            <div class="table__cell table__cell-body table__cell-label-build">
+                <div class="table__cell__content">
+                    <a class="table-link row align-middle" href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: build.id }) }}">
+                        <div class="columns shrink show-for-medium show-for-up-mobile">
+                            <span class="label-version">{{ build.version }}</span>
+                        </div>
+                        <div class="columns build-name">
+                            <strong>{{ build.label }}</strong>
+                            <span class="app-date">{{ build.createdAt|date('datetime.datetime'|trans, timezone) }}</span>
+                        </div>
                     </a>
-                    ({{ build.createdAt|date('datetime.datetime'|trans, timezone) }})
-                </td>
-                <td>
-                    {{ build.comment|nl2br }}
-                </td>
-                <td class="actions">
-                    <a class="btn btn-primary btn-xs" title="{{ 'build.list.actions.download.title'|trans }}"
-                       href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: build.id }) }}">
-                        <i class="fa fa-download"></i>
-                    </a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a class="btn btn-primary btn-xs" title="{{ 'build.list.actions.update.title'|trans }}"
-                           href="{{ url('majoraotastore_admin_build_update', { application_id: application.id, id: build.id }) }}">
-                            <i class="fa fa-pencil"></i>
+                </div>
+            </div>
+            <div class="table__cell table__cell-body table__cell-comment table__cell-last">
+                <div class="table__cell__content">
+                    <p class="comment">
+                        <span class="comment__text line">{{ build.comment }}</span>
+                        <a class="comment__more line " data-open="modal-comment-{{ build.id }}">{{ 'application.list.latest_comment.read_more'|trans }}</a>
+                    </p>
+                    <div class="reveal large" id="modal-comment-{{ build.id }}" data-reveal>
+                        <h3 class="title">{{ 'build.list.comment_modal.title'|trans }}</h3>
+                        <div class="reveal__content">
+                            <div class="row">
+                                <div class="columns reveal__columns">
+                                    <div class="reveal__block">
+                                        <span class="label">{{ 'build.list.comment_modal.name'|trans }}</span>
+                                        <span><strong>{{ application.label }}</strong></span>
+                                    </div>
+                                </div>
+                                <div class="columns shrink show-for-medium">
+                                    <div class="reveal__block">
+                                        <div class="icons-action">
+                                            <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: build.id }) }}" class="icon-action icon-action_download">
+                                                <i class="icon icon-download"></i><span class="icon-action_download__label hide-for-medium">{{ build.version }}</span>
+                                            </a>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                            <a href="{{ url('majoraotastore_admin_build_update', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
+                                            <a href="{{ url('majoraotastore_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
+                                            {% endif %}
+                                            {# TODO delete builds #}
+                                            {#<a data-open="modal-trash-{{ build.id }}" class="icon icon-action icon-trash show-for-medium show-for-up-mobile"></a>#}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="columns small-12">
+                                    <div class="reveal__block">
+                                        <span class="label">{{ 'build.list.comment_modal.comment'|trans }}</span>
+                                        <span>{{ build.comment|nl2br }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="button button_action button_confirm" data-close aria-label="{{ 'build.list.comment_modal.close'|trans }}" type="button">
+                            <span aria-hidden="true">{{ 'build.list.comment_modal.close'|trans }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table__cell table__cell-body table__cell-actions table__cell_mobile-right table__cell_shrink">
+                <div class="table__cell__content">
+                    <div class="icons-action">
+                        <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: build.id }) }}" class="icon-action icon-action_download">
+                            <i class="icon icon-download"></i><span class="icon-action_download__label hide-for-medium">{{ build.version }}</span>
                         </a>
-                        {% if build.enabled %}
-                            <a class="btn btn-primary btn-xs" title="{{ 'build.list.actions.disable.title'|trans }}"
-                               href="{{ url('majoraotastore_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        {% else %}
-                            <a class="btn btn-primary btn-xs" title="{{ 'build.list.actions.enable.title'|trans }}"
-                               href="{{ url('majoraotastore_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}">
-                                <i class="fa fa-check"></i>
-                            </a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ url('majoraotastore_admin_build_update', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
+                        <a href="{{ url('majoraotastore_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
                         {% endif %}
-                    {% endif %}
-                </td>
-            </tr>
+                        {# TODO delete builds #}
+                        {#<a data-open="modal-trash-{{ build.id }}" class="icon icon-action icon-trash show-for-medium show-for-up-mobile"></a>#}
+                    </div>
+                    {# TODO delete builds #}
+                    {#<div class="reveal" id="modal-trash-{{ build.id }}" data-reveal>#}
+                        {#<h3 class="title">Êtes-vous sûre de vouloir supprimer ce build ?</h3>#}
+                        {#<div class="row-buttons">#}
+                            {#<button class="button button_action button_confirm" type="button" data-load>#}
+                                {#<span>supprimer</span>#}
+                            {#</button>#}
+                            {#<button class="button button_action" data-close aria-label="Close modal" type="button">#}
+                                {#annuler#}
+                            {#</button>#}
+                        {#</div>#}
+                    {#</div>#}
+                </div>
+            </div>
+        </div>
         {% endfor %}
-        </tbody>
-    </table>
+
+    </article>
+
+    {# TODO pagination #}
+    {#<aside class="pagination" data-anim-appear>#}
+        {#<ul>#}
+            {#<li class="pagination__item"><a class="pagination__link" href="">1</a></li>#}
+            {#<li class="pagination__item"><a class="pagination__link" href="">2</a></li>#}
+            {#<li class="pagination__item"><a class="pagination__link" href=""><i class="icon icon-angle-right">  </i></a></li>#}
+        {#</ul>#}
+    {#</aside>#}
 {% endblock %}

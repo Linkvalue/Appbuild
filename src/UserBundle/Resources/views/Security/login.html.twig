@@ -1,46 +1,43 @@
-{% extends 'MajoraOTAStoreUserBundle:Security:form.html.twig' %}
+{% extends 'MajoraOTAStoreAppBundle:Layout:layout_anonymous.html.twig' %}
 
 {% block title 'user.login.title'|trans %}
 
-{% block header %}
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <h1>{{ 'admin.title' | trans }}</h1>
-        </div>
-    </div>
-{% endblock %}
+{% block section_class 'section-login' %}
 
 {% block content %}
+    <form data-is="form-login" action="{{ path('majoraotastore_user_login_check') }}" method="post" novalidate data-abide>
+        {% if error %}
+        <div class="callout alert" data-closable>
+            <div>{{ error.message }}</div>
+            <button class="close-button" aria-label="{{ 'admin.alert.dismiss_alert'|trans }}" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
 
-    <div class="row text-center">
-        <h2>{{ 'user.login.title' | trans }}</h2>
-    </div>
+        <div class="input-wrap_login">
+            <input type="email" id="email" name="_username" value="{{ last_username }}" class="input_login" autocorrect="off" autocomplete="email" autocapitalize="off" required>
+            <label for="email" class="label_login">{{ 'user.login.form.email.label'|trans }}</label>
+            <i class="bar"></i>
+        </div>
 
-    {% if error %}
-    <div class="row text-center">
-        <div class="alert alert-danger">{{ error.message }}</div>
-    </div>
-    {% endif %}
+        <div class="input-wrap_login">
+            <input type="password" id="password" name="_password" class="input_login" required>
+            <label for="password" class="label_login">{{ 'user.login.form.password.label'|trans }}</label>
+            <i class="bar"></i>
+        </div>
 
-    <div class="row text-center margin-bottom-15">
-        <form action="{{ path('majoraotastore_user_login_check') }}" method="post" class="center-block">
-            <div class="form-group">
-                <label for="username">{{ 'user.login.form.email.label' | trans }}</label>
-                <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" />
-            </div>
+        <div class="input-wrap__input-simple_checkbox">
+            <input type="checkbox" id="remember_me" name="_remember_me">
+            <label for="remember_me" class="">{{ 'user.login.form.remember_me.label'|trans }}</label>
+        </div>
 
-            <div class="form-group">
-                <label for="password">{{ 'user.login.form.password.label' | trans }}</label>
-                <input type="password" id="password" name="_password" class="form-control"/>
-            </div>
-
-            <div class="form-group">
-                <label for="remember_me">{{ 'user.login.form.remember_me.label' | trans }}</label>
-                <input type="checkbox" id="remember_me" name="_remember_me" checked="checked" />
-            </div>
-
-            <button type="submit" class="btn btn-default">{{ 'user.login.form.submit' | trans }}</button>
-        </form>
-    </div>
-
+        <div class="form-login__actions text-center">
+            <button type="submit" class="button button_action button_confirm button_confirm-login">
+                <span>{{ 'user.login.form.submit'|trans }}</span>
+            </button>
+            {# TODO "forgot password" feature #}
+            {#<a class="form-login__forgot-password" href="forgot-password.html">mot de passe perdu ?</a>#}
+        </div>
+    </form>
 {% endblock %}

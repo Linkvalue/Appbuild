@@ -1,0 +1,70 @@
+.input-wrap__search {
+  position: relative;
+}
+
+.input-wrap__input-search {
+  height: 100%;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+
+  &:focus {
+    border-top: 2px solid $primary-color;
+    border-left: 2px solid $primary-color;
+    border-right: 2px solid $primary-color;
+  }
+}
+
+.search__results {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  max-height: rem-calc(200px);
+  margin: 0;
+  border-right: 2px solid $primary-color;
+  border-bottom: 2px solid $primary-color;
+  border-left: 2px solid $primary-color;
+  background: $white;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  overflow-y: auto;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.search__result {
+  padding: map-get($form-input-padding, small);
+  cursor: pointer;
+
+  @include breakpoint(medium) {
+    padding: map-get($form-input-padding, medium);
+  }
+
+  &:hover {
+    background: $primary-color;
+    color: $white;
+  }
+
+  &.is-disabled {
+    color: $medium-gray;
+    cursor: not-allowed;
+    background: inherit;
+  }
+  strong {
+    margin-right: $global-space * 2;
+  }
+
+}
+
+.text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: text;
+}

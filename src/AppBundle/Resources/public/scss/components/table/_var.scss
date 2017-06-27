@@ -1,0 +1,67 @@
+$table-fz: (
+  small: rem-calc(10px),
+  medium: rem-calc(16px)
+);
+
+$table-line-height: rem-calc(15px);
+
+$table-link-transition-prop: $global-transition-prop;
+$table-link-transition-duration: .2s;
+$table-link-transition-timing: $global-transition-timing;
+
+$table-head-line-margin: rem-calc(10px);
+$table-line-margin: rem-calc(4px);
+
+$table-row-padding: (
+  small: rem-calc(6px 0),
+  medium: rem-calc(10px 0)
+);
+$table-cell-head-padding: (
+  small: rem-calc(3px 10px),
+  medium: rem-calc(10px 20px)
+);
+$table-cell-body-padding: (
+  small: rem-calc(2px 10px),
+  medium: rem-calc(3px 20px)
+);
+
+$table-padding-side-mobile: rem-calc(10px);
+
+$table-app-img: rem-calc(40px);
+
+$table-app-img-space: rem-calc(8px);
+
+$icon-transition-prop: $global-transition-prop;
+$icon-transition-duration: $global-transition-duration;
+$icon-transition-timing: $global-transition-timing;
+
+$button-icon-size: (
+  width: rem-calc(50),
+  height: rem-calc(35)
+);
+
+$label-height: (
+  small: rem-calc(20px),
+  medium: rem-calc(30px)
+);
+
+$label-width: (
+  small: rem-calc(30px),
+  default: rem-calc(40px),
+  latest-build: rem-calc(65px)
+);
+
+$label-height: (
+  small: rem-calc(20px),
+  medium: rem-calc(30px)
+);
+
+$label-fz: (
+  small: rem-calc(10px),
+  medium: rem-calc(12px)
+);
+
+$table-date-fz: (
+  small: rem-calc(10px),
+  medium: rem-calc(13px)
+);

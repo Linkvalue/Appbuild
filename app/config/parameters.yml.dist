@@ -19,8 +19,7 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: 'ThisTokenIsNotSoSecretChangeIt'
 
-    # use webpack-dev-server to watch assets modification in development environment
-    use_webpack_dev_server: false
+    # webpack-dev-server (to watch assets modification in development environment)
     webpack_dev_server_host: 'majoraotastore.dev' # could be 'localhost' if you're not using the provided Vagrant environment
 
     # Symfony session path (set this to '/tmp/sessions' for example if you encounter some issues in dev environment)

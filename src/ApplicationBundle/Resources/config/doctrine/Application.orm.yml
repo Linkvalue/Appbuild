@@ -14,6 +14,9 @@ Majora\OTAStore\ApplicationBundle\Entity\Application:
     fields:
         label:
             type: string
+        description:
+            type: text
+            nullable: true
         support:
             type: string
         packageName:

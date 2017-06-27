@@ -8,10 +8,11 @@ use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Form type for Application entity.
@@ -22,18 +23,18 @@ class ApplicationType extends AbstractType
     const TOKEN_EDITION = 'edition';
 
     /**
-     * @var TranslatorInterface
+     * @var TokenStorageInterface
      */
-    private $translator;
+    private $tokenStorage;
 
     /**
      * Constructor.
      *
-     * @param TranslatorInterface $translator
+     * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
-        $this->translator = $translator;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -62,49 +63,32 @@ class ApplicationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('label', TextType::class, [
-            'required' => true,
-            'label' => 'application.form.label',
-        ]);
-
-        $availableSupports = [];
-        foreach (Application::getAvailableSupports() as $support) {
-            $availableSupports[sprintf('application.supports.%s', $support)] = $support;
-        }
+        $builder->add('label', TextType::class, ['error_bubbling' => true]);
+        $builder->add('description', TextareaType::class, ['error_bubbling' => true]);
+        $builder->add('packageName', TextType::class, ['error_bubbling' => true]);
         $builder->add('support', ChoiceType::class, [
-            'required' => true,
-            'label' => 'application.form.support',
-            'choices' => $availableSupports,
-            'choices_as_values' => true,
-        ]);
-
-        $builder->add('packageName', TextType::class, [
-            'required' => true,
-            'label' => 'application.form.package_name',
+            'error_bubbling' => true,
+            'choices' => Application::getAvailableSupports(),
         ]);
 
         $builder->add('users', EntityType::class, [
+            'error_bubbling' => true,
             'class' => User::class,
-            'choice_label' => function (User $user) {
-                return sprintf('%s %s - %s',
-                    $user->getFirstname(),
-                    $user->getLastname(),
-                    $this->translator->trans('user.roles.'.$user->getRole())
-                );
-            },
             'multiple' => true,
             'expanded' => true,
             'query_builder' => function (EntityRepository $repository) {
                 $qb = $repository->createQueryBuilder('u');
 
                 return $qb
+                    // Not current user (it should ask a super admin if he wants to lose control over an application)
+                    ->andWhere($qb->expr()->neq('u', ':currentUser'))->setParameter(':currentUser', $this->tokenStorage->getToken()->getUser())
                     // Not ROLE_SUPER_ADMIN (they always have access to applications)
-                    ->where($qb->expr()->notIn('u.roles', ':superAdmin'))->setParameter(':superAdmin', 'ROLE_SUPER_ADMIN')
+                    ->andWhere($qb->expr()->notIn('u.roles', ':superAdmin'))->setParameter(':superAdmin', 'ROLE_SUPER_ADMIN')
                     // Sort by firstname
                     ->orderBy('u.firstname', 'ASC')
                 ;
             },
-            'label' => 'application.form.users',
+            'choice_label' => null,
         ]);
     }
 }

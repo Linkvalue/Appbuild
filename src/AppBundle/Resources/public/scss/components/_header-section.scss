@@ -1,0 +1,65 @@
+$header-section-margin: rem-calc(10);
+
+$header-section-title-margin: (
+  small: rem-calc(20),
+  medium: rem-calc(40)
+);
+
+$button-back-width: rem-calc(25);
+
+$button-back-transition-prop: $global-transition-prop;
+$button-back-transition-duration: $global-transition-duration;
+$button-back-transition-timing: $global-transition-timing;
+
+.header-section {
+  margin-bottom: $header-section-margin;
+}
+
+.link-back {
+  display: block;
+
+  margin-top: rem-calc(5);
+
+  color: $white;
+
+  > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &:hover,
+  &:focus {
+    color: $white;
+
+    .link-back__button {
+      margin-right: rem-calc(5);
+      background: $primary-color;
+    }
+  }
+}
+
+.link-back__button {
+  width: $button-back-width;
+  height: $button-back-width;
+
+  margin-right: rem-calc(10);
+
+  transition-duration: $button-back-transition-duration;
+  transition-property: $button-back-transition-prop;
+  transition-timing-function: $button-back-transition-timing;
+
+  background-color: $white;
+
+  color: $black;
+
+  line-height: $button-back-width + rem-calc(3);
+  text-align: center;
+}
+
+.header-section-title {
+  margin-bottom: map-get($header-section-title-margin, small);
+
+  @include breakpoint(medium) {
+    margin-bottom: map-get($header-section-title-margin, medium);
+  }
+}

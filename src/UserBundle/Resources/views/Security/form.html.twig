@@ -1,19 +1,146 @@
-{% extends 'MajoraOTAStoreUserBundle::layout.html.twig' %}
+{% extends 'MajoraOTAStoreAppBundle:Layout:layout_authenticated.html.twig' %}
 
 {% block content %}
-    {{ form_start(form, {'method': 'POST', 'action': block('user_form_action')}) }}
 
-        {{ form_row(form.firstname) }}
-        {{ form_row(form.lastname) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.password.first) }}
-        {{ form_row(form.password.second) }}
-        {{ form_row(form.roles) }}
+    <header class="row align-middle header-section header-section-title" data-anim-appear>
+        <div class="columns">
+            <h1 class="title title_header-section">{% block title '' %}</h1>
+        </div>
+    </header>
 
-        {{ form_rest(form) }}
-        <button type="submit" class="btn btn-primary">
-            <i class="fa fa-check"></i>
-            {{ 'user.edit.submit'|trans }}
-        </button>
+    {% include 'MajoraOTAStoreAppBundle:Includes:form_errors.html.twig' %}
+
+    <form name="majoraotastore_user" method="post" data-anim-appear data-abide novalidate>
+        <div class="row row-form">
+            <div class="columns small-12 large-6">
+                <div class="input-wrap input-wrap_inline">
+                    <div class="row">
+                        <div class="columns columns_label">
+                            <label class="input-wrap__label" for="majoraotastore_user_lastname">{{ 'user.form.lastname.label'|trans }}</label>
+                        </div>
+                        <div class="columns columns_input">
+                            <input type="text" id="majoraotastore_user_lastname" name="majoraotastore_user[lastname]" value="{{ form.vars.value.lastname }}" class="input-wrap__input" placeholder="{{ 'user.form.lastname.placeholder'|trans }}" required />
+                            <span class="form-error">{{ 'user.form.lastname.error'|trans }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns small-12 large-6">
+                <div class="input-wrap input-wrap_inline">
+                    <div class="row">
+                        <div class="columns columns_label">
+                            <label class="input-wrap__label" for="majoraotastore_user_firstname">{{ 'user.form.firstname.label'|trans }}</label>
+                        </div>
+                        <div class="columns columns_input">
+                            <input type="text" id="majoraotastore_user_firstname" name="majoraotastore_user[firstname]" value="{{ form.vars.value.firstname }}" placeholder="{{ 'user.form.firstname.placeholder'|trans }}" required class="input-wrap__input" />
+                            <span class="form-error">{{ 'user.form.firstname.error'|trans }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns small-12">
+                <div class="input-wrap input-wrap_inline">
+                    <div class="row">
+                        <div class="columns columns_label">
+                            <label class="input-wrap__label" for="majoraotastore_user_email">{{ 'user.form.email.label'|trans }}</label>
+                        </div>
+                        <div class="columns columns_input">
+                            <input type="email" id="majoraotastore_user_email" name="majoraotastore_user[email]" value="{{ form.vars.value.email }}" placeholder="{{ 'user.form.email.placeholder'|trans }}" autocorrect="off" autocomplete="email" autocapitalize="off" pattern="email" required class="input-wrap__input" />
+                            <span class="form-error">{{ 'user.form.email.error'|trans }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns small-12 large-6">
+                <div class="input-wrap input-wrap_inline">
+                    <div class="row">
+                        <div class="columns columns_label">
+                            <label class="input-wrap__label" for="majoraotastore_user_password_first">{{ 'user.form.password.label'|trans }}</label>
+                        </div>
+                        <div class="columns columns_input">
+                            <input type="password" id="majoraotastore_user_password_first" name="majoraotastore_user[password][first]" placeholder="{{ 'user.form.password.placeholder'|trans }}" class="input-wrap__input" {% block input_extra_params_password_first '' %} />
+                            <span class="form-error">{{ 'user.form.password.error'|trans }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns small-12 large-6">
+                <div class="input-wrap input-wrap_inline">
+                    <div class="row">
+                        <div class="columns columns_label">
+                            <label class="input-wrap__label" for="majoraotastore_user_password_second">{{ 'user.form.password_confirm.label'|trans }}</label>
+                        </div>
+                        <div class="columns columns_input">
+                            <input type="password" id="majoraotastore_user_password_second" name="majoraotastore_user[password][second]" placeholder="{{ 'user.form.password_confirm.placeholder'|trans }}" data-validator="same_value" data-same-as="majoraotastore_user_password_first" class="input-wrap__input" />
+                            <span class="form-error">{{ 'user.form.password_confirm.error'|trans }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% block extra_inputs %}
+            <div class="columns small-12">
+                <div class="input-wrap input-wrap_inline">
+                    <div class="row">
+                        <div class="columns columns_label">
+                            <label class="input-wrap__label">{{ 'user.form.role.label'|trans }}</label>
+                        </div>
+                        <div class="columns columns_input">
+                            <button class="select__toggle input-wrap__input" type="button" data-select-display data-toggle="majoraotastore_user_role_options" data-input="majoraotastore_user_role"></button>
+                            <ul class="dropdown-pane select__options" id="majoraotastore_user_role_options" data-dropdown data-select-options data-close-on-click="true">
+                                {% for choice in form.role.vars.choices %}
+                                <li class="select__option" data-value="{{ choice.value }}" data-selected="{{ choice.value == form.role.vars.value ? 'true' : 'false' }}">
+                                    <span class="label-role label-role_{{ (choice.value == 'ROLE_SUPER_ADMIN') ? 'superadmin' : (choice.value == 'ROLE_ADMIN') ? 'admin' : 'downloader' }}">{{ ('user.roles.'~choice.value~'.letter')|trans }}</span>
+                                    <strong>{{ ('user.roles.'~choice.value~'.label')|trans }}</strong>
+                                    <span>{{ ('user.roles.'~choice.value~'.description')|trans }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <input type="hidden" name="majoraotastore_user[role]" id="majoraotastore_user_role">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# TODO link applications from user create/update form #}
+            {#<div class="columns small-12">#}
+                {#<div class="row input-wrap input-wrap_block" data-select-filter>#}
+                    {#<div class="columns columns_label columns_label-boxed">#}
+                        {#<label class="input-wrap__label" for="role-user">Associer une application</label>#}
+                    {#</div>#}
+                    {#<div class="columns columns_input">#}
+                        {#<div class="input-wrap__search">#}
+                            {#<input class="input-wrap__input input-wrap__input-search" type="search" id="role-user" placeholder="Choisir une(des) application(s)" />#}
+                            {#<ul class="search__results js-select__options">#}
+                                {#<li class="search__result js-select__option" data-id=""><span>Bitween</span></li>#}
+                                {#<li class="search__result js-select__option" data-id=""><span>Link</span></li>#}
+                                {#<li class="search__result js-select__option" data-id=""><span>App</span></li>#}
+                                {#<li class="search__result js-select__option" data-id=""><span>Bitween</span></li>#}
+                            {#</ul>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="columns columns_offset small-12 js-results" id="js-results">#}
+                        {#<div class="columns_options js-results-elems"></div>#}
+                        {#<div class="columns_options__action">#}
+                            {#<a href="#" class="button button_action js-delete-elem"><span>supprimer l'utilisateur</span></a>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+            {% endblock %}
+        </div>
+        <div class="form-actions row align-justify">
+            <div class="columns row-buttons">
+                <button class="button button_action button_confirm" type="submit">
+                    <span>{{ 'user.form.submit.label'|trans }}</span>
+                </button>
+                <a href="{% block cancel_button_url url('majoraotastore_admin_user_list') %}" class="button button_action">
+                    <span>{{ 'user.form.cancel.label'|trans }}</span>
+                </a>
+            </div>
+            <div class="columns row-buttons">
+                {% block extra_buttons '' %}
+            </div>
+        </div>
+        {{ form_row(form._token) }}
     </form>
+
 {% endblock %}

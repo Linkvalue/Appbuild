@@ -1,0 +1,40 @@
+$checkbox-width: rem-calc(165);
+$checkbox-height: (
+  small: rem-calc(35),
+  medium: rem-calc(60)
+);
+
+$checkbox-padding: rem-calc(5);
+$checkbox-border-width: $button-border-width;
+
+.input-wrap__input-checkbox {
+  display: inline-block;
+  position: relative;
+  margin-bottom: $form-input-space;
+  cursor: pointer;
+
+  label {
+    display: flex;
+    margin: 0;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+
+    &:checked {
+
+      & + .input-wrap__checkbox {
+        border-color: $dark-primary;
+        background: $primary-color;
+        color: $medium-secondary;
+      }
+    }
+  }
+}
+
+.input-wrap__input-simple_checkbox {
+  label {
+    margin-left: $checkbox-padding;
+    color: $white;
+  }
+}

@@ -6,9 +6,9 @@ Feature: application
   Background:
     Given I am authenticated with role "ROLE_SUPER_ADMIN"
     Given there are these applications:
-      | app_id | app_label   | app_support |
-      | 1      | android app | android     |
-      | 2      | ios app     | ios         |
+      | app_id | app_label   | app_support | app_package_name    |
+      | 1      | android app | android     |                     |
+      | 2      | ios app     | ios         | com.link-value.test |
     Given there are these builds:
       | app_id | build_id | build_version | build_file     |
       | 1      | 1        | 1.0           | android_v3.apk |
@@ -18,6 +18,7 @@ Feature: application
   Scenario: List applications
     When I list all applications
     Then "2" applications should be displayed
+    And I should see the build with version "2.0" for application with id "1"
     And I should not see the build with version "1.0" for application with id "1"
 
   Scenario: Create an ios application
