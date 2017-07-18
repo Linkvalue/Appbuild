@@ -209,7 +209,7 @@ class User implements AdvancedUserInterface
      */
     public function isEnabled()
     {
-        return !empty($this->enabled);
+        return $this->enabled;
     }
 
     /**
