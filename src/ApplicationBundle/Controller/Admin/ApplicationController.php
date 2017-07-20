@@ -32,7 +32,9 @@ class ApplicationController extends BaseController
                 $criteria = Criteria::create()->where(Criteria::expr()->eq('enabled', $isAskingForEnabled))
             )->count()
         );
-        $page->setElements($this->getUserApplications()->matching($page->setupCriteria($criteria)));
+        $page->setElements($this->getUserApplications()->matching(
+            $page->setupCriteria($criteria)->orderBy(['updatedAt' => Criteria::DESC])
+        ));
 
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Application:list.html.twig',

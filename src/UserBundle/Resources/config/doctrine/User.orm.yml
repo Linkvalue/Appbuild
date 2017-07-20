@@ -25,6 +25,18 @@ Majora\OTAStore\UserBundle\Entity\User:
         lastname:
             type: string
             length: 255
+        createdAt:
+            type: datetime
+            column: created_at
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            column: updated_at
+            gedmo:
+                timestampable:
+                    on: update
     manyToMany:
         applications:
             targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\Application'
