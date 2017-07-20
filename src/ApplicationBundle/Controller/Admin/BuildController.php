@@ -52,7 +52,9 @@ class BuildController extends BaseController
                 $criteria = Criteria::create()->where(Criteria::expr()->eq('enabled', $isAskingForEnabled))
             )->count()
         );
-        $page->setElements($application->getBuilds()->matching($page->setupCriteria($criteria)));
+        $page->setElements($application->getBuilds()->matching(
+            $page->setupCriteria($criteria)->orderBy(['updatedAt' => Criteria::DESC])
+        ));
 
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Build:list.html.twig',

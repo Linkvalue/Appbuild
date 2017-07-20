@@ -3,6 +3,7 @@
 namespace Majora\OTAStore\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Majora\OTAStore\Entity\DatedTrait;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
@@ -10,6 +11,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  */
 class User implements AdvancedUserInterface
 {
+    use DatedTrait;
+
     /**
      * @var int
      */

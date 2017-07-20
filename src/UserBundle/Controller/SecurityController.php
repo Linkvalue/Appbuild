@@ -61,7 +61,9 @@ class SecurityController extends Controller
                 $criteria = Criteria::create()->where(Criteria::expr()->eq('enabled', $request->query->getBoolean('enabled', true)))
             )->count()
         );
-        $page->setElements($users->matching($page->setupCriteria($criteria)));
+        $page->setElements($users->matching(
+            $page->setupCriteria($criteria)->orderBy(['updatedAt' => Criteria::DESC])
+        ));
 
         return $this->render(
             'MajoraOTAStoreUserBundle:Security:list.html.twig',

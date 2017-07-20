@@ -5,6 +5,7 @@ namespace Majora\OTAStore\ApplicationBundle\Entity;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use Majora\OTAStore\Entity\DatedTrait;
 use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -13,6 +14,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class Application
 {
+    use DatedTrait;
+
     /**
      * Available supports.
      */
@@ -58,16 +61,6 @@ class Application
      * @var bool
      */
     private $enabled;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    private $updatedAt;
 
     /**
      * Constructor.
@@ -271,46 +264,6 @@ class Application
     public function setUsers(ArrayCollection $users)
     {
         $this->users = $users;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return $this
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     *
-     * @return $this
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace Majora\OTAStore\ApplicationBundle\Entity;
 
 use Cocur\Slugify\Slugify;
+use Majora\OTAStore\Entity\DatedTrait;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -10,6 +11,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class Build
 {
+    use DatedTrait;
+
     /**
      * @var int
      */
@@ -39,16 +42,6 @@ class Build
      * @var bool
      */
     private $enabled;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    private $updatedAt;
 
     /**
      * Constructor.
@@ -166,46 +159,6 @@ class Build
     public function setEnabled($enabled)
     {
         $this->enabled = !empty($enabled);
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return self
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     *
-     * @return self
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
