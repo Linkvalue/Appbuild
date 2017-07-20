@@ -3,6 +3,8 @@
 namespace Majora\OTAStore\UserBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
+use Majora\OTAStore\Pagination\Page;
 use Majora\OTAStore\UserBundle\Entity\User;
 use Majora\OTAStore\UserBundle\Form\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -53,13 +55,17 @@ class SecurityController extends Controller
 
         $users = new ArrayCollection($this->getDoctrine()->getRepository('MajoraOTAStoreUserBundle:User')->findAll());
 
-        list($enabled, $disabled) = $users->partition(function ($i, User $user) {
-            return $user->isEnabled();
-        });
+        $page = new Page(
+            $pageNumber = $request->query->getInt('page', Page::FIRST_PAGE_NUMBER),
+            $users->matching(
+                $criteria = Criteria::create()->where(Criteria::expr()->eq('enabled', $request->query->getBoolean('enabled', true)))
+            )->count()
+        );
+        $page->setElements($users->matching($page->setupCriteria($criteria)));
 
         return $this->render(
             'MajoraOTAStoreUserBundle:Security:list.html.twig',
-            ['users' => $request->get('enabled', true) ? $enabled : $disabled]
+            ['page' => $page]
         );
     }
 

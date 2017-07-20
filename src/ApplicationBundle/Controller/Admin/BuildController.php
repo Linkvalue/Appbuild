@@ -2,9 +2,11 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
 
+use Doctrine\Common\Collections\Criteria;
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
 use Majora\OTAStore\ApplicationBundle\Form\Type\BuildType;
+use Majora\OTAStore\Pagination\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,7 +36,7 @@ class BuildController extends BaseController
     public function listAction(Application $application, Request $request)
     {
         if (
-            (!($isAskingForEnabled = $request->get('enabled', true)) || !$application->isEnabled())
+            (!($isAskingForEnabled = $request->query->getBoolean('enabled', true)) || !$application->isEnabled())
             && !$this->isGranted('ROLE_ADMIN')
         ) {
             throw $this->createAccessDeniedException();
@@ -44,11 +46,19 @@ class BuildController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
+        $page = new Page(
+            $request->query->getInt('page', Page::FIRST_PAGE_NUMBER),
+            $application->getBuilds()->matching(
+                $criteria = Criteria::create()->where(Criteria::expr()->eq('enabled', $isAskingForEnabled))
+            )->count()
+        );
+        $page->setElements($application->getBuilds()->matching($page->setupCriteria($criteria)));
+
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Build:list.html.twig',
             [
                 'application' => $application,
-                'builds' => ($isAskingForEnabled) ? $application->getEnabledBuilds() : $application->getDisabledBuilds(),
+                'page' => $page,
             ]
         );
     }

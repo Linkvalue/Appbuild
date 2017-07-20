@@ -1,0 +1,25 @@
+{% if page is defined and not (page.first and page.last) %}
+
+<aside class="pagination" data-anim-appear>
+    <ul>
+        {% if not page.first %}
+        <li class="pagination__item">
+            <a class="pagination__link" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'page': page.number - 1 }))) }}">
+                <i class="icon icon-angle-left"></i>
+            </a>
+        </li>
+        {% endif %}
+        <li class="pagination__item">
+            <div class="pagination__link">{{ page.number }}</div>
+        </li>
+        {% if not page.last %}
+        <li class="pagination__item">
+            <a class="pagination__link" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'page': page.number + 1 }))) }}">
+                <i class="icon icon-angle-right"></i>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</aside>
+
+{% endif %}

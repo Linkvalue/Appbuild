@@ -2,8 +2,10 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
 
+use Doctrine\Common\Collections\Criteria;
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Form\Type\ApplicationType;
+use Majora\OTAStore\Pagination\Page;
 use Majora\OTAStore\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,19 +22,21 @@ class ApplicationController extends BaseController
      */
     public function listAction(Request $request)
     {
-        if (!($isAskingForEnabled = $request->get('enabled', true)) && !$this->isGranted('ROLE_ADMIN')) {
+        if (!($isAskingForEnabled = $request->query->getBoolean('enabled', true)) && !$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 
-        $applications = $this->getUserApplications();
-
-        list($enabled, $disabled) = $applications->partition(function ($i, Application $application) {
-            return $application->isEnabled();
-        });
+        $page = new Page(
+            $request->query->getInt('page', Page::FIRST_PAGE_NUMBER),
+            $this->getUserApplications()->matching(
+                $criteria = Criteria::create()->where(Criteria::expr()->eq('enabled', $isAskingForEnabled))
+            )->count()
+        );
+        $page->setElements($this->getUserApplications()->matching($page->setupCriteria($criteria)));
 
         return $this->render(
             'MajoraOTAStoreApplicationBundle:Application:list.html.twig',
-            ['applications' => ($isAskingForEnabled) ? $enabled : $disabled]
+            ['page' => $page]
         );
     }
 

@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        {% for application in applications %}
+        {% for application in page.elements %}
         <div class="table__row table__row-body is-new" data-anim-appear data-id="{{ application.id }}">
             <div class="table__cell table__cell-body table__cell_shrink table__cell-os show-for-large">
                 <div class="table__cell__content">
@@ -138,12 +138,5 @@
 
     </article>
 
-    {# TODO pagination #}
-    {#<aside class="pagination" data-anim-appear>#}
-        {#<ul>#}
-            {#<li class="pagination__item"><a class="pagination__link" href="">1</a></li>#}
-            {#<li class="pagination__item"><a class="pagination__link" href="">2</a></li>#}
-            {#<li class="pagination__item"><a class="pagination__link" href=""><i class="icon icon-angle-right">  </i></a></li>#}
-        {#</ul>#}
-    {#</aside>#}
+    {% include 'MajoraOTAStoreAppBundle:Includes:paginator.html.twig' %}
 {% endblock %}
