@@ -1,0 +1,22 @@
+Majora\OTAStore\ApplicationBundle\Entity\BuildToken:
+    type: entity
+    repositoryClass: 'Majora\OTAStore\ApplicationBundle\Entity\BuildTokenRepository'
+    table: majoraotastore_build_token
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        token:
+            type: string
+        expiredAt:
+            type: datetime
+            column: expired_at
+    manyToOne:
+        build:
+            targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\Build'
+            inversedBy: buildTokens
+            joinColumn:
+                name: build_id
+                referencedColumnName: id
+                onDelete: cascade

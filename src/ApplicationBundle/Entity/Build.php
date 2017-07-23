@@ -3,6 +3,7 @@
 namespace Majora\OTAStore\ApplicationBundle\Entity;
 
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
 use Majora\OTAStore\Entity\DatedTrait;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -22,6 +23,11 @@ class Build
      * @var Application
      */
     private $application;
+
+    /**
+     * @var ArrayCollection|BuildToken[]
+     */
+    private $buildTokens;
 
     /**
      * @var string
@@ -48,6 +54,7 @@ class Build
      */
     public function __construct()
     {
+        $this->buildTokens = new ArrayCollection();
         $this->enabled = true;
     }
 
@@ -94,11 +101,43 @@ class Build
     /**
      * @param Application $application
      *
-     * @return self
+     * @return $this
      */
     public function setApplication(Application $application)
     {
         $this->application = $application;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|BuildToken[]
+     */
+    public function getBuildTokens()
+    {
+        return $this->buildTokens;
+    }
+
+    /**
+     * @param BuildToken $buildToken
+     *
+     * @return $this
+     */
+    public function addBuildToken(BuildToken $buildToken)
+    {
+        $this->buildTokens->add($buildToken);
+
+        return $this;
+    }
+
+    /**
+     * @param ArrayCollection $buildTokens
+     *
+     * @return $this
+     */
+    public function setBuildTokens(ArrayCollection $buildTokens)
+    {
+        $this->buildTokens = $buildTokens;
 
         return $this;
     }
@@ -114,7 +153,7 @@ class Build
     /**
      * @param string $version
      *
-     * @return self
+     * @return $this
      */
     public function setVersion($version)
     {
@@ -134,7 +173,7 @@ class Build
     /**
      * @param string $filePath
      *
-     * @return self
+     * @return $this
      */
     public function setFilePath($filePath)
     {
@@ -154,7 +193,7 @@ class Build
     /**
      * @param bool $enabled
      *
-     * @return self
+     * @return $this
      */
     public function setEnabled($enabled)
     {
@@ -184,7 +223,7 @@ class Build
     /**
      * @param string $comment
      *
-     * @return self
+     * @return $this
      */
     public function setComment($comment)
     {

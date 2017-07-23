@@ -46,13 +46,15 @@
                 </header>
                 {% endblock %}
 
-                {% for flashMessage in app.session.flashbag.get('success') %}
-                <div class="callout success" data-closable>
+                {% for flashMessageType in app.session.flashbag.keys() %}
+                {% for flashMessage in app.session.flashbag.get(flashMessageType) %}
+                <div class="callout {{ flashMessageType }}" data-closable>
                     <div>{{ flashMessage }}</div>
                     <button class="close-button" aria-label="{{ 'admin.alert.dismiss_alert'|trans }}" type="button" data-close>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                {% endfor %}
                 {% endfor %}
 
                 <section class="{% block section_class '' %}">

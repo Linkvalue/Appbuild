@@ -306,7 +306,7 @@ class User implements AdvancedUserInterface
     /**
      * @param ArrayCollection $applications
      *
-     * @return self
+     * @return $this
      */
     public function setApplications(ArrayCollection $applications)
     {

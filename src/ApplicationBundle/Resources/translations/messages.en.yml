@@ -96,3 +96,6 @@ build:
             close: close
             name: Name
             comment: Comment
+    download:
+        error:
+            file_not_exists: The build file you wanted to download does not exist anymore, it may be due to a change in the store configuration.

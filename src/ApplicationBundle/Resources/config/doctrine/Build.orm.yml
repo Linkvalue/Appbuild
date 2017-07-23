@@ -30,6 +30,11 @@ Majora\OTAStore\ApplicationBundle\Entity\Build:
             gedmo:
                 timestampable:
                     on: update
+    oneToMany:
+        buildTokens:
+            targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\BuildToken'
+            mappedBy: build
+            cascade: ['persist', 'remove']
     manyToOne:
         application:
             targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\Application'

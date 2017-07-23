@@ -2,12 +2,12 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Controller\Api;
 
+use Majora\OTAStore\ApplicationBundle\Controller\BaseController;
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApplicationController extends Controller
+class ApplicationController extends BaseController
 {
     /**
      * List enabled applications.

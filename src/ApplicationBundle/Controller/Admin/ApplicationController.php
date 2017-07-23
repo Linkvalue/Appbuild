@@ -3,6 +3,7 @@
 namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
 
 use Doctrine\Common\Collections\Criteria;
+use Majora\OTAStore\ApplicationBundle\Controller\BaseController;
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Form\Type\ApplicationType;
 use Majora\OTAStore\Pagination\Page;

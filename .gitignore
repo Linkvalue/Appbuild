@@ -10,35 +10,30 @@
 /ansible/vagrant-parameters.yml
 /ansible/*.retry
 
-# Symfony3 standard
+# vendor, cache, logs, parameters, binaries
 /app/config/parameters.yml
-/build/
-/phpunit.xml
 /var/*
-!/var/cache
+!/var/cache/
 /var/cache/*
-!var/cache/.gitkeep
-!/var/logs
+!/var/cache/.gitkeep
+!/var/logs/
 /var/logs/*
-!var/logs/.gitkeep
-!/var/sessions
-/var/sessions/*
-!var/sessions/.gitkeep
+!/var/logs/.gitkeep
 /vendor/
-/web/bundles/
 /bin/*
 !/bin/console
 !/bin/symfony_requirements
 
-# deploy
-/deploy/
-
-# Assets and user uploads
-/web/assets/
-/web/uploads/
+# assets
+/node_modules/
+/web/assets/*
+!/web/assets/.gitkeep
 
 # PHP-CS-Fixer
 /.php_cs.*
 
-# node.js
-/node_modules/
+# tests
+/phpunit.xml
+
+# deploy
+/deploy/

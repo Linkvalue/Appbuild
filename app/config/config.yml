@@ -10,8 +10,8 @@ parameters:
     routing_locales: '(fr|en)'
     enabled_locales: ['fr', 'en']
 
-    # Web
-    web_builds_application_dir: '%kernel.root_dir%/../web/%web_relative_builds_application_dir%'
+    # Miscellaneous
+    build_token_ttl: 600 # seconds
 
 framework:
     translator:
@@ -37,7 +37,6 @@ framework:
     php_errors:
         log: true
 
-# Twig Configuration
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
@@ -46,7 +45,6 @@ twig:
     globals:
         timezone: '%timezone%'
 
-# Doctrine Configuration
 doctrine:
     dbal:
         driver: 'pdo_mysql'
@@ -62,7 +60,6 @@ doctrine:
         naming_strategy: 'doctrine.orm.naming_strategy.underscore'
         auto_mapping: true
 
-# Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
@@ -70,15 +67,12 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: 'memory' }
 
-# Doctrine behaviors
 stof_doctrine_extensions:
     default_locale: '%default_locale%'
     orm:
         default:
             timestampable: true
 
-
-# JWT rsa configuration
 lexik_jwt_authentication:
     private_key_path: '%jwt_private_key_path%'
     public_key_path:  '%jwt_public_key_path%'

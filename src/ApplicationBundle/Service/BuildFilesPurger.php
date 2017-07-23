@@ -24,12 +24,7 @@ class BuildFilesPurger
     /**
      * @var string
      */
-    private $webBuildsApplicationDir;
-
-    /**
-     * @var string
-     */
-    private $streamBuildsApplicationDir;
+    private $buildsApplicationDir;
 
     /**
      * @var string
@@ -41,19 +36,16 @@ class BuildFilesPurger
      *
      * @param Filesystem    $filesystem
      * @param EntityManager $entityManager
-     * @param string        $webBuildsApplicationDir
-     * @param string        $streamBuildsApplicationDir
+     * @param string        $buildsApplicationDir
      */
     public function __construct(
         Filesystem $filesystem,
         EntityManager $entityManager,
-        $webBuildsApplicationDir,
-        $streamBuildsApplicationDir
+        $buildsApplicationDir
     ) {
         $this->filesystem = $filesystem;
         $this->entityManager = $entityManager;
-        $this->webBuildsApplicationDir = $webBuildsApplicationDir;
-        $this->streamBuildsApplicationDir = $streamBuildsApplicationDir;
+        $this->buildsApplicationDir = $buildsApplicationDir;
 
         // Unused files finder date filter has a default value (!= null)
         // because we must let the time for user to submit the form after uploading the build file
@@ -93,8 +85,7 @@ class BuildFilesPurger
 
         return (new Finder())
             ->files()
-            ->in($this->webBuildsApplicationDir)
-            ->in($this->streamBuildsApplicationDir)
+            ->in($this->buildsApplicationDir)
             ->filter(function (\SplFileInfo $file) use ($usedFilesPath) {
                 return !in_array($file->getRealPath(), $usedFilesPath);
             })

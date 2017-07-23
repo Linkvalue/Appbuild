@@ -12,20 +12,10 @@ security:
     firewalls:
         # disables authentication for assets and the profiler
         dev:
-            pattern: '^/(_(profiler|wdt)|css|images|js|uploads)/'
+            pattern: '^/(_(profiler|wdt)|assets)/'
             security: false
 
-        # js translations bundle route must be accessible without logging in
-        js_translations:
-            pattern: '^/translations'
-            security: false
-
-        # manifest and file downloading must be accessible without logging in
-        accessible_files:
-            pattern: '^/\w+/application/\d+/build/\d+/(manifest|file)'
-            security: false
-
-        # public API
+        # API security
         public_api:
             pattern:  '^/api/login_check'
             stateless: true
@@ -42,6 +32,16 @@ security:
             guard:
                 authenticators:
                     - 'lexik_jwt_authentication.jwt_token_authenticator'
+
+        # js translations bundle route must be accessible without logging in
+        js_translations:
+            pattern: '^/translations'
+            security: false
+
+        # manifest and file downloading must be accessible without logging in
+        accessible_files:
+            pattern: '^/\w+/application/\d+/build/\d+/(manifest|file)'
+            security: false
 
         # all remaining routes require authentication
         secured_area:
