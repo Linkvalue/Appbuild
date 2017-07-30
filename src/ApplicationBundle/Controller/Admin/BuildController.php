@@ -422,8 +422,7 @@ class BuildController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
-        $buildTokenManager = $this->container->get('appbuild.application.build_token_manager');
-        if (!$buildToken = $buildTokenManager->getFirstNotExpired($build, $token)) {
+        if (!$buildToken = $this->container->get('appbuild.application.build_token_manager')->getFirstNotExpired($build, $token)) {
             throw $this->createAccessDeniedException();
         }
 
