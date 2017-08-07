@@ -96,3 +96,6 @@ build:
             close: fermer
             name: Nom
             comment: Commentaire
+    download:
+        error:
+            file_not_exists: Le fichier du build que vous essayez de télécharger n'existe plus, cela peut être dû à un changement de configuration du store.

@@ -3,17 +3,19 @@
 namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
 
 use Doctrine\Common\Collections\Criteria;
+use Majora\OTAStore\ApplicationBundle\Controller\BaseController;
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
 use Majora\OTAStore\ApplicationBundle\Form\Type\BuildType;
 use Majora\OTAStore\Pagination\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -301,7 +303,18 @@ class BuildController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
+        if (!is_file($build->getFilePath())) {
+            $this->addFlash('alert', $this->container->get('translator')->trans('build.download.error.file_not_exists'));
+
+            return new RedirectResponse($this->container->get('router')->generate(
+                'majoraotastore_admin_build_list', [
+                    'application_id' => $application->getId(),
+                ]
+            ));
+        }
+
         $router = $this->container->get('router');
+        $buildToken = $this->container->get('appbuild.application.build_token_manager')->generate($build);
 
         switch ($build->getApplication()->getSupport()) {
             case Application::SUPPORT_IOS:
@@ -314,6 +327,7 @@ class BuildController extends BaseController
                             [
                                 'application_id' => $application->getId(),
                                 'id' => $build->getId(),
+                                'token' => $buildToken->getToken(),
                             ],
                             UrlGeneratorInterface::ABSOLUTE_URL
                         ))
@@ -327,28 +341,16 @@ class BuildController extends BaseController
 
             default:
                 // Download build file
-                if ($this->container->getParameter('stream_builds_content')) {
-                    // By streaming content
-                    $response = new RedirectResponse(
-                        $router->generate(
-                            'majoraotastore_admin_build_stream_file',
-                            [
-                                'application_id' => $application->getId(),
-                                'id' => $build->getId(),
-                            ]
-                        )
-                    );
-                } else {
-                    // Directly
-                    $response = new RedirectResponse(
-                        sprintf(
-                            '/%s/%s/%s',
-                            $this->container->getParameter('web_relative_builds_application_dir'),
-                            $application->getSlug(),
-                            $build->getFileNameWithExtension()
-                        )
-                    );
-                }
+                $response = new RedirectResponse(
+                    $router->generate(
+                        'majoraotastore_admin_build_get_file',
+                        [
+                            'application_id' => $application->getId(),
+                            'id' => $build->getId(),
+                            'token' => $buildToken->getToken(),
+                        ]
+                    )
+                );
                 break;
         }
 
@@ -356,22 +358,26 @@ class BuildController extends BaseController
     }
 
     /**
-     * Download given build manifest.
+     * Download manifest for given build.
      *
      * Manifest must be accessible without logging in (see security.yml).
-     * TODO: set a unique/oneshot token system to make it accessible only after being redirected from the "download" route.
      *
      * @ParamConverter("application", options={"mapping": {"application_id": "id"}})
      *
      * @param Application $application
      * @param Build       $build
+     * @param Request     $request
      *
      * @return Response
      */
-    public function getManifestAction(Application $application, Build $build)
+    public function getManifestAction(Application $application, Build $build, Request $request)
     {
         if ($build->getApplication() != $application) {
             throw $this->createNotFoundException();
+        }
+
+        if (!$token = $request->query->get('token')) {
+            throw $this->createAccessDeniedException();
         }
 
         switch ($application->getSupport()) {
@@ -381,13 +387,7 @@ class BuildController extends BaseController
                     [
                         'application' => $application,
                         'build' => $build,
-                        'stream_builds_content' => $this->container->getParameter('stream_builds_content'),
-                        'web_relative_build_path' => sprintf(
-                            '%s/%s/%s',
-                            $this->container->getParameter('web_relative_builds_application_dir'),
-                            $application->getSlug(),
-                            $build->getFileNameWithExtension()
-                        ),
+                        'token' => $token,
                     ]
                 );
 
@@ -402,30 +402,42 @@ class BuildController extends BaseController
     }
 
     /**
-     * Download given build file by streaming its content.
+     * Download given build file.
      *
      * @ParamConverter("application", options={"mapping": {"application_id": "id"}})
      *
      * @param Application $application
      * @param Build       $build
+     * @param Request     $request
      *
-     * @return StreamedResponse
-     *
-     * @see "stream_builds_content" parameter
+     * @return BinaryFileResponse
      */
-    public function streamFileAction(Application $application, Build $build)
+    public function getFileAction(Application $application, Build $build, Request $request)
     {
         if ($build->getApplication() != $application) {
             throw $this->createNotFoundException();
         }
 
-        $response = new StreamedResponse(function () use ($build) {
-            readfile($build->getFilePath());
-        });
+        if (!$token = $request->query->get('token')) {
+            throw $this->createAccessDeniedException();
+        }
 
-        $response->headers->set('Content-Type', 'application/octet-stream');
+        if (!$buildToken = $this->container->get('appbuild.application.build_token_manager')->getFirstNotExpired($build, $token)) {
+            throw $this->createAccessDeniedException();
+        }
 
-        return $response;
+        // Support X-Sendfile headers
+        BinaryFileResponse::trustXSendfileTypeHeader();
+
+        return new BinaryFileResponse(
+            $build->getFilePath(),
+            200,
+            ['Content-Type' => 'application/octet-stream'],
+            false,
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            false,
+            false
+        );
     }
 
     /**

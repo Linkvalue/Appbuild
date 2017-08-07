@@ -3,7 +3,6 @@
 namespace Majora\OTAStore\ApplicationBundle\Service;
 
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
-use Majora\OTAStore\ApplicationBundle\Entity\Build;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -14,32 +13,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class BuildUploadHelper
 {
     /**
-     * @var bool
-     */
-    private $streamBuildsContent;
-
-    /**
      * @var string
      */
-    private $webBuildsApplicationDir;
-
-    /**
-     * @var string
-     */
-    private $streamBuildsApplicationDir;
+    private $buildsApplicationDir;
 
     /**
      * construct.
      *
-     * @param bool   $streamBuildsContent
-     * @param string $webBuildsApplicationDir
-     * @param string $streamBuildsApplicationDir
+     * @param string $buildsApplicationDir
      */
-    public function __construct($streamBuildsContent, $webBuildsApplicationDir, $streamBuildsApplicationDir)
+    public function __construct($buildsApplicationDir)
     {
-        $this->streamBuildsContent = $streamBuildsContent;
-        $this->webBuildsApplicationDir = $webBuildsApplicationDir;
-        $this->streamBuildsApplicationDir = $streamBuildsApplicationDir;
+        $this->buildsApplicationDir = $buildsApplicationDir;
     }
 
     /**
@@ -114,7 +99,7 @@ class BuildUploadHelper
         );
 
         if (file_put_contents($filePath, $fileContent) === false) {
-            throw new FileException(sprintf('Could not create temp file "%s"', $fileContent));
+            throw new FileException(sprintf('Could not create temp file "%s"', $filePath));
         }
 
         return new File($filePath);
@@ -131,7 +116,7 @@ class BuildUploadHelper
     {
         return sprintf(
             '%s/%s',
-            ($this->streamBuildsContent) ? $this->streamBuildsApplicationDir : $this->webBuildsApplicationDir,
+            $this->buildsApplicationDir,
             $application->getSlug()
         );
     }

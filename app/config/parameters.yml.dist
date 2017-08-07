@@ -26,24 +26,15 @@ parameters:
     session_save_path: '%kernel.root_dir%/../var/sessions/%kernel.environment%'
 
     # Default locale
-    default_locale: 'en'
+    default_locale: 'en' # supported values are 'en' and 'fr'
 
-    # Timezone (such as 'Europe/Paris')
-    timezone: 'UTC'
+    # Timezone to use when displaying dates (either on backoffice or API)
+    timezone: 'UTC' # any PHP timezone (such as 'Europe/Paris') is supported. See http://php.net/manual/fr/timezones.php for complete list.
 
-    # Relative path to the directory under "web" directory where builds file will be stored (only used if "stream_builds_content = false")
-    web_relative_builds_application_dir: 'uploads'
+    # Path to the directory where builds file will be stored
+    builds_application_dir: '%kernel.root_dir%/../var/build_files'
 
-    # Streaming builds file content
-    # Set this to true if you don't want your files to be located under "web" directory
-    # (i.e. you don't want your builds to be downloadable using: "http://example.com/my_builds/my_file.ipa"),
-    # be aware that it may cause issues if your web server isn't configured to let PHP stream large files.
-    stream_builds_content: false
-
-    # Path to the directory from where builds file content will be streamed (only used if "stream_builds_content = true")
-    stream_builds_application_dir: '%kernel.root_dir%/../build'
-
-    # JWT Parameters
+    # JWT parameters for API authentication
     jwt_private_key_path: '%kernel.root_dir%/../var/jwt/private.pem' # ssh private key path
     jwt_public_key_path:  '%kernel.root_dir%/../var/jwt/public.pem'  # ssh public key path
     jwt_key_pass_phrase:  'Majora'                                   # ssh key pass phrase

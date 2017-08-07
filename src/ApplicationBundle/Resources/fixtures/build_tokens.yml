@@ -1,0 +1,5 @@
+Majora\OTAStore\ApplicationBundle\Entity\BuildToken:
+    expired_test_ios_1_5_2:
+        build: '@test_ios_1_5_2'
+        token: '0123456789abcdef'
+        expiredAt: '<(new \DateTime("-1 days"))>'

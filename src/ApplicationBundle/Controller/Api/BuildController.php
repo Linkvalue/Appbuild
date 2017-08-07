@@ -2,6 +2,7 @@
 
 namespace Majora\OTAStore\ApplicationBundle\Controller\Api;
 
+use Majora\OTAStore\ApplicationBundle\Controller\BaseController;
 use Majora\OTAStore\ApplicationBundle\Entity\Application;
 use Majora\OTAStore\ApplicationBundle\Entity\Build;
 use Majora\OTAStore\ApplicationBundle\Form\Type\BuildAPIType;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 
-class BuildController extends ApiController
+class BuildController extends BaseController
 {
     /**
      * Get enabled build by id.

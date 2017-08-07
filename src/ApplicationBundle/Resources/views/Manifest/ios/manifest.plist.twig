@@ -11,11 +11,7 @@
                         <key>kind</key>
                         <string>software-package</string>
                         <key>url</key>
-                        <string>{% if stream_builds_content -%}
-                                {{ absolute_url(url('majoraotastore_admin_build_stream_file', { 'application_id': application.id, 'id': build.id })) }}
-                            {%- else -%}
-                                {{ absolute_url('/' ~ web_relative_build_path) }}
-                            {%- endif %}</string>
+                        <string>{{ absolute_url(url('majoraotastore_admin_build_get_file', { 'application_id': application.id, 'id': build.id, 'token': token })) }}</string>
                     </dict>
                 </array>
                 <key>metadata</key>

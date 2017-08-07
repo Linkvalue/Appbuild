@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
+namespace Majora\OTAStore\ApplicationBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Majora\OTAStore\ApplicationBundle\Entity\Application;

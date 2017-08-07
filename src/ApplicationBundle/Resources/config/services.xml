@@ -27,9 +27,7 @@
             class="Majora\OTAStore\ApplicationBundle\Service\BuildUploadHelper"
             public="true"
         >
-            <argument>%stream_builds_content%</argument>
-            <argument>%web_builds_application_dir%</argument>
-            <argument>%stream_builds_application_dir%</argument>
+            <argument>%builds_application_dir%</argument>
         </service>
 
         <!-- Build Files Purger -->
@@ -39,8 +37,7 @@
         >
             <argument type="service" id="filesystem" />
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument>%web_builds_application_dir%</argument>
-            <argument>%stream_builds_application_dir%</argument>
+            <argument>%builds_application_dir%</argument>
         </service>
 
         <!-- Build Link Builder -->
@@ -49,6 +46,15 @@
             public="true"
         >
             <argument type="service" id="router" />
+        </service>
+
+        <!-- Build Token Manager -->
+        <service id="appbuild.application.build_token_manager"
+            class="Majora\OTAStore\ApplicationBundle\Service\BuildTokenManager"
+            public="true"
+        >
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%build_token_ttl%</argument>
         </service>
 
         <!-- Serializer -->

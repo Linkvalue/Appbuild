@@ -20,6 +20,7 @@ class ApplicationFixturesLoader extends AbstractLoader implements OrderedFixture
         return [
             __DIR__.'/../../Resources/fixtures/applications.yml',
             __DIR__.'/../../Resources/fixtures/builds.yml',
+            __DIR__.'/../../Resources/fixtures/build_tokens.yml',
         ];
     }
 

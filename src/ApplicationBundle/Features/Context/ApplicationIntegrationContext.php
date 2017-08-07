@@ -44,12 +44,6 @@ class ApplicationIntegrationContext implements Context
     /** @var Filesystem */
     private $filesystem;
 
-    /** @var bool */
-    private $streamBuildsContent;
-
-    /** @var string */
-    private $webRelativeBuildsApplicationDir;
-
     /**
      * Constructor.
      *
@@ -58,25 +52,19 @@ class ApplicationIntegrationContext implements Context
      * @param Session               $session
      * @param TokenStorageInterface $tokenStorage
      * @param Filesystem            $filesystem
-     * @param bool                  $streamBuildsContent
-     * @param string                $webRelativeBuildsApplicationDir
      */
     public function __construct(
         EntityManager $manager,
         Router $router,
         Session $session,
         TokenStorageInterface $tokenStorage,
-        Filesystem $filesystem,
-        $streamBuildsContent,
-        $webRelativeBuildsApplicationDir
+        Filesystem $filesystem
     ) {
         $this->manager = $manager;
         $this->router = $router;
         $this->session = $session;
         $this->tokenStorage = $tokenStorage;
         $this->filesystem = $filesystem;
-        $this->streamBuildsContent = $streamBuildsContent;
-        $this->webRelativeBuildsApplicationDir = $webRelativeBuildsApplicationDir;
     }
 
     /**
@@ -84,13 +72,8 @@ class ApplicationIntegrationContext implements Context
      */
     public static function initBdd(BeforeFeatureScope $scope)
     {
-        // init test_stream
-        exec('php bin/console --env=test_stream doctrine:schema:drop --force');
-        exec('php bin/console --env=test_stream doctrine:schema:create');
-
-        // init test_nostream
-        exec('php bin/console --env=test_nostream doctrine:schema:drop --force');
-        exec('php bin/console --env=test_nostream doctrine:schema:create');
+        exec('php bin/console --env=test doctrine:schema:drop --force');
+        exec('php bin/console --env=test doctrine:schema:create');
     }
 
     /**
@@ -382,13 +365,7 @@ class ApplicationIntegrationContext implements Context
                 break;
 
             default:
-                if ($this->streamBuildsContent) {
-                    // we can follow build file streaming route
-                    $this->getClient()->followRedirects(true);
-                } else {
-                    // we're not able to follow web relative paths to physical file
-                    $this->getClient()->followRedirects(false);
-                }
+                $this->getClient()->followRedirects(true);
                 break;
         }
         $this->minkContext->visit($url);
@@ -418,25 +395,14 @@ class ApplicationIntegrationContext implements Context
                 break;
 
             default:
-                if ($this->streamBuildsContent) {
-                    $expectedUrl = $this->router->generate('majoraotastore_admin_build_stream_file', [
-                        'application_id' => $build->getApplication()->getId(),
-                        'id' => $build->getId(),
-                    ]);
+                $expectedUrl = $this->router->generate('majoraotastore_admin_build_get_file', [
+                    'application_id' => $build->getApplication()->getId(),
+                    'id' => $build->getId(),
+                ]);
 
-                    $this->minkContext->assertResponseStatus(200);
-                    $this->minkContext->assertPageAddress($expectedUrl);
-                    $this->minkContext->assertSession()->responseHeaderEquals('Content-Type', 'application/octet-stream');
-                } else {
-                    $this->minkContext->assertResponseStatus(302);
-                    $this->minkContext->assertSession()->responseHeaderEquals('Location', sprintf(
-                        '/%s/%s/%s',
-                        $this->webRelativeBuildsApplicationDir,
-                        $build->getApplication()->getSlug(),
-                        $build->getFileNameWithExtension()
-                    ));
-                    $this->minkContext->assertSession()->responseHeaderContains('Content-Type', 'text/html');
-                }
+                $this->minkContext->assertResponseStatus(200);
+                $this->minkContext->assertPageAddress($expectedUrl);
+                $this->minkContext->assertSession()->responseHeaderEquals('Content-Type', 'application/octet-stream');
                 break;
         }
     }

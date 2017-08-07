@@ -1,0 +1,6 @@
+Majora\OTAStore\ApplicationBundle\Entity\BuildToken:
+    properties:
+        token:
+            - NotBlank: ~
+        expiredAt:
+            - NotBlank: ~
