@@ -19,6 +19,6 @@ class BaseController extends Controller
             return new ArrayCollection($this->getDoctrine()->getRepository('MajoraOTAStoreApplicationBundle:Application')->findAll());
         }
 
-        return $this->getUser()->getApplications();
+        return new ArrayCollection($this->getUser()->getApplications()->toArray());
     }
 }
