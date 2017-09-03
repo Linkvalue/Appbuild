@@ -48,7 +48,7 @@ cd MajoraOTAStore
 
 # install dependencies and assets
 # a Makefile (see https://www.gnu.org/software/make) is present to build the project from sources,
-so just run the following command:
+# so just run the following command:
 make prod-deploy
 ```
 
