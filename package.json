@@ -1,5 +1,5 @@
 {
-  "name": "LinkValue-Appbuild",
+  "name": "Appbuild",
   "version": "2.0.0",
   "license": "MIT",
   "private": true,
@@ -27,14 +27,14 @@
     "fix-js": "eslint --fix src/"
   },
   "dependencies": {
-    "foundation-sites": "^6.3.0",
-    "jquery": "^3.1.1",
     "fine-uploader": "^5.14.1",
-    "isdev": "^1.0.1"
+    "foundation-sites": "^6.3.0",
+    "jquery": "^3.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-minify-webpack-plugin": "^0.2.0",
     "babel-preset-env": "^1.6.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.27.3",
@@ -42,16 +42,15 @@
     "eslint-loader": "^1.7.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.10.1",
+    "isdev": "^1.0.1",
     "node-sass": "^4.5.0",
     "postcss-loader": "^1.3.3",
     "sass-lint": "^1.10.2",
     "sass-loader": "^6.0.3",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.14.0",
-    "uglify-js": "^2.8.13",
-    "uglifyjs-webpack-plugin": "^0.4.6",
     "url-loader": "^0.5.8",
     "webpack": "^3.5.6",
-    "webpack-dev-server": "^2.8.1"
+    "webpack-dev-server": "^2.8.2"
   }
 }
