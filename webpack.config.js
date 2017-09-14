@@ -1,7 +1,7 @@
 const path = require('path');
 const isDev = require('isdev');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
 const { optimize } = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractCSS = new ExtractTextPlugin({
@@ -134,7 +134,7 @@ if (isDev) {
   });
 } else {
   config.plugins.push(
-    new UglifyJSPlugin()
+    new MinifyPlugin()
   );
 }
 
