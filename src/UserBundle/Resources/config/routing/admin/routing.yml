@@ -1,11 +1,11 @@
-majoraotastore_admin_user_login:
+appbuild_admin_user_login:
     path: '/login'
-    defaults: { _controller: 'MajoraOTAStoreUserBundle:Security:login' }
+    defaults: { _controller: 'AppbuildUserBundle:Security:login' }
 
-majoraotastore_admin_user_my_account:
+appbuild_admin_user_my_account:
     path: '/account'
-    defaults: { _controller: 'MajoraOTAStoreUserBundle:Security:myAccount' }
+    defaults: { _controller: 'AppbuildUserBundle:Security:myAccount' }
 
-majoraotastore_admin_user:
-    resource: '@MajoraOTAStoreUserBundle/Resources/config/routing/admin/user.yml'
+appbuild_admin_user:
+    resource: '@AppbuildUserBundle/Resources/config/routing/admin/user.yml'
     prefix: '/user'

@@ -1,12 +1,12 @@
 <?php
 
-namespace Majora\OTAStore\UserBundle\Controller;
+namespace LinkValue\Appbuild\UserBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
-use Majora\OTAStore\Pagination\Page;
-use Majora\OTAStore\UserBundle\Entity\User;
-use Majora\OTAStore\UserBundle\Form\Type\UserType;
+use LinkValue\Appbuild\Pagination\Page;
+use LinkValue\Appbuild\UserBundle\Entity\User;
+use LinkValue\Appbuild\UserBundle\Form\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ class SecurityController extends Controller
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render(
-            'MajoraOTAStoreUserBundle:Security:login.html.twig',
+            'AppbuildUserBundle:Security:login.html.twig',
             [
                 // last username entered by the user
                 'last_username' => $lastUsername,
@@ -53,7 +53,7 @@ class SecurityController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        $users = new ArrayCollection($this->getDoctrine()->getRepository('MajoraOTAStoreUserBundle:User')->findAll());
+        $users = new ArrayCollection($this->getDoctrine()->getRepository('AppbuildUserBundle:User')->findAll());
 
         $page = new Page(
             $pageNumber = $request->query->getInt('page', Page::FIRST_PAGE_NUMBER),
@@ -66,7 +66,7 @@ class SecurityController extends Controller
         ));
 
         return $this->render(
-            'MajoraOTAStoreUserBundle:Security:list.html.twig',
+            'AppbuildUserBundle:Security:list.html.twig',
             ['page' => $page]
         );
     }
@@ -111,12 +111,12 @@ class SecurityController extends Controller
 
                 $this->addFlash('success', $this->container->get('translator')->trans('user.create.flash.success'));
 
-                return $this->redirectToRoute('majoraotastore_admin_user_list');
+                return $this->redirectToRoute('appbuild_admin_user_list');
             }
         }
 
         return $this->render(
-            'MajoraOTAStoreUserBundle:Security:create.html.twig',
+            'AppbuildUserBundle:Security:create.html.twig',
             ['form' => $form->createView()]
         );
     }
@@ -160,12 +160,12 @@ class SecurityController extends Controller
 
                 $this->addFlash('success', $this->container->get('translator')->trans('user.update.flash.success'));
 
-                return $this->redirectToRoute('majoraotastore_admin_user_list');
+                return $this->redirectToRoute('appbuild_admin_user_list');
             }
         }
 
         return $this->render(
-            'MajoraOTAStoreUserBundle:Security:update.html.twig',
+            'AppbuildUserBundle:Security:update.html.twig',
             [
                 'form' => $form->createView(),
             ]
@@ -189,7 +189,7 @@ class SecurityController extends Controller
         $em->remove($user);
         $em->flush();
 
-        return new RedirectResponse($this->container->get('router')->generate('majoraotastore_admin_user_list'));
+        return new RedirectResponse($this->container->get('router')->generate('appbuild_admin_user_list'));
     }
 
     /**
@@ -215,7 +215,7 @@ class SecurityController extends Controller
 
         return new RedirectResponse(
             $request->headers->get('referer')
-            ?: $this->container->get('router')->generate('majoraotastore_admin_user_list')
+            ?: $this->container->get('router')->generate('appbuild_admin_user_list')
         );
     }
 
@@ -251,11 +251,11 @@ class SecurityController extends Controller
 
             $this->addFlash('success', $this->container->get('translator')->trans('user.my_account.flash.success'));
 
-            return $this->redirectToRoute('majoraotastore_admin_application_list');
+            return $this->redirectToRoute('appbuild_admin_application_list');
         }
 
         return $this->render(
-            'MajoraOTAStoreUserBundle:Security:my-account.html.twig',
+            'AppbuildUserBundle:Security:my-account.html.twig',
             ['form' => $form->createView()]
         );
     }

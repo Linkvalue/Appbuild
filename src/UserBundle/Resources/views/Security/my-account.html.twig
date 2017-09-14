@@ -1,11 +1,11 @@
-{% extends 'MajoraOTAStoreUserBundle:Security:form.html.twig' %}
+{% extends 'AppbuildUserBundle:Security:form.html.twig' %}
 
 {% block title 'user.my_account.title'|trans %}
 
-{% block cancel_button_url url('majoraotastore_admin_application_list') %}
+{% block cancel_button_url url('appbuild_admin_application_list') %}
 {% block extra_inputs '' %}
 {% block extra_buttons %}
-    <a href="{{ url('majoraotastore_user_logout') }}" class="button button_action">
+    <a href="{{ url('appbuild_user_logout') }}" class="button button_action">
         <span>{{ 'user.logout.title'|trans }}</span>
     </a>
 {% endblock %}

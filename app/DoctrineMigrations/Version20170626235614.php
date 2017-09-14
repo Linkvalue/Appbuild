@@ -18,7 +18,7 @@ class Version20170626235614 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE majoraotastore_application ADD description LONGTEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE appbuild_application ADD description LONGTEXT DEFAULT NULL');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20170626235614 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE majoraotastore_application DROP description');
+        $this->addSql('ALTER TABLE appbuild_application DROP description');
     }
 }

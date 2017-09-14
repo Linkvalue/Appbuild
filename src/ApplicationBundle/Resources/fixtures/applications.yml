@@ -1,4 +1,4 @@
-Majora\OTAStore\ApplicationBundle\Entity\Application:
+LinkValue\Appbuild\ApplicationBundle\Entity\Application:
     test_ios:
         support: ios
         label: Test application

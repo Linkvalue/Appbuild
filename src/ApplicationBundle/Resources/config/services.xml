@@ -7,7 +7,7 @@
     <services>
         <!-- Application Form Type -->
         <service id="appbuild.application.application.form_type"
-            class="Majora\OTAStore\ApplicationBundle\Form\Type\ApplicationType"
+            class="LinkValue\Appbuild\ApplicationBundle\Form\Type\ApplicationType"
             public="true"
         >
             <tag name="form.type" />
@@ -16,7 +16,7 @@
 
         <!-- Build Form Type -->
         <service id="appbuild.application.build.form_type"
-            class="Majora\OTAStore\ApplicationBundle\Form\Type\BuildType"
+            class="LinkValue\Appbuild\ApplicationBundle\Form\Type\BuildType"
             public="true"
         >
             <tag name="form.type" />
@@ -24,7 +24,7 @@
 
         <!-- Build Upload Helper -->
         <service id="appbuild.application.build_upload_helper"
-            class="Majora\OTAStore\ApplicationBundle\Service\BuildUploadHelper"
+            class="LinkValue\Appbuild\ApplicationBundle\Service\BuildUploadHelper"
             public="true"
         >
             <argument>%builds_application_dir%</argument>
@@ -32,7 +32,7 @@
 
         <!-- Build Files Purger -->
         <service id="appbuild.application.build_files_purger"
-            class="Majora\OTAStore\ApplicationBundle\Service\BuildFilesPurger"
+            class="LinkValue\Appbuild\ApplicationBundle\Service\BuildFilesPurger"
             public="true"
         >
             <argument type="service" id="filesystem" />
@@ -42,7 +42,7 @@
 
         <!-- Build Link Builder -->
         <service id="appbuild.application.build_link_builder"
-            class="Majora\OTAStore\ApplicationBundle\Service\BuildLinkBuilder"
+            class="LinkValue\Appbuild\ApplicationBundle\Service\BuildLinkBuilder"
             public="true"
         >
             <argument type="service" id="router" />
@@ -50,7 +50,7 @@
 
         <!-- Build Token Manager -->
         <service id="appbuild.application.build_token_manager"
-            class="Majora\OTAStore\ApplicationBundle\Service\BuildTokenManager"
+            class="LinkValue\Appbuild\ApplicationBundle\Service\BuildTokenManager"
             public="true"
         >
             <argument type="service" id="doctrine.orm.entity_manager" />
@@ -59,7 +59,7 @@
 
         <!-- Serializer -->
         <service id="appbuild.application.serializer"
-                 class="Majora\OTAStore\ApplicationBundle\Service\Serializer"
+                 class="LinkValue\Appbuild\ApplicationBundle\Service\Serializer"
                  public="true"
         >
             <argument type="service" id="appbuild.application.build_link_builder" />

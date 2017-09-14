@@ -1,11 +1,11 @@
-{% extends 'MajoraOTAStoreAppBundle:Layout:layout_anonymous.html.twig' %}
+{% extends 'AppbuildAppBundle:Layout:layout_anonymous.html.twig' %}
 
 {% block title 'user.login.title'|trans %}
 
 {% block section_class 'section-login' %}
 
 {% block content %}
-    <form data-is="form-login" action="{{ path('majoraotastore_user_login_check') }}" method="post" novalidate data-abide>
+    <form data-is="form-login" action="{{ path('appbuild_user_login_check') }}" method="post" novalidate data-abide>
         {% if error %}
         <div class="callout alert" data-closable>
             <div>{{ error.message }}</div>

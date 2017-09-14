@@ -7,7 +7,7 @@
     <services>
         <!-- User Form Type -->
         <service id="appbuild.user.user.form_type"
-            class="Majora\OTAStore\UserBundle\Form\Type\UserType"
+            class="LinkValue\Appbuild\UserBundle\Form\Type\UserType"
             public="true"
         >
             <tag name="form.type" />

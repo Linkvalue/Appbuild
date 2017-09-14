@@ -1,13 +1,13 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
+namespace LinkValue\Appbuild\ApplicationBundle\Controller\Admin;
 
 use Doctrine\Common\Collections\Criteria;
-use Majora\OTAStore\ApplicationBundle\Controller\BaseController;
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
-use Majora\OTAStore\ApplicationBundle\Entity\Build;
-use Majora\OTAStore\ApplicationBundle\Form\Type\BuildType;
-use Majora\OTAStore\Pagination\Page;
+use LinkValue\Appbuild\ApplicationBundle\Controller\BaseController;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Application;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Build;
+use LinkValue\Appbuild\ApplicationBundle\Form\Type\BuildType;
+use LinkValue\Appbuild\Pagination\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -59,7 +59,7 @@ class BuildController extends BaseController
         ));
 
         return $this->render(
-            'MajoraOTAStoreApplicationBundle:Build:list.html.twig',
+            'AppbuildApplicationBundle:Build:list.html.twig',
             [
                 'application' => $application,
                 'page' => $page,
@@ -96,7 +96,7 @@ class BuildController extends BaseController
         if ($request->isMethod(Request::METHOD_POST)) {
             // Set build filePath using request build filename
             $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
-            $buildFormData = $request->request->get('majoraotastore_build');
+            $buildFormData = $request->request->get('appbuild_build');
             if (!empty($buildFormData['filename'])) {
                 $build->setFilePath(
                     $uploadHelper->getFilePath($application, $buildFormData['filename'])
@@ -111,14 +111,14 @@ class BuildController extends BaseController
                 $this->addFlash('success', $this->container->get('translator')->trans('build.create.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_admin_build_list', [
+                    'appbuild_admin_build_list', [
                         'application_id' => $application->getId(),
                     ]
                 ));
             }
         }
 
-        return $this->render('MajoraOTAStoreApplicationBundle:Build:create.html.twig',
+        return $this->render('AppbuildApplicationBundle:Build:create.html.twig',
             [
                 'form' => $form->createView(),
             ]
@@ -159,7 +159,7 @@ class BuildController extends BaseController
         if ($request->isMethod(Request::METHOD_POST)) {
             // Set build filePath using request build filename
             $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
-            $buildFormData = $request->request->get('majoraotastore_build');
+            $buildFormData = $request->request->get('appbuild_build');
             if (!empty($buildFormData['filename'])) {
                 $build->setFilePath(
                     $uploadHelper->getFilePath($application, $buildFormData['filename'])
@@ -174,7 +174,7 @@ class BuildController extends BaseController
                 $this->addFlash('success', $this->container->get('translator')->trans('build.update.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_admin_build_list', [
+                    'appbuild_admin_build_list', [
                         'application_id' => $application->getId(),
                     ]
                 ));
@@ -182,7 +182,7 @@ class BuildController extends BaseController
         }
 
         return $this->render(
-            'MajoraOTAStoreApplicationBundle:Build:update.html.twig',
+            'AppbuildApplicationBundle:Build:update.html.twig',
             [
                 'form' => $form->createView(),
             ]
@@ -222,7 +222,7 @@ class BuildController extends BaseController
 
         return new RedirectResponse(
             $this->container->get('router')->generate(
-                'majoraotastore_admin_build_list',
+                'appbuild_admin_build_list',
                 [
                     'application_id' => $application->getId(),
                 ]
@@ -307,7 +307,7 @@ class BuildController extends BaseController
             $this->addFlash('alert', $this->container->get('translator')->trans('build.download.error.file_not_exists'));
 
             return new RedirectResponse($this->container->get('router')->generate(
-                'majoraotastore_admin_build_list', [
+                'appbuild_admin_build_list', [
                     'application_id' => $application->getId(),
                 ]
             ));
@@ -323,7 +323,7 @@ class BuildController extends BaseController
                     sprintf(
                         'itms-services://?action=download-manifest&url=%s',
                         urlencode($router->generate(
-                            'majoraotastore_admin_build_get_manifest',
+                            'appbuild_admin_build_get_manifest',
                             [
                                 'application_id' => $application->getId(),
                                 'id' => $build->getId(),
@@ -343,7 +343,7 @@ class BuildController extends BaseController
                 // Download build file
                 $response = new RedirectResponse(
                     $router->generate(
-                        'majoraotastore_admin_build_get_file',
+                        'appbuild_admin_build_get_file',
                         [
                             'application_id' => $application->getId(),
                             'id' => $build->getId(),
@@ -383,7 +383,7 @@ class BuildController extends BaseController
         switch ($application->getSupport()) {
             case Application::SUPPORT_IOS:
                 $response = $this->render(
-                    sprintf('MajoraOTAStoreApplicationBundle:Manifest:%s/manifest.plist.twig', $application->getSupport()),
+                    sprintf('AppbuildApplicationBundle:Manifest:%s/manifest.plist.twig', $application->getSupport()),
                     [
                         'application' => $application,
                         'build' => $build,
@@ -474,7 +474,7 @@ class BuildController extends BaseController
 
         return new RedirectResponse($request->headers->get('referer') ?:
             $this->container->get('router')->generate(
-                'majoraotastore_admin_build_list',
+                'appbuild_admin_build_list',
                 [
                     'application_id' => $application->getId(),
                 ]

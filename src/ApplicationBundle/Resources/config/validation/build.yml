@@ -1,4 +1,4 @@
-Majora\OTAStore\ApplicationBundle\Entity\Build:
+LinkValue\Appbuild\ApplicationBundle\Entity\Build:
     constraints:
         - Callback: validateFilePath
     properties:

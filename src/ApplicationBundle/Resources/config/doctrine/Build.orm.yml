@@ -1,7 +1,7 @@
-Majora\OTAStore\ApplicationBundle\Entity\Build:
+LinkValue\Appbuild\ApplicationBundle\Entity\Build:
     type: entity
-    repositoryClass: 'Majora\OTAStore\ApplicationBundle\Entity\BuildRepository'
-    table: majoraotastore_build
+    repositoryClass: 'LinkValue\Appbuild\ApplicationBundle\Entity\BuildRepository'
+    table: appbuild_build
     id:
         id:
             type: integer
@@ -32,12 +32,12 @@ Majora\OTAStore\ApplicationBundle\Entity\Build:
                     on: update
     oneToMany:
         buildTokens:
-            targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\BuildToken'
+            targetEntity: 'LinkValue\Appbuild\ApplicationBundle\Entity\BuildToken'
             mappedBy: build
             cascade: ['persist', 'remove']
     manyToOne:
         application:
-            targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\Application'
+            targetEntity: 'LinkValue\Appbuild\ApplicationBundle\Entity\Application'
             inversedBy: builds
             joinColumn:
                 name: application_id

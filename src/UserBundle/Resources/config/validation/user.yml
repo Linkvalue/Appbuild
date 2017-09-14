@@ -1,4 +1,4 @@
-Majora\OTAStore\UserBundle\Entity\User:
+LinkValue\Appbuild\UserBundle\Entity\User:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
     properties:

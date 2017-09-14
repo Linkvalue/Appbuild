@@ -12,10 +12,10 @@ vm_ip: '192.168.100.70'
 # List of aliases bound to the Virtual Machine's IP (see "vm_ip")
 # If the plugin "vagrant-hostmanager" is installed, these aliases will be added to your "/etc/hosts" file automatically.
 # Else, aliases will be displayed in the console during VM provisioning, then it will be up to you to copy/paste this output in your "/etc/hosts" file.
-vm_ip_aliases: ['majoraotastore.dev']
+vm_ip_aliases: ['appbuild.dev']
 
 # VM hostname (this will be added to the "vm_ip_aliases" list, displayed in your SSH terminal, etc.)
-vm_hostname: 'majora-ota-store'
+vm_hostname: 'appbuild'
 
 # Shared folders strategy, possible values are 'self' or 'subdirectory'.
 # 'self'         => share this project root with the VM (i.e. "Vagrantfile" is shared),
@@ -25,7 +25,7 @@ vm_hostname: 'majora-ota-store'
 sharing_strategy: 'self'
 
 # Absolute path of this project root on the VM side (used if shared folders strategy is 'self')
-sharing_self_absolute_path_in_vm: '/var/www/MajoraOTAStore'
+sharing_self_absolute_path_in_vm: '/var/www/Appbuild'
 
 # Relative path from this project root to the subdirectory to share (used if shared folders strategy is 'subdirectory')
 sharing_subdirectory_relative_path: 'www'

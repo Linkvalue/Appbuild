@@ -1,11 +1,11 @@
 
 # Builds
-majoraotastore_api_build_get:
+appbuild_api_build_get:
     path:     '/{id}'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:get' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Api/Build:get' }
     methods:  [GET, HEAD]
 
-majoraotastore_api_build_add_file:
+appbuild_api_build_add_file:
     path:     '/{id}/file'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Build:uploadFile' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Api/Build:uploadFile' }
     methods:  [PUT]

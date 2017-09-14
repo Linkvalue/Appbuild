@@ -1,5 +1,5 @@
 {
-    "name": "majora/ota_server",
+    "name": "appbuild",
     "description": "LinkValue store for mobile applications",
     "license": "MIT",
     "type": "project",
@@ -15,7 +15,7 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Majora\\OTAStore\\": "src/" },
+        "psr-4": { "LinkValue\\Appbuild\\": "src/" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {

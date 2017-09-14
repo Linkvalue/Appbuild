@@ -1,7 +1,7 @@
-Majora\OTAStore\UserBundle\Entity\User:
+LinkValue\Appbuild\UserBundle\Entity\User:
     type: entity
-    table: majoraotastore_user
-    repositoryClass: 'Majora\OTAStore\UserBundle\Entity\UserRepository'
+    table: appbuild_user
+    repositoryClass: 'LinkValue\Appbuild\UserBundle\Entity\UserRepository'
     id:
         id:
             type: integer
@@ -39,6 +39,6 @@ Majora\OTAStore\UserBundle\Entity\User:
                     on: update
     manyToMany:
         applications:
-            targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\Application'
+            targetEntity: 'LinkValue\Appbuild\ApplicationBundle\Entity\Application'
             mappedBy: users
             cascade: ['persist']

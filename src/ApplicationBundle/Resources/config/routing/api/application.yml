@@ -1,11 +1,11 @@
 
 # Applications
-majoraotastore_api_application_list:
+appbuild_api_application_list:
     path:     '/'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Application:list' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Api/Application:list' }
     methods:  [GET, HEAD]
 
-majoraotastore_api_application_get:
+appbuild_api_application_get:
     path:     '/{id}'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Api/Application:get' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Api/Application:get' }
     methods:  [GET, HEAD]

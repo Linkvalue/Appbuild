@@ -1,4 +1,4 @@
-# Majora => ApplicationBundle => validators.fr
+# Appbuild => ApplicationBundle => validators.fr
 application:
     form:
         must_set_package_name: Cet OS nécessite la saisie d'un nom de package.

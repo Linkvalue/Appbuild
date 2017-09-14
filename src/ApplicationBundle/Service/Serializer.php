@@ -1,9 +1,9 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Service;
+namespace LinkValue\Appbuild\ApplicationBundle\Service;
 
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
-use Majora\OTAStore\ApplicationBundle\Entity\Build;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Application;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Build;
 
 /**
  * Entities serializer.

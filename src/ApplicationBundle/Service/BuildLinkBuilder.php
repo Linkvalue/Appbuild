@@ -1,8 +1,8 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Service;
+namespace LinkValue\Appbuild\ApplicationBundle\Service;
 
-use Majora\OTAStore\ApplicationBundle\Entity\Build;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Build;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;
 
@@ -35,7 +35,7 @@ class BuildLinkBuilder
     public function getDownloadLink(Build $build, $absoluteUrl = true)
     {
         return $this->router->generate(
-            'majoraotastore_admin_build_download',
+            'appbuild_admin_build_download',
             [
                 'application_id' => $build->getApplication()->getId(),
                 'id' => $build->getId(),

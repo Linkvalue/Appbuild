@@ -1,8 +1,8 @@
-Majora\OTAStore\ApplicationBundle\Entity\Build:
+LinkValue\Appbuild\ApplicationBundle\Entity\Build:
     test_ios_1_5_2:
         application: '@test_ios'
         version: 1.5.2
-        filePath: '/var/www/MajoraOTAStore/src/ApplicationBundle/Resources/fixtures/files/ios_v2.ipa'
+        filePath: '/var/www/Appbuild/src/ApplicationBundle/Resources/fixtures/files/ios_v2.ipa'
         enabled: true
         comment: |
             This is a comment for the latest build.
@@ -12,7 +12,7 @@ Majora\OTAStore\ApplicationBundle\Entity\Build:
     test_ios_1_0_9:
         application: '@test_ios'
         version: 1.0.9
-        filePath: '/var/www/MajoraOTAStore/src/ApplicationBundle/Resources/fixtures/files/ios_v2.ipa'
+        filePath: '/var/www/Appbuild/src/ApplicationBundle/Resources/fixtures/files/ios_v2.ipa'
         enabled: true
         comment: |
             This is the comment for the first build.
@@ -20,5 +20,5 @@ Majora\OTAStore\ApplicationBundle\Entity\Build:
     test_android_0_2_0_0_rc_4:
         application: '@test_android'
         version: 0.2.0.0RC4
-        filePath: '/var/www/MajoraOTAStore/src/ApplicationBundle/Resources/fixtures/files/android_v3.apk'
+        filePath: '/var/www/Appbuild/src/ApplicationBundle/Resources/fixtures/files/android_v3.apk'
         enabled: true

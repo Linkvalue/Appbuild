@@ -3,13 +3,13 @@ import Routing from 'fos-js-routing';
 import Translator from 'bazinga-translator';
 import 'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js';
 
-const $form = $('form[name="majoraotastore_build"]');
-const $uploadContainer = $('#majoraotastore_build_file');
+const $form = $('form[name="appbuild_build"]');
+const $uploadContainer = $('#appbuild_build_file');
 
 $uploadContainer.fineUploader({
   template: 'upload-container-template',
   request: {
-    endpoint: Routing.generate('majoraotastore_admin_build_upload', {
+    endpoint: Routing.generate('appbuild_admin_build_upload', {
       application_id: $form.data('application-id'),
       _locale: $('html').attr('lang'),
     }),
@@ -39,12 +39,12 @@ $uploadContainer.fineUploader({
   $form.find('.qq-upload-button-selector, qq-upload-drop-area-selector').show();
 }).on('error', (event, id, name, errorReason) => {
   // Clear filename field
-  $('#majoraotastore_build_filename').val('');
+  $('#appbuild_build_filename').val('');
   // Show error message
   alert(errorReason);
 }).on('complete', (event, id, name, responseJSON) => {
   if (responseJSON.success) {
     // Set filename field
-    $('#majoraotastore_build_filename').val(responseJSON.filename);
+    $('#appbuild_build_filename').val(responseJSON.filename);
   }
 });

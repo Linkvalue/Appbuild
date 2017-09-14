@@ -28,9 +28,9 @@ class AppKernel extends Kernel
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
 
             // projects
-            new Majora\OTAStore\AppBundle\MajoraOTAStoreAppBundle(),
-            new Majora\OTAStore\UserBundle\MajoraOTAStoreUserBundle(),
-            new Majora\OTAStore\ApplicationBundle\MajoraOTAStoreApplicationBundle(),
+            new LinkValue\Appbuild\AppBundle\AppbuildAppBundle(),
+            new LinkValue\Appbuild\UserBundle\AppbuildUserBundle(),
+            new LinkValue\Appbuild\ApplicationBundle\AppbuildApplicationBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

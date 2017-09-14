@@ -1,9 +1,9 @@
 <?php
 
-namespace Majora\OTAStore\UserBundle\Entity;
+namespace LinkValue\Appbuild\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Majora\OTAStore\Entity\DatedTrait;
+use LinkValue\Appbuild\Entity\DatedTrait;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**

@@ -18,7 +18,7 @@ class Version20170720094336 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE majoraotastore_user ADD created_at DATETIME NOT NULL, ADD updated_at DATETIME NOT NULL');
+        $this->addSql('ALTER TABLE appbuild_user ADD created_at DATETIME NOT NULL, ADD updated_at DATETIME NOT NULL');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20170720094336 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE majoraotastore_user DROP created_at, DROP updated_at');
+        $this->addSql('ALTER TABLE appbuild_user DROP created_at, DROP updated_at');
     }
 }

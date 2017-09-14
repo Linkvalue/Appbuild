@@ -1,8 +1,8 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Form\Type;
+namespace LinkValue\Appbuild\ApplicationBundle\Form\Type;
 
-use Majora\OTAStore\ApplicationBundle\Entity\Build;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Build;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,7 +22,7 @@ class BuildType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'majoraotastore_build';
+        return 'appbuild_build';
     }
 
     /**
@@ -31,7 +31,7 @@ class BuildType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Majora\OTAStore\ApplicationBundle\Entity\Build',
+            'data_class' => 'LinkValue\Appbuild\ApplicationBundle\Entity\Build',
             'csrf_protection' => true,
             'allow_extra_fields' => false,
             'csrf_token_id' => null,

@@ -1,4 +1,4 @@
-Majora\OTAStore\ApplicationBundle\Entity\BuildToken:
+LinkValue\Appbuild\ApplicationBundle\Entity\BuildToken:
     properties:
         token:
             - NotBlank: ~

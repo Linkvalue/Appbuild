@@ -32,9 +32,6 @@ const config = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['es2015'],
-          },
         },
       },
       {
@@ -42,12 +39,10 @@ const config = {
         use: extractCSS.extract({
           fallback: {
             loader: 'style-loader',
-            options: { sourceMap: true },
           },
           use: [
             {
               loader: 'css-loader',
-              options: { sourceMap: true },
             },
           ],
         }),
@@ -57,16 +52,13 @@ const config = {
         use: extractSASS.extract({
           fallback: {
             loader: 'style-loader',
-            options: { sourceMap: true },
           },
           use: [
             {
               loader: 'css-loader',
-              options: { sourceMap: true },
             },
             {
               loader: 'sass-loader',
-              options: { sourceMap: true },
             },
           ],
         }),
@@ -116,7 +108,7 @@ const config = {
       path.resolve(__dirname, 'node_modules'),
     ],
   },
-  devtool: isDev ? 'cheap-module-eval-source-map' : 'source-map',
+  devtool: isDev ? 'cheap-module-eval-source-map' : false,
   devServer: {
     host: '0.0.0.0',
     disableHostCheck: true,
@@ -127,11 +119,22 @@ if (isDev) {
   config.module.rules.push({
     enforce: 'pre',
     test: /\.js$/,
-    loader: 'eslint-loader',
+    exclude: /node_modules/,
+    use: {
+      loader: 'eslint-loader',
+    },
+  });
+  config.module.rules.push({
+    enforce: 'pre',
+    test: /\.js$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'source-map-loader',
+    },
   });
 } else {
   config.plugins.push(
-    new UglifyJSPlugin({ sourceMap: true })
+    new UglifyJSPlugin()
   );
 }
 

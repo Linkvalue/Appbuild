@@ -12,5 +12,5 @@ before_script:
 script:
     - npm run lint
     - php bin/php-cs-fixer fix src/ --dry-run
-    - bin/phpunit --testsuite="majoraotastore_project" --coverage-clover="coverage.clover"
+    - bin/phpunit --testsuite="appbuild_project" --coverage-clover="coverage.clover"
     - bin/behat --no-interaction

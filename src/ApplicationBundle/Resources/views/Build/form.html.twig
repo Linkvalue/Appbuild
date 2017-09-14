@@ -1,4 +1,4 @@
-{% extends 'MajoraOTAStoreAppBundle:Layout:layout_authenticated.html.twig' %}
+{% extends 'AppbuildAppBundle:Layout:layout_authenticated.html.twig' %}
 
 {% block content %}
     <header class="row align-middle header-section header-section-title" data-anim-appear>
@@ -7,34 +7,34 @@
         </div>
     </header>
 
-    {% include 'MajoraOTAStoreAppBundle:Includes:form_errors.html.twig' %}
+    {% include 'AppbuildAppBundle:Includes:form_errors.html.twig' %}
 
-    <form name="majoraotastore_build" method="post" data-anim-appear data-abide novalidate data-application-id="{{ form.vars.data.application.id }}">
+    <form name="appbuild_build" method="post" data-anim-appear data-abide novalidate data-application-id="{{ form.vars.data.application.id }}">
         <div class="input-wrap input-wrap_inline">
             <div class="row">
                 <div class="columns columns_label">
-                    <label class="input-wrap__label" for="majoraotastore_build_version">{{ 'build.form.version.label'|trans }}</label>
+                    <label class="input-wrap__label" for="appbuild_build_version">{{ 'build.form.version.label'|trans }}</label>
                 </div>
                 <div class="columns columns_input">
-                    <input class="input-wrap__input" type="text" id="majoraotastore_build_version" name="majoraotastore_build[version]" placeholder="{{ 'build.form.version.placeholder'|trans }}" value="{{ form.vars.value.version }}" required />
+                    <input class="input-wrap__input" type="text" id="appbuild_build_version" name="appbuild_build[version]" placeholder="{{ 'build.form.version.placeholder'|trans }}" value="{{ form.vars.value.version }}" required />
                     <span class="form-error">{{ 'build.form.version.error'|trans }}</span>
                 </div>
             </div>
         </div>
         <div class="input-wrap input-wrap_inline">
             <div class="input-wrap__file">
-                <label class="input-wrap__file-label label" for="majoraotastore_build_file">{{ 'build.form.file.label'|trans }}</label>
-                <div class="upload__file large" id="majoraotastore_build_file"></div>
+                <label class="input-wrap__file-label label" for="appbuild_build_file">{{ 'build.form.file.label'|trans }}</label>
+                <div class="upload__file large" id="appbuild_build_file"></div>
             </div>
-            <input type="hidden" id="majoraotastore_build_filename" name="majoraotastore_build[filename]">
+            <input type="hidden" id="appbuild_build_filename" name="appbuild_build[filename]">
         </div>
         <div class="input-wrap input-wrap_inline">
             <div class="row">
                 <div class="columns columns_label columns_label-multilines">
-                    <label class="input-wrap__label" for="majoraotastore_build_comment">{{ 'build.form.comment.label'|trans }}</label>
+                    <label class="input-wrap__label" for="appbuild_build_comment">{{ 'build.form.comment.label'|trans }}</label>
                 </div>
                 <div class="columns columns_input">
-                    <textarea class="input-wrap__input" type="text" id="majoraotastore_build_comment" name="majoraotastore_build[comment]" rows="5" placeholder="{{ 'build.form.comment.placeholder'|trans }}">{{ form.vars.value.comment }}</textarea>
+                    <textarea class="input-wrap__input" type="text" id="appbuild_build_comment" name="appbuild_build[comment]" rows="5" placeholder="{{ 'build.form.comment.placeholder'|trans }}">{{ form.vars.value.comment }}</textarea>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <button type="submit" class="button button_action button_confirm">
                     <span>{{ 'build.form.submit.label'|trans }}</span>
                 </button>
-                <a href="{{ url('majoraotastore_admin_build_list', { application_id: form.vars.data.application.id }) }}" class="button button_action">
+                <a href="{{ url('appbuild_admin_build_list', { application_id: form.vars.data.application.id }) }}" class="button button_action">
                     <span>{{ 'build.form.cancel.label'|trans }}</span>
                 </a>
             </div>
@@ -57,6 +57,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ include('MajoraOTAStoreAppBundle::upload-container-template.html.twig') }}
+    {{ include('AppbuildAppBundle::upload-container-template.html.twig') }}
     <script src="{{ asset('assets/build-form.js') }}"></script>
 {% endblock %}
