@@ -1,4 +1,4 @@
-{% extends 'MajoraOTAStoreAppBundle:Layout:layout_authenticated.html.twig' %}
+{% extends 'AppbuildAppBundle:Layout:layout_authenticated.html.twig' %}
 
 {% block content %}
 
@@ -8,18 +8,18 @@
         </div>
     </header>
 
-    {% include 'MajoraOTAStoreAppBundle:Includes:form_errors.html.twig' %}
+    {% include 'AppbuildAppBundle:Includes:form_errors.html.twig' %}
 
-    <form name="majoraotastore_user" method="post" data-anim-appear data-abide novalidate>
+    <form name="appbuild_user" method="post" data-anim-appear data-abide novalidate>
         <div class="row row-form">
             <div class="columns small-12 large-6">
                 <div class="input-wrap input-wrap_inline">
                     <div class="row">
                         <div class="columns columns_label">
-                            <label class="input-wrap__label" for="majoraotastore_user_lastname">{{ 'user.form.lastname.label'|trans }}</label>
+                            <label class="input-wrap__label" for="appbuild_user_lastname">{{ 'user.form.lastname.label'|trans }}</label>
                         </div>
                         <div class="columns columns_input">
-                            <input type="text" id="majoraotastore_user_lastname" name="majoraotastore_user[lastname]" value="{{ form.vars.value.lastname }}" class="input-wrap__input" placeholder="{{ 'user.form.lastname.placeholder'|trans }}" required />
+                            <input type="text" id="appbuild_user_lastname" name="appbuild_user[lastname]" value="{{ form.vars.value.lastname }}" class="input-wrap__input" placeholder="{{ 'user.form.lastname.placeholder'|trans }}" required />
                             <span class="form-error">{{ 'user.form.lastname.error'|trans }}</span>
                         </div>
                     </div>
@@ -29,10 +29,10 @@
                 <div class="input-wrap input-wrap_inline">
                     <div class="row">
                         <div class="columns columns_label">
-                            <label class="input-wrap__label" for="majoraotastore_user_firstname">{{ 'user.form.firstname.label'|trans }}</label>
+                            <label class="input-wrap__label" for="appbuild_user_firstname">{{ 'user.form.firstname.label'|trans }}</label>
                         </div>
                         <div class="columns columns_input">
-                            <input type="text" id="majoraotastore_user_firstname" name="majoraotastore_user[firstname]" value="{{ form.vars.value.firstname }}" placeholder="{{ 'user.form.firstname.placeholder'|trans }}" required class="input-wrap__input" />
+                            <input type="text" id="appbuild_user_firstname" name="appbuild_user[firstname]" value="{{ form.vars.value.firstname }}" placeholder="{{ 'user.form.firstname.placeholder'|trans }}" required class="input-wrap__input" />
                             <span class="form-error">{{ 'user.form.firstname.error'|trans }}</span>
                         </div>
                     </div>
@@ -42,10 +42,10 @@
                 <div class="input-wrap input-wrap_inline">
                     <div class="row">
                         <div class="columns columns_label">
-                            <label class="input-wrap__label" for="majoraotastore_user_email">{{ 'user.form.email.label'|trans }}</label>
+                            <label class="input-wrap__label" for="appbuild_user_email">{{ 'user.form.email.label'|trans }}</label>
                         </div>
                         <div class="columns columns_input">
-                            <input type="email" id="majoraotastore_user_email" name="majoraotastore_user[email]" value="{{ form.vars.value.email }}" placeholder="{{ 'user.form.email.placeholder'|trans }}" autocorrect="off" autocomplete="email" autocapitalize="off" pattern="email" required class="input-wrap__input" />
+                            <input type="email" id="appbuild_user_email" name="appbuild_user[email]" value="{{ form.vars.value.email }}" placeholder="{{ 'user.form.email.placeholder'|trans }}" autocorrect="off" autocomplete="email" autocapitalize="off" pattern="email" required class="input-wrap__input" />
                             <span class="form-error">{{ 'user.form.email.error'|trans }}</span>
                         </div>
                     </div>
@@ -55,10 +55,10 @@
                 <div class="input-wrap input-wrap_inline">
                     <div class="row">
                         <div class="columns columns_label">
-                            <label class="input-wrap__label" for="majoraotastore_user_password_first">{{ 'user.form.password.label'|trans }}</label>
+                            <label class="input-wrap__label" for="appbuild_user_password_first">{{ 'user.form.password.label'|trans }}</label>
                         </div>
                         <div class="columns columns_input">
-                            <input type="password" id="majoraotastore_user_password_first" name="majoraotastore_user[password][first]" placeholder="{{ 'user.form.password.placeholder'|trans }}" class="input-wrap__input" {% block input_extra_params_password_first '' %} />
+                            <input type="password" id="appbuild_user_password_first" name="appbuild_user[password][first]" placeholder="{{ 'user.form.password.placeholder'|trans }}" class="input-wrap__input" {% block input_extra_params_password_first '' %} />
                             <span class="form-error">{{ 'user.form.password.error'|trans }}</span>
                         </div>
                     </div>
@@ -68,10 +68,10 @@
                 <div class="input-wrap input-wrap_inline">
                     <div class="row">
                         <div class="columns columns_label">
-                            <label class="input-wrap__label" for="majoraotastore_user_password_second">{{ 'user.form.password_confirm.label'|trans }}</label>
+                            <label class="input-wrap__label" for="appbuild_user_password_second">{{ 'user.form.password_confirm.label'|trans }}</label>
                         </div>
                         <div class="columns columns_input">
-                            <input type="password" id="majoraotastore_user_password_second" name="majoraotastore_user[password][second]" placeholder="{{ 'user.form.password_confirm.placeholder'|trans }}" data-validator="same_value" data-same-as="majoraotastore_user_password_first" class="input-wrap__input" />
+                            <input type="password" id="appbuild_user_password_second" name="appbuild_user[password][second]" placeholder="{{ 'user.form.password_confirm.placeholder'|trans }}" data-validator="same_value" data-same-as="appbuild_user_password_first" class="input-wrap__input" />
                             <span class="form-error">{{ 'user.form.password_confirm.error'|trans }}</span>
                         </div>
                     </div>
@@ -85,8 +85,8 @@
                             <label class="input-wrap__label">{{ 'user.form.role.label'|trans }}</label>
                         </div>
                         <div class="columns columns_input">
-                            <button class="select__toggle input-wrap__input" type="button" data-select-display data-toggle="majoraotastore_user_role_options" data-input="majoraotastore_user_role"></button>
-                            <ul class="dropdown-pane select__options" id="majoraotastore_user_role_options" data-dropdown data-select-options data-close-on-click="true">
+                            <button class="select__toggle input-wrap__input" type="button" data-select-display data-toggle="appbuild_user_role_options" data-input="appbuild_user_role"></button>
+                            <ul class="dropdown-pane select__options" id="appbuild_user_role_options" data-dropdown data-select-options data-close-on-click="true">
                                 {% for choice in form.role.vars.choices %}
                                 <li class="select__option" data-value="{{ choice.value }}" data-selected="{{ choice.value == form.role.vars.value ? 'true' : 'false' }}">
                                     <span class="label-role label-role_{{ (choice.value == 'ROLE_SUPER_ADMIN') ? 'superadmin' : (choice.value == 'ROLE_ADMIN') ? 'admin' : 'downloader' }}">{{ ('user.roles.'~choice.value~'.letter')|trans }}</span>
@@ -95,7 +95,7 @@
                                 </li>
                                 {% endfor %}
                             </ul>
-                            <input type="hidden" name="majoraotastore_user[role]" id="majoraotastore_user_role">
+                            <input type="hidden" name="appbuild_user[role]" id="appbuild_user_role">
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                 <button class="button button_action button_confirm" type="submit">
                     <span>{{ 'user.form.submit.label'|trans }}</span>
                 </button>
-                <a href="{% block cancel_button_url url('majoraotastore_admin_user_list') %}" class="button button_action">
+                <a href="{% block cancel_button_url url('appbuild_admin_user_list') %}" class="button button_action">
                     <span>{{ 'user.form.cancel.label'|trans }}</span>
                 </a>
             </div>

@@ -1,21 +1,21 @@
 
 # Users
-majoraotastore_admin_user_list:
+appbuild_admin_user_list:
     path:     /
-    defaults: { _controller: MajoraOTAStoreUserBundle:Security:list }
+    defaults: { _controller: AppbuildUserBundle:Security:list }
 
-majoraotastore_admin_user_create:
+appbuild_admin_user_create:
     path:     /create
-    defaults: { _controller: MajoraOTAStoreUserBundle:Security:create }
+    defaults: { _controller: AppbuildUserBundle:Security:create }
 
-majoraotastore_admin_user_update:
+appbuild_admin_user_update:
     path:     /{id}/update
-    defaults: { _controller: MajoraOTAStoreUserBundle:Security:update }
+    defaults: { _controller: AppbuildUserBundle:Security:update }
 
-majoraotastore_admin_user_delete:
+appbuild_admin_user_delete:
     path:     /{id}/delete
-    defaults: { _controller: MajoraOTAStoreUserBundle:Security:delete }
+    defaults: { _controller: AppbuildUserBundle:Security:delete }
 
-majoraotastore_admin_user_toggle_enable:
+appbuild_admin_user_toggle_enable:
     path:     /{id}/enable
-    defaults: { _controller: MajoraOTAStoreUserBundle:Security:toggleEnable }
+    defaults: { _controller: AppbuildUserBundle:Security:toggleEnable }

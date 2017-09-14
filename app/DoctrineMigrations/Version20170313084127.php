@@ -18,7 +18,7 @@ class Version20170313084127 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE majoraotastore_build CHANGE file_path file_path VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE appbuild_build CHANGE file_path file_path VARCHAR(255) DEFAULT NULL');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20170313084127 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE majoraotastore_build CHANGE file_path file_path VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE appbuild_build CHANGE file_path file_path VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci');
     }
 }

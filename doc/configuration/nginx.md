@@ -3,7 +3,7 @@
 In this configuration sample, we will assume that :
 
 - the domain name pointing to your HTTP server is: `domain.tld`
-- the application sources location is: `/var/www/MajoraOTAStore`
+- the application sources location is: `/var/www/Appbuild`
 - you left the default value of `builds_application_dir` in app/config/parameters.yml which is: `'%kernel.root_dir%/../var/build_files'`
 
 ## Full NGINX configuration sample
@@ -11,7 +11,7 @@ In this configuration sample, we will assume that :
 ```nginx
 server {
     server_name domain.tld;
-    root /var/www/MajoraOTAStore/web;
+    root /var/www/Appbuild/web;
 
     # HTTPS is required to download iOS applications
     listen 443 ssl;
@@ -27,7 +27,7 @@ server {
     # (part 1 on 2)
     location /protected/build_files {
         internal;
-        alias /var/www/MajoraOTAStore/var/build_files;
+        alias /var/www/Appbuild/var/build_files;
     }
 
     # Try to serve file directly, fallback to app.php which is Symfony front controller
@@ -51,7 +51,7 @@ server {
 
         # X-Sendfile feature (part 2 on 2)
         fastcgi_param HTTP_X_SENDFILE_TYPE X-Accel-Redirect;
-        fastcgi_param HTTP_X_ACCEL_MAPPING /var/www/MajoraOTAStore/var/build_files/=/protected/build_files/;
+        fastcgi_param HTTP_X_ACCEL_MAPPING /var/www/Appbuild/var/build_files/=/protected/build_files/;
 
         # Prevent URIs from containing "/app.php"
         internal;

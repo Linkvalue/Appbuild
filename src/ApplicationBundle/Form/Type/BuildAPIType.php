@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Form\Type;
+namespace LinkValue\Appbuild\ApplicationBundle\Form\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

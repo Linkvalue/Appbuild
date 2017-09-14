@@ -1,37 +1,37 @@
 
 # Builds
-majoraotastore_admin_build_list:
+appbuild_admin_build_list:
     path:     '/'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Build:list' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Build:list' }
 
-majoraotastore_admin_build_create:
+appbuild_admin_build_create:
     path:     '/create'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Build:create' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Build:create' }
 
-majoraotastore_admin_build_update:
+appbuild_admin_build_update:
     path:     '/{id}/update'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Build:update' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Build:update' }
 
-majoraotastore_admin_build_delete:
+appbuild_admin_build_delete:
     path:     '/{id}/delete'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Build:delete' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Build:delete' }
 
-majoraotastore_admin_build_upload:
+appbuild_admin_build_upload:
     path:     '/upload'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Build:uploadAjax' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Build:uploadAjax' }
 
-majoraotastore_admin_build_download:
+appbuild_admin_build_download:
     path:     '/{id}/download'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Build:download' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Build:download' }
 
-majoraotastore_admin_build_get_manifest:
+appbuild_admin_build_get_manifest:
     path:     '/{id}/manifest'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Build:getManifest' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Build:getManifest' }
 
-majoraotastore_admin_build_get_file:
+appbuild_admin_build_get_file:
     path:     '/{id}/file'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Build:getFile' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Build:getFile' }
 
-majoraotastore_admin_build_toggle_enable:
+appbuild_admin_build_toggle_enable:
     path:     '/{id}/enable'
-    defaults: { _controller: 'MajoraOTAStoreApplicationBundle:Admin/Build:toggleEnable' }
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Build:toggleEnable' }

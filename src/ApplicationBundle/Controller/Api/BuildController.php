@@ -1,11 +1,11 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Controller\Api;
+namespace LinkValue\Appbuild\ApplicationBundle\Controller\Api;
 
-use Majora\OTAStore\ApplicationBundle\Controller\BaseController;
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
-use Majora\OTAStore\ApplicationBundle\Entity\Build;
-use Majora\OTAStore\ApplicationBundle\Form\Type\BuildAPIType;
+use LinkValue\Appbuild\ApplicationBundle\Controller\BaseController;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Application;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Build;
+use LinkValue\Appbuild\ApplicationBundle\Form\Type\BuildAPIType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,7 +111,7 @@ class BuildController extends BaseController
         return new JsonResponse([
             'build_id' => $build->getId(),
             'upload_location' => $this->generateUrl(
-                'majoraotastore_api_build_add_file',
+                'appbuild_api_build_add_file',
                 ['id' => $build->getId()],
                 UrlGeneratorInterface::ABSOLUTE_URL
             ),

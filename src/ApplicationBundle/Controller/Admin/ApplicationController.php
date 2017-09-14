@@ -1,13 +1,13 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Controller\Admin;
+namespace LinkValue\Appbuild\ApplicationBundle\Controller\Admin;
 
 use Doctrine\Common\Collections\Criteria;
-use Majora\OTAStore\ApplicationBundle\Controller\BaseController;
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
-use Majora\OTAStore\ApplicationBundle\Form\Type\ApplicationType;
-use Majora\OTAStore\Pagination\Page;
-use Majora\OTAStore\UserBundle\Entity\User;
+use LinkValue\Appbuild\ApplicationBundle\Controller\BaseController;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Application;
+use LinkValue\Appbuild\ApplicationBundle\Form\Type\ApplicationType;
+use LinkValue\Appbuild\Pagination\Page;
+use LinkValue\Appbuild\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +38,7 @@ class ApplicationController extends BaseController
         ));
 
         return $this->render(
-            'MajoraOTAStoreApplicationBundle:Application:list.html.twig',
+            'AppbuildApplicationBundle:Application:list.html.twig',
             ['page' => $page]
         );
     }
@@ -80,12 +80,12 @@ class ApplicationController extends BaseController
                 $this->addFlash('success', $this->container->get('translator')->trans('application.create.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_admin_application_list'
+                    'appbuild_admin_application_list'
                 ));
             }
         }
 
-        return $this->render('MajoraOTAStoreApplicationBundle:Application:create.html.twig',
+        return $this->render('AppbuildApplicationBundle:Application:create.html.twig',
             [
                 'form' => $form->createView(),
             ]
@@ -134,13 +134,13 @@ class ApplicationController extends BaseController
                 $this->addFlash('success', $this->container->get('translator')->trans('application.update.flash.success'));
 
                 return new RedirectResponse($this->container->get('router')->generate(
-                    'majoraotastore_admin_application_list'
+                    'appbuild_admin_application_list'
                 ));
             }
         }
 
         return $this->render(
-            'MajoraOTAStoreApplicationBundle:Application:update.html.twig',
+            'AppbuildApplicationBundle:Application:update.html.twig',
             [
                 'form' => $form->createView(),
             ]
@@ -168,7 +168,7 @@ class ApplicationController extends BaseController
         $em->remove($application);
         $em->flush();
 
-        return new RedirectResponse($this->container->get('router')->generate('majoraotastore_admin_application_list'));
+        return new RedirectResponse($this->container->get('router')->generate('appbuild_admin_application_list'));
     }
 
     /**
@@ -198,7 +198,7 @@ class ApplicationController extends BaseController
 
         return new RedirectResponse($request->headers->get('referer') ?:
             $this->container->get('router')->generate(
-                'majoraotastore_admin_application_list'
+                'appbuild_admin_application_list'
             )
         );
     }

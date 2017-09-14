@@ -1,9 +1,9 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Controller;
+namespace LinkValue\Appbuild\ApplicationBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BaseController extends Controller
@@ -16,7 +16,7 @@ class BaseController extends Controller
     protected function getUserApplications()
     {
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
-            return new ArrayCollection($this->getDoctrine()->getRepository('MajoraOTAStoreApplicationBundle:Application')->findAll());
+            return new ArrayCollection($this->getDoctrine()->getRepository('AppbuildApplicationBundle:Application')->findAll());
         }
 
         return new ArrayCollection($this->getUser()->getApplications()->toArray());

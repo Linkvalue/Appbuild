@@ -1,4 +1,4 @@
-Majora\OTAStore\ApplicationBundle\Entity\BuildToken:
+LinkValue\Appbuild\ApplicationBundle\Entity\BuildToken:
     expired_test_ios_1_5_2:
         build: '@test_ios_1_5_2'
         token: '0123456789abcdef'

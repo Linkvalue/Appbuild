@@ -12,7 +12,7 @@ if ! type "jq" > /dev/null 2>&1; then
 fi
 
 # Constants
-API_URL='http://majoraotastore.dev/app_dev.php/api'
+API_URL='http://appbuild.dev/app_dev.php/api'
 EP_APP_LIST='application/'
 EP_CREATE_BUILD='application/:application_id/build/'
 
@@ -117,7 +117,7 @@ function apiCreateBuild() {
 
   #{
   #  "build_id": 10,
-  #  "upload_location": "http://majoraotastore.dev/app_dev.php/api/build/10/file"
+  #  "upload_location": "http://appbuild.dev/app_dev.php/api/build/10/file"
   #}
   curl -s -X PUT \
     $(getAPIUrl ${build_creation_url}) \
@@ -192,7 +192,7 @@ httpcode=${httpcode//{*}/}
 if [ $httpcode -eq 200 ]; then
   echo "Build added with success :)"
 else
-  echo "Error: Something wrong happen :/ Please contact the OTAStore Administrator"
+  echo "Error: Something wrong happen :/ Please contact the Appbuild Administrator"
   exit 531
 fi
 

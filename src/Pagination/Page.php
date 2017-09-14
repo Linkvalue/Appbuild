@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\Pagination;
+namespace LinkValue\Appbuild\Pagination;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

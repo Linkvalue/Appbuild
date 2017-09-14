@@ -1,4 +1,4 @@
-{% extends 'MajoraOTAStoreAppBundle:Layout:layout_authenticated.html.twig' %}
+{% extends 'AppbuildAppBundle:Layout:layout_authenticated.html.twig' %}
 
 {% block title 'user.list.title'|trans %}
 
@@ -9,15 +9,15 @@
             <h1 class="title title_header-section">{{ 'user.list.title'|trans }}</h1>
         </div>
         <div class="columns shrink row-buttons show-for-medium show-for-up-mobile">
-            <a href="{{ url('majoraotastore_admin_user_create') }}" class="button button_navigation">
+            <a href="{{ url('appbuild_admin_user_create') }}" class="button button_navigation">
                 <span>{{ 'user.create.title'|trans }}</span>
             </a>
             {% if app.request.get('enabled', true) %}
-            <a href="{{ url('majoraotastore_admin_user_list', { enabled: false }) }}" class="button button_navigation">
+            <a href="{{ url('appbuild_admin_user_list', { enabled: false }) }}" class="button button_navigation">
                 <span>{{ 'user.list.buttons.disabled_users'|trans }}</span>
             </a>
             {% else %}
-            <a href="{{ url('majoraotastore_admin_user_list') }}" class="button button_navigation">
+            <a href="{{ url('appbuild_admin_user_list') }}" class="button button_navigation">
                 <span>{{ 'user.list.buttons.enabled_users'|trans }}</span>
             </a>
             {% endif %}
@@ -68,8 +68,8 @@
             <div class="table__cell table__cell-body table__cell-action table__cell_shrink show-for-medium show-for-up-mobile">
                 <div class="table__cell__content">
                     <div class="icons-action">
-                        <a href="{{ url('majoraotastore_admin_user_update', { id: user.id }) }}" class="icon icon-action icon-update"></a>
-                        <a href="{{ url('majoraotastore_admin_user_toggle_enable', { id: user.id }) }}" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
+                        <a href="{{ url('appbuild_admin_user_update', { id: user.id }) }}" class="icon icon-action icon-update"></a>
+                        <a href="{{ url('appbuild_admin_user_toggle_enable', { id: user.id }) }}" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
                     </div>
                 </div>
             </div>
@@ -78,5 +78,5 @@
 
     </article>
 
-    {% include 'MajoraOTAStoreAppBundle:Includes:paginator.html.twig' %}
+    {% include 'AppbuildAppBundle:Includes:paginator.html.twig' %}
 {% endblock %}

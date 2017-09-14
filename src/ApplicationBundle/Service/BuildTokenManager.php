@@ -1,11 +1,11 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Service;
+namespace LinkValue\Appbuild\ApplicationBundle\Service;
 
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
-use Majora\OTAStore\ApplicationBundle\Entity\Build;
-use Majora\OTAStore\ApplicationBundle\Entity\BuildToken;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Build;
+use LinkValue\Appbuild\ApplicationBundle\Entity\BuildToken;
 
 /**
  * Handle purge build files tasks.
@@ -84,7 +84,7 @@ class BuildTokenManager
      */
     public function purge()
     {
-        $buildTokens = $this->entityManager->getRepository('MajoraOTAStoreApplicationBundle:BuildToken')->matching(
+        $buildTokens = $this->entityManager->getRepository('AppbuildApplicationBundle:BuildToken')->matching(
             Criteria::create()
                 ->where(Criteria::expr()->lte('expiredAt', new \DateTime()))
         );

@@ -1,8 +1,8 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Service;
+namespace LinkValue\Appbuild\ApplicationBundle\Service;
 
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Application;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

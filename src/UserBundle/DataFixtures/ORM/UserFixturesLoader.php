@@ -1,10 +1,10 @@
 <?php
 
-namespace Majora\OTAStore\UserBundle\DataFixtures\ORM;
+namespace LinkValue\Appbuild\UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Majora\OTAStore\UserBundle\Entity\User;
+use LinkValue\Appbuild\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Features\Context;
+namespace LinkValue\Appbuild\ApplicationBundle\Features\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeFeatureScope;
@@ -10,9 +10,9 @@ use Behat\Mink\Driver\BrowserKitDriver;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\MinkExtension\Context\MinkContext;
 use Doctrine\ORM\EntityManager;
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
-use Majora\OTAStore\ApplicationBundle\Entity\Build;
-use Majora\OTAStore\UserBundle\Entity\User;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Application;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Build;
+use LinkValue\Appbuild\UserBundle\Entity\User;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -165,7 +165,7 @@ class ApplicationIntegrationContext implements Context
      */
     public function thereAreTheseBuilds(TableNode $builds)
     {
-        $appRepository = $this->manager->getRepository('MajoraOTAStoreApplicationBundle:Application');
+        $appRepository = $this->manager->getRepository('AppbuildApplicationBundle:Application');
 
         //id is auto-increment and should be specified only when testing
         $idProperty = new \ReflectionProperty(Build::class, 'id');
@@ -192,7 +192,7 @@ class ApplicationIntegrationContext implements Context
      */
     public function iListAllApplications()
     {
-        $url = $this->router->generate('majoraotastore_admin_application_list');
+        $url = $this->router->generate('appbuild_admin_application_list');
         //avoid redirection to login page if authentication has failed
         $this->getClient()->followRedirects(false);
         $this->minkContext->visit($url);
@@ -229,21 +229,21 @@ class ApplicationIntegrationContext implements Context
      */
     public function iAddAnApplication($support, $label)
     {
-        $url = $this->router->generate('majoraotastore_admin_application_create');
+        $url = $this->router->generate('appbuild_admin_application_create');
         $this->minkContext->visit($url);
 
-        $this->minkContext->fillField('majoraotastore_application[label]', $label);
-        $this->minkContext->selectOption('majoraotastore_application[support]', $support);
+        $this->minkContext->fillField('appbuild_application[label]', $label);
+        $this->minkContext->selectOption('appbuild_application[support]', $support);
 
         // iOS support needs package identifier
         if ($support == Application::SUPPORT_IOS) {
-            $this->minkContext->fillField('majoraotastore_application[packageName]', 'my package');
+            $this->minkContext->fillField('appbuild_application[packageName]', 'my package');
         }
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
         $page = $this->minkContext->getSession()->getPage();
-        $page->find('css', 'form[name="majoraotastore_application"]')->submit();
+        $page->find('css', 'form[name="appbuild_application"]')->submit();
     }
 
     /**
@@ -261,15 +261,15 @@ class ApplicationIntegrationContext implements Context
      */
     public function iEditTheApplicationWithIdToHaveLabel($id, $label)
     {
-        $url = $this->router->generate('majoraotastore_admin_application_update', ['id' => $id]);
+        $url = $this->router->generate('appbuild_admin_application_update', ['id' => $id]);
         $this->minkContext->visit($url);
 
-        $this->minkContext->fillField('majoraotastore_application[label]', $label);
+        $this->minkContext->fillField('appbuild_application[label]', $label);
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
         $page = $this->minkContext->getSession()->getPage();
-        $page->find('css', 'form[name="majoraotastore_application"]')->submit();
+        $page->find('css', 'form[name="appbuild_application"]')->submit();
     }
 
     /**
@@ -277,7 +277,7 @@ class ApplicationIntegrationContext implements Context
      */
     public function iListAllBuildsOfApplicationsWithId($id)
     {
-        $url = $this->router->generate('majoraotastore_admin_build_list', ['application_id' => $id]);
+        $url = $this->router->generate('appbuild_admin_build_list', ['application_id' => $id]);
         //avoid redirection to login page if authentication has failed
         $this->getClient()->followRedirects(false);
         $this->minkContext->visit($url);
@@ -301,16 +301,16 @@ class ApplicationIntegrationContext implements Context
         // Perform upload before visiting the form (to workaround AJAX limitations)
         $filename = $this->uploadBuildFileForApplicationWithId($file, $id);
 
-        $url = $this->router->generate('majoraotastore_admin_build_create', ['application_id' => $id]);
+        $url = $this->router->generate('appbuild_admin_build_create', ['application_id' => $id]);
         $this->minkContext->visit($url);
 
-        $this->minkContext->fillField('majoraotastore_build[version]', $version);
-        $this->minkContext->getSession()->getPage()->find('css', '[name="majoraotastore_build[filename]"]')->setValue($filename);
+        $this->minkContext->fillField('appbuild_build[version]', $version);
+        $this->minkContext->getSession()->getPage()->find('css', '[name="appbuild_build[filename]"]')->setValue($filename);
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
         $page = $this->minkContext->getSession()->getPage();
-        $page->find('css', 'form[name="majoraotastore_build"]')->submit();
+        $page->find('css', 'form[name="appbuild_build"]')->submit();
     }
 
     /**
@@ -328,18 +328,18 @@ class ApplicationIntegrationContext implements Context
      */
     public function iEditTheBuildWithIdToHaveVersion($id, $version)
     {
-        $url = $this->router->generate('majoraotastore_admin_build_update', [
+        $url = $this->router->generate('appbuild_admin_build_update', [
             'application_id' => $this->getApplicationIdForBuildId($id),
             'id' => $id,
         ]);
         $this->minkContext->visit($url);
 
-        $this->minkContext->fillField('majoraotastore_build[version]', $version);
+        $this->minkContext->fillField('appbuild_build[version]', $version);
 
         //follow redirection after form submission
         $this->getClient()->followRedirects(true);
         $page = $this->minkContext->getSession()->getPage();
-        $page->find('css', 'form[name="majoraotastore_build"]')->submit();
+        $page->find('css', 'form[name="appbuild_build"]')->submit();
     }
 
     /**
@@ -347,12 +347,12 @@ class ApplicationIntegrationContext implements Context
      */
     public function iDownloadTheLatestBuild()
     {
-        $buildRepository = $this->manager->getRepository('MajoraOTAStoreApplicationBundle:Build');
+        $buildRepository = $this->manager->getRepository('AppbuildApplicationBundle:Build');
         if (!$build = $buildRepository->findOneBy([], ['id' => 'DESC'])) {
             throw new \RuntimeException('Latest build not found');
         }
 
-        $url = $this->router->generate('majoraotastore_admin_build_download', [
+        $url = $this->router->generate('appbuild_admin_build_download', [
             'application_id' => $build->getApplication()->getId(),
             'id' => $build->getId(),
         ]);
@@ -376,7 +376,7 @@ class ApplicationIntegrationContext implements Context
      */
     public function iReceiveTheLatestBuild()
     {
-        $buildRepository = $this->manager->getRepository('MajoraOTAStoreApplicationBundle:Build');
+        $buildRepository = $this->manager->getRepository('AppbuildApplicationBundle:Build');
         if (!$build = $buildRepository->findOneBy([], ['id' => 'DESC'])) {
             throw new \RuntimeException('Latest build not found');
         }
@@ -395,7 +395,7 @@ class ApplicationIntegrationContext implements Context
                 break;
 
             default:
-                $expectedUrl = $this->router->generate('majoraotastore_admin_build_get_file', [
+                $expectedUrl = $this->router->generate('appbuild_admin_build_get_file', [
                     'application_id' => $build->getApplication()->getId(),
                     'id' => $build->getId(),
                 ]);
@@ -425,7 +425,7 @@ class ApplicationIntegrationContext implements Context
         $this->filesystem->copy($filePath, $tmpFilePath);
 
         // Upload build file
-        $url = $this->router->generate('majoraotastore_admin_build_upload', ['application_id' => $id]);
+        $url = $this->router->generate('appbuild_admin_build_upload', ['application_id' => $id]);
         $this->getClient()->request(
             'POST',
             $url,
@@ -447,7 +447,7 @@ class ApplicationIntegrationContext implements Context
      */
     private function getApplicationIdForBuildId($buildId)
     {
-        $buildRepository = $this->manager->getRepository('MajoraOTAStoreApplicationBundle:Build');
+        $buildRepository = $this->manager->getRepository('AppbuildApplicationBundle:Build');
         if (!$build = $buildRepository->find($buildId)) {
             throw new \RuntimeException('Build not found: '.$buildId);
         }

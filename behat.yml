@@ -15,10 +15,10 @@ default:
     suites:
         application:
             type: 'symfony_bundle'
-            bundle: 'MajoraOTAStoreApplicationBundle'
+            bundle: 'AppbuildApplicationBundle'
             paths: [ '%paths.base%/src/ApplicationBundle/Features' ]
             contexts:
-                - 'Majora\OTAStore\ApplicationBundle\Features\Context\ApplicationIntegrationContext':
+                - 'LinkValue\Appbuild\ApplicationBundle\Features\Context\ApplicationIntegrationContext':
                     manager: '@doctrine.orm.entity_manager'
                     router: '@router'
                     session: '@session'

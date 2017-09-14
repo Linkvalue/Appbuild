@@ -1,7 +1,7 @@
-Majora\OTAStore\ApplicationBundle\Entity\BuildToken:
+LinkValue\Appbuild\ApplicationBundle\Entity\BuildToken:
     type: entity
-    repositoryClass: 'Majora\OTAStore\ApplicationBundle\Entity\BuildTokenRepository'
-    table: majoraotastore_build_token
+    repositoryClass: 'LinkValue\Appbuild\ApplicationBundle\Entity\BuildTokenRepository'
+    table: appbuild_build_token
     id:
         id:
             type: integer
@@ -14,7 +14,7 @@ Majora\OTAStore\ApplicationBundle\Entity\BuildToken:
             column: expired_at
     manyToOne:
         build:
-            targetEntity: 'Majora\OTAStore\ApplicationBundle\Entity\Build'
+            targetEntity: 'LinkValue\Appbuild\ApplicationBundle\Entity\Build'
             inversedBy: buildTokens
             joinColumn:
                 name: build_id

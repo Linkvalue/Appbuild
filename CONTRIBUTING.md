@@ -9,8 +9,8 @@ so please head to this link and fulfill the **Requirements** section for your OS
 
 #### 1. Clone project
 ```shell
-git clone git@github.com:LinkValue/MajoraOTAStore.git
-cd MajoraOTAStore
+git clone git@github.com:LinkValue/Appbuild.git
+cd Appbuild
 ```
 
 #### 2. Virtual machine provisioning
@@ -32,7 +32,7 @@ npm start
 
 #### 4. Enjoy
 
-You should see your application up and running at http://majoraotastore.dev/app_dev.php/
+You should see your application up and running at http://appbuild.dev/app_dev.php/
 
 Try to login using one of the following credentials:
 ```
@@ -46,12 +46,12 @@ user@user.fr => user
 
 Front assets (css/js/images) are handled by [Webpack](https://webpack.js.org/).
 
-When you're in development environment (i.e. `http://majoraotastore.dev/app_dev.php/...`), the project is configured to use webpack dev server to serve assets, it means that the project will seems to be broken until you run the following command:
+When you're in development environment (i.e. `http://appbuild.dev/app_dev.php/...`), the project is configured to use webpack dev server to serve assets, it means that the project will seems to be broken until you run the following command:
 ```shell
 npm start
 ```
 
-When you're in production environment (i.e. `http://majoraotastore.dev/...`), the project will use the assets found in `web/assets`, it means that you'll have to run `npm run build` each time you edit an asset file to see the modification in your browser (after refreshing it). 
+When you're in production environment (i.e. `http://appbuild.dev/...`), the project will use the assets found in `web/assets`, it means that you'll have to run `npm run build` each time you edit an asset file to see the modification in your browser (after refreshing it). 
 
 ### Common tasks
 ```shell

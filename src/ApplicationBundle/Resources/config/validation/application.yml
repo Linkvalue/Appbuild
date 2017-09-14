@@ -1,4 +1,4 @@
-Majora\OTAStore\ApplicationBundle\Entity\Application:
+LinkValue\Appbuild\ApplicationBundle\Entity\Application:
     constraints:
         - Callback: validate
     properties:

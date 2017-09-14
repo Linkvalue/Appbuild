@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\UserBundle\DependencyInjection;
+namespace LinkValue\Appbuild\ApplicationBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class MajoraOTAStoreUserExtension extends Extension
+class AppbuildApplicationExtension extends Extension
 {
     /**
      * {@inheritdoc}

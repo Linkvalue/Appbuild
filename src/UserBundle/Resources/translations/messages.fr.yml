@@ -1,4 +1,4 @@
-# Majora => UserBundle => messages.fr
+# Appbuild => UserBundle => messages.fr
 user:
     roles:
         ROLE_USER:

@@ -1,4 +1,4 @@
-# Majora => AppBundle => messages.en
+# Appbuild => AppBundle => messages.en
 admin:
     title: appbuild - Deployment server
     logo:

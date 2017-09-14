@@ -1,10 +1,10 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Form\Type;
+namespace LinkValue\Appbuild\ApplicationBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
-use Majora\OTAStore\UserBundle\Entity\User;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Application;
+use LinkValue\Appbuild\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -42,7 +42,7 @@ class ApplicationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'majoraotastore_application';
+        return 'appbuild_application';
     }
 
     /**

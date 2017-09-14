@@ -1,9 +1,9 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Controller\Api;
+namespace LinkValue\Appbuild\ApplicationBundle\Controller\Api;
 
-use Majora\OTAStore\ApplicationBundle\Controller\BaseController;
-use Majora\OTAStore\ApplicationBundle\Entity\Application;
+use LinkValue\Appbuild\ApplicationBundle\Controller\BaseController;
+use LinkValue\Appbuild\ApplicationBundle\Entity\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +18,7 @@ class ApplicationController extends BaseController
     {
         $applications = [];
         $serializer = $this->container->get('appbuild.application.serializer');
-        $enabledApplications = $this->getDoctrine()->getRepository('MajoraOTAStoreApplicationBundle:Application')->findAllEnabled();
+        $enabledApplications = $this->getDoctrine()->getRepository('AppbuildApplicationBundle:Application')->findAllEnabled();
 
         foreach ($enabledApplications as $application) {
             $applications[] = $serializer->serializeApplication($application);

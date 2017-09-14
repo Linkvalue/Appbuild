@@ -1,4 +1,4 @@
-{% extends 'MajoraOTAStoreAppBundle:Layout:layout_authenticated.html.twig' %}
+{% extends 'AppbuildAppBundle:Layout:layout_authenticated.html.twig' %}
 
 {% block title 'application.list.title'|trans %}
 
@@ -10,15 +10,15 @@
         </div>
         {% if is_granted('ROLE_ADMIN') %}
         <div class="columns shrink row-buttons show-for-medium show-for-up-mobile">
-            <a href="{{ url('majoraotastore_admin_application_create') }}" class="button button_navigation">
+            <a href="{{ url('appbuild_admin_application_create') }}" class="button button_navigation">
                 <span>{{ 'application.create.title'|trans }}</span>
             </a>
             {% if app.request.get('enabled', true) %}
-            <a href="{{ url('majoraotastore_admin_application_list', { enabled: false }) }}" class="button button_navigation">
+            <a href="{{ url('appbuild_admin_application_list', { enabled: false }) }}" class="button button_navigation">
                 <span>{{ 'application.list.buttons.disabled_applications'|trans }}</span>
             </a>
             {% else %}
-            <a href="{{ url('majoraotastore_admin_application_list') }}" class="button button_navigation">
+            <a href="{{ url('appbuild_admin_application_list') }}" class="button button_navigation">
                 <span>{{ 'application.list.buttons.enabled_applications'|trans }}</span>
             </a>
             {% endif %}
@@ -54,7 +54,7 @@
             </div>
             <div class="table__cell table__cell-body table__cell-app">
                 <div class="table__cell__content">
-                    <a class="table-link app-name-wrap align-middle" href="{{ url('majoraotastore_admin_build_list', { application_id: application.id }) }}">
+                    <a class="table-link app-name-wrap align-middle" href="{{ url('appbuild_admin_build_list', { application_id: application.id }) }}">
                         <div class="columns shrink">
                             <span class="app-picture" style="background-image:url('{# TODO application.image #}');">
                                 <i class="icon icon-os icon-{{ (application.support == 'android') ? 'android' : 'apple' }} hide-for-large"></i>
@@ -72,7 +72,7 @@
             <div class="table__cell table__cell-body table__cell-last-build show-for-medium show-for-up-mobile">
                 <div class="table__cell__content">
                     {% if application.latestEnabledBuild %}
-                    <a class="columns-first table-link row align-middle" href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: application.latestEnabledBuild.id }) }}">
+                    <a class="columns-first table-link row align-middle" href="{{ url('appbuild_admin_build_download', { application_id: application.id, id: application.latestEnabledBuild.id }) }}">
                         <div class="columns shrink">
                             <i class="icon icon-download show-for-large"></i>
                         </div>
@@ -122,11 +122,11 @@
                 <div class="table__cell__content">
                     <div class="icons-action">
                         {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ url('majoraotastore_admin_application_update', { id: application.id }) }}" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
-                        <a href="{{ url('majoraotastore_admin_application_toggle_enable', { id: application.id }) }}" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
+                        <a href="{{ url('appbuild_admin_application_update', { id: application.id }) }}" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
+                        <a href="{{ url('appbuild_admin_application_toggle_enable', { id: application.id }) }}" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
                         {% endif %}
                         {% if application.latestEnabledBuild %}
-                        <a href="{{ url('majoraotastore_admin_build_download', { application_id: application.id, id: application.latestEnabledBuild.id }) }}" class="icon-action icon-action_download hide-for-medium">
+                        <a href="{{ url('appbuild_admin_build_download', { application_id: application.id, id: application.latestEnabledBuild.id }) }}" class="icon-action icon-action_download hide-for-medium">
                             <i class="icon icon-download"></i><span class="icon-action_download__label ">{{ application.latestEnabledBuild.version }}</span>
                         </a>
                         {% endif %}
@@ -138,5 +138,5 @@
 
     </article>
 
-    {% include 'MajoraOTAStoreAppBundle:Includes:paginator.html.twig' %}
+    {% include 'AppbuildAppBundle:Includes:paginator.html.twig' %}
 {% endblock %}

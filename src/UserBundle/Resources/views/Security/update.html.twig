@@ -1,9 +1,9 @@
-{% extends 'MajoraOTAStoreUserBundle:Security:form.html.twig' %}
+{% extends 'AppbuildUserBundle:Security:form.html.twig' %}
 
 {% block title 'user.update.title'|trans %}
 
 {% block extra_buttons %}
-    <a href="{{ url('majoraotastore_admin_user_toggle_enable', { id: form.vars.data.id }) }}" class="button button_action">
+    <a href="{{ url('appbuild_admin_user_toggle_enable', { id: form.vars.data.id }) }}" class="button button_action">
         <span>{{ form.vars.data.enabled ? 'user.form.disable.label'|trans : 'user.form.enable.label'|trans }}</span>
     </a>
 {% endblock %}

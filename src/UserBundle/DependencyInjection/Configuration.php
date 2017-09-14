@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\UserBundle\DependencyInjection;
+namespace LinkValue\Appbuild\UserBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('majoraotastore_user');
+        $rootNode = $treeBuilder->root('appbuild_user');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

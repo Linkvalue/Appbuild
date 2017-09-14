@@ -13,7 +13,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="majoraotastore_project">
+        <testsuite name="appbuild_project">
             <directory>src/*/*Bundle/Tests</directory>
             <directory>src/*/Bundle/*Bundle/Tests</directory>
             <directory>src/*Bundle/Tests</directory>

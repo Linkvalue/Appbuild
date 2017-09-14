@@ -1,8 +1,8 @@
 <?php
 
-namespace Majora\OTAStore\UserBundle\Form\Type;
+namespace LinkValue\Appbuild\UserBundle\Form\Type;
 
-use Majora\OTAStore\UserBundle\Entity\User;
+use LinkValue\Appbuild\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +21,7 @@ class UserType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'majoraotastore_user';
+        return 'appbuild_user';
     }
 
     /**

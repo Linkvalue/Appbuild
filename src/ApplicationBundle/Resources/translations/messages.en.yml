@@ -1,4 +1,4 @@
-# Majora => ApplicationBundle => messages.en
+# Appbuild => ApplicationBundle => messages.en
 application:
     form:
         label:
@@ -98,4 +98,4 @@ build:
             comment: Comment
     download:
         error:
-            file_not_exists: The build file you wanted to download does not exist anymore, it may be due to a change in the store configuration.
+            file_not_exists: The build file you wanted to download does not exist anymore, it may be due to a change in the Appbuild configuration.

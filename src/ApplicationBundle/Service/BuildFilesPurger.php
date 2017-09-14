@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Service;
+namespace LinkValue\Appbuild\ApplicationBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Filesystem\Filesystem;
@@ -102,7 +102,7 @@ class BuildFilesPurger
     {
         $usedFiles = [];
 
-        $builds = $this->entityManager->getRepository('MajoraOTAStoreApplicationBundle:Build')->findAll();
+        $builds = $this->entityManager->getRepository('AppbuildApplicationBundle:Build')->findAll();
         foreach ($builds as $build) {
             $usedFiles[] = $build->getFilePath();
         }

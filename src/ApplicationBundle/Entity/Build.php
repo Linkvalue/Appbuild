@@ -1,10 +1,10 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Entity;
+namespace LinkValue\Appbuild\ApplicationBundle\Entity;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
-use Majora\OTAStore\Entity\DatedTrait;
+use LinkValue\Appbuild\Entity\DatedTrait;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**

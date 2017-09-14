@@ -1,6 +1,6 @@
-# MajoraOTAStore
+# Appbuild
 
-[![Build Status](https://travis-ci.org/LinkValue/MajoraOTAStore.svg?branch=master)](https://travis-ci.org/LinkValue/MajoraOTAStore)
+[![Build Status](https://travis-ci.org/LinkValue/Appbuild.svg?branch=master)](https://travis-ci.org/LinkValue/Appbuild)
 
 Host your iOS/Android apps for an easy installation on allowed user devices.
 
@@ -23,7 +23,7 @@ Host your iOS/Android apps for an easy installation on allowed user devices.
 
 ## Installation
 
-MajoraOTAStore is a "simple" [Symfony 3.3](http://symfony.com/doc/3.3/index.html) application.
+Appbuild is a "simple" [Symfony 3.3](http://symfony.com/doc/3.3/index.html) application.
 
 ### Server requirements
 
@@ -39,8 +39,8 @@ From your server (preferably **not** as `root`):
 ```shell
 # copy sources from GitHub
 cd /var/www
-git clone https://github.com/LinkValue/MajoraOTAStore.git
-cd MajoraOTAStore
+git clone https://github.com/LinkValue/Appbuild.git
+cd Appbuild
 
 # configure application
 # by copying "app/config/parameters.yml.dist" to "app/config/parameters.yml"

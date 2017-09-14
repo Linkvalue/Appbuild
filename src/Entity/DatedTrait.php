@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\Entity;
+namespace LinkValue\Appbuild\Entity;
 
 trait DatedTrait
 {

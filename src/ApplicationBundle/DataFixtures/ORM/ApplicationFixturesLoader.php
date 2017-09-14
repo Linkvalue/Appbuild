@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\DataFixtures\ORM;
+namespace LinkValue\Appbuild\ApplicationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;

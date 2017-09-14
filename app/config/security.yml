@@ -1,12 +1,12 @@
 security:
     encoders:
-        Majora\OTAStore\UserBundle\Entity\User:
+        LinkValue\Appbuild\UserBundle\Entity\User:
            algorithm: 'bcrypt'
 
     providers:
         db_user_provider:
            entity:
-               class: 'MajoraOTAStoreUserBundle:User'
+               class: 'AppbuildUserBundle:User'
                property: 'email'
 
     firewalls:
@@ -21,7 +21,7 @@ security:
             stateless: true
             anonymous: true
             json_login:
-                check_path: 'majoraotastore_api_login_check'
+                check_path: 'appbuild_api_login_check'
                 success_handler: 'lexik_jwt_authentication.handler.authentication_success'
                 failure_handler: 'lexik_jwt_authentication.handler.authentication_failure'
                 require_previous_session: false
@@ -48,13 +48,13 @@ security:
             pattern: '^/'
             anonymous: true
             form_login:
-                login_path: 'majoraotastore_admin_user_login'
-                check_path: 'majoraotastore_user_login_check'
-                default_target_path: 'majoraotastore_admin_application_list'
+                login_path: 'appbuild_admin_user_login'
+                check_path: 'appbuild_user_login_check'
+                default_target_path: 'appbuild_admin_application_list'
                 always_use_default_target_path: true # otherwise it redirects to an AJAX callback route
             logout:
-                path: 'majoraotastore_user_logout'
-                target: 'majoraotastore_admin_user_login'
+                path: 'appbuild_user_logout'
+                target: 'appbuild_admin_user_login'
             provider: 'db_user_provider'
             remember_me:
                 secret: '%secret%'

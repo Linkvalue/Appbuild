@@ -1,6 +1,6 @@
 <?php
 
-namespace Majora\OTAStore\ApplicationBundle\Entity;
+namespace LinkValue\Appbuild\ApplicationBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;

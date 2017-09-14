@@ -18,10 +18,10 @@ class Version20170626205956 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP INDEX label_idx ON majoraotastore_application');
-        $this->addSql('DROP INDEX slug_idx ON majoraotastore_application');
-        $this->addSql('ALTER TABLE majoraotastore_application DROP slug');
-        $this->addSql('CREATE UNIQUE INDEX label_support_idx ON majoraotastore_application (`label`, support)');
+        $this->addSql('DROP INDEX label_idx ON appbuild_application');
+        $this->addSql('DROP INDEX slug_idx ON appbuild_application');
+        $this->addSql('ALTER TABLE appbuild_application DROP slug');
+        $this->addSql('CREATE UNIQUE INDEX label_support_idx ON appbuild_application (`label`, support)');
     }
 
     /**
@@ -32,9 +32,9 @@ class Version20170626205956 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP INDEX label_support_idx ON majoraotastore_application');
-        $this->addSql('ALTER TABLE majoraotastore_application ADD slug VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci');
-        $this->addSql('CREATE UNIQUE INDEX label_idx ON majoraotastore_application (`label`)');
-        $this->addSql('CREATE UNIQUE INDEX slug_idx ON majoraotastore_application (slug)');
+        $this->addSql('DROP INDEX label_support_idx ON appbuild_application');
+        $this->addSql('ALTER TABLE appbuild_application ADD slug VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci');
+        $this->addSql('CREATE UNIQUE INDEX label_idx ON appbuild_application (`label`)');
+        $this->addSql('CREATE UNIQUE INDEX slug_idx ON appbuild_application (slug)');
     }
 }

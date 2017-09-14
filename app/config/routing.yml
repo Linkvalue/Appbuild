@@ -1,15 +1,15 @@
 
 # Misc routing
-majoraotastore_misc:
+appbuild_misc:
     resource: 'routing/routing_misc.yml'
 
 # API routing
-majoraotastore_api:
+appbuild_api:
     resource: 'routing/routing_api.yml'
     prefix: '/api'
 
 # Admin routing
-majoraotastore_admin:
+appbuild_admin:
     resource: 'routing/routing_admin.yml'
     prefix: '/{_locale}'
     defaults:
@@ -20,25 +20,25 @@ majoraotastore_admin:
         expose: true
 
 # /
-majoraotastore_main:
+appbuild_main:
     path:  '/'
     defaults:
         _controller: 'FrameworkBundle:Redirect:redirect'
-        route: 'majoraotastore_main_locale'
+        route: 'appbuild_main_locale'
         permanent: true
 
 # /locale
-majoraotastore_main_locale:
+appbuild_main_locale:
     path: '/%default_locale%'
     defaults:
         _controller: 'FrameworkBundle:Redirect:redirect'
-        route: 'majoraotastore_admin_application_list'
+        route: 'appbuild_admin_application_list'
         permanent: true
 
 # Login_check
-majoraotastore_user_login_check:
+appbuild_user_login_check:
     path: '/login_check'
 
 # Logout
-majoraotastore_user_logout:
+appbuild_user_logout:
     path: '/logout'
