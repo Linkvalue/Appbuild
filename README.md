@@ -30,7 +30,7 @@ Appbuild is a "simple" [Symfony 3.3](http://symfony.com/doc/3.3/index.html) appl
 - [Linux](https://getgnulinux.org) (it may works on Windows/macOS but you can't blame us if it doesn't)
 - [`php 5.6.19+`](http://php.net) (`php 7+` is recommended)
 - [`MySQL`](https://www.mysql.com) (it should also work using [`MariaDB`](https://mariadb.org), if not => please let us know)
-- [`Node.js`](https://nodejs.org) (along with `npm`)
+- [`Node.js`](https://nodejs.org) along with `npm` (it works great with `npm 5.2.0` for instance)
 - HTTP server supporting PHP (such as [`nginx`](http://nginx.org) + [`php-fpm`](http://php.net/manual/fr/install.fpm.php), etc.)
 
 ### Application setup
