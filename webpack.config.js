@@ -134,7 +134,7 @@ if (isDev) {
   });
 } else {
   config.plugins.push(
-    new MinifyPlugin()
+    new MinifyPlugin({ mangle: false/* <- to fix Safari issue, hope this will be fixed in a newer version than 0.2.0 */ })
   );
 }
 
