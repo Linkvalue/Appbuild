@@ -38,7 +38,7 @@
             <div class="table__cell table__cell-head table__cell-head-lastname show-for-medium">
                 <div class="table__cell-head__content">{{ 'user.list.thead.lastname'|trans }}</div>
             </div>
-            <div class="table__cell table__cell-head table__cell-head-action table__cell_shrink show-for-medium show-for-up-mobile">
+            <div class="table__cell table__cell-head table__cell-head-actions table__cell_shrink show-for-medium show-for-up-mobile">
                 <div class="table__cell-head__content"></div>
             </div>
         </div>
@@ -65,11 +65,11 @@
                     <p>{{ user.lastname }}</p>
                 </div>
             </div>
-            <div class="table__cell table__cell-body table__cell-action table__cell_shrink show-for-medium show-for-up-mobile">
+            <div class="table__cell table__cell-body table__cell-actions table__cell_shrink show-for-up-mobile">
                 <div class="table__cell__content">
                     <div class="icons-action">
                         <a href="{{ url('appbuild_admin_user_update', { id: user.id }) }}" class="icon icon-action icon-update"></a>
-                        <a href="{{ url('appbuild_admin_user_toggle_enable', { id: user.id }) }}" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
+                        <a href="{{ url('appbuild_admin_user_toggle_enable', { id: user.id }) }}" class="icon icon-action icon-archive show-for-up-mobile"></a>
                     </div>
                 </div>
             </div>

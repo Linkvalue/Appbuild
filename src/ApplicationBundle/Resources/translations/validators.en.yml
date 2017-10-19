@@ -2,6 +2,10 @@
 application:
     form:
         must_set_package_name: This application OS requires to set a Package name.
+        display_image_file_does_not_exist: The display image file does not exist. Please, try to re-upload it.
+        full_size_image_file_does_not_exist: The full size image file does not exist. Please, try to re-upload it.
 build:
     form:
         must_upload_file: You have to upload the build file.
+        file_must_be_ipa: The build file you uploaded is not a valid "ipa" file.
+        file_must_be_apk: The build file you uploaded is not a valid "apk" file.

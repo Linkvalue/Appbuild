@@ -12,7 +12,7 @@ vm_ip: '192.168.100.70'
 # List of aliases bound to the Virtual Machine's IP (see "vm_ip")
 # If the plugin "vagrant-hostmanager" is installed, these aliases will be added to your "/etc/hosts" file automatically.
 # Else, aliases will be displayed in the console during VM provisioning, then it will be up to you to copy/paste this output in your "/etc/hosts" file.
-vm_ip_aliases: ['appbuild.dev']
+vm_ip_aliases: ['local.appbuild.com']
 
 # VM hostname (this will be added to the "vm_ip_aliases" list, displayed in your SSH terminal, etc.)
 vm_hostname: 'appbuild'

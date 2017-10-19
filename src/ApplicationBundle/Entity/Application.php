@@ -48,6 +48,16 @@ class Application
     private $packageName;
 
     /**
+     * @var string
+     */
+    private $displayImageFilePath;
+
+    /**
+     * @var string
+     */
+    private $fullSizeImageFilePath;
+
+    /**
      * @var ArrayCollection|Build[]
      */
     private $builds;
@@ -68,6 +78,8 @@ class Application
     public function __construct()
     {
         $this->enabled = true;
+        $this->displayImageFilePath = '';
+        $this->fullSizeImageFilePath = '';
         $this->builds = new ArrayCollection();
         $this->users = new ArrayCollection();
     }
@@ -182,6 +194,62 @@ class Application
         $this->packageName = $packageName;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayImageFilePath()
+    {
+        return $this->displayImageFilePath;
+    }
+
+    /**
+     * @param string $displayImageFilePath
+     *
+     * @return $this
+     */
+    public function setDisplayImageFilePath($displayImageFilePath)
+    {
+        $this->displayImageFilePath = $displayImageFilePath;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayImageFileName()
+    {
+        return basename($this->displayImageFilePath);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullSizeImageFilePath()
+    {
+        return $this->fullSizeImageFilePath;
+    }
+
+    /**
+     * @param string $fullSizeImageFilePath
+     *
+     * @return $this
+     */
+    public function setFullSizeImageFilePath($fullSizeImageFilePath)
+    {
+        $this->fullSizeImageFilePath = $fullSizeImageFilePath;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullSizeImageFileName()
+    {
+        return basename($this->fullSizeImageFilePath);
     }
 
     /**
@@ -313,25 +381,52 @@ class Application
     }
 
     /**
-     * Assert this Application is valid (depending on its support).
-     *
-     * This method is intended to be used in validation constraints.
-     *
      * @param ExecutionContextInterface $context
      */
-    public function validate(ExecutionContextInterface $context)
+    public function validatePackageName(ExecutionContextInterface $context)
     {
         if (empty($this->packageName)) {
             switch ($this->getSupport()) {
                 case self::SUPPORT_IOS:
                     $context->buildViolation('application.form.must_set_package_name')
                         ->atPath('packageName')
-                        ->addViolation()
-                    ;
+                        ->addViolation();
                     break;
                 default:
                     break;
             }
+        }
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     */
+    public function validateDisplayImage(ExecutionContextInterface $context)
+    {
+        if (!$this->displayImageFilePath) {
+            return;
+        }
+
+        if (!file_exists($this->displayImageFilePath)) {
+            $context->buildViolation('application.form.display_image_file_does_not_exist')
+                ->atPath('displayImageFilename')
+                ->addViolation();
+        }
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     */
+    public function validateFullSizeImage(ExecutionContextInterface $context)
+    {
+        if (!$this->fullSizeImageFilePath) {
+            return;
+        }
+
+        if (!file_exists($this->fullSizeImageFilePath)) {
+            $context->buildViolation('application.form.full_size_image_file_does_not_exist')
+                ->atPath('fullSizeImageFilename')
+                ->addViolation();
         }
     }
 }

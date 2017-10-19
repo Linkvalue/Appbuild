@@ -1,15 +1,11 @@
 import $ from 'jquery';
 
+const dataAttrName = 'data-show-when-checked';
 const showWhenChecked = ($el) => {
-  if ($el.prop('checked')) {
-    $(`#${$el.attr('data-show-when-checked')}`).show();
-  } else {
-    $(`#${$el.attr('data-show-when-checked')}`).hide();
-  }
+  ($el.prop('checked')) ? $($el.attr(dataAttrName)).show() : $($el.attr(dataAttrName)).hide();
 };
-const $inputs = $('input[data-show-when-checked]');
 
-$inputs.each((idx, elem) => {
+$(`input[${dataAttrName}]`).each((idx, elem) => {
   const $input = $(elem);
   const $inputsWithSameName = $(`input[name="${$input.attr('name')}"]`);
 

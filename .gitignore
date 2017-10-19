@@ -24,10 +24,12 @@
 !/bin/console
 !/bin/symfony_requirements
 
-# assets
+# assets, uploads
 /node_modules/
 /web/assets/*
 !/web/assets/.gitkeep
+/web/uploads/*
+!/web/uploads/.gitkeep
 
 # PHP-CS-Fixer
 /.php_cs.*

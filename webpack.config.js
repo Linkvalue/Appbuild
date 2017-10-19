@@ -1,3 +1,5 @@
+const __STATIC_ASSETS_BASE_PATH__ = 'assets';
+
 const path = require('path');
 const isDev = require('isdev');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -22,8 +24,8 @@ const config = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'web/assets'),
-    publicPath: '/assets/',
+    path: path.resolve(__dirname, 'web/'+__STATIC_ASSETS_BASE_PATH__),
+    publicPath: '/'+__STATIC_ASSETS_BASE_PATH__+'/',
   },
   module: {
     rules: [
@@ -79,6 +81,9 @@ const config = {
       },
       {
         from: './src/AppBundle/Resources/public/favicons',
+        transform: function (content) {
+          return content.toString().replace(/__STATIC_ASSETS_BASE_PATH__/g, __STATIC_ASSETS_BASE_PATH__);
+        },
         to: 'favicons',
       },
       {

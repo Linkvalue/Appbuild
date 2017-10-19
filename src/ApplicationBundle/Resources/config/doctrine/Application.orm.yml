@@ -23,6 +23,16 @@ LinkValue\Appbuild\ApplicationBundle\Entity\Application:
             type: string
             column: package_name
             nullable: true
+        displayImageFilePath:
+            type: string
+            length: 510
+            column: display_image_file_path
+            nullable: true
+        fullSizeImageFilePath:
+            type: string
+            length: 510
+            column: full_size_image_file_path
+            nullable: true
         enabled:
             type: boolean
         createdAt:

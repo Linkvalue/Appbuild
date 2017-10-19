@@ -2,15 +2,21 @@ imports:
     - { resource: 'parameters.yml' }
     - { resource: 'security.yml' }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
     # Locales
     routing_locales: '(fr|en)'
     enabled_locales: ['fr', 'en']
 
-    # Miscellaneous
+    # Assets
+    static_assets_base_path: 'assets' # corresponding to __STATIC_ASSETS_BASE_PATH__ value in webpack.config.js
+    uploads_assets_base_path: 'uploads'
+
+    # Application images
+    application_images_webroot_relative_dir: '%uploads_assets_base_path%/application_images'
+    application_images_dir: '%kernel.project_dir%/web/%application_images_webroot_relative_dir%'
+
+    # API
     build_token_ttl: 600 # seconds
 
 framework:
@@ -19,7 +25,7 @@ framework:
     default_locale: '%default_locale%'
     secret: '%secret%'
     router:
-        resource: '%kernel.root_dir%/config/routing.yml'
+        resource: '%kernel.project_dir%/app/config/routing.yml'
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
@@ -28,12 +34,14 @@ framework:
         engines: ['twig']
     trusted_hosts:   ~
     session:
-        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: 'session.handler.native_file'
         save_path: '%session_save_path%'
     fragments: ~
     http_method_override: true
-    assets: ~
+    assets:
+        packages:
+            static:
+                base_path: '%static_assets_base_path%'
     php_errors:
         log: true
 
@@ -44,6 +52,7 @@ twig:
         - 'bootstrap_3_layout.html.twig'
     globals:
         timezone: '%timezone%'
+        application_images_webroot_relative_dir: '%application_images_webroot_relative_dir%'
 
 doctrine:
     dbal:

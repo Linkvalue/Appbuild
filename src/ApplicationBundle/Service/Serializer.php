@@ -16,8 +16,6 @@ class Serializer
     private $buildLinkBuilder;
 
     /**
-     * construct.
-     *
      * @param BuildLinkBuilder $buildLinkBuilder
      */
     public function __construct(BuildLinkBuilder $buildLinkBuilder)

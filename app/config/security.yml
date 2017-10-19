@@ -12,7 +12,7 @@ security:
     firewalls:
         # disables authentication for assets and the profiler
         dev:
-            pattern: '^/(_(profiler|wdt)|assets)/'
+            pattern: '^/(_(profiler|wdt)|assets|uploads)/'
             security: false
 
         # API security

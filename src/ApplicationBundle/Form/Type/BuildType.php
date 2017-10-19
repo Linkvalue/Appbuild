@@ -2,7 +2,6 @@
 
 namespace LinkValue\Appbuild\ApplicationBundle\Form\Type;
 
-use LinkValue\Appbuild\ApplicationBundle\Entity\Build;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

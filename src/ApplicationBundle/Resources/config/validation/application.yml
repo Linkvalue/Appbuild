@@ -1,6 +1,8 @@
 LinkValue\Appbuild\ApplicationBundle\Entity\Application:
     constraints:
-        - Callback: validate
+        - Callback: validatePackageName
+        - Callback: validateDisplayImage
+        - Callback: validateFullSizeImage
     properties:
         support:
             - Choice:

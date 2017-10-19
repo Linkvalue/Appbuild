@@ -1,6 +1,6 @@
 LinkValue\Appbuild\ApplicationBundle\Entity\Build:
     constraints:
-        - Callback: validateFilePath
+        - Callback: validateFile
     properties:
         version:
             - NotBlank: ~

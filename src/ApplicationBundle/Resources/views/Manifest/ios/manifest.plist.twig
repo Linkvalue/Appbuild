@@ -13,6 +13,22 @@
                         <key>url</key>
                         <string>{{ absolute_url(url('appbuild_admin_build_get_file', { 'application_id': application.id, 'id': build.id, 'token': token })) }}</string>
                     </dict>
+                    {% if application.displayImageFileName -%}
+                    <dict>
+                        <key>kind</key>
+                        <string>display-image</string>
+                        <key>url</key>
+                        <string>{{ absolute_url(asset(application_images_webroot_relative_dir ~ '/' ~ application.displayImageFileName)) }}</string>
+                    </dict>
+                    {%- endif %}
+                    {% if application.fullSizeImageFileName -%}
+                    <dict>
+                        <key>kind</key>
+                        <string>full-size-image</string>
+                        <key>url</key>
+                        <string>{{ absolute_url(asset(application_images_webroot_relative_dir ~ '/' ~ application.fullSizeImageFileName)) }}</string>
+                    </dict>
+                    {%- endif %}
                 </array>
                 <key>metadata</key>
                 <dict>

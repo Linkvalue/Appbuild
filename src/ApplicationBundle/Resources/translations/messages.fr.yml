@@ -15,6 +15,12 @@ application:
             description: (aka. Bundle identifier)
             placeholder: 'ex : com.example.app'
             error: Le champ est obligatoire
+        display_image:
+            label: Icône affichée sur l'appareil durant l'installation (.jpeg, .jpg ou .png)
+            description: (la taille recommandée est 72 x 72)
+        full_size_image:
+            label: Icône affichée dans la liste des applications (.jpeg, .jpg or .png)
+            description: (la taille recommandée est 512 x 512)
         users:
             label: Utilisateurs
             placeholder: tapez le nom de l'utilisateur
@@ -51,6 +57,7 @@ application:
         latest_comment:
             read_more: Lire la suite
             no_comment: aucun commentaire
+            read_comment: Lire le commentaire du dernier build
         latest_comment_modal:
             title: Commentaire
             close: fermer
@@ -88,9 +95,12 @@ build:
             disabled_builds: builds désactivés
             enabled_builds: builds activés
         thead:
-            label: Libellé
+            label: Lien de téléchargement
             actions: Actions
             comment: Commentaire
+        comment:
+            read_more: Lire la suite
+            no_comment: aucun commentaire
         comment_modal:
             title: détail build
             close: fermer

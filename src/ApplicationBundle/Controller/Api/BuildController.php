@@ -130,17 +130,21 @@ class BuildController extends BaseController
     {
         $application = $build->getApplication();
         $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
-        $translator = $this->container->get('translator');
 
-        if (!$filename = $request->query->get('filename')) {
-            $filename = $build->getSlug();
-        }
+        $filename = sprintf(
+            '%s.%s',
+            $build->getSlug(),
+            ($build->getApplication()->getSupport() === Application::SUPPORT_IOS) ? 'ipa' : 'apk'
+        );
 
         try {
             $tmpFile = $uploadHelper->createTempFile($request->getContent(), $filename);
             $uploadHelper->moveUploadedFile($tmpFile, $application, $filename);
         } catch (\Exception $e) {
-            return new JsonResponse(['errors' => [$translator->trans('admin.upload.message.upload_failure')]], 500);
+            return new JsonResponse(
+                ['errors' => [$this->container->get('translator')->trans('admin.upload.message.upload_failure')]],
+                500
+            );
         }
 
         $build

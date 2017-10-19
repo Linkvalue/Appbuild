@@ -1,9 +1,23 @@
 $uploader-large-height: rem-calc(200px);
-$uploader-small-height: rem-calc(30px);
+$uploader-small-height: rem-calc(60px);
 
 $uploader-large-fz: rem-calc(30px);
 $uploader-small-fz: rem-calc(16px);
 
+.file-wrapper {
+  position: relative;
+
+  .qq-upload-delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+
+    .icon {
+      font-size: $uploader-large-fz;
+    }
+  }
+}
 
 .input-wrap__file {
   position: relative;
@@ -34,7 +48,6 @@ $uploader-small-fz: rem-calc(16px);
 }
 
 .input-wrap__file-label {
-  position: absolute;
   z-index: 7;
 }
 
@@ -43,7 +56,7 @@ $uploader-small-fz: rem-calc(16px);
   overflow-y: hidden;
 
   &:before {
-    content: attr(qq-area-drop-text) " ";
+    content: attr(qq-area-drop-text) ' ';
     position: absolute;
     z-index: 3;
     font-size: rem-calc(30px);
@@ -99,7 +112,7 @@ $uploader-small-fz: rem-calc(16px);
   transition-timing-function: $form-transition-timing;
 
   &:before {
-    content: attr(qq-area-drop-text) " ";
+    content: attr(qq-area-drop-text) ' ';
     position: absolute;
     z-index: 3;
     left: 50%;

@@ -1,4 +1,4 @@
-.PHONY: provision start stop ssh destroy rebuild clean install update
+.PHONY: provision start stop ssh destroy rebuild clean install update clean
 
 #
 # Main targets
@@ -56,7 +56,7 @@ install-jwt:
 	test -f var/jwt/private.pem || openssl genrsa -out var/jwt/private.pem -passout pass:Appbuild -aes256 4096
 	test -f var/jwt/public.pem || openssl rsa -in var/jwt/private.pem -passin pass:Appbuild -pubout -out var/jwt/public.pem
 
-install: install-bin-dev install-bin-prod install-composer install-jwt install-npm db-build assets-build clean
+install: install-bin-dev install-bin-prod install-composer install-jwt install-npm db-build assets-build
 
 # Update
 update: update-composer clean
@@ -84,11 +84,13 @@ db-update:
 	php bin/console doctrine:migrations:migrate -n
 
 # Assets
-assets-build:
-	npm run build
+assets-build: clean npm-build
 
-assets-watch:
+assets-watch: clean
 	npm start
+
+npm-build:
+	npm run build
 
 # Production
 prod-install: install-bin-prod

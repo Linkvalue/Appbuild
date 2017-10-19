@@ -7,7 +7,7 @@ php:
 
 before_script:
     - nvm install "$(jq -r '.engines.node' package.json)"
-    - make install-bin-dev install-bin-prod install-composer install-npm db-build clean
+    - make install-bin-dev install-bin-prod install-composer install-npm db-build assets-build
 
 script:
     - npm run lint

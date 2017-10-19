@@ -94,14 +94,7 @@ class BuildController extends BaseController
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
-            // Set build filePath using request build filename
-            $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
-            $buildFormData = $request->request->get('appbuild_build');
-            if (!empty($buildFormData['filename'])) {
-                $build->setFilePath(
-                    $uploadHelper->getFilePath($application, $buildFormData['filename'])
-                );
-            }
+            $this->handleBuildFile($request, $application, $build);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->container->get('doctrine.orm.entity_manager');
@@ -157,14 +150,7 @@ class BuildController extends BaseController
         );
 
         if ($request->isMethod(Request::METHOD_POST)) {
-            // Set build filePath using request build filename
-            $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
-            $buildFormData = $request->request->get('appbuild_build');
-            if (!empty($buildFormData['filename'])) {
-                $build->setFilePath(
-                    $uploadHelper->getFilePath($application, $buildFormData['filename'])
-                );
-            }
+            $this->handleBuildFile($request, $application, $build);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->container->get('doctrine.orm.entity_manager');
@@ -480,5 +466,21 @@ class BuildController extends BaseController
                 ]
             )
         );
+    }
+
+    /**
+     * @param Request     $request
+     * @param Application $application
+     * @param Build       $build
+     */
+    private function handleBuildFile(Request $request, Application $application, Build $build)
+    {
+        $uploadHelper = $this->container->get('appbuild.application.build_upload_helper');
+        $buildFormData = $request->request->get('appbuild_build');
+        if (!empty($buildFormData['filename'])) {
+            $build->setFilePath(
+                $uploadHelper->getFilePath($application, $buildFormData['filename'])
+            );
+        }
     }
 }

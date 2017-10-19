@@ -1,15 +1,23 @@
 LinkValue\Appbuild\ApplicationBundle\Entity\Application:
     test_ios:
         support: ios
-        label: Test application
+        label: Test application iOS
         packageName: com.link-value.test
+        displayImageFilePath: '<{application_images_dir}>/display_image_72x72.jpeg'
+        fullSizeImageFilePath: '<{application_images_dir}>/full_size_image_512x512.jpg'
         enabled: true
     test_android:
         support: android
         label: Test application Android
+        displayImageFilePath: '<{application_images_dir}>/display_image_72x72.jpeg'
+        fullSizeImageFilePath: '<{application_images_dir}>/full_size_image_512x512.jpg'
         enabled: true
-    test_ios_without_build:
+    test_ios_without_build_nor_images:
         support: ios
-        label: Test application without build
+        label: Test application iOS without build
         packageName: test.without.build
+        enabled: true
+    test_android_without_build_nor_images:
+        support: android
+        label: Test application Android without images
         enabled: true

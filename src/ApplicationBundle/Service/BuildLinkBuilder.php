@@ -17,8 +17,6 @@ class BuildLinkBuilder
     private $router;
 
     /**
-     * construct.
-     *
      * @param Router $router
      */
     public function __construct(Router $router)

@@ -2,6 +2,7 @@
 
 namespace LinkValue\Appbuild\ApplicationBundle\Command;
 
+use LinkValue\Appbuild\ApplicationBundle\Service\FilesPurgerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -38,37 +39,45 @@ class PurgeFilesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $buildFilesPurger = $this->getContainer()->get('appbuild.application.build_files_purger');
+        foreach ([
+                     'appbuild.application.application_image_files_purger' => 'application images',
+                     'appbuild.application.build_files_purger' => 'build files',
+                 ] as $filesPurgerServiceId => $filesPurgerLabel) {
+            $output->writeln(sprintf('Start purging %s.', $filesPurgerLabel));
 
-        // Apply configuration
-        if ($unusedDateFilter = $input->getOption('unused-date-filter')) {
-            $buildFilesPurger->setUnusedFilesFinderDateFilter($unusedDateFilter);
-        }
+            /** @var FilesPurgerInterface $filesPurger */
+            $filesPurger = $this->getContainer()->get($filesPurgerServiceId);
 
-        // Check if there is something to purge
-        $filesToPurge = $buildFilesPurger->getUnusedFiles();
-        if ($filesToPurge->count() === 0) {
-            $output->writeln('Nothing to purge.');
-
-            return;
-        }
-
-        if (!$input->getOption('force')) {
-            // Show all files to purge
-            $output->writeln('List of unused files:');
-            foreach ($filesToPurge as $file) {
-                $output->writeln($file->getRealPath());
+            // Apply configuration
+            if ($unusedDateFilter = $input->getOption('unused-date-filter')) {
+                $filesPurger->setUnusedFilesFinderDateFilter($unusedDateFilter);
             }
 
-            // Ask confirmation
-            $questionHelper = $this->getHelper('question');
-            $question = new ConfirmationQuestion('Are you sure to delete these files (y/n)? ', false);
-            if (!$questionHelper->ask($input, $output, $question)) {
-                return;
-            }
-        }
+            // Check if there is something to purge
+            $filesToPurge = $filesPurger->getUnusedFiles();
+            if ($filesToPurge->count() === 0) {
+                $output->writeln(sprintf('Nothing to purge.'));
 
-        // Purge
-        $buildFilesPurger->purge();
+                continue;
+            }
+
+            if (!$input->getOption('force')) {
+                // Show all files to purge
+                $output->writeln('List of unused files:');
+                foreach ($filesToPurge as $file) {
+                    $output->writeln($file->getRealPath());
+                }
+
+                // Ask confirmation
+                $questionHelper = $this->getHelper('question');
+                $question = new ConfirmationQuestion('Are you sure to delete these files (y/n)? ', false);
+                if (!$questionHelper->ask($input, $output, $question)) {
+                    continue;
+                }
+            }
+
+            // Purge
+            $filesPurger->purge();
+        }
     }
 }

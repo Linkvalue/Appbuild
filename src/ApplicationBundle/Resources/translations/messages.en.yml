@@ -15,6 +15,12 @@ application:
             description: (aka. Bundle identifier)
             placeholder: e.g. com.example.app
             error: This field is mandatory
+        display_image:
+            label: Icon displayed on device until installation is done (.jpeg, .jpg or .png)
+            description: (recommended size is 72 x 72)
+        full_size_image:
+            label: Icon displayed in applications list (.jpeg, .jpg or .png)
+            description: (recommended size is 512 x 512)
         users:
             label: Users
             placeholder: type the user name
@@ -51,6 +57,7 @@ application:
         latest_comment:
             read_more: Read more
             no_comment: no comment
+            read_comment: Read latest build comment
         latest_comment_modal:
             title: Comment
             close: close
@@ -88,9 +95,12 @@ build:
             disabled_builds: disabled builds
             enabled_builds: enabled builds
         thead:
-            label: Label
+            label: Download link
             actions: Actions
             comment: Comment
+        comment:
+            read_more: Read more
+            no_comment: no comment
         comment_modal:
             title: build detail
             close: close

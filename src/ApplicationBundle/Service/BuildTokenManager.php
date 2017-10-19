@@ -23,8 +23,6 @@ class BuildTokenManager
     private $tokenTtl;
 
     /**
-     * construct.
-     *
      * @param EntityManager $entityManager
      * @param int           $tokenTtl
      */

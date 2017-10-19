@@ -6,7 +6,7 @@ admin:
         baseline: by LinkValue
     header:
         search:
-            submit: Search
+            submit: Rechercher
         language:
             fr: fr
             en: en
@@ -44,6 +44,8 @@ admin:
             too_many_items: 'Trop de fichiers à envoyer. Le nombre maximum de fichiers pouvant être envoyés est [{itemLimit}]'
             progress_bar: '{percent}% de {total_size}'
             waiting_for_response: En cours de traitement...
+            delete_failed: Suppression échouée
+            deleting: Suppression...
 
 datetime:
     datetime: 'd/m/Y H:i:s'
