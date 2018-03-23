@@ -70,6 +70,14 @@ class ApplicationType extends AbstractType
             'error_bubbling' => true,
             'choices' => Application::getAvailableSupports(),
         ]);
+        $builder->add('displayImageFilename', TextType::class, [
+            'error_bubbling' => true,
+            'mapped' => false,
+        ]);
+        $builder->add('fullSizeImageFilename', TextType::class, [
+            'error_bubbling' => true,
+            'mapped' => false,
+        ]);
 
         $builder->add('users', EntityType::class, [
             'error_bubbling' => true,
@@ -80,7 +88,7 @@ class ApplicationType extends AbstractType
                 $qb = $repository->createQueryBuilder('u');
 
                 return $qb
-                    // Not current user (it should ask a super admin if he wants to lose control over an application)
+                    // Not current user (he should ask a ROLE_SUPER_ADMIN if he wants to lose control over an application)
                     ->andWhere($qb->expr()->neq('u', ':currentUser'))->setParameter(':currentUser', $this->tokenStorage->getToken()->getUser())
                     // Not ROLE_SUPER_ADMIN (they always have access to applications)
                     ->andWhere($qb->expr()->notIn('u.roles', ':superAdmin'))->setParameter(':superAdmin', 'ROLE_SUPER_ADMIN')

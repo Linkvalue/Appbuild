@@ -57,6 +57,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ include('AppbuildAppBundle::upload-container-template.html.twig') }}
-    <script src="{{ asset('assets/build-form.js') }}"></script>
+    {{ include('AppbuildAppBundle:Includes:upload-container-template.html.twig') }}
+    <script src="{{ asset('build-form.js', 'static') }}"></script>
 {% endblock %}

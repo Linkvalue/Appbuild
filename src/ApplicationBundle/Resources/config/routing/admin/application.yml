@@ -16,6 +16,26 @@ appbuild_admin_application_delete:
     path:     '/{id}/delete'
     defaults: { _controller: 'AppbuildApplicationBundle:Admin/Application:delete' }
 
+appbuild_admin_application_display_image_upload:
+    path:     '/upload_display_image'
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Application:uploadDisplayImageAjax' }
+
+appbuild_admin_application_full_size_image_upload:
+    path:     '/upload_full_size_image'
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Application:uploadFullSizeImageAjax' }
+
+appbuild_admin_application_delete_image:
+    path:     '/delete_image'
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Application:deleteImageAjax' }
+
+appbuild_admin_application_get_display_image:
+    path:     '/{id}/get_display_image'
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Application:getExistingDisplayImageAjax' }
+
+appbuild_admin_application_get_full_size_image:
+    path:     '/{id}/get_full_size_image'
+    defaults: { _controller: 'AppbuildApplicationBundle:Admin/Application:getExistingFullSizeImageAjax' }
+
 appbuild_admin_application_toggle_enable:
     path:     '/{id}/enable'
     defaults: { _controller: 'AppbuildApplicationBundle:Admin/Application:toggleEnable' }

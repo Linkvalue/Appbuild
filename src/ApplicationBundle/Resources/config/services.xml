@@ -30,6 +30,24 @@
             <argument>%builds_application_dir%</argument>
         </service>
 
+        <!-- Application Image Upload Helper -->
+        <service id="appbuild.application.application_image_upload_helper"
+            class="LinkValue\Appbuild\ApplicationBundle\Service\ApplicationImageUploadHelper"
+            public="true"
+        >
+            <argument>%application_images_dir%</argument>
+        </service>
+
+        <!-- Application Image Files Purger -->
+        <service id="appbuild.application.application_image_files_purger"
+             class="LinkValue\Appbuild\ApplicationBundle\Service\ApplicationImageFilesPurger"
+             public="true"
+        >
+            <argument type="service" id="filesystem" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%application_images_dir%</argument>
+        </service>
+
         <!-- Build Files Purger -->
         <service id="appbuild.application.build_files_purger"
             class="LinkValue\Appbuild\ApplicationBundle\Service\BuildFilesPurger"

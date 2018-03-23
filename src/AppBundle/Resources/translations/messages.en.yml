@@ -44,6 +44,8 @@ admin:
             too_many_items: 'Too many files to upload. The max files limit is {itemLimit}'
             progress_bar: '{percent}% of {total_size}'
             waiting_for_response: Processing...
+            delete_failed: Delete failed
+            deleting: Deleting...
 
 datetime:
     datetime: 'Y-m-d H:i:s'

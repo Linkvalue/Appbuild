@@ -1,6 +1,5 @@
 # This file is a "template" of what your parameters.yml file should look like
-# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
-# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+# Set parameters here which may be different on each deployment target of this app, e.g. development, staging, production.
 parameters:
     # Database configurations
     database_host: '127.0.0.1'
@@ -16,14 +15,14 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    # A secret key that's used to generate certain security-related tokens
+    # A secret key that's used to generate some security-related tokens
     secret: 'ThisTokenIsNotSoSecretChangeIt'
 
     # webpack-dev-server (to watch assets modification in development environment)
-    webpack_dev_server_host: 'appbuild.dev' # could be 'localhost' if you're not using the provided Vagrant environment
+    webpack_dev_server_base_url: 'http://local.appbuild.com:8080' # could be 'http://localhost:8080' if you're not using the provided Vagrant environment
 
     # Symfony session path (set this to '/tmp/sessions' for example if you encounter some issues in dev environment)
-    session_save_path: '%kernel.root_dir%/../var/sessions/%kernel.environment%'
+    session_save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
 
     # Default locale
     default_locale: 'en' # supported values are 'en' and 'fr'
@@ -32,10 +31,10 @@ parameters:
     timezone: 'UTC' # any PHP timezone (such as 'Europe/Paris') is supported. See http://php.net/manual/fr/timezones.php for complete list.
 
     # Path to the directory where builds file will be stored
-    builds_application_dir: '%kernel.root_dir%/../var/build_files'
+    builds_application_dir: '%kernel.project_dir%/var/build_files'
 
     # JWT parameters for API authentication
-    jwt_private_key_path: '%kernel.root_dir%/../var/jwt/private.pem' # ssh private key path
-    jwt_public_key_path:  '%kernel.root_dir%/../var/jwt/public.pem'  # ssh public key path
+    jwt_private_key_path: '%kernel.project_dir%/var/jwt/private.pem' # ssh private key path
+    jwt_public_key_path:  '%kernel.project_dir%/var/jwt/public.pem'  # ssh public key path
     jwt_key_pass_phrase:  'Appbuild'                                 # ssh key pass phrase
     jwt_token_ttl:        31536000                                   # Approximately one year

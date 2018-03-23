@@ -2,6 +2,10 @@
 application:
     form:
         must_set_package_name: Cet OS nécessite la saisie d'un nom de package.
+        display_image_file_does_not_exist: Le fichier de la petite icône n'a pas été trouvé. Merci de le renvoyer.
+        full_size_image_file_does_not_exist: Le fichier de la grande icône n'a pas été trouvé. Merci de le renvoyer.
 build:
     form:
         must_upload_file: Vous devez envoyer le fichier du build.
+        file_must_be_ipa: Le fichier que vous avez envoyé n'est pas un fichier "ipa" valide.
+        file_must_be_apk: Le fichier que vous avez envoyé n'est pas un fichier "apk" valide.

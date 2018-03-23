@@ -39,7 +39,7 @@
                 <div class="table__cell-head__content">{{ 'build.list.thead.comment'|trans }}</div>
             </div>
             <div class="table__cell table__cell-head table__cell-head-actions table__cell_shrink">
-                <div class="table__cell-head__content show-for-medium show-for-up-mobile">{{ 'build.list.thead.actions'|trans }}</div>
+                <div class="table__cell-head__content"></div>
             </div>
         </div>
 
@@ -48,7 +48,7 @@
             <div class="table__cell table__cell-body table__cell-label-build">
                 <div class="table__cell__content">
                     <a class="table-link row align-middle" href="{{ url('appbuild_admin_build_download', { application_id: application.id, id: build.id }) }}">
-                        <div class="columns shrink show-for-medium show-for-up-mobile">
+                        <div class="columns shrink show-for-up-mobile">
                             <span class="label-version">{{ build.version }}</span>
                         </div>
                         <div class="columns build-name">
@@ -60,9 +60,10 @@
             </div>
             <div class="table__cell table__cell-body table__cell-comment table__cell-last">
                 <div class="table__cell__content">
+                    {% if build.comment %}
                     <p class="comment">
                         <span class="comment__text line">{{ build.comment }}</span>
-                        <a class="comment__more line " data-open="modal-comment-{{ build.id }}">{{ 'application.list.latest_comment.read_more'|trans }}</a>
+                        <a class="comment__more line" data-open="modal-comment-{{ build.id }}">{{ 'build.list.comment.read_more'|trans }}</a>
                     </p>
                     <div class="reveal large" id="modal-comment-{{ build.id }}" data-reveal>
                         <h3 class="title">{{ 'build.list.comment_modal.title'|trans }}</h3>
@@ -74,18 +75,18 @@
                                         <span><strong>{{ application.label }}</strong></span>
                                     </div>
                                 </div>
-                                <div class="columns shrink show-for-medium">
+                                <div class="columns shrink show-for-up-mobile">
                                     <div class="reveal__block">
                                         <div class="icons-action">
                                             <a href="{{ url('appbuild_admin_build_download', { application_id: application.id, id: build.id }) }}" class="icon-action icon-action_download">
-                                                <i class="icon icon-download"></i><span class="icon-action_download__label hide-for-medium">{{ build.version }}</span>
+                                                <i class="icon icon-download"></i>
                                             </a>
                                             {% if is_granted('ROLE_ADMIN') %}
-                                            <a href="{{ url('appbuild_admin_build_update', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
-                                            <a href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
+                                            <a href="{{ url('appbuild_admin_build_update', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-update"></a>
+                                            <a href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-archive"></a>
                                             {% endif %}
                                             {# TODO delete builds #}
-                                            {#<a data-open="modal-trash-{{ build.id }}" class="icon icon-action icon-trash show-for-medium show-for-up-mobile"></a>#}
+                                            {#<a data-open="modal-trash-{{ build.id }}" class="icon icon-action icon-trash"></a>#}
                                         </div>
                                     </div>
                                 </div>
@@ -101,20 +102,21 @@
                             <span aria-hidden="true">{{ 'build.list.comment_modal.close'|trans }}</span>
                         </button>
                     </div>
+                    {% else %}
+                    <div class="comment columns-first">
+                        <span class="line comment__text">{{ 'build.list.comment.no_comment'|trans }}</span>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
-            <div class="table__cell table__cell-body table__cell-actions table__cell_mobile-right table__cell_shrink">
-                <div class="table__cell__content">
+            <div class="table__cell table__cell-body table__cell-actions table__cell_shrink">
+                {% if is_granted('ROLE_ADMIN') %}
+                <div class="table__cell__content show-for-up-mobile">
                     <div class="icons-action">
-                        <a href="{{ url('appbuild_admin_build_download', { application_id: application.id, id: build.id }) }}" class="icon-action icon-action_download">
-                            <i class="icon icon-download"></i><span class="icon-action_download__label hide-for-medium">{{ build.version }}</span>
-                        </a>
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ url('appbuild_admin_build_update', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-update show-for-medium show-for-up-mobile"></a>
-                        <a href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-archive show-for-medium show-for-up-mobile"></a>
-                        {% endif %}
+                        <a href="{{ url('appbuild_admin_build_update', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-update"></a>
+                        <a href="{{ url('appbuild_admin_build_toggle_enable', { application_id: application.id, id: build.id }) }}" class="icon icon-action icon-archive"></a>
                         {# TODO delete builds #}
-                        {#<a data-open="modal-trash-{{ build.id }}" class="icon icon-action icon-trash show-for-medium show-for-up-mobile"></a>#}
+                        {#<a data-open="modal-trash-{{ build.id }}" class="icon icon-action icon-trash show-for-up-mobile"></a>#}
                     </div>
                     {# TODO delete builds #}
                     {#<div class="reveal" id="modal-trash-{{ build.id }}" data-reveal>#}
@@ -129,6 +131,7 @@
                         {#</div>#}
                     {#</div>#}
                 </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

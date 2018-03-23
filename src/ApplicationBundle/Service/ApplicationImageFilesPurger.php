@@ -7,9 +7,9 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Handle purge build files tasks.
+ * Handle purge application image files tasks.
  */
-class BuildFilesPurger implements FilesPurgerInterface
+class ApplicationImageFilesPurger implements FilesPurgerInterface
 {
     /**
      * @var Filesystem
@@ -24,7 +24,7 @@ class BuildFilesPurger implements FilesPurgerInterface
     /**
      * @var string
      */
-    private $buildsApplicationDir;
+    private $applicationImagesDir;
 
     /**
      * @var string
@@ -34,16 +34,16 @@ class BuildFilesPurger implements FilesPurgerInterface
     /**
      * @param Filesystem    $filesystem
      * @param EntityManager $entityManager
-     * @param string        $buildsApplicationDir
+     * @param string        $applicationImagesDir
      */
     public function __construct(
         Filesystem $filesystem,
         EntityManager $entityManager,
-        $buildsApplicationDir
+        $applicationImagesDir
     ) {
         $this->filesystem = $filesystem;
         $this->entityManager = $entityManager;
-        $this->buildsApplicationDir = $buildsApplicationDir;
+        $this->applicationImagesDir = $applicationImagesDir;
 
         // Unused files finder date filter has a default value (!= null)
         // because we must let the time for user to submit the form after uploading the build file
@@ -83,7 +83,7 @@ class BuildFilesPurger implements FilesPurgerInterface
 
         return (new Finder())
             ->files()
-            ->in($this->buildsApplicationDir)
+            ->in($this->applicationImagesDir)
             ->filter(function (\SplFileInfo $file) use ($usedFilesPath) {
                 return !in_array($file->getRealPath(), $usedFilesPath);
             })
@@ -100,9 +100,10 @@ class BuildFilesPurger implements FilesPurgerInterface
     {
         $usedFiles = [];
 
-        $builds = $this->entityManager->getRepository('AppbuildApplicationBundle:Build')->findAll();
-        foreach ($builds as $build) {
-            $usedFiles[] = $build->getFilePath();
+        $applications = $this->entityManager->getRepository('AppbuildApplicationBundle:Application')->findAll();
+        foreach ($applications as $application) {
+            $usedFiles[] = $application->getDisplayImageFilePath();
+            $usedFiles[] = $application->getFullSizeImageFilePath();
         }
 
         return $usedFiles;

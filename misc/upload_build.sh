@@ -6,13 +6,13 @@ SCRIPT_NAME=$0
 if ! type "jq" > /dev/null 2>&1; then
   echo "Error: jq command is missing" # only work on recent Bash versions and Zsh
   echo "Please install <jq> command to parse the json response of the api responses."
-  echo "On Mac : brew install jq"
-  echo "On Debian : apt-get install jq"
+  echo "On Mac: brew install jq"
+  echo "On Debian: apt-get install jq"
   exit 500
 fi
 
 # Constants
-API_URL='http://appbuild.dev/app_dev.php/api'
+API_URL='http://local.appbuild.com/app_dev.php/api'
 EP_APP_LIST='application/'
 EP_CREATE_BUILD='application/:application_id/build/'
 
@@ -24,16 +24,16 @@ EP_CREATE_BUILD='application/:application_id/build/'
 # USAGE
 function usage() {
   echo "Usage: $SCRIPT_NAME [-achpruv] file"
-  echo " - a <application id> : Specify an application id"
-  echo " - c <build comment> : Specify an build comment"
-  echo " - h : Help, print this usage"
-  echo " - p <password> : Specify a password"
-  echo " - r <build release> : Specify a build version number"
-  echo " - u <username> : Specify a username"
-  echo " - v : verbose mode"
+  echo " - a <application id>: Specify an application id"
+  echo " - c <build comment>: Specify an build comment"
+  echo " - h: Help, print this usage"
+  echo " - p <password>: Specify a password"
+  echo " - r <build release>: Specify a build version number"
+  echo " - u <username>: Specify a username"
+  echo " - v: verbose mode"
   echo ""
   echo "Note: All those options are customisable under the DEFAULT PARAMETERS section in the script"
-  echo "Example :"
+  echo "Example:"
   echo " $SCRIPT_NAME -v -u superadmin@foo.fr -p superadmin -a 78 -r 1.2 -c \"A Comment on the build\" ./build/ios_v2.ipa"
 }
 
@@ -67,18 +67,18 @@ shift $(( OPTIND - 1 ))
 p_file="${1:-${BUILD_PATH}}"
 
 if [ ! -f "$p_file" ]; then
-  echo "File not found : ${p_file}"
+  echo "File not found: ${p_file}"
   exit 404;
 fi
 
 filename=$(basename $p_file)
 
 if test $p_verbose; then
-  echo "File to upload : $p_file"
-  echo "with the user : $p_username"
-  echo "on the application : $p_app_id"
-  echo "with the version : $p_version"
-  echo "and the comment : $p_comment"
+  echo "File to upload: $p_file"
+  echo "with the user: $p_username"
+  echo "on the application: $p_app_id"
+  echo "with the version: $p_version"
+  echo "and the comment: $p_comment"
 fi
 
 #############################################################################
@@ -117,7 +117,7 @@ function apiCreateBuild() {
 
   #{
   #  "build_id": 10,
-  #  "upload_location": "http://appbuild.dev/app_dev.php/api/build/10/file"
+  #  "upload_location": "http://local.appbuild.com/app_dev.php/api/build/10/file"
   #}
   curl -s -X PUT \
     $(getAPIUrl ${build_creation_url}) \
@@ -141,8 +141,7 @@ function apiUploadBuild() {
     ${upload_location} \
     -H 'Cache-control: no-cache' \
     -H "Authorization: Bearer ${jwt}" \
-    --data-binary "@${file_path}" \
-    -G --data-urlencode "filename=${filename}"
+    --data-binary "@${file_path}"
 }
 
 #############################################################################
@@ -151,7 +150,7 @@ function apiUploadBuild() {
 
 # Get the jwt to upload the build
 echo ""
-echo -n "Asking for authentication token : "
+echo -n "Asking for authentication token: "
 jwt=`apiLogin ${p_username} ${p_password} | jq -r ".token"`
 
 if [ $? -eq 0 ]; then
@@ -165,9 +164,9 @@ fi
 # Create the build with
 #   - jwt: the authentication token
 #   - app_id: the application id (ex: 7)
-#   - build_version : the version of the build (ex: 1.2)
-#   - build_comment : a comment on the new build (ex: "A fix on the offline mode")
-echo -n "Creation of the build : "
+#   - build_version: the version of the build (ex: 1.2)
+#   - build_comment: a comment on the new build (ex: "A fix on the offline mode")
+echo -n "Creation of the build: "
 api_create_build_ret=`apiCreateBuild ${jwt} ${p_app_id} ${p_version} ${p_comment}`
 upload_location=`echo ${api_create_build_ret} | jq -r ".upload_location"`
 
@@ -183,9 +182,9 @@ fi
 
 # Upload the build with
 #   - jwt: the authentication token
-#   - upload_location : the upload url got from apiCreateBuild
-#   - file_path : the file's path
-echo -n "Upload '${filename}' at ${upload_location} : "
+#   - upload_location: the upload url got from apiCreateBuild
+#   - file_path: the file's path
+echo -n "Upload '${filename}' at ${upload_location}: "
 httpcode=`apiUploadBuild ${jwt} ${upload_location} ${p_file}`
 httpcode=${httpcode//{*}/}
 

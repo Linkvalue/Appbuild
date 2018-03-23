@@ -65,9 +65,25 @@ class AppKernel extends Kernel
         // Handle webpack-dev-server assets dynamically served
         if ($this->getEnvironment() === 'dev') {
             $loader->load(function (ContainerBuilder $container) {
+                // Check if webpack dev server is up before using it
+                @file_get_contents($container->getParameter('webpack_dev_server_base_url'));
+                if (!isset($http_response_header)) {
+                    return;
+                }
+
+                // Override "framework.assets.packages.static" configuration to use webpack dev server
                 $container->loadFromExtension('framework', [
                     'assets' => [
-                        'base_url' => 'http://'.$container->getParameter('webpack_dev_server_host').':8080',
+                        'packages' => [
+                            'static' => [
+                                'base_path' => null,
+                                'base_url' => sprintf(
+                                    '%s/%s',
+                                    rtrim($container->getParameter('webpack_dev_server_base_url'), '/'),
+                                    $container->getParameter('static_assets_base_path')
+                                ),
+                            ],
+                        ],
                     ],
                 ]);
             });

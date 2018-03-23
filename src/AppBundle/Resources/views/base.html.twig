@@ -10,19 +10,19 @@
         <title>{% block title '' %} - {{ 'admin.title'|trans }}</title>
 
         {# Favicons #}
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicons/favicon.ico') }}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicons/favicon-32x32.png') }}">
-        <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('assets/favicons/favicon-48x48.png') }}">
-        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/favicons/favicon-96x96.png') }}">
-        <link rel="icon" type="image/png" sizes="144x144" href="{{ asset('assets/favicons/favicon-144x144.png') }}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicons/apple-touch-icon.png') }}">
-        <link rel="manifest" href="{{ asset('assets/favicons/manifest.json') }}">
-        <link rel="mask-icon" href="{{ asset('assets/favicons/safari-pinned-tab.svg') }}" color="#09345e">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicons/favicon.ico', 'static') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png', 'static') }}">
+        <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('favicons/favicon-48x48.png', 'static') }}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicons/favicon-96x96.png', 'static') }}">
+        <link rel="icon" type="image/png" sizes="144x144" href="{{ asset('favicons/favicon-144x144.png', 'static') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicons/apple-touch-icon.png', 'static') }}">
+        <link rel="manifest" href="{{ asset('favicons/manifest.json', 'static') }}">
+        <link rel="mask-icon" href="{{ asset('favicons/safari-pinned-tab.svg', 'static') }}" color="#09345e">
         <meta name="theme-color" content="#09345e">
 
         {# Stylesheets #}
         {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('assets/main.css') }}" />
+        <link rel="stylesheet" href="{{ asset('main.css', 'static') }}" />
         {% endblock %}
     </head>
     <body>
@@ -30,14 +30,14 @@
         {% block body '' %}
 
         {% block javascripts %}
-        <script src="{{ asset('assets/jquery.js') }}"></script>
-        <script src="{{ asset('assets/bazinga-translator.js') }}"></script>
+        <script src="{{ asset('jquery.js', 'static') }}"></script>
+        <script src="{{ asset('bazinga-translator.js', 'static') }}"></script>
         <script src="{{ url('bazinga_jstranslation_js') }}?locales={{ app.request.locale }}"></script>
-        <script src="{{ asset('assets/fos-js-routing.js') }}"></script>
+        <script src="{{ asset('fos-js-routing.js', 'static') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-        <script src="{{ asset('assets/common.js') }}"></script>
-        <script src="{{ asset('assets/vendor.js') }}"></script>
-        <script src="{{ asset('assets/main.js') }}"></script>
+        <script src="{{ asset('common.js', 'static') }}"></script>
+        <script src="{{ asset('vendor.js', 'static') }}"></script>
+        <script src="{{ asset('main.js', 'static') }}"></script>
         {% endblock %}
     </body>
 </html>

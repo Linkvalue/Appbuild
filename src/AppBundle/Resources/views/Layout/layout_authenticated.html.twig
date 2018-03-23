@@ -9,16 +9,9 @@
                 <header class="header">
                     <div class="row">
                         <div class="columns small-12 medium-3">
-                            <h1 class="logo header__logo"><a href="{{ url('appbuild_admin_application_list') }}"><img src="{{ asset('assets/img/logo.svg') }}" alt="{{ 'admin.logo.alt'|trans }}"></a></h1>
+                            <h1 class="logo header__logo"><a href="{{ url('appbuild_admin_application_list') }}"><img src="{{ asset('img/logo.svg', 'static') }}" alt="{{ 'admin.logo.alt'|trans }}"></a></h1>
                         </div>
                         <div class="header__column-actions columns small-12 medium-9 row">
-                            {# TODO: search feature #}
-                            {#<div class="search columns small-12 medium-expand">#}
-                                {#<form class="form-search" action="" autocomplete="on">#}
-                                    {#<input id="search" name="search" type="text" class="form-search__input">#}
-                                    {#<button id="search_submit" value="{{ 'admin.header.search.submit'|trans }}" type="submit" class="form-search__button button button_confirm"><i class="icon icon-search"> </i></button>#}
-                                {#</form>#}
-                            {#</div>#}
                             {% if is_granted('ROLE_USER') %}
                             <div class="nav-secondary columns">
                                 <a href="{{ url('appbuild_admin_user_my_account') }}" class="button button_account" title="{{ 'user.my_account.title'|trans }}"><i class="icon icon-user"></i></a>

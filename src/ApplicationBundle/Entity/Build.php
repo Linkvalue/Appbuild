@@ -233,21 +233,42 @@ class Build
     }
 
     /**
-     * Validation method for build filePath property.
-     *
      * @param ExecutionContextInterface $context
      */
-    public function validateFilePath(ExecutionContextInterface $context)
+    public function validateFile(ExecutionContextInterface $context)
     {
         // If the file is disabled, it can have an empty filePath
         if (!$this->enabled && !$this->filePath) {
             return;
         }
 
+        // File must exists
         if (!file_exists($this->filePath)) {
             $context->buildViolation('build.form.must_upload_file')
                 ->atPath('filename')
                 ->addViolation();
+        }
+
+        // File must be of a specific type, depending on application support
+        $fileExtension = pathinfo($this->filePath, PATHINFO_EXTENSION);
+        switch ($this->getApplication()->getSupport()) {
+            case Application::SUPPORT_IOS:
+                if ($fileExtension !== 'ipa') {
+                    $context->buildViolation('build.form.file_must_be_ipa')
+                        ->atPath('filename')
+                        ->addViolation();
+                }
+                break;
+            case Application::SUPPORT_ANDROID:
+                if ($fileExtension !== 'apk') {
+                    $context->buildViolation('build.form.file_must_be_apk')
+                        ->atPath('filename')
+                        ->addViolation();
+                }
+                break;
+            default:
+                throw new \RuntimeException('Unsupported application type');
+                break;
         }
     }
 }

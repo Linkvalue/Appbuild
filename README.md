@@ -30,7 +30,7 @@ Appbuild is a "simple" [Symfony 3.3](http://symfony.com/doc/3.3/index.html) appl
 - [Linux](https://getgnulinux.org) (it may works on Windows/macOS but you can't blame us if it doesn't)
 - [`php 5.6.19+`](http://php.net) (`php 7+` is recommended)
 - [`MySQL`](https://www.mysql.com) (it should also work using [`MariaDB`](https://mariadb.org), if not => please let us know)
-- [`Node.js`](https://nodejs.org) along with `npm` (it works great with `npm 5.2.0` for instance)
+- [`Node.js`](https://nodejs.org) along with `npm` (it works great with `npm 5.7.1` for instance)
 - HTTP server supporting PHP (such as [`nginx`](http://nginx.org) + [`php-fpm`](http://php.net/manual/fr/install.fpm.php), etc.)
 
 ### Application setup
@@ -67,6 +67,13 @@ More documentation for specific HTTP servers:
 - [nginx + php-fpm](doc/configuration/nginx.md)
 
 ## API documentation
+
+*WARNING*
+
+*This API is still in BETA, it may be strongly updated.*
+*Please be really careful before updating this project if you were already using the API.*
+
+*/WARNING*
 
 Before using the API, you must read [this documentation about how to be authenticated on the API side](doc/api/authentication.md).
 

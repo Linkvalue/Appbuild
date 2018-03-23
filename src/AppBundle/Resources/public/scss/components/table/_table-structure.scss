@@ -45,6 +45,7 @@
     }
   }
 
+  // vertical separator between cells
   &:not(:first-child) {
 
     .table__cell__content,
@@ -62,7 +63,7 @@
       }
     }
 
-    &.table__cell-head.table__cell-head-action {
+    &.table__cell-head.table__cell-head-actions {
 
       .table__cell-head__content {
 
@@ -74,23 +75,9 @@
 
     @include breakpoint(small only) {
 
-      &.table__cell_mobile-right,
       &.table__cell-head-app,
-      &.table__cell-app {
-        .table__cell-head__content,
-        .table__cell__content {
-
-          &:after {
-            background-color: transparent;
-          }
-        }
-      }
-
-    }
-
-    @include breakpoint(medium down) {
-      &.table__cell-head-app,
-      &.table__cell-app {
+      &.table__cell-app,
+      &.table__cell-actions {
         .table__cell-head__content,
         .table__cell__content {
 
@@ -163,6 +150,7 @@
     transition-duration: $table-link-transition-duration;
     transition-property: $table-link-transition-prop;
     transition-timing-function: $table-link-transition-timing;
+    outline: none;
 
     &:not(.icon-action):hover,
     &:not(.icon-action):focus {
@@ -222,21 +210,6 @@
 
 @include breakpoint(small only) {
 
-  .table__cell_mobile-right {
-
-    position: absolute;
-    right: 0;
-    height: 100%;
-
-    .table__cell__content {
-      padding-left: 0;
-    }
-  }
-
-  .table__cell-last {
-    padding-right: map-get($button-icon-size, width) + ($table-padding-side-mobile);
-  }
-
   .table__cell-firstname,
   .table__cell-head-firstname {
     flex: 0 0 150px;
@@ -253,12 +226,5 @@
   .table__cell-head-mail {
     flex: 0 0 calc(100% - 200px);
     max-width: calc(100% - 200px);
-  }
-
-  .table__cell-app,
-  .table__cell-head-app,
-  .table__cell-last {
-    flex: 0 0 50%;
-    max-width: 50%;
   }
 }

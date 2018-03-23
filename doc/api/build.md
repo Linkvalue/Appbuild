@@ -17,7 +17,7 @@ GET /api/build/{id}
   "version": "1.5.2",
   "comment": "This is a comment for this build.\nWith a line break.\nAnd another one.\n",
   "is_latest": true,
-  "download_link": "http://app-build.dev/app_dev.php/fr/application/1/build/1/download",
+  "download_link": "http://my-appbuild.domain/fr/application/1/build/1/download",
   "application": {
     "id": 1
   }
@@ -42,7 +42,7 @@ GET /api/application/{application_id}/build
     "version": "1.5.2",
     "comment": "This is a comment for this build.\nWith a line break.\nAnd another one.\n",
     "is_latest": true,
-    "download_link": "http://app-build.dev/app_dev.php/fr/application/1/build/1/download",
+    "download_link": "http://my-appbuild.domain/fr/application/1/build/1/download",
     "application": {
       "id": 1
     }
@@ -67,7 +67,7 @@ GET /api/application/{application_id}/build/latest
   "id": 1,
   "version": "1.5.2",
   "comment": "This is a comment for this build.\nWith a line break.\nAnd another one.\n",
-  "download_link": "http://app-build.dev/app_dev.php/fr/application/1/build/1/download"
+  "download_link": "http://my-appbuild.domain/fr/application/1/build/1/download"
 }
 ```
 
@@ -94,19 +94,18 @@ PUT /api/application/{application_id}/build
 ```json
 {
   "build_id": 4,
-  "upload_location": "http://app-build.domain/api/build/4/file"
+  "upload_location": "http://my-appbuild.domain/api/build/4/file"
 }
 ```
 
 ## Upload a file for a build
 
 Note: This route is given by `Create a new build` through `upload_location` response field.
-`filename` query param should match the build type (`ipa` or `apk`).
 
 ### Request
 
 ```
-PUT /api/build/{build_id}/file?filename={filename}
+PUT /api/build/{build_id}/file
 ```
 
 ```

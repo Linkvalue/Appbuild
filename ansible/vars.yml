@@ -3,7 +3,7 @@
 workspace: '/var/www/Appbuild'
 
 sites:
-  - { name: 'Appbuild', server_name: 'appbuild.dev', template: 'vhost.symfony.j2', client_max_body_size: '1024M' }
+  - { name: 'Appbuild', server_name: 'local.appbuild.com', template: 'vhost.symfony.j2', client_max_body_size: '1024M' }
 
 mysql:
   users:
