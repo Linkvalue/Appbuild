@@ -66,7 +66,7 @@ class AppKernel extends Kernel
         if ($this->getEnvironment() === 'dev') {
             $loader->load(function (ContainerBuilder $container) {
                 // Check if webpack dev server is up before using it
-                @file_get_contents($container->getParameter('webpack_dev_server_base_url'));
+                @file_get_contents($container->resolveEnvPlaceholders($container->getParameter('webpack_dev_server_base_url'), true));
                 if (!isset($http_response_header)) {
                     return;
                 }
@@ -79,7 +79,7 @@ class AppKernel extends Kernel
                                 'base_path' => null,
                                 'base_url' => sprintf(
                                     '%s/%s',
-                                    rtrim($container->getParameter('webpack_dev_server_base_url'), '/'),
+                                    rtrim($container->resolveEnvPlaceholders($container->getParameter('webpack_dev_server_base_url'), true), '/'),
                                     $container->getParameter('static_assets_base_path')
                                 ),
                             ],

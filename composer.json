@@ -1,5 +1,5 @@
 {
-    "name": "appbuild",
+    "name": "linkvalue/appbuild",
     "description": "LinkValue store for mobile applications",
     "license": "MIT",
     "type": "project",
@@ -19,8 +19,8 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
-        "php": ">=5.6.19",
-        "symfony/symfony": "^3.3.0",
+        "php": ">7.1",
+        "symfony/symfony": "^3.4.0",
         "doctrine/orm": "^2.5.6",
         "doctrine/doctrine-bundle": "^1.6.7",
         "doctrine/doctrine-cache-bundle": "^1.3.0",
@@ -33,11 +33,13 @@
         "stof/doctrine-extensions-bundle": "^1.2.2",
         "doctrine/doctrine-migrations-bundle": "^1.2.1",
         "doctrine/doctrine-fixtures-bundle": "^2.3.0",
-        "hautelook/alice-bundle": "1.3.1",
-        "friendsofsymfony/jsrouting-bundle": "2.0.0-alpha1",
         "willdurand/js-translation-bundle": "^2.6.5",
         "lexik/jwt-authentication-bundle": "^2.4.0",
-        "cocur/slugify": "^2.5"
+        "cocur/slugify": "^2.5",
+        "symfony/dotenv": "^3.4",
+        "luchaninov/alice-bundle": "^1.1",
+        "hautelook/alice-bundle": "^1.4",
+        "friendsofsymfony/jsrouting-bundle": "^2.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.1.4",
@@ -50,7 +52,7 @@
     },
     "scripts": {
         "symfony-scripts": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "cp .env.dist .env",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
@@ -71,9 +73,6 @@
         "symfony-var-dir": "var",
         "symfony-web-dir": "web",
         "symfony-tests-dir": "tests",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        }
+        "symfony-assets-install": "relative"
     }
 }

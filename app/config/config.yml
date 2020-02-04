@@ -1,5 +1,4 @@
 imports:
-    - { resource: 'parameters.yml' }
     - { resource: 'security.yml' }
 
 parameters:
@@ -7,6 +6,10 @@ parameters:
     # Locales
     routing_locales: '(fr|en)'
     enabled_locales: ['fr', 'en']
+    default_locale: '%env(DEFAULT_LOCALE)%'
+
+    # Webpack
+    webpack_dev_server_base_url: '%env(WEBPACK_DEV_SERVER_BASE_URL)%'
 
     # Assets
     static_assets_base_path: 'assets' # corresponding to __STATIC_ASSETS_BASE_PATH__ value in webpack.config.js
@@ -16,6 +19,12 @@ parameters:
     application_images_webroot_relative_dir: '%uploads_assets_base_path%/application_images'
     application_images_dir: '%kernel.project_dir%/web/%application_images_webroot_relative_dir%'
 
+    # session
+    session_save_path: '%env(resolve:SESSION_SAVE_PATH)%'
+
+    # Build
+    builds_application_dir: '%env(resolve:BUILDS_APPLICATION_DIR)%'
+
     # API
     build_token_ttl: 600 # seconds
 
@@ -23,7 +32,7 @@ framework:
     translator:
         fallbacks: ['%default_locale%']
     default_locale: '%default_locale%'
-    secret: '%secret%'
+    secret: '%env(SYMFONY_SECRET)%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
         strict_requirements: ~
@@ -51,29 +60,22 @@ twig:
     form_themes:
         - 'bootstrap_3_layout.html.twig'
     globals:
-        timezone: '%timezone%'
+        timezone: '%env(TIMEZONE)%'
         application_images_webroot_relative_dir: '%application_images_webroot_relative_dir%'
 
 doctrine:
     dbal:
-        driver: 'pdo_mysql'
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
-        charset: 'UTF8'
-        server_version: '%database_server_version%'
+        url: '%env(DB_URL)%'
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: 'doctrine.orm.naming_strategy.underscore'
         auto_mapping: true
 
 swiftmailer:
-    transport: '%mailer_transport%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
-    password: '%mailer_password%'
+    transport: '%env(MAILER_TRANSPORT)%'
+    host: '%env(MAILER_HOST)%'
+    username: '%env(MAILER_USER)%'
+    password: '%env(MAILER_PASSWORD)%'
     spool: { type: 'memory' }
 
 stof_doctrine_extensions:
@@ -83,10 +85,10 @@ stof_doctrine_extensions:
             timestampable: true
 
 lexik_jwt_authentication:
-    private_key_path: '%jwt_private_key_path%'
-    public_key_path:  '%jwt_public_key_path%'
-    pass_phrase:      '%jwt_key_pass_phrase%'
-    token_ttl:        '%jwt_token_ttl%'
+    secret_key: '%env(resolve:JWT_PRIVATE_KEY_PATH)%'
+    public_key:  '%env(resolve:JWT_PUBLIC_KEY_PATH)%'
+    pass_phrase:      '%env(JWT_KEY_PASS_PHRASE)%'
+    token_ttl:        '%env(JWT_TOKEN_TTL)%'
 
 bazinga_js_translation:
     active_locales: '%enabled_locales%'
