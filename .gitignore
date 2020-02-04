@@ -3,15 +3,7 @@
 /.idea/
 /*.log
 
-# ansible-vagrant
-/.vagrant/
-/ansible/roles/
-/ansible/vars.local.yml
-/ansible/vagrant-parameters.yml
-/ansible/*.retry
-
 # vendor, cache, logs, parameters, binaries
-/app/config/parameters.yml
 /var/*
 !/var/cache/
 /var/cache/*
@@ -39,3 +31,7 @@
 
 # deploy
 /deploy/
+
+# docker volume
+/.data/
+.env
