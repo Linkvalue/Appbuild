@@ -23,7 +23,7 @@ Host your iOS/Android apps for an easy installation on allowed user devices.
 
 ## Installation
 
-Appbuild is a "simple" [Symfony 3.3](http://symfony.com/doc/3.3/index.html) application.
+Appbuild is a "simple" [Symfony 3.4](http://symfony.com/doc/3.4/index.html) application.
 
 ### Server requirements
 
@@ -42,21 +42,17 @@ cd /var/www
 git clone https://github.com/LinkValue/Appbuild.git
 cd Appbuild
 
-# configure application
-# by copying "app/config/parameters.yml.dist" to "app/config/parameters.yml"
-# and editing "app/config/parameters.yml" to fit your context
-
 # install dependencies and assets
 # a Makefile (see https://www.gnu.org/software/make) is present to build the project from sources,
 # so just run the following command:
 make prod-deploy
 ```
 
-Notice that you'll probably also need to setup correct file permissions on the `var` directory, see [this guide](http://symfony.com/doc/3.3/setup/file_permissions.html) to know what you can do.
+Notice that you'll probably also need to setup correct file permissions on the `var` directory, see [this guide](http://symfony.com/doc/3.4/setup/file_permissions.html) to know what you can do.
 
 ### HTTP server configuration
 
-The HTTP server configuration looks like [any other Symfony application](https://symfony.com/doc/3.3/setup/web_server_configuration.html), just keep in mind the following points:
+The HTTP server configuration looks like [any other Symfony application](https://symfony.com/doc/3.4/setup/web_server_configuration.html), just keep in mind the following points:
 
 - `https` is required to download iOS applications (if you don't want to pay for a SSL certificate, we suggest to use [Certbot](https://certbot.eff.org) which is a [Let's Encrypt](https://letsencrypt.org) wrapper to generate official SSL certificates)
 - you may want to increase the max upload size (either in PHP and HTTP server configuration) to be able to upload large build files

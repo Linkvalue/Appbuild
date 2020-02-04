@@ -2,35 +2,52 @@
 
 ## Development
 
-This project uses [LinkValue/majora-ansible-vagrant v2.2.0](https://github.com/LinkValue/majora-ansible-vagrant/tree/v2.2.0) as its development environment,
-so please head to this link and fulfill the **Requirements** section for your OS before anything else.
+Requirements
+- Docker 
+- Docker compose 
 
 ### Installation
 
-#### 1. Clone project
-```shell
-git clone git@github.com:LinkValue/Appbuild.git
+ ```shell
+# Add this line to the host file /etc/hosts
+127.0.0.1 local.appbuild.com
+
+# copy sources from GitHub
+git clone https://github.com/LinkValue/Appbuild.git
 cd Appbuild
+
+# Start project
+docker-compose up -d
+
+# Setup api
+# Get a bash shell in the nginx container
+docker exec -it appbuild_nginx bash
+cd /app
+
+# Install JWT
+mkdir -p var/jwt
+test -f var/jwt/private.pem || openssl genrsa -out var/jwt/private.pem -passout pass:Appbuild -aes256 4096
+test -f var/jwt/public.pem || openssl rsa -in var/jwt/private.pem -passin pass:Appbuild -pubout -out var/jwt/public.pem
+
+# Setup db
+# use php-fpm container
+docker exec -it appbuild_php_fpm php bin/console doctrine:database:create --if-not-exists
+docker exec -it appbuild_php_fpm php bin/console doctrine:migrations:migrate -n
+docker exec -it appbuild_php_fpm php bin/console doctrine:fixtures:load -n --fixtures=src/UserBundle
+
+# Reset db
+# use php-fpm conatainer
+docker exec -it appbuild_php_fpm php bin/console doctrine:database:drop --force --if-exists
+docker exec -it appbuild_php_fpm  php bin/console doctrine:database:create
+
+# You can also watch asset modifications
+docker logs -f appbuild_node
+
+# Start webpack server if is not started yet, use node container
+docker exec -it appbuild_node npm start
 ```
 
-#### 2. Virtual machine provisioning
-```shell
-make provision
-```
-
-Note: If it unluckily fails at some point, don't hesitate to re-run this command several times.
-
-#### 3. Install project
-```shell
-# connect to the VM
-make ssh
-# install the project for development (you'll have to press "Enter" several times to configure the project with default parameters)
-make install
-```
-
-#### 4. Enjoy
-
-You should see your application up and running at http://local.appbuild.com/app_dev.php/
+You should see your application up and running at http://local.appbuild.com
 
 Try to login using one of the following credentials:
 ```
@@ -38,17 +55,6 @@ Try to login using one of the following credentials:
 superadmin@superadmin.fr => superadmin
 admin@admin.fr => admin
 user@user.fr => user
-```
-
-### Frontend development
-
-Front assets (css/js/images) are handled by [Webpack](https://webpack.js.org/).
-
-When you're in production environment (i.e. `http://local.appbuild.com/...`), the project will use the assets found in `web/assets`, it means that you'll have to run `make assets-build` each time you edit an asset file to see the modification in your browser (after refreshing it manually). 
-
-When you're in development environment (i.e. `http://local.appbuild.com/app_dev.php/...`), you can also watch asset modifications to benefit from the hot reloading feature of webpack-dev-server, by typing the following command:
-```shell
-make assets-watch
 ```
 
 ### Common tasks
