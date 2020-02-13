@@ -17,6 +17,8 @@ swiftmailer:
 
 doctrine:
     dbal:
-        driver: 'pdo_sqlite'
-        path: '%kernel.cache_dir%/appbuild.sqlite.db'
-        charset: 'UTF8'
+        url: '%env(DB_URL)%'
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: 'doctrine.orm.naming_strategy.underscore'
+        auto_mapping: true

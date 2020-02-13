@@ -3,9 +3,32 @@ language: php
 php:
     - 7.1
 
+services:
+    - mysql
+
+env:
+    - APP_ENV=dev
+        URL=local.appbuild.com
+        DB_URL=mysql://root@127.0.0.1/appbuild_db
+        SYMFONY_SECRET=ThisTokenIsNotSoSecretChangeIt
+        DEFAULT_LOCALE=en
+        TIMEZONE=UTC
+        SESSION_SAVE_PATH=%kernel.project_dir%/var/sessions/%kernel.environment%
+        BUILDS_APPLICATION_DIR=%kernel.project_dir%/var/build_files
+        MAILER_TRANSPORT=smtp
+        MAILER_HOST=127.0.0.1
+        MAILER_USER=null
+        MAILER_PASSWORD=null
+        WEBPACK_DEV_SERVER_BASE_URL=http://local.appbuild.com:8080
+        JWT_PRIVATE_KEY_PATH=%kernel.project_dir%/var/jwt/private.pem
+        JWT_PUBLIC_KEY_PATH=%kernel.project_dir%/var/jwt/public.pem
+        JWT_KEY_PASS_PHRASE=Appbuild
+        JWT_TOKEN_TTL=31536000
+
 before_script:
+    - cp .env.dist .env
     - nvm install "$(jq -r '.engines.node' package.json)"
-    - make install-bin-dev install-bin-prod install-composer install-npm db-build assets-build
+    - make install-bin-dev install-bin-prod install-composer install-npm db-build-test assets-build
 
 script:
     - npm run lint
