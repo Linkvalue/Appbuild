@@ -85,6 +85,7 @@ class ApplicationIntegrationContext implements Context
         $schemaManager = $connection->getSchemaManager();
         foreach ($schemaManager->listTables() as $table) {
             $connection->exec(sprintf('DELETE FROM %s', $table->getName()));
+            $connection->exec(sprintf('ALTER TABLE %s AUTO_INCREMENT = 1', $table->getName()));
         }
     }
 

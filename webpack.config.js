@@ -3,17 +3,8 @@ const __STATIC_ASSETS_BASE_PATH__ = 'assets';
 const path = require('path');
 const isDev = require('isdev');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
-const { optimize } = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractCSS = new ExtractTextPlugin({
-  filename: '[name].css?[contenthash]',
-  allChunks: true,
-});
-const extractSASS = new ExtractTextPlugin({
-  filename: '[name].css?[contenthash]',
-  allChunks: true,
-});
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
   entry: {
@@ -24,9 +15,17 @@ const config = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'web/'+__STATIC_ASSETS_BASE_PATH__),
-    publicPath: '/'+__STATIC_ASSETS_BASE_PATH__+'/',
+    path: path.resolve(__dirname, 'web/' + __STATIC_ASSETS_BASE_PATH__),
+    publicPath: '/' + __STATIC_ASSETS_BASE_PATH__ + '/',
   },
+  optimization: {
+    splitChunks: {
+      name: 'common',
+      chunks: 'all',
+    },
+    minimizer: [new TerserPlugin()],
+  },
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   module: {
     rules: [
       {
@@ -38,32 +37,21 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: extractCSS.extract({
-          fallback: {
-            loader: 'style-loader',
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            hmr: process.env.NODE_ENV !== 'production',
           },
-          use: [
-            {
-              loader: 'css-loader',
-            },
-          ],
-        }),
+        }, 'css-loader'],
       },
       {
         test: /\.scss$/,
-        use: extractSASS.extract({
-          fallback: {
-            loader: 'style-loader',
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            hmr: process.env.NODE_ENV !== 'production',
           },
-          use: [
-            {
-              loader: 'css-loader',
-            },
-            {
-              loader: 'sass-loader',
-            },
-          ],
-        }),
+        }, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|gif|jpg|svg|woff2?|ttf|eot)$/,
@@ -99,9 +87,7 @@ const config = {
         to: 'bazinga-translator.js',
       },
     ]),
-    new optimize.CommonsChunkPlugin({ name: 'common', filename: 'common.js' }),
-    extractCSS,
-    extractSASS,
+    new MiniCssExtractPlugin(),
   ],
   externals: {
     jquery: 'jQuery',
@@ -117,6 +103,7 @@ const config = {
   devServer: {
     host: '0.0.0.0',
     disableHostCheck: true,
+    writeToDisk: true,
   },
 };
 
@@ -137,10 +124,6 @@ if (isDev) {
       loader: 'source-map-loader',
     },
   });
-} else {
-  config.plugins.push(
-    new MinifyPlugin({ mangle: false/* <- to fix Safari issue, hope this will be fixed in a newer version than 0.2.0 */ })
-  );
 }
 
 module.exports = config;

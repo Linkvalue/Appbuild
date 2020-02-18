@@ -1,36 +1,5 @@
 .PHONY: provision start stop ssh destroy rebuild clean install update clean
 
-#
-# Main targets
-#
-provision: vm-provision
-start: vm-up
-stop: vm-halt
-ssh: vm-ssh
-destroy: vm-destroy
-rebuild: vm-rebuild
-
-#
-# VM
-#
-vm-ssh:
-	vagrant ssh
-
-vm-up:
-	vagrant up
-
-vm-halt:
-	vagrant halt
-
-vm-provision:
-	vagrant up --no-provision
-	vagrant provision
-
-vm-destroy:
-	vagrant destroy
-
-vm-rebuild: vm-destroy vm-provision
-
 # Clean
 clean:
 	php bin/console cache:clear --no-warmup
@@ -70,6 +39,13 @@ db-build:
 	php bin/console doctrine:migrations:migrate -n
 	php bin/console doctrine:fixtures:load -n --fixtures=src/UserBundle
 	php bin/console hautelook_alice:doctrine:fixtures:load -n --append
+
+# Database
+db-build-test:
+	php bin/console doctrine:database:create
+	php bin/console doctrine:schema:update --force
+	php bin/console doctrine:fixtures:load -n --fixtures=src/UserBundle
+	php bin/console hautelook_alice:doctrine:fixtures:load -n --append --bundle=AppbuildApplicationBundle
 
 db-trash:
 	php bin/console doctrine:database:drop --force --if-exists

@@ -4,7 +4,7 @@ In this configuration sample, we will assume that :
 
 - the domain name pointing to your HTTP server is: `domain.tld`
 - the application sources location is: `/var/www/Appbuild`
-- you left the default value of `builds_application_dir` in app/config/parameters.yml which is: `'%kernel.root_dir%/../var/build_files'`
+- you left the default value of `builds_application_dir` in .env which is: `'%kernel.project_dir%/var/build_files'`
 
 ## Full NGINX configuration sample
 

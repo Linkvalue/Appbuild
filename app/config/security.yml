@@ -47,6 +47,7 @@ security:
         secured_area:
             pattern: '^/'
             anonymous: true
+            logout_on_user_change: true
             form_login:
                 login_path: 'appbuild_admin_user_login'
                 check_path: 'appbuild_user_login_check'
@@ -57,7 +58,7 @@ security:
                 target: 'appbuild_admin_user_login'
             provider: 'db_user_provider'
             remember_me:
-                secret: '%secret%'
+                secret: '%env(SYMFONY_SECRET)%'
 
     role_hierarchy:
         ROLE_ADMIN: ['ROLE_USER']
